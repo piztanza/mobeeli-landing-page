@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
+
 import LandingView from "@/components/landing/LandingView";
+import { landingMetadata } from "@/lib/seo";
+
+/** SEO + social meta for / (F-010): title/description/OG/Twitter + canonical. */
+export const metadata: Metadata = landingMetadata();
 
 /**
  * Landing page — full approved 13-band section stack (F-001) with the hero

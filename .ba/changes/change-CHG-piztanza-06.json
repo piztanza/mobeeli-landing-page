@@ -1,0 +1,35 @@
+{
+  "version": "1.0",
+  "change_id": "CHG-piztanza-06",
+  "author": "piztanza",
+  "type": "add",
+  "description": "Implement SEO + social meta (F-010): Next.js Metadata on both routes with approved copy, OG/Twitter cards with a 1200x630 brand OG image, canonical URLs via NEXT_PUBLIC_SITE_URL (default https://mobeeli.com), robots.txt + sitemap.xml metadata routes, favicon/apple-icon from mobeeli-mark.png, theme-color #0d1522.",
+  "created_at": "2026-07-22T08:20:40.113Z",
+  "base_spec_version": "2026-07-22T08:19:08Z",
+  "target_branch": "change/CHG-piztanza-06",
+  "seed_ids": [
+    "F-010"
+  ],
+  "blast_radius": {
+    "affected_features": [
+      "F-010"
+    ],
+    "affected_files": []
+  },
+  "spec_deltas": {
+    "added": [],
+    "modified": [],
+    "removed": []
+  },
+  "cascade_flags": [],
+  "overlaps": [],
+  "acceptance_criteria": [
+    "Both routes expose title/description/OG/Twitter meta with approved copy (no fee figures, no incumbent names)",
+    "OG image is 1200x630 using the official dark-bg logo on #0d1522 and renders in WhatsApp/LinkedIn link previews",
+    "Canonical URLs + metadataBase derive from NEXT_PUBLIC_SITE_URL (documented in .env.example, default https://mobeeli.com)",
+    "robots.txt allows crawling and points to sitemap.xml; sitemap lists / and /join",
+    "Favicon + apple icon generated from mobeeli-mark.png; theme-color #0d1522",
+    "Suite stays green; Lighthouse SEO ≥ 90 achievable (meta present, valid HTML lang)"
+  ],
+  "status": "building"
+}
