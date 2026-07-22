@@ -8,7 +8,7 @@ import type { CopyKey } from "@/lib/i18n";
 import { useLang, useT } from "@/lib/i18n/LanguageProvider";
 import { CITY_OPTIONS, GARAGE_TOOLS, VOLUME_OPTIONS } from "@/lib/waitlist/constants";
 import type { PartnerType } from "@/lib/waitlist/schema";
-import { buildWaLink } from "@/lib/waitlist/whatsapp";
+import { buildMailtoLink } from "@/lib/waitlist/mailto";
 
 /** Wizard-internal type values from the approved design (drive UI copy/glyphs). */
 type BusinessType = "store" | "garage" | "distributor";
@@ -215,13 +215,8 @@ export default function WaitlistWizard() {
         <h2 className="mb-jw-success-h2">{t("jw_successTitle")}</h2>
         <p className="mb-jw-success-body">{t("jw_succBody").replace("{n}", name)}</p>
         <div className="mb-jw-success-ctas">
-          <a
-            href={buildWaLink(fields.businessName, lang)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mb-jw-wa-cta"
-          >
-            {t("jw_waCta")}
+          <a href={buildMailtoLink(fields.businessName, lang)} className="mb-jw-mail-cta">
+            {t("jw_emailCta")}
           </a>
           <Link href="/" className="mb-jw-home-cta">
             {t("jw_homeCta")}

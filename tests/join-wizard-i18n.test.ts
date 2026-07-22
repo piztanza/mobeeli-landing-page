@@ -67,13 +67,14 @@ const WIZARD_KEYS = [
   "jw_errPhone",
   "jw_successTitle",
   "jw_succBody",
-  "jw_waCta",
+  "jw_emailCta",
   "jw_homeCta",
   // promoted design-hardcoded strings + interpolation + submit states
   "jw_ph_email",
   "jw_ph_phone",
   "jw_fallback_name",
-  "jw_wa_msg",
+  "jw_mail_subject",
+  "jw_mail_body",
   "jw_submitting",
   "jw_submitErr",
 ] as const;
@@ -92,7 +93,8 @@ describe("join wizard i18n completeness", () => {
   it("keeps the {n} interpolation slot in both languages", () => {
     for (const lang of langs) {
       expect(copy[lang].jw_succBody).toContain("{n}");
-      expect(copy[lang].jw_wa_msg).toContain("{n}");
+      expect(copy[lang].jw_mail_subject).toContain("{n}");
+      expect(copy[lang].jw_mail_body).toContain("{n}");
     }
   });
 
