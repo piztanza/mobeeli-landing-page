@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 
+import { LEAD_SOURCE } from "@/lib/waitlist/constants";
 import type { WaitlistPayload } from "@/lib/waitlist/schema";
 
 /** Sender for lead alerts; Resend's shared onboarding sender works before a domain is verified. */
@@ -11,9 +12,11 @@ function line(label: string, value: string | undefined | null): string {
 
 /**
  * Team notification for new waitlist leads via Resend (F-008): one plain-text
- * email with the lead's details to WAITLIST_ALERT_TO per submission. Throws on
- * missing config or send failure — the API route catches and logs, because a
- * failed alert after a successful insert must still return 200.
+ * email with the lead's details (partner_signups field names + source) to
+ * WAITLIST_ALERT_TO per submission. Throws on missing config or send failure —
+ * the API route catches and logs, because a failed alert after a successful
+ * insert must still return 200. lang picks nothing here beyond being reported;
+ * it is alert-only and never inserted.
  * NOTE: templates must never contain exact-fee copy (design copy rule).
  */
 export async function notifyNewLead(lead: WaitlistPayload): Promise<void> {
@@ -27,19 +30,20 @@ export async function notifyNewLead(lead: WaitlistPayload): Promise<void> {
   }
 
   const text = [
-    line("Business type", lead.type),
+    line("Partner type", lead.partnerType),
     line("Business name", lead.businessName),
     line("Contact name", lead.contactName),
     line("Email", lead.email),
-    line("Phone", lead.phone),
+    line("Contact phone", lead.contactPhone),
     line("WhatsApp", lead.whatsappNumber),
     line("City", lead.city),
     line("Monthly order volume", lead.monthlyOrderVolume),
-    line("Tools used", lead.toolsUsed),
-    line("Brands carried", lead.brandsCarried),
-    line("Net-30 interest", lead.net30Interest === undefined ? "—" : String(lead.net30Interest)),
+    line("Current tools used", lead.currentToolsUsed.join(", ")),
+    line("Brands carried", lead.brandsCarried.join(", ")),
+    line("Net-30 interest", String(lead.interestedInNet30)),
     line("Message", lead.message),
     line("Language", lead.lang),
+    line("Source", LEAD_SOURCE),
     line("Received", new Date().toISOString()),
   ].join("\n");
 

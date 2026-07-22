@@ -7,8 +7,26 @@ import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import type { CopyKey } from "@/lib/i18n";
 import { useLang, useT } from "@/lib/i18n/LanguageProvider";
 import { CITY_OPTIONS, GARAGE_TOOLS, VOLUME_OPTIONS } from "@/lib/waitlist/constants";
-import type { BusinessType } from "@/lib/waitlist/schema";
+import type { PartnerType } from "@/lib/waitlist/schema";
 import { buildWaLink } from "@/lib/waitlist/whatsapp";
+
+/** Wizard-internal type values from the approved design (drive UI copy/glyphs). */
+type BusinessType = "store" | "garage" | "distributor";
+
+/** Maps the design's lowercase type picks to the API's uppercase PartnerType enum. */
+const TYPE_TO_PARTNER: Record<BusinessType, PartnerType> = {
+  store: "STORE",
+  garage: "GARAGE",
+  distributor: "DISTRIBUTOR",
+};
+
+/** Comma-separated brands input → the API's brandsCarried array. */
+function splitBrands(input: string): string[] {
+  return input
+    .split(",")
+    .map((brand) => brand.trim())
+    .filter(Boolean);
+}
 
 /* Client-side format checks — same expressions as the approved design's script. */
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
@@ -140,21 +158,22 @@ export default function WaitlistWizard() {
     setSubmitting(true);
     setSubmitFailed(false);
     const payload = {
-      type,
+      partnerType: TYPE_TO_PARTNER[type],
       businessName: fields.businessName.trim(),
       contactName: fields.contactName.trim(),
       email: fields.email.trim(),
-      phone: fields.phone.trim(),
+      contactPhone: fields.phone.trim(),
       whatsappNumber: fields.whatsappNumber.trim(),
       city: fields.city,
       monthlyOrderVolume: fields.monthlyOrderVolume,
       // Mirror the per-type UI: tools for garages, brands otherwise.
-      toolsUsed: type === "garage" ? tools.join(", ") : "",
-      brandsCarried: type !== "garage" ? fields.brandsCarried.trim() : "",
-      net30Interest: net30,
+      currentToolsUsed: type === "garage" ? [...tools] : [],
+      brandsCarried: type !== "garage" ? splitBrands(fields.brandsCarried) : [],
+      interestedInNet30: net30,
       message: fields.message.trim(),
+      // lang only picks the team alert's language server-side — never stored.
       lang,
-      website: honeypot,
+      _honeypot: honeypot,
     };
     try {
       const res = await fetch("/api/waitlist", {

@@ -43,7 +43,7 @@ describe("app entry points (smoke)", () => {
         new Request("http://localhost/api/waitlist", {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ type: "garage", businessName: "Bengkel Maju" }),
+          body: JSON.stringify({ partnerType: "GARAGE", businessName: "Bengkel Maju" }),
         }),
       );
       expect(res.status).toBe(200);

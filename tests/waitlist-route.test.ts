@@ -23,18 +23,19 @@ function post(body: unknown, ip = `10.0.0.${++ipCounter}`): Promise<Response> {
   );
 }
 
+/** Platform-shaped payload (mirrors /api/partners/signup). */
 const validLead = {
-  type: "garage",
+  partnerType: "GARAGE",
   businessName: "Bengkel Sumber Rejeki",
   contactName: "Budi",
   email: "budi@example.com",
   whatsappNumber: "+62 812 3456 789",
   city: "Jakarta",
   monthlyOrderVolume: "10-50",
-  toolsUsed: "Excel, WhatsApp Order",
-  net30Interest: true,
+  currentToolsUsed: ["Excel", "WhatsApp Order"],
+  interestedInNet30: true,
   lang: "id",
-  website: "",
+  _honeypot: "",
 };
 
 describe("POST /api/waitlist", () => {
@@ -56,17 +57,26 @@ describe("POST /api/waitlist", () => {
     await rm(tempDir, { recursive: true, force: true });
   });
 
-  it("persists a valid lead to the JSONL fallback before returning 200", async () => {
+  it("persists a valid lead to the JSONL fallback (partner_signups field names) before returning 200", async () => {
     const res = await post(validLead);
     expect(res.status).toBe(200);
     await expect(res.json()).resolves.toEqual({ ok: true });
     const lines = (await readFile(fallbackFile, "utf8")).trim().split("\n");
     expect(lines).toHaveLength(1);
     const stored = JSON.parse(lines[0]);
+    // Same field names as the DB insert row.
+    expect(stored.partnerType).toBe("GARAGE");
     expect(stored.businessName).toBe("Bengkel Sumber Rejeki");
-    expect(stored.lang).toBe("id");
-    expect(stored.createdAt).toBeTruthy();
-    expect(stored.website).toBeUndefined();
+    expect(stored.currentToolsUsed).toEqual(["Excel", "WhatsApp Order"]);
+    expect(stored.brandsCarried).toEqual([]);
+    expect(stored.source).toBe("LANDING_MOBEELI_COM");
+    expect(stored.id).toBeTruthy();
+    expect(stored.updatedAt).toBeTruthy();
+    // Landing-only / platform-owned fields never make it into the record.
+    expect(stored.lang).toBeUndefined();
+    expect(stored._honeypot).toBeUndefined();
+    expect(stored.status).toBeUndefined();
+    expect(stored.createdAt).toBeUndefined();
   });
 
   it("still returns 200 when the email alert fails after a successful persist, and logs it", async () => {
@@ -79,22 +89,28 @@ describe("POST /api/waitlist", () => {
     );
   });
 
-  it("returns a fake success for a filled honeypot without persisting anything", async () => {
-    const res = await post({ ...validLead, website: "http://spam.example" });
+  it("returns a fake success for a filled _honeypot without persisting anything", async () => {
+    const res = await post({ ...validLead, _honeypot: "http://spam.example" });
     expect(res.status).toBe(200);
     await expect(res.json()).resolves.toEqual({ ok: true });
     expect(existsSync(fallbackFile)).toBe(false);
   });
 
-  it("rejects a malformed payload with 400", async () => {
-    expect((await post({ type: "garage" })).status).toBe(400);
-    expect((await post({ ...validLead, type: "wholesaler" })).status).toBe(400);
+  it("rejects malformed payloads and unknown whitelist values with 400", async () => {
+    expect((await post({ partnerType: "GARAGE" })).status).toBe(400); // no businessName
+    expect((await post({ ...validLead, partnerType: "wholesaler" })).status).toBe(400);
+    expect((await post({ ...validLead, partnerType: "garage" })).status).toBe(400); // old lowercase shape
+    expect((await post({ ...validLead, city: "Gotham" })).status).toBe(400);
+    expect((await post({ ...validLead, monthlyOrderVolume: "1000+" })).status).toBe(400);
+    expect((await post({ ...validLead, currentToolsUsed: ["SAP"] })).status).toBe(400);
+    expect((await post({ ...validLead, email: "not-an-email" })).status).toBe(400);
     expect((await post(null)).status).toBe(400);
+    expect(existsSync(fallbackFile)).toBe(false);
   });
 
   it("rate-limits repeated submissions from the same IP", async () => {
     const ip = "10.9.9.9";
-    const spam = { ...validLead, website: "bot" }; // honeypot: no fs writes
+    const spam = { ...validLead, _honeypot: "bot" }; // honeypot: no fs writes
     for (let i = 0; i < 5; i++) {
       expect((await post(spam, ip)).status).toBe(200);
     }
