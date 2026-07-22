@@ -1,0 +1,59 @@
+{
+  "version": "1.0",
+  "change_id": "CHG-piztanza-14",
+  "author": "piztanza",
+  "type": "modify",
+  "description": "Landing refinements (F-001): AI catalog card moved between the buyer strip and Why Mobeeli with symmetric section padding; nav anchors always scroll programmatically (re-click works after scrolling away) and center short sections like #why-now in the viewport (tall sections top-align below the nav); IntersectionObserver scrollspy silently tracks the active section (replaceState hash + aria-current/data-active + context state, no visible styling yet).",
+  "created_at": "2026-07-22T12:24:14.644Z",
+  "base_spec_version": "2026-07-22T11:47:18Z",
+  "target_branch": "change/CHG-piztanza-14",
+  "seed_ids": [
+    "F-001"
+  ],
+  "blast_radius": {
+    "affected_features": [
+      "F-001"
+    ],
+    "affected_files": []
+  },
+  "spec_deltas": {
+    "added": [],
+    "modified": [
+      "F-001"
+    ],
+    "removed": []
+  },
+  "cascade_flags": [],
+  "overlaps": [
+    {
+      "change_id": "CHG-piztanza-01",
+      "author": "piztanza",
+      "shared": [
+        "F-001"
+      ]
+    },
+    {
+      "change_id": "CHG-piztanza-09",
+      "author": "piztanza",
+      "shared": [
+        "F-001"
+      ]
+    },
+    {
+      "change_id": "CHG-piztanza-10",
+      "author": "piztanza",
+      "shared": [
+        "F-001"
+      ]
+    }
+  ],
+  "acceptance_criteria": [
+    "Landing band order is hero → proof → problem → how-it-works → buyer strip → AI catalog → why-mobeeli → unify → footer, with the AI catalog band padded 96px top and bottom",
+    "Clicking 'Why Mobeeli' centers the section vertically when it is shorter than the viewport; taller targets align top with the 84px nav offset; reduced motion jumps instantly",
+    "Re-clicking the SAME nav item after scrolling away always scrolls back — verified without visiting another section/page first; works from desktop nav and the hamburger menu, and via /#id from other pages",
+    "As the user scrolls, the active section is tracked: URL hash updates via replaceState without scroll jumps or history entries, and the matching nav link carries aria-current/data-active; no visual nav change",
+    "Scrollspy suspends during programmatic scrolls (no hash flicker)",
+    "Suite green with updated order test + scroll math + scrollspy tests"
+  ],
+  "status": "building"
+}

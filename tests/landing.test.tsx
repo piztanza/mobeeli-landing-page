@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
@@ -173,15 +174,15 @@ describe("landing page render (F-001 + F-009)", () => {
     expect(html).not.toContain(esc(t("en", "inv_h2")));
   });
 
-  it("renders the remaining band stack copy in the approved order", () => {
+  it("renders the remaining band stack copy in the approved order (AI catalog between buyer strip and why-mobeeli, CHG-piztanza-14)", () => {
     const bands = [
       t("en", "hero_chip"), // hero
       t("en", "pf1_v"), // proof bar
       t("en", "prob_h2"), // the problem
       t("en", "how_h2"), // how it works
       t("en", "buyer_line"), // buyer strip
-      t("en", "why_h2"), // why Mobeeli
       t("en", "cat_h2"), // AI catalog
+      t("en", "why_h2"), // why Mobeeli
       t("en", "uni_h2"), // unify band
       t("en", "foot_tag"), // footer
     ];
@@ -221,6 +222,23 @@ describe("landing page render (F-001 + F-009)", () => {
     const cta = html.match(/<button[^>]*mb-buyer-cta[^>]*>/)?.[0] ?? "";
     expect(cta).toContain('type="button"');
     expect(cta).toContain('aria-expanded="false"');
+  });
+
+  it("pads the AI catalog band 96px top and bottom (CHG-piztanza-14, CSS contract)", () => {
+    const landingCss = readFileSync(
+      new URL("../src/components/landing/landing.css", import.meta.url),
+      "utf8",
+    );
+    const globalsCss = readFileSync(new URL("../src/app/globals.css", import.meta.url), "utf8");
+    expect(globalsCss).toContain("--mb-section-y: 96px;");
+    expect(landingCss).toMatch(
+      /\.mb-cat-section \{[^}]*padding: var\(--mb-section-y\) var\(--mb-container-pad\);/s,
+    );
+  });
+
+  it("ships the scrollspy at rest — no nav link is marked active in server markup (CHG-piztanza-14)", () => {
+    expect(html).not.toContain("aria-current");
+    expect(html).not.toContain("data-active");
   });
 
   it("uses the official logo variants — blue on light nav, white on dark footer", () => {
