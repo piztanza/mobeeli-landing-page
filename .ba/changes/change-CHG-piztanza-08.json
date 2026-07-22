@@ -1,0 +1,46 @@
+{
+  "version": "1.0",
+  "change_id": "CHG-piztanza-08",
+  "author": "piztanza",
+  "type": "modify",
+  "description": "Rewire the waitlist backend (F-008) to the platform's EXISTING production table partner_signups (no DDL/migrations ever): drizzle models the live table verbatim (uuid + updatedAt generated at insert; status/createdAt left to DB defaults; triage columns never written); API contract mirrors the platform's /api/partners/signup (partnerType uppercase enum, contactPhone, currentToolsUsed/brandsCarried arrays, whitelisted city/volume/tools, _honeypot silent fake-200); source='LANDING_MOBEELI_COM'; wizard client sends the new shape; Resend alert kept; migration files deleted.",
+  "created_at": "2026-07-22T09:33:21.574Z",
+  "base_spec_version": "2026-07-22T08:34:31Z",
+  "target_branch": "change/CHG-piztanza-08",
+  "seed_ids": [
+    "F-008"
+  ],
+  "blast_radius": {
+    "affected_features": [
+      "F-008"
+    ],
+    "affected_files": []
+  },
+  "spec_deltas": {
+    "added": [],
+    "modified": [
+      "F-008"
+    ],
+    "removed": []
+  },
+  "cascade_flags": [],
+  "overlaps": [
+    {
+      "change_id": "CHG-piztanza-05",
+      "author": "piztanza",
+      "shared": [
+        "F-008"
+      ]
+    }
+  ],
+  "acceptance_criteria": [
+    "No migration/DDL artifacts remain in the repo; the drizzle schema mirrors the introspected partner_signups table exactly (camelCase quoted columns, PartnerType/PartnerSignupStatus enums)",
+    "Insert sets id (crypto.randomUUID) and updatedAt (now), sends source='LANDING_MOBEELI_COM', and never writes status, createdAt, utm, sessionId, or triage columns — unit test asserts the exact insert shape",
+    "Validation matches the platform API: businessName required; email/phone regexes; city/volume/tools whitelists; array limits (tools ≤10×60, brands ≤20×60); message ≤2000; unknown values → 400",
+    "_honeypot non-empty → silent {ok:true} without insert or email",
+    "Wizard sends the new payload (uppercase partnerType, arrays, contactPhone, _honeypot) with unchanged UI/copy; lang used only for the alert email, never inserted",
+    "JSONL fallback mirrors the same field names when DATABASE_URL is unset",
+    "Resend alert renders the new field names and includes source; suite green with updated tests"
+  ],
+  "status": "drafted"
+}
