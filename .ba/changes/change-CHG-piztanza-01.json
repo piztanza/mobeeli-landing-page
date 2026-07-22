@@ -39,5 +39,5 @@
     "Official logos used: mobeeli-logo-blue.png on light surfaces, mobeeli-logo-white.png on dark surfaces",
     "Existing test suite stays green; new tests cover the rotation timing config and i18n key completeness for all landing keys"
   ],
-  "status": "building"
+  "status": "merged"
 }

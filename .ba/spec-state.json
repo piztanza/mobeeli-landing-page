@@ -8,7 +8,14 @@
     "last_pr": null
   },
   "pending_reconcile": [],
-  "changes": [],
+  "changes": [
+    {
+      "change_id": "CHG-piztanza-01",
+      "type": "add",
+      "status": "merged",
+      "created_at": "2026-07-22T06:33:51.410Z"
+    }
+  ],
   "onboarding": {
     "stage1": "confirmed",
     "stage2": "confirmed",
