@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "change_id": "CHG-piztanza-07",
+  "author": "piztanza",
+  "type": "modify",
+  "description": "SEO refinements (F-010): pipe title separator per user ('Mobeeli | Every part, verified to fit.' / ID 'Mobeeli | Setiap suku cadang, dipastikan cocok.'; join 'Join Waitlist | Mobeeli'); Organization + WebSite JSON-LD in the root layout (site name 'Mobeeli', logo, description, extendable sameAs) so Google shows the brand name above the URL; favicon sizes 48x48 + 192x192 per Google guidelines.",
+  "created_at": "2026-07-22T08:49:44.272Z",
+  "base_spec_version": "2026-07-22T08:34:31Z",
+  "target_branch": "change/CHG-piztanza-07",
+  "seed_ids": [
+    "F-010"
+  ],
+  "blast_radius": {
+    "affected_features": [
+      "F-010"
+    ],
+    "affected_files": []
+  },
+  "spec_deltas": {
+    "added": [],
+    "modified": [
+      "F-010"
+    ],
+    "removed": []
+  },
+  "cascade_flags": [],
+  "overlaps": [
+    {
+      "change_id": "CHG-piztanza-06",
+      "author": "piztanza",
+      "shared": [
+        "F-010"
+      ]
+    }
+  ],
+  "acceptance_criteria": [
+    "Landing title renders 'Mobeeli | Every part, verified to fit.' (EN) / 'Mobeeli | Setiap suku cadang, dipastikan cocok.' (ID); join title 'Join Waitlist | Mobeeli' — in <title>, OG, and Twitter meta",
+    "Root layout emits two server-rendered application/ld+json scripts: Organization (name Mobeeli, url, absolute logo URL, description) and WebSite (name Mobeeli, url); both parse as valid JSON",
+    "Favicon served at 48x48 and 192x192 generated from mobeeli-mark.png; apple-icon unchanged",
+    "All existing tests updated for the new titles; new tests assert both JSON-LD types are present and valid; suite green"
+  ],
+  "status": "drafted"
+}
