@@ -22,6 +22,15 @@ export const THEME_COLOR = "#0d1522";
 export const OG_IMAGE_SIZE = { width: 1200, height: 630 } as const;
 export const OG_IMAGE_CONTENT_TYPE = "image/png";
 
+/** Favicon sizes per Google guidelines (CHG-piztanza-07): 48×48 + 192×192. */
+export const FAVICON_SIZES = [
+  { width: 48, height: 48 },
+  { width: 192, height: 192 },
+] as const;
+
+/** Social/profile URLs for Organization sameAs — extend as profiles launch. */
+export const ORGANIZATION_SAME_AS: readonly string[] = [];
+
 /** Site origin from NEXT_PUBLIC_SITE_URL (trailing slashes stripped), default https://mobeeli.com. */
 export function siteUrl(): string {
   const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();
@@ -87,4 +96,37 @@ export function landingMetadata(): Metadata {
 
 export function joinMetadata(): Metadata {
   return pageMetadata("/join");
+}
+
+/**
+ * Structured data (CHG-piztanza-07): Organization + WebSite JSON-LD emitted by
+ * the root layout so Google shows the "Mobeeli" brand name above the URL.
+ */
+
+/** schema.org Organization: name, url, absolute logo URL, description (+ sameAs when populated). */
+export function organizationJsonLd(): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: SITE_NAME,
+    url: siteUrl(),
+    logo: `${siteUrl()}/assets/mobeeli-mark.png`,
+    description: t(DEFAULT_LANG, "meta.description"),
+    ...(ORGANIZATION_SAME_AS.length > 0 ? { sameAs: [...ORGANIZATION_SAME_AS] } : {}),
+  };
+}
+
+/** schema.org WebSite: site name + url. */
+export function webSiteJsonLd(): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE_NAME,
+    url: siteUrl(),
+  };
+}
+
+/** Serialize JSON-LD for a <script> tag, escaping "<" against script injection. */
+export function serializeJsonLd(data: Record<string, unknown>): string {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
 }

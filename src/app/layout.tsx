@@ -2,7 +2,13 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
 import { DEFAULT_LANG } from "@/lib/i18n";
-import { rootMetadata, themeViewport } from "@/lib/seo";
+import {
+  organizationJsonLd,
+  rootMetadata,
+  serializeJsonLd,
+  themeViewport,
+  webSiteJsonLd,
+} from "@/lib/seo";
 
 import "./globals.css";
 
@@ -15,7 +21,19 @@ export const viewport: Viewport = themeViewport;
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang={DEFAULT_LANG}>
-      <body>{children}</body>
+      <body>
+        {children}
+        {/* Organization + WebSite JSON-LD (CHG-piztanza-07), server-rendered so
+            Google shows the brand name above the URL. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(organizationJsonLd()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(webSiteJsonLd()) }}
+        />
+      </body>
     </html>
   );
 }
