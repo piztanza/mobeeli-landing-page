@@ -24,6 +24,9 @@ const en = {
   "meta.join.title": "Join Waitlist | Mobeeli",
   "meta.join.description":
     "Be one of the first shops on Mobeeli. Tell us about your business. A founder follows up personally — no payment, no commitment to express interest.",
+  /* Deck routes (F-016) — noindex pages, titles only. */
+  "meta.deck.title": "Investor deck | Mobeeli",
+  "meta.deckadmin.title": "Deck admin | Mobeeli",
   "nav.cta": "Join Waitlist",
   "hero.line1": "Every part,",
   "hero.line2": "verified to fit.",
@@ -152,6 +155,39 @@ const en = {
     "Mobeeli is built and already signing shops — 9 of the first 14 we visited signed in one afternoon. If you follow commerce infrastructure in Southeast Asia, we'd like to show you what's coming.",
   inv_cta: "Request the deck",
   inv_or: "or write to the founders directly",
+  /* Deck request form on /investors (F-016) — name/firm/work-email required. */
+  inv_f_name: "Your name",
+  inv_f_firm: "Firm / fund",
+  inv_f_email: "Work email",
+  inv_f_linkedin: "LinkedIn or website (optional)",
+  inv_f_message: "Anything you'd like to add? (optional)",
+  inv_f_send: "Send request →",
+  inv_f_sending: "Sending…",
+  inv_err_name: "Please enter your name.",
+  inv_err_firm: "Please enter your firm or fund.",
+  inv_err_email: "That email doesn't look right.",
+  inv_f_fail: "Something went wrong sending your request. Your answers are kept — please try again.",
+  inv_success_h: "Request received.",
+  inv_success_p: "Thank you — a founder will follow up personally with the deck.",
+  /* Hosted deck viewer + expired-link page (F-016). */
+  deck_loading: "Loading the deck…",
+  deck_error: "We couldn't load the deck. Refresh the page or request a new link.",
+  deck_expired_h: "This link has expired.",
+  deck_expired_p:
+    "Deck links are time-limited. Request a fresh one and a founder will follow up personally.",
+  deck_invalid_h: "This link isn't valid.",
+  deck_invalid_p:
+    "The link may have been copied incompletely. Request a fresh one and a founder will follow up personally.",
+  deck_expired_cta: "Request the deck",
+  /* Founder-only /deck-admin (F-016) — internal tool, identical in both languages. */
+  da_h: "Deck link admin",
+  da_hours_label: "Custom duration (hours)",
+  da_hours_btn: "Generate link",
+  da_link_label: "Deck link",
+  da_expires: "Expires: {t}",
+  da_never: "Never expires",
+  da_copy: "Copy link",
+  da_copied: "Copied ✓",
   cat_h2: "The catalog that puts itself together.",
   cat_p:
     "Excel sheets, PDFs, even photos of handwritten ledgers — Mobeeli's AI reads them all and builds one clean catalog, mapped to every car on the road.",
@@ -262,6 +298,9 @@ const id: Record<CopyKey, string> = {
   "meta.description":
     "Mobeeli adalah infrastruktur kepercayaan untuk aftermarket otomotif Indonesia senilai $5,3 miliar — marketplace suku cadang tempat setiap barang dipastikan cocok sebelum checkout, penjual membawa pulang lebih banyak dari tiap transaksi, dan dua belah pihak sama-sama terlindungi.",
   "meta.join.title": "Join Waitlist | Mobeeli",
+  /* Deck routes (F-016) — noindex pages, titles only. */
+  "meta.deck.title": "Deck investor | Mobeeli",
+  "meta.deckadmin.title": "Deck admin | Mobeeli",
   "meta.join.description":
     "Jadi salah satu toko pertama di Mobeeli. Ceritakan tentang bisnis Anda. Salah satu founder akan menghubungi langsung — tanpa bayar, tanpa komitmen untuk menyatakan minat.",
   "nav.cta": "Join Waitlist",
@@ -393,6 +432,41 @@ const id: Record<CopyKey, string> = {
     "Mobeeli sudah jadi dan toko-toko mulai minat bergabung — 9 dari 14 toko pertama yang kami datangi setuju untuk join waitlist di sore yang sama. Kalau Anda mengikuti infrastruktur commerce di Asia Tenggara, kami ingin menunjukkan apa yang kami persiapkan.",
   inv_cta: "Minta deck",
   inv_or: "atau langsung hubungi para founders",
+  /* Deck request form on /investors (F-016) — name/firm/work-email required. */
+  inv_f_name: "Nama Anda",
+  inv_f_firm: "Firma / dana investasi",
+  inv_f_email: "Email kerja",
+  inv_f_linkedin: "LinkedIn atau situs web (opsional)",
+  inv_f_message: "Ada hal lain? (opsional)",
+  inv_f_send: "Kirim permintaan →",
+  inv_f_sending: "Mengirim…",
+  inv_err_name: "Mohon isi nama Anda.",
+  inv_err_firm: "Mohon isi nama firma atau dana investasi Anda.",
+  inv_err_email: "Format email sepertinya belum benar.",
+  inv_f_fail:
+    "Terjadi kendala saat mengirim permintaan Anda. Jawaban Anda tersimpan — silakan coba lagi.",
+  inv_success_h: "Permintaan diterima.",
+  inv_success_p:
+    "Terima kasih — salah satu founder akan menindaklanjuti langsung dengan deck-nya.",
+  /* Hosted deck viewer + expired-link page (F-016). */
+  deck_loading: "Memuat deck…",
+  deck_error: "Deck gagal dimuat. Muat ulang halaman atau minta tautan baru.",
+  deck_expired_h: "Tautan ini sudah kedaluwarsa.",
+  deck_expired_p:
+    "Tautan deck berlaku sementara. Minta tautan baru dan salah satu founder akan menindaklanjuti langsung.",
+  deck_invalid_h: "Tautan ini tidak valid.",
+  deck_invalid_p:
+    "Tautan mungkin tersalin tidak lengkap. Minta tautan baru dan salah satu founder akan menindaklanjuti langsung.",
+  deck_expired_cta: "Minta deck",
+  /* Founder-only /deck-admin (F-016) — internal tool, identical in both languages. */
+  da_h: "Deck link admin",
+  da_hours_label: "Custom duration (hours)",
+  da_hours_btn: "Generate link",
+  da_link_label: "Deck link",
+  da_expires: "Expires: {t}",
+  da_never: "Never expires",
+  da_copy: "Copy link",
+  da_copied: "Copied ✓",
   cat_h2: "Katalog yang menyusun dirinya sendiri.",
   cat_p:
     "File Excel, PDF, sampai foto catatan tulis tangan — AI Mobeeli membaca semuanya, lalu merapikannya jadi satu katalog yang terpetakan ke setiap mobil di jalanan.",
