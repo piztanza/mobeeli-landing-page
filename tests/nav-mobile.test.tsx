@@ -106,11 +106,14 @@ describe("responsive audit CSS contracts (F-001, CHG-piztanza-10)", () => {
     expect(phone).toMatch(/\.mb-sprite--air \{[^}]*width: 28%;/s);
   });
 
-  it("keeps the floating hero cards inside the viewport on phone", () => {
+  it("keeps the hero cards inside the viewport on phone — in-flow below 1024px (CHG-piztanza-18)", () => {
+    // Superseded phone-only repositioning: the cards leave the floating
+    // overlay entirely below 1024px, so no absolute offsets exist on phone.
+    expect(landingCss).toMatch(
+      /@media \(max-width: 1023\.98px\) \{[^@]*\.mb-herocard \{[^}]*position: static;/s,
+    );
+    // no negative horizontal offsets survive in the phone overrides (margins excluded)
     const phone = landingCss.slice(landingCss.indexOf("---------- responsive audit"));
-    expect(phone).toMatch(/\.mb-card-part \{[^}]*left: 0;/s);
-    expect(phone).toMatch(/\.mb-card-fit \{[^}]*right: 0;/s);
-    // no negative horizontal offsets survive the phone overrides (margins excluded)
     expect(phone).not.toMatch(/(?:^|[\s{;])(?:left|right): -\d/m);
   });
 

@@ -240,9 +240,13 @@ export default function AiCatalogCard({ static: staticMode = false }: { static?:
       <div data-rev="0" className="mb-cat-card">
         <div className="mb-cat-head">
           <div className="mb-file-chips">
+            {/* unoptimized: these are 1–2 KB PNGs, so the optimizer saves
+                nothing — and serving them verbatim removes the failure mode
+                where a dropped optimizer response left the PDF chip blank on
+                the live site (CHG-piztanza-18). */}
             {FILE_CHIPS.map((chip) => (
               <div key={chip.src} className="mb-file-chip">
-                <Image src={chip.src} alt={chip.alt} width={76} height={96} />
+                <Image src={chip.src} alt={chip.alt} width={76} height={96} unoptimized />
               </div>
             ))}
           </div>

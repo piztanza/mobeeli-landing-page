@@ -13,8 +13,6 @@ export const ROTATION_TRANSITION_MS = 450;
 export const ROTATION_SWAP_DELAY_MS = 460;
 /** Transition easing for both lines. */
 export const ROTATION_EASING = "cubic-bezier(.2,.6,.2,1)";
-/** Reserved H1 min-height (em) so rotation causes no layout shift. */
-export const HERO_H1_MIN_HEIGHT_EM = 3.4;
 
 export type RotationPair = readonly [line1: string, line2: string];
 

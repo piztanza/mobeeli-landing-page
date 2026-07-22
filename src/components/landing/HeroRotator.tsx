@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { useLang } from "@/lib/i18n/LanguageProvider";
 import {
-  HERO_H1_MIN_HEIGHT_EM,
   ROTATION_INTERVAL_MS,
   ROTATION_PAIRS,
   ROTATION_SWAP_DELAY_MS,
@@ -14,8 +13,10 @@ import {
 /**
  * Hero H1 rotation (F-003) — cycles the four approved phrase pairs per
  * language every ~3.4s with the design's two-line slide transition.
- * Min-height is reserved so swapping pairs never shifts layout, and the
- * rotation is paused entirely under prefers-reduced-motion.
+ * Every pair is also rendered as an invisible grid-stacked sizer, so the H1
+ * always reserves exactly the tallest pair's height at the current width
+ * (CHG-piztanza-18) — zero rotation layout shift at every breakpoint without
+ * a hardcoded min-height. Rotation is paused under prefers-reduced-motion.
  */
 export default function HeroRotator() {
   const { lang } = useLang();
@@ -47,12 +48,20 @@ export default function HeroRotator() {
   const lineClass = `mb-rot-line${effectivePhase === "out" ? " is-out" : ""}${effectivePhase === "in" ? " is-entering" : ""}`;
 
   return (
-    <h1 data-rev="1" className="mb-hero-h1" style={{ minHeight: `${HERO_H1_MIN_HEIGHT_EM}em` }}>
-      <span key={`l1-${idx}`} className={lineClass}>
-        {line1}
-      </span>
-      <span key={`l2-${idx}`} className={`${lineClass} mb-rot-line2`}>
-        {line2}
+    <h1 data-rev="1" className="mb-hero-h1">
+      {pairs.map(([s1, s2]) => (
+        <span key={s1} className="mb-hero-h1-sizer" aria-hidden>
+          <span className="mb-rot-line">{s1}</span>
+          <span className="mb-rot-line">{s2}</span>
+        </span>
+      ))}
+      <span className="mb-hero-h1-live">
+        <span key={`l1-${idx}`} className={lineClass}>
+          {line1}
+        </span>
+        <span key={`l2-${idx}`} className={`${lineClass} mb-rot-line2`}>
+          {line2}
+        </span>
       </span>
     </h1>
   );

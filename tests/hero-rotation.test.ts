@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 
 import { langs, t } from "@/lib/i18n";
 import {
-  HERO_H1_MIN_HEIGHT_EM,
   ROTATION_INTERVAL_MS,
   ROTATION_PAIRS,
   ROTATION_SWAP_DELAY_MS,
@@ -20,9 +19,8 @@ describe("hero rotation config (F-003)", () => {
     expect(ROTATION_SWAP_DELAY_MS + ROTATION_TRANSITION_MS).toBeLessThan(ROTATION_INTERVAL_MS);
   });
 
-  it("reserves the H1 height so rotation causes no layout shift", () => {
-    expect(HERO_H1_MIN_HEIGHT_EM).toBe(3.4);
-  });
+  // H1 height reservation moved from a fixed min-height to per-pair sizers
+  // (CHG-piztanza-18) — covered by tests/responsive-visual-fixes.test.tsx.
 
   it("has the four approved phrase pairs in both languages", () => {
     for (const lang of langs) {
