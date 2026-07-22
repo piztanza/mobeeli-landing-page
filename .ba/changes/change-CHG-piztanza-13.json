@@ -1,0 +1,37 @@
+{
+  "version": "1.0",
+  "change_id": "CHG-piztanza-13",
+  "author": "piztanza",
+  "type": "modify",
+  "description": "Buyer 'Get notified' capture (F-015): inline email field in the buyer strip → rate-limited POST /api/notify → contact added to the account's single Resend Audience (RESEND_AUDIENCE_ID if set, else safe auto-discovery requiring exactly one audience; zero/multiple → alert-email fallback so nothing is lost), tagged source=buyer_launch for the user's existing 'Buyers' segment; duplicates treated as success; bilingual inline success/error states.",
+  "created_at": "2026-07-22T11:51:01.992Z",
+  "base_spec_version": "2026-07-22T11:22:52Z",
+  "target_branch": "change/CHG-piztanza-13",
+  "seed_ids": [
+    "F-015"
+  ],
+  "blast_radius": {
+    "affected_features": [
+      "F-015"
+    ],
+    "affected_files": []
+  },
+  "spec_deltas": {
+    "added": [],
+    "modified": [
+      "F-015"
+    ],
+    "removed": []
+  },
+  "cascade_flags": [],
+  "overlaps": [],
+  "acceptance_criteria": [
+    "'Get notified' expands an inline email field in the strip (no navigation); reduced-motion expands instantly; bilingual placeholder/labels/success/error copy in the approved tone",
+    "POST /api/notify: 10/h/IP rate limit, invalid email → 400 with bilingual inline error, honeypot → silent fake success",
+    "Contact lands in the Resend audience tagged source=buyer_launch (visible under the user's 'Buyers' segment); duplicate email → success UX",
+    "Auto-discovery uses RESEND_AUDIENCE_ID when set; otherwise exactly-one-audience lookup with module-scope caching; zero or multiple audiences → logged error + alert email fallback to WAITLIST_ALERT_TO with the buyer address",
+    "RESEND_AUDIENCE_ID documented as optional in .env.example; README notes the property key used for the segment filter",
+    "Suite green incl. validation, honeypot, discovery single/zero/multiple, and already-exists tests"
+  ],
+  "status": "drafted"
+}
