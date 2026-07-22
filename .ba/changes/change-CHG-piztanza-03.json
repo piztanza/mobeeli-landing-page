@@ -1,0 +1,36 @@
+{
+  "version": "1.0",
+  "change_id": "CHG-piztanza-03",
+  "author": "piztanza",
+  "type": "add",
+  "description": "Implement the Indonesia flyover map (F-006): near-1:1 port of .ba/discovery/design-reference/indo-globe.js into src/components/three/IndoGlobe.tsx (client-only, three from npm) — dot-matrix archipelago, Jakarta marker + pulse ring + translated label, animated arcs to 6 cities, idle drift + clamped drag panning — wired into the Unify band's 1.9:1 container with lazy loading and WebGL fallback.",
+  "created_at": "2026-07-22T07:30:38.097Z",
+  "base_spec_version": "2026-07-22T07:02:31Z",
+  "target_branch": "change/CHG-piztanza-03",
+  "seed_ids": [
+    "F-006"
+  ],
+  "blast_radius": {
+    "affected_features": [
+      "F-006"
+    ],
+    "affected_files": []
+  },
+  "spec_deltas": {
+    "added": [],
+    "modified": [],
+    "removed": []
+  },
+  "cascade_flags": [],
+  "overlaps": [],
+  "acceptance_criteria": [
+    "Archipelago geometry matches the design reference (ISLANDS polygons, 0.27° dot fill with jittered two-tone layers + pseudo-elevation, ocean grid, fog + radial fade)",
+    "Jakarta marker with pulsing ring and projected label; label text translates live with the lang prop ('— first market, 2026' / '— pasar pertama, 2026')",
+    "Six quadratic-bezier arcs with moving additive dots animate toward the cities; static prop freezes dots mid-arc and steadies the ring",
+    "Idle camera drifts west↔east and reverses at bounds; pointer drag pans within clamps with grab/grabbing cursor; drift resumes after 3s idle; IntersectionObserver re-centers on entry",
+    "Rendered at 1.9:1 in the Unify band replacing the placeholder, with the drag-hint caption below",
+    "three code-split (next/dynamic ssr:false), init on approach, clean unmount disposal; dark gradient fallback without WebGL",
+    "Suite stays green; new unit tests cover the point-in-polygon fill and label translation"
+  ],
+  "status": "drafted"
+}
