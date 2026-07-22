@@ -1,14 +1,6 @@
-import { DEFAULT_LANG, t } from "@/lib/i18n";
+import JoinView from "@/components/join/JoinView";
 
-/**
- * Join Waitlist page — foundation skeleton.
- * The 4-step wizard (F-007) is built as a feature on top of this route.
- */
+/** Join Waitlist page (F-007) — split-screen brand panel + 4-step wizard (S-002/S-003). */
 export default function JoinPage() {
-  const lang = DEFAULT_LANG;
-  return (
-    <main>
-      <h1>{t(lang, "join.title")}</h1>
-    </main>
-  );
+  return <JoinView />;
 }

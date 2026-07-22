@@ -1,0 +1,40 @@
+{
+  "version": "1.0",
+  "change_id": "CHG-piztanza-05",
+  "author": "piztanza",
+  "type": "add",
+  "description": "Implement the Join Waitlist page + lead capture backend (F-007 + F-008) at /join per the approved design: split-screen brand panel + 4-step bilingual wizard (type-adaptive fields, inline validation, honeypot, slide transitions), POST /api/waitlist (zod validation, rate limit, drizzle insert into waitlist_leads with SQL migration, Resend email alert per the approved database+email decision, local JSONL fallback without DATABASE_URL), success panel with personalized copy and configurable WhatsApp deep link.",
+  "created_at": "2026-07-22T07:58:19.889Z",
+  "base_spec_version": "2026-07-22T07:42:05Z",
+  "target_branch": "change/CHG-piztanza-05",
+  "seed_ids": [
+    "F-007",
+    "F-008"
+  ],
+  "blast_radius": {
+    "affected_features": [
+      "F-007",
+      "F-008"
+    ],
+    "affected_files": []
+  },
+  "spec_deltas": {
+    "added": [],
+    "modified": [],
+    "removed": []
+  },
+  "cascade_flags": [],
+  "overlaps": [],
+  "acceptance_criteria": [
+    "Split-screen /join matches the design: dark brand panel (offer chip, H1, 3 benefits, trust line, floating sprites) + wizard card with progress bar; fully usable on mobile (stacked)",
+    "Wizard steps behave per design: type picker auto-advances; businessName label/placeholder adapt to type; tools chips shown only for GARAGE, brands input otherwise; slide transitions with per-step autofocus; all copy from the approved TXT map in both languages",
+    "Validation: businessName required; email/phone/WhatsApp format-checked only when filled; inline errors in the active language; honeypot rejected server-side with fake success",
+    "POST /api/waitlist persists the lead (drizzle insert; migration included) BEFORE the client shows success; per-IP rate limiting; zod length limits mirror the design's maxlengths; without DATABASE_URL leads append to a local JSONL so dev flow works",
+    "A Resend email alert with the lead's details goes to WAITLIST_ALERT_TO per submission; email failure after a successful insert still returns 200 and is logged; no fee figures in any template",
+    "Failed submits show a retriable bilingual error and preserve entered data",
+    "Success panel personalizes with the business name and builds the wa.me link from NEXT_PUBLIC_WHATSAPP_NUMBER (default 6281234567890) with the language-appropriate prefilled message",
+    ".env.example documents DATABASE_URL, RESEND_API_KEY, WAITLIST_ALERT_TO, NEXT_PUBLIC_WHATSAPP_NUMBER",
+    "Suite stays green; new unit tests cover zod accept/reject, honeypot, wa.me builder, and en/id wizard key completeness"
+  ],
+  "status": "building"
+}

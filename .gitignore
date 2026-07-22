@@ -20,6 +20,9 @@ out/
 # drizzle migration artifacts are committed; local db dumps are not
 *.dump
 
+# local waitlist lead fallback (dev without DATABASE_URL)
+.data/
+
 # misc
 .DS_Store
 dist/
