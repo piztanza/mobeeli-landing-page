@@ -63,5 +63,5 @@
     "Phone (<640px) AI catalog stage is compact with proportionally larger sprites — no large empty dark block; unify map uses ~4:3 aspect and remains draggable",
     "No copy changes; reduced-motion behavior preserved; suite green with updated tests"
   ],
-  "status": "drafted"
+  "status": "building"
 }
