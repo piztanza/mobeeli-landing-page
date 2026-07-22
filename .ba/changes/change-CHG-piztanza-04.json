@@ -1,0 +1,35 @@
+{
+  "version": "1.0",
+  "change_id": "CHG-piztanza-04",
+  "author": "piztanza",
+  "type": "add",
+  "description": "Implement the AI catalog showcase animation loop (F-005) in the AiCatalogCard section: phased ~15s loop (pop-in with name chips → orbit + self-spin → bloom to grid → snap assemble + centered pill → fade/restart), AI status chip flip, IntersectionObserver gating, reduced-motion static assembled state, live bilingual text.",
+  "created_at": "2026-07-22T07:43:05.357Z",
+  "base_spec_version": "2026-07-22T07:29:32Z",
+  "target_branch": "change/CHG-piztanza-04",
+  "seed_ids": [
+    "F-005"
+  ],
+  "blast_radius": {
+    "affected_features": [
+      "F-005"
+    ],
+    "affected_files": []
+  },
+  "spec_deltas": {
+    "added": [],
+    "modified": [],
+    "removed": []
+  },
+  "cascade_flags": [],
+  "overlaps": [],
+  "acceptance_criteria": [
+    "The ~15s loop matches the design: sprites pop in one-by-one with spring ease + name chips, chips fade, sprites glide onto a shrinking orbit (r0 0.36 → r1 0.12 ~1.3s) with self-spin via rAF, bloom to grid with rotate(360), snap assemble with the centered '✓ One catalog · 120M+ mappings' pill, fade out and restart",
+    "AI status chip flips reading… → assembled ✓ at the assemble phase in the active language",
+    "Loop runs only while the card is in view (IntersectionObserver); all timers/rAF cancelled on stop/unmount",
+    "prefers-reduced-motion (or static prop) shows the assembled static state with pill + done chip",
+    "Language toggle updates chips, pill, and status text live, including mid-loop",
+    "Suite stays green; unit tests cover the phase scheduler timings and en/id key completeness for scn1-6, cat_pill, cat_ai_read, cat_ai_done"
+  ],
+  "status": "drafted"
+}
