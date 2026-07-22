@@ -44,5 +44,5 @@
     "/company → / and /company/join → /join redirect with a temporary (307) status",
     "All existing routes and tests unaffected; suite green with a redirect-config test"
   ],
-  "status": "drafted"
+  "status": "building"
 }
