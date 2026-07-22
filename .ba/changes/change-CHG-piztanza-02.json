@@ -32,5 +32,5 @@
     "Renderer disposes cleanly on unmount (no leaked RAF/ResizeObserver); devicePixelRatio capped at 2",
     "Existing suite stays green; new unit tests cover the label set per language and the timeline phase math (wheel z / bolt z at key timestamps)"
   ],
-  "status": "building"
+  "status": "merged"
 }
