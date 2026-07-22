@@ -137,6 +137,14 @@ const en = {
   early_note: "First 300 shops lock in 0% — takes two minutes.",
   buyer_line: "Buying parts? Be first to know when Mobeeli opens in Jakarta.",
   buyer_cta: "Get notified",
+  /* Buyer notify capture (F-015, CHG-piztanza-13) — inline email field in the buyer strip. */
+  buyer_email_label: "Email address",
+  buyer_email_ph: "nama@email.com",
+  buyer_send: "Notify me →",
+  buyer_sending: "Sending…",
+  buyer_success: "You're on the list — we'll email you when Mobeeli opens in Jakarta.",
+  buyer_err_email: "That email doesn't look right.",
+  buyer_err_fail: "Something went wrong — please try again.",
   team_kicker: "The team",
   team_h2: "Three founders. One engine.",
   team_n1: "Yavet Arimathea Widjaja",
@@ -166,7 +174,8 @@ const en = {
   inv_err_name: "Please enter your name.",
   inv_err_firm: "Please enter your firm or fund.",
   inv_err_email: "That email doesn't look right.",
-  inv_f_fail: "Something went wrong sending your request. Your answers are kept — please try again.",
+  inv_f_fail:
+    "Something went wrong sending your request. Your answers are kept — please try again.",
   inv_success_h: "Request received.",
   inv_success_p: "Thank you — a founder will follow up personally with the deck.",
   /* Hosted deck viewer + expired-link page (F-016). */
@@ -413,6 +422,14 @@ const id: Record<CopyKey, string> = {
   early_note: "300 toko pertama mengunci tarif 0% — daftarnya cuma dua menit.",
   buyer_line: "Butuh onderdil? Jadi yang pertama tahu begitu Mobeeli hadir di Jakarta.",
   buyer_cta: "Kabari saya",
+  /* Buyer notify capture (F-015, CHG-piztanza-13) — inline email field in the buyer strip. */
+  buyer_email_label: "Alamat email",
+  buyer_email_ph: "nama@email.com",
+  buyer_send: "Kabari saya →",
+  buyer_sending: "Mengirim…",
+  buyer_success: "Anda masuk daftar — kami kabari lewat email begitu Mobeeli hadir di Jakarta.",
+  buyer_err_email: "Format email sepertinya belum benar.",
+  buyer_err_fail: "Terjadi kendala — silakan coba lagi.",
   team_kicker: "Tim",
   team_h2: "Tiga founders. Satu mesin.",
   team_n1: "Yavet Arimathea Widjaja",
@@ -446,8 +463,7 @@ const id: Record<CopyKey, string> = {
   inv_f_fail:
     "Terjadi kendala saat mengirim permintaan Anda. Jawaban Anda tersimpan — silakan coba lagi.",
   inv_success_h: "Permintaan diterima.",
-  inv_success_p:
-    "Terima kasih — salah satu founder akan menindaklanjuti langsung dengan deck-nya.",
+  inv_success_p: "Terima kasih — salah satu founder akan menindaklanjuti langsung dengan deck-nya.",
   /* Hosted deck viewer + expired-link page (F-016). */
   deck_loading: "Memuat deck…",
   deck_error: "Deck gagal dimuat. Muat ulang halaman atau minta tautan baru.",

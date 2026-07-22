@@ -959,6 +959,81 @@
   color: #fff;
 }
 
+/* Buyer notify capture (F-015) — the CTA expands an inline email form in-place. */
+.mb-landing button.mb-buyer-cta {
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+}
+.mb-buyer-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  animation: mb-buyer-expand 0.25s ease;
+}
+@keyframes mb-buyer-expand {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* Reduced motion expands instantly — the hook adds .is-instant; the media query
+   is the CSS-only belt for the pre-hydration frame. */
+.mb-buyer-form.is-instant {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mb-buyer-form {
+    animation: none;
+  }
+}
+.mb-buyer-honeypot {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+.mb-buyer-input {
+  box-sizing: border-box;
+  width: min(260px, 100%);
+  background: #fff;
+  border: 1.5px solid var(--mb-border);
+  border-radius: var(--mb-radius-pill);
+  padding: 11px 18px;
+  /* >=16px so mobile Safari never auto-zooms (CHG-piztanza-10 rule). */
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--mb-ink);
+  outline: none;
+}
+.mb-buyer-input:focus {
+  border-color: var(--mb-deep-blue);
+}
+.mb-buyer-input.is-invalid {
+  border-color: var(--mb-danger);
+}
+.mb-landing .mb-buyer-send:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.mb-buyer-err {
+  flex-basis: 100%;
+  color: var(--mb-danger);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.mb-buyer-success {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--mb-deep-blue-hover);
+}
+
 /* ---------- why Mobeeli ---------- */
 
 .mb-why {
