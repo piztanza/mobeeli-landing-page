@@ -1375,6 +1375,114 @@
   font-weight: 700;
 }
 
+/* ---------- deck request form (F-016, inside the dark investors card) ---------- */
+
+.mb-deckform {
+  max-width: 620px;
+  margin: 32px auto 0;
+  text-align: left;
+}
+.mb-deckform-honeypot {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+.mb-deckform-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.mb-deckform-full {
+  grid-column: 1 / -1;
+}
+.mb-deckform-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--mb-dark-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+.mb-deckform-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--mb-radius-input);
+  padding: 13px 15px;
+  /* >=16px so mobile Safari never auto-zooms (CHG-piztanza-10 rule). */
+  font-size: 16px;
+  font-family: inherit;
+  color: #fff;
+  outline: none;
+}
+.mb-deckform-input:focus {
+  border-color: var(--mb-primary);
+}
+.mb-deckform-input.is-invalid {
+  border-color: var(--mb-danger);
+}
+.mb-deckform-select {
+  cursor: pointer;
+}
+.mb-deckform-textarea {
+  resize: none;
+}
+.mb-deckform-err {
+  color: var(--mb-danger);
+  font-size: 12.5px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+.mb-deckform-submit-err {
+  margin-top: 14px;
+}
+.mb-deckform-send {
+  margin-top: 18px;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+.mb-deckform-send:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.mb-deckform-success {
+  text-align: center;
+}
+.mb-deckform-badge {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  background: var(--mb-primary);
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+  border-radius: 50%;
+}
+.mb-deckform-success-h {
+  margin: 16px 0 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+}
+.mb-deckform-success-p {
+  margin: 10px auto 0;
+  max-width: 460px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--mb-dark-muted);
+}
+@media (max-width: 640px) {
+  .mb-deckform-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ---------- unify band ---------- */
 
 .mb-uni {

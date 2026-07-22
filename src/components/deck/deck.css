@@ -1,0 +1,172 @@
+/* Deck routes (F-016): token-gated viewer, dead-link notice, founder admin.
+   Standalone pages — tokens come from globals.css, not landing.css. */
+
+.mb-deck {
+  min-height: 100vh;
+  background: var(--mb-ink);
+  padding: 28px 16px 48px;
+}
+
+.mb-deck-msg {
+  margin: 40vh auto 0;
+  max-width: 480px;
+  text-align: center;
+  font-size: 15px;
+  color: var(--mb-dark-muted);
+}
+
+.mb-deck-pages {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.mb-deck-canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  /* Page images only — no selectable text layer, no download affordance. */
+  user-select: none;
+}
+
+/* ---------- dead-link notice ---------- */
+
+.mb-deck-gate {
+  max-width: 520px;
+  margin: 22vh auto 0;
+  text-align: center;
+}
+
+.mb-deck-gate-h {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  color: #fff;
+  text-wrap: balance;
+}
+
+.mb-deck-gate-p {
+  margin: 18px 0 0;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--mb-dark-muted);
+  text-wrap: pretty;
+}
+
+.mb-deck .mb-deck-gate-cta {
+  display: inline-block;
+  margin-top: 28px;
+  background: var(--mb-primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 15px 30px;
+  border-radius: var(--mb-radius-pill);
+  text-decoration: none;
+}
+
+.mb-deck .mb-deck-gate-cta:hover {
+  background: var(--mb-primary-hover);
+}
+
+/* ---------- founder-only /deck-admin ---------- */
+
+.mb-da {
+  min-height: 100vh;
+  background: var(--mb-ink);
+  padding: 60px 16px;
+}
+
+.mb-da-card {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.mb-da-h {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.mb-da-out {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mb-da-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mb-dark-muted);
+}
+
+.mb-da-link {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--mb-light-accent);
+  word-break: break-all;
+  user-select: all;
+}
+
+.mb-da-expiry {
+  font-size: 13.5px;
+  color: var(--mb-dark-muted);
+}
+
+.mb-da-copy,
+.mb-da-btn {
+  align-self: flex-start;
+  background: var(--mb-primary);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: var(--mb-radius-pill);
+  cursor: pointer;
+}
+
+.mb-da-copy:hover,
+.mb-da-btn:hover {
+  background: var(--mb-primary-hover);
+}
+
+.mb-da-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.mb-da-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mb-da-input {
+  width: 160px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 14px;
+  color: #fff;
+}

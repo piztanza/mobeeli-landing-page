@@ -6,7 +6,7 @@ import EarlyAdaptorsPage, { metadata as earlyAdaptorsMetadata } from "@/app/earl
 import InvestorsPage, { metadata as investorsMetadata } from "@/app/investors/page";
 import TeamPage, { metadata as teamMetadata } from "@/app/team/page";
 import sitemap from "@/app/sitemap";
-import { FOUNDER_EMAILS, INVESTOR_MAILTO } from "@/components/landing/Investors";
+import { FOUNDER_EMAILS } from "@/components/landing/Investors";
 import { t, type CopyKey } from "@/lib/i18n";
 
 /** Escape a copy string the way React escapes text content in SSR output. */
@@ -125,9 +125,12 @@ describe("section page specifics (CHG-piztanza-09)", () => {
     }
   });
 
-  it("/investors uses the approved investor mailto and founder emails (F-009)", () => {
+  it("/investors offers the deck-request CTA (F-016) and keeps the founder emails (F-009)", () => {
     const html = renderToStaticMarkup(<InvestorsPage />);
-    expect(html).toContain(INVESTOR_MAILTO);
+    // "Request the deck" now opens the bilingual form (F-016) instead of the old mailto
+    // (the plain footer contact mailto without the deck-request subject stays).
+    expect(html).toContain(`>${esc(t("en", "inv_cta"))}</button>`);
+    expect(html).not.toContain("deck%20request");
     for (const email of FOUNDER_EMAILS) {
       expect(html).toContain(`mailto:${email}`);
     }
