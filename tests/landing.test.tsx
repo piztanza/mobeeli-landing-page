@@ -159,20 +159,21 @@ describe("landing page render (F-001 + F-009)", () => {
   const html = renderToStaticMarkup(<LandingPage />);
 
   it("renders every anchored section of the approved stack", () => {
-    for (const id of [
-      "top",
-      "problem",
-      "how-it-works",
-      "why-now",
-      "early-adaptor",
-      "team",
-      "investors",
-    ]) {
+    for (const id of ["top", "problem", "how-it-works", "why-now"]) {
       expect(html).toContain(`id="${id}"`);
     }
   });
 
-  it("renders the full band stack copy in the approved order", () => {
+  it("no longer renders the sections moved to their own routes (CHG-piztanza-09)", () => {
+    for (const id of ["early-adaptor", "team", "investors"]) {
+      expect(html).not.toContain(`id="${id}"`);
+    }
+    expect(html).not.toContain(esc(t("en", "early_h2")));
+    expect(html).not.toContain(esc(t("en", "team_h2")));
+    expect(html).not.toContain(esc(t("en", "inv_h2")));
+  });
+
+  it("renders the remaining band stack copy in the approved order", () => {
     const bands = [
       t("en", "hero_chip"), // hero
       t("en", "pf1_v"), // proof bar
@@ -181,9 +182,6 @@ describe("landing page render (F-001 + F-009)", () => {
       t("en", "buyer_line"), // buyer strip
       t("en", "why_h2"), // why Mobeeli
       t("en", "cat_h2"), // AI catalog
-      t("en", "early_h2"), // early adaptors
-      t("en", "team_h2"), // team
-      t("en", "inv_h2"), // investors
       t("en", "uni_h2"), // unify band
       t("en", "foot_tag"), // footer
     ];
@@ -195,18 +193,29 @@ describe("landing page render (F-001 + F-009)", () => {
     }
   });
 
-  it("wires both waitlist CTAs to /join (F-009)", () => {
-    expect(html.match(/href="\/join"/g)?.length).toBeGreaterThanOrEqual(2);
+  it("wires the nav waitlist CTA to /join and the hero CTAs to the section routes (F-009, CHG-piztanza-09)", () => {
+    expect(html).toContain('href="/join"');
+    expect(html).toContain('href="/early-adaptors"');
+    expect(html).toContain('href="/investors"');
   });
 
-  it("uses the approved buyer and investor mailtos and founder emails (F-009)", () => {
+  it("points the nav section links at the new routes and /#id anchors (CHG-piztanza-09)", () => {
+    for (const href of [
+      "/#problem",
+      "/#how-it-works",
+      "/#why-now",
+      "/early-adaptors",
+      "/team",
+      "/investors",
+    ]) {
+      expect(html).toContain(`href="${href}"`);
+    }
+  });
+
+  it("uses the approved buyer mailto (F-009)", () => {
     expect(html).toContain(
       "mailto:info@mobeeli.com?subject=Notify%20me%20at%20launch%20%E2%80%94%20buyer",
     );
-    expect(html).toContain("mailto:info@mobeeli.com?subject=Mobeeli%20%E2%80%94%20deck%20request");
-    for (const email of ["matheau@mobeeli.com", "hafizh@mobeeli.com", "ferdi@mobeeli.com"]) {
-      expect(html).toContain(`mailto:${email}`);
-    }
   });
 
   it("uses the official logo variants — blue on light nav, white on dark footer", () => {

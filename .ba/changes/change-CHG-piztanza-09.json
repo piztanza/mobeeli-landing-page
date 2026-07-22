@@ -1,0 +1,44 @@
+{
+  "version": "1.0",
+  "change_id": "CHG-piztanza-09",
+  "author": "piztanza",
+  "type": "modify",
+  "description": "Restructure (F-001): move Team, Early Adaptors, and Investors off the landing page onto their own routes /team, /early-adaptors, /investors (nav + footer + metadata + sitemap), remove them from the / stack, and rewire all nav links and CTAs accordingly (hero 'For investors' → /investors, 'Join Early Adaptor Program' → /early-adaptors; anchors on non-landing pages become /#... links). Copy and i18n unchanged.",
+  "created_at": "2026-07-22T10:46:36.740Z",
+  "base_spec_version": "2026-07-22T09:05:43Z",
+  "target_branch": "change/CHG-piztanza-09",
+  "seed_ids": [
+    "F-001"
+  ],
+  "blast_radius": {
+    "affected_features": [
+      "F-001"
+    ],
+    "affected_files": []
+  },
+  "spec_deltas": {
+    "added": [],
+    "modified": [
+      "F-001"
+    ],
+    "removed": []
+  },
+  "cascade_flags": [],
+  "overlaps": [
+    {
+      "change_id": "CHG-piztanza-01",
+      "author": "piztanza",
+      "shared": [
+        "F-001"
+      ]
+    }
+  ],
+  "acceptance_criteria": [
+    "/team, /early-adaptors, /investors render the existing section content with sticky nav + footer, approved copy, working EN/ID toggle, own metadata (pipe titles) and sitemap entries",
+    "Landing / no longer contains those three sections; remaining band order intact with no layout gaps",
+    "Nav links point to the new routes from every page; problem/how-it-works/why-mobeeli anchors resolve correctly from non-landing pages via /#id",
+    "Hero CTAs: 'Join Early Adaptor Program' → /early-adaptors; 'For investors' → /investors; /early-adaptors CTA → /join",
+    "Suite green with updated landing test + new per-page tests"
+  ],
+  "status": "building"
+}

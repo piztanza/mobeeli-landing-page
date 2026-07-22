@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
@@ -69,12 +70,12 @@ export default function Hero() {
             {t("hero_sub")}
           </p>
           <div data-rev="3" className="mb-hero-ctas">
-            <a href="#early-adaptor" className="mb-btn-primary-dark">
+            <Link href="/early-adaptors" className="mb-btn-primary-dark">
               {t("hero_cta_shops")}
-            </a>
-            <a href="#investors" className="mb-btn-ghost-dark">
+            </Link>
+            <Link href="/investors" className="mb-btn-ghost-dark">
               {t("hero_cta_inv")}
-            </a>
+            </Link>
           </div>
         </div>
         <div data-rev="2" className="mb-hero-visual">

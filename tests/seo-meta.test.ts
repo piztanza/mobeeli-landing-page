@@ -165,9 +165,15 @@ describe("robots.txt and sitemap.xml (F-010)", () => {
     expect(result.sitemap).toBe("https://staging.mobeeli.com/sitemap.xml");
   });
 
-  it("sitemap lists / and /join on the default site URL", () => {
+  it("sitemap lists every indexable route on the default site URL (CHG-piztanza-09)", () => {
     vi.stubEnv("NEXT_PUBLIC_SITE_URL", "");
     const urls = sitemap().map((entry) => entry.url);
-    expect(urls).toEqual(["https://mobeeli.com/", "https://mobeeli.com/join"]);
+    expect(urls).toEqual([
+      "https://mobeeli.com/",
+      "https://mobeeli.com/join",
+      "https://mobeeli.com/early-adaptors",
+      "https://mobeeli.com/team",
+      "https://mobeeli.com/investors",
+    ]);
   });
 });
