@@ -1,5 +1,19 @@
 /* Join Waitlist page (F-007) — styles ported from Join Waitlist.dc.html, tokens from globals.css. */
 
+/* Shared logo + hamburger nav, phone/tablet only (CHG-piztanza-10) —
+   the desktop split keeps its own nav-free header per the approved design. */
+.mb-join-mobilenav {
+  display: none;
+  position: sticky;
+  top: 0;
+  z-index: 60;
+}
+@media (max-width: 879.98px) {
+  .mb-join-mobilenav {
+    display: block;
+  }
+}
+
 .mb-join {
   min-height: 100vh;
   display: grid;
@@ -454,7 +468,8 @@
   border: 1.5px solid var(--mb-border);
   border-radius: var(--mb-radius-input);
   padding: 13px 15px;
-  font-size: 15px;
+  /* >=16px so mobile Safari never auto-zooms the wizard (CHG-piztanza-10). */
+  font-size: 16px;
   font-family: inherit;
   color: var(--mb-ink);
   outline: none;
@@ -670,6 +685,45 @@
 .mb-jw-home-cta:hover {
   border-color: var(--mb-primary);
   color: var(--mb-deep-blue);
+}
+
+/* ---- Mobile touch targets >=44px (CHG-piztanza-10) ---- */
+
+@media (max-width: 879.98px) {
+  .mb-jw-back-home {
+    min-height: 44px;
+  }
+  .mb-jw-lang-btn {
+    min-height: 38px;
+    padding: 9px 15px;
+  }
+  .mb-jw-start {
+    min-height: 48px;
+  }
+  .mb-jw-type {
+    min-height: 44px;
+  }
+  .mb-jw-tool {
+    min-height: 44px;
+    padding: 11px 16px;
+  }
+  .mb-jw-check {
+    min-height: 44px;
+    align-items: center;
+  }
+  .mb-jw-check input {
+    margin-top: 0;
+    width: 20px;
+    height: 20px;
+  }
+  .mb-jw-backbtn,
+  .mb-jw-nextbtn {
+    min-height: 44px;
+  }
+  .mb-jw-backbtn {
+    padding: 10px 12px;
+    margin-left: -12px;
+  }
 }
 
 /* ---- Reduced motion: no floats, no slides (design contract) ---- */

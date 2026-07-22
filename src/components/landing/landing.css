@@ -225,6 +225,134 @@
   background: var(--mb-deep-blue-hover);
 }
 
+/* ---------- mobile nav — hamburger + sheet below 880px (CHG-piztanza-10) ---------- */
+
+.mb-nav-burger {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+}
+.mb-nav-burger-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--mb-ink);
+  transition:
+    transform 0.25s cubic-bezier(0.2, 0.6, 0.2, 1),
+    opacity 0.2s ease;
+}
+/* Animated icon: bars fold into an X while the sheet is open. */
+.mb-nav-burger.is-open .mb-nav-burger-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.mb-nav-burger.is-open .mb-nav-burger-bar:nth-child(2) {
+  opacity: 0;
+}
+.mb-nav-burger.is-open .mb-nav-burger-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .mb-nav-burger-bar {
+    transition: none;
+  }
+}
+
+.mb-nav-backdrop {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 66px;
+  bottom: 0;
+  background: rgba(13, 21, 34, 0.45);
+}
+
+@keyframes mbSheetIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 879.98px) {
+  /* Desktop bar collapses to logo + hamburger; the sheet carries links/toggle/CTA. */
+  .mb-nav-inner > .mb-nav-links,
+  .mb-nav-inner > .mb-lang-toggle,
+  .mb-nav-inner > .mb-nav-cta {
+    display: none;
+  }
+  .mb-nav-burger {
+    display: inline-flex;
+  }
+  .mb-nav-sheet {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-bottom: 1px solid var(--mb-border);
+    box-shadow: 0 24px 44px rgba(13, 21, 34, 0.16);
+    padding: 6px var(--mb-container-pad) 20px;
+    max-height: calc(100vh - 66px);
+    overflow-y: auto;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .mb-nav-sheet.is-open {
+      animation: mbSheetIn 0.28s cubic-bezier(0.2, 0.6, 0.2, 1);
+    }
+  }
+  .mb-nav-sheet-links {
+    display: flex;
+    flex-direction: column;
+  }
+  .mb-nav-sheet-links a {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #3c4654;
+    border-bottom: 1px solid var(--mb-border-soft);
+  }
+  .mb-nav-sheet-links a:hover {
+    color: var(--mb-deep-blue);
+  }
+  .mb-nav-sheet-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .mb-nav-sheet .mb-lang-btn {
+    min-height: 38px;
+    padding: 9px 15px;
+  }
+  .mb-nav-sheet .mb-nav-cta {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+
+/* Desktop nav unchanged at >=880px — sheet chrome can never leak upward. */
+@media (min-width: 880px) {
+  .mb-nav-sheet,
+  .mb-nav-backdrop,
+  .mb-nav-burger {
+    display: none !important;
+  }
+}
+
 /* ---------- hero ---------- */
 
 .mb-hero {
@@ -452,10 +580,21 @@
   margin: 0 auto;
   padding: 0 var(--mb-container-pad);
 }
+/* Explicit 4 → 2 → 1 collapse (CHG-piztanza-10 responsive audit). */
 .mb-proof-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+  grid-template-columns: repeat(4, 1fr);
   background: var(--mb-surface);
+}
+@media (max-width: 1023.98px) {
+  .mb-proof-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 559.98px) {
+  .mb-proof-grid {
+    grid-template-columns: 1fr;
+  }
 }
 .mb-proof-cell {
   background: var(--mb-surface);
@@ -1113,6 +1252,13 @@
 }
 .mb-team-photo {
   aspect-ratio: 1/1;
+  position: relative;
+  overflow: hidden;
+}
+/* Real founder headshots (F-013) — next/image fill slots into the 1:1 area. */
+.mb-team-photo img {
+  object-fit: cover;
+  object-position: top;
 }
 .mb-team-photo--a {
   background: linear-gradient(160deg, #5b9bf7, #1b5fd9);
@@ -1357,4 +1503,90 @@
   font-size: 13px;
   color: var(--mb-muted);
   font-weight: 600;
+}
+
+/* ---------- responsive audit (CHG-piztanza-10) ---------- */
+/* Per-breakpoint pass at 360/390/768/1024/1280 — no horizontal overflow anywhere. */
+
+/* Phone/tablet: the AI catalog stage leaves its absolute right-side slot and
+   stacks in flow above the headline, sprites scaled to fractions of the stage. */
+@media (max-width: 767.98px) {
+  .mb-cat-card {
+    min-height: 0;
+  }
+  .mb-cat-stage {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: 100%;
+    margin-top: 28px;
+  }
+  .mb-sprite--pad {
+    width: 30%;
+  }
+  .mb-sprite--filter {
+    width: 26%;
+  }
+  .mb-sprite--plug {
+    width: 24%;
+  }
+  .mb-sprite--disc {
+    width: 30%;
+  }
+  .mb-sprite--shock {
+    width: 28%;
+  }
+  .mb-sprite--air {
+    width: 28%;
+  }
+  .mb-cat-copy {
+    margin-top: 30px;
+  }
+}
+
+/* Phone: floating hero cards stay inside the viewport (no negative offsets),
+   and the biggest headlines step down so nothing can overflow at 360/390px. */
+@media (max-width: 559.98px) {
+  .mb-hero {
+    padding-top: 64px;
+    padding-bottom: 96px;
+  }
+  .mb-hero-visual {
+    min-height: 0;
+  }
+  .mb-card-part {
+    left: 0;
+    width: min(242px, 82%);
+  }
+  .mb-card-fit {
+    right: 0;
+    max-width: 94%;
+  }
+  .mb-card-video {
+    left: 8px;
+    bottom: -26px;
+    width: min(238px, 68%);
+  }
+}
+@media (max-width: 479.98px) {
+  .mb-hero-h1 {
+    font-size: 32px;
+    min-height: 3.6em;
+  }
+  .mb-h2 {
+    font-size: 29px;
+  }
+  .mb-uni-h2 {
+    font-size: 30px;
+  }
+  .mb-inv-h2 {
+    font-size: 28px;
+  }
+  .mb-cat-h2 {
+    font-size: 27px;
+  }
+  .mb-pain-stat {
+    font-size: 40px;
+  }
 }
