@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "change_id": "CHG-piztanza-01",
+  "author": "piztanza",
+  "type": "add",
+  "description": "Implement the landing page's full approved 13-band section stack (F-001) plus the hero headline rotation (F-003) and waitlist CTA wiring (F-009) on route /. All copy verbatim from the approved EN/ID TXT maps (source of truth: .ba/discovery/design-reference/Mobeeli Landing.dc.html); brand tokens per design/style.json; scroll reveal with reduced-motion fallback; official logo variants (blue on light, white on dark). The 3D scene areas (F-002 fitment wheel, F-006 Indonesia map) and the AI-catalog animation loop (F-005) ship as styled static containers in this change and are implemented by their own subsequent changes.",
+  "created_at": "2026-07-22T06:33:51.410Z",
+  "base_spec_version": "2026-07-22T05:58:03.533Z",
+  "target_branch": "change/CHG-piztanza-01",
+  "seed_ids": [
+    "F-001",
+    "F-003",
+    "F-009"
+  ],
+  "blast_radius": {
+    "affected_features": [
+      "F-001",
+      "F-003",
+      "F-009"
+    ],
+    "affected_files": []
+  },
+  "spec_deltas": {
+    "added": [],
+    "modified": [],
+    "removed": []
+  },
+  "cascade_flags": [],
+  "overlaps": [],
+  "acceptance_criteria": [
+    "All 13 sections render on / in the approved order with approved copy in both EN and ID",
+    "Brand tokens match design/style.json (Plus Jakarta Sans self-hosted, #2f7df6 palette, #0d1522 dark surfaces, 18px card radii, pill buttons)",
+    "Sticky nav anchors scroll to sections with 84px scroll-margin offset; nav + Early Adaptors CTAs link to /join",
+    "Hero H1 rotates the four approved phrase pairs per language every ~3.4s with slide transition, min-height reserved (no layout shift), paused under reduced motion",
+    "Language toggle switches every string on the page instantly, persists via localStorage 'mobeeli-lang', and updates the html lang attribute",
+    "Buyer strip and Investors CTAs use the approved mailto addresses and subjects; founder direct emails listed",
+    "Floating hero cards render over the scene container (part card, fit pill, unify-graph video card with muted looping lazy video)",
+    "Scroll-reveal staggered animations run on section entry and are disabled under prefers-reduced-motion",
+    "Official logos used: mobeeli-logo-blue.png on light surfaces, mobeeli-logo-white.png on dark surfaces",
+    "Existing test suite stays green; new tests cover the rotation timing config and i18n key completeness for all landing keys"
+  ],
+  "status": "building"
+}
