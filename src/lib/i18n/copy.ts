@@ -16,6 +16,13 @@ export type Lang = (typeof langs)[number];
 
 const en = {
   "meta.title": "Mobeeli — Every part, verified to fit.",
+  /* SEO + social meta (F-010) — composed verbatim from approved design copy
+     (hero_sub; jw_left_h + jw_left_sub): no fee figures, no incumbent names. */
+  "meta.description":
+    "Mobeeli is the trust infrastructure for Indonesia's $5.3B automotive aftermarket — a parts marketplace where fitment is verified before checkout, sellers keep more of every sale, and both sides are protected.",
+  "meta.join.title": "Join Waitlist — Mobeeli",
+  "meta.join.description":
+    "Be one of the first shops on Mobeeli. Tell us about your business. A founder follows up personally — no payment, no commitment to express interest.",
   "nav.cta": "Join Waitlist",
   "hero.line1": "Every part,",
   "hero.line2": "verified to fit.",
@@ -244,6 +251,13 @@ export type CopyKey = keyof typeof en;
 
 const id: Record<CopyKey, string> = {
   "meta.title": "Mobeeli — Setiap suku cadang, dipastikan cocok.",
+  /* SEO + social meta (F-010) — composed verbatim from approved design copy
+     (hero_sub; jw_left_h + jw_left_sub): no fee figures, no incumbent names. */
+  "meta.description":
+    "Mobeeli adalah infrastruktur kepercayaan untuk aftermarket otomotif Indonesia senilai $5,3 miliar — marketplace suku cadang tempat setiap barang dipastikan cocok sebelum checkout, penjual membawa pulang lebih banyak dari tiap transaksi, dan dua belah pihak sama-sama terlindungi.",
+  "meta.join.title": "Join Waitlist — Mobeeli",
+  "meta.join.description":
+    "Jadi salah satu toko pertama di Mobeeli. Ceritakan tentang bisnis Anda. Salah satu founder akan menghubungi langsung — tanpa bayar, tanpa komitmen untuk menyatakan minat.",
   "nav.cta": "Join Waitlist",
   "hero.line1": "Setiap suku cadang,",
   "hero.line2": "dipastikan cocok.",
