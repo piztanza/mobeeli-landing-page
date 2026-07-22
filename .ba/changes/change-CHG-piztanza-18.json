@@ -1,0 +1,67 @@
+{
+  "version": "1.0",
+  "change_id": "CHG-piztanza-18",
+  "author": "piztanza",
+  "type": "fix",
+  "description": "Cross-device visual fixes from live-site screenshot review: hero floating cards become in-flow below 1024px (they currently overlap the scene and escape the hero on phone); missing PDF chip icon fixed; desktop fit-pill repositioned off the Authenticity label; price no-wrap in the part card; per-breakpoint hero H1 reserved height; tighter phone catalog stage; taller phone map aspect (~4:3 <640px).",
+  "created_at": "2026-07-22T14:11:05.572Z",
+  "base_spec_version": "2026-07-22T12:57:20Z",
+  "target_branch": "change/CHG-piztanza-18",
+  "seed_ids": [
+    "F-001"
+  ],
+  "blast_radius": {
+    "affected_features": [
+      "F-001"
+    ],
+    "affected_files": []
+  },
+  "spec_deltas": {
+    "added": [],
+    "modified": [
+      "F-001"
+    ],
+    "removed": []
+  },
+  "cascade_flags": [],
+  "overlaps": [
+    {
+      "change_id": "CHG-piztanza-01",
+      "author": "piztanza",
+      "shared": [
+        "F-001"
+      ]
+    },
+    {
+      "change_id": "CHG-piztanza-09",
+      "author": "piztanza",
+      "shared": [
+        "F-001"
+      ]
+    },
+    {
+      "change_id": "CHG-piztanza-10",
+      "author": "piztanza",
+      "shared": [
+        "F-001"
+      ]
+    },
+    {
+      "change_id": "CHG-piztanza-14",
+      "author": "piztanza",
+      "shared": [
+        "F-001"
+      ]
+    }
+  ],
+  "acceptance_criteria": [
+    "Below 1024px the hero's part card, fit pill, and video card render in-flow below the scene with no overlap of each other, the scene, the nav, or the following section; >=1024px keeps the floating overlay",
+    "All three file-type icons (XLS, PDF, JPG) visibly render in the AI catalog chips at every width",
+    "At >=1024px the 'Authenticity — Genuine' label is fully readable — the fit pill no longer covers any spec label",
+    "'Rp 385.000' stays on one line at every width with balanced spacing to the Verified-fit chip",
+    "Hero H1-to-subcopy gap looks intentional at 390/768/1024/1440 with zero rotation layout shift",
+    "Phone (<640px) AI catalog stage is compact with proportionally larger sprites — no large empty dark block; unify map uses ~4:3 aspect and remains draggable",
+    "No copy changes; reduced-motion behavior preserved; suite green with updated tests"
+  ],
+  "status": "building"
+}

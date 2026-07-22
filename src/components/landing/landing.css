@@ -394,14 +394,23 @@
   width: 9px;
   height: 9px;
 }
+/* All four rotation pairs are grid-stacked in one cell: the invisible sizers
+   reserve exactly the tallest pair's height at the current width, so rotation
+   never shifts layout at any breakpoint (CHG-piztanza-18). */
 .mb-hero-h1 {
   margin: 22px 0 0;
-  min-height: 3.4em;
+  display: grid;
   font-size: clamp(36px, 4.6vw, 60px);
   line-height: 1.1;
   letter-spacing: -0.03em;
   font-weight: 800;
   color: #fff;
+}
+.mb-hero-h1 > span {
+  grid-area: 1 / 1;
+}
+.mb-hero-h1-sizer {
+  visibility: hidden;
 }
 .mb-rot-line2 {
   color: var(--mb-light-accent);
@@ -485,10 +494,12 @@
     transition: none;
   }
 }
+/* Shrink-to-fit up to 272px so the price row never wraps (CHG-piztanza-18). */
 .mb-card-part {
   top: 28px;
   left: -18px;
-  width: 242px;
+  width: auto;
+  max-width: 272px;
   border-radius: 16px;
   padding: 13px;
   box-shadow: 0 24px 54px rgba(3, 8, 16, 0.45);
@@ -518,12 +529,15 @@
 .mb-card-part-row {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
   margin-top: 6px;
 }
 .mb-card-part-price {
   font-size: 12.5px;
   font-weight: 800;
+  /* "Rp 385.000" stays one line at every width (CHG-piztanza-18). */
+  white-space: nowrap;
 }
 .mb-chip-tint {
   background: var(--mb-tint);
@@ -534,9 +548,12 @@
   border-radius: var(--mb-radius-pill);
   white-space: nowrap;
 }
+/* bottom 24px (design: 104px) straddles the scene's lower edge so the pill
+   sits clear of the projected "Authenticity — Genuine" spec label, which
+   lands ~80% down the scene at desktop (CHG-piztanza-18). */
 .mb-card-fit {
   right: -14px;
-  bottom: 104px;
+  bottom: 24px;
   border-radius: var(--mb-radius-pill);
   padding: 11px 17px;
   box-shadow: 0 20px 44px rgba(3, 8, 16, 0.45);
@@ -567,6 +584,36 @@
   font-weight: 600;
   color: var(--mb-muted);
   margin-top: 7px;
+}
+
+/* Below 1024px the hero cards leave the floating overlay and flow below the
+   scene (CHG-piztanza-18): no negative offsets, so they can never overlap
+   each other, the scene, the nav, or the following section. The reveal
+   transition still runs; only the ambient float bobbing is overlay-only. */
+@media (max-width: 1023.98px) {
+  .mb-hero-visual {
+    min-height: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .mb-hero-scene {
+    width: 100%;
+  }
+  .mb-herocard {
+    position: static;
+    animation: none;
+  }
+  .mb-card-part {
+    max-width: 100%;
+  }
+  .mb-card-fit {
+    max-width: 100%;
+  }
+  .mb-card-video {
+    width: min(238px, 100%);
+  }
 }
 
 /* ---------- proof bar ---------- */
@@ -1602,6 +1649,13 @@
 .mb-uni-scene {
   aspect-ratio: 1.9/1;
 }
+/* Phone: a taller ~4:3 frame keeps the archipelago readable; the scene's own
+   drag/idle-drift behavior is untouched (CHG-piztanza-18). */
+@media (max-width: 639.98px) {
+  .mb-uni-scene {
+    aspect-ratio: 4/3;
+  }
+}
 .mb-uni-scene > * {
   width: 100%;
   height: 100%;
@@ -1729,34 +1783,48 @@
   }
 }
 
-/* Phone: floating hero cards stay inside the viewport (no negative offsets),
-   and the biggest headlines step down so nothing can overflow at 360/390px. */
+/* Phone (<640px): tighter catalog stage — proportionally larger sprites fill
+   the 4:3 stage so there is no large empty dark block (CHG-piztanza-18).
+   Right-column sprites (plug/air at left 70%) cap at 30% to stay inside. */
+@media (max-width: 639.98px) {
+  .mb-cat-stage {
+    aspect-ratio: 4/3;
+    margin-top: 18px;
+  }
+  .mb-sprite--pad {
+    width: 38%;
+  }
+  .mb-sprite--filter {
+    width: 33%;
+  }
+  .mb-sprite--plug {
+    width: 29%;
+  }
+  .mb-sprite--disc {
+    width: 38%;
+  }
+  .mb-sprite--shock {
+    width: 35%;
+  }
+  .mb-sprite--air {
+    width: 30%;
+  }
+  .mb-cat-copy {
+    margin-top: 22px;
+  }
+}
+
+/* Phone: hero cards are already in-flow (<1024px block above); the biggest
+   headlines step down so nothing can overflow at 360/390px. */
 @media (max-width: 559.98px) {
   .mb-hero {
     padding-top: 64px;
     padding-bottom: 96px;
   }
-  .mb-hero-visual {
-    min-height: 0;
-  }
-  .mb-card-part {
-    left: 0;
-    width: min(242px, 82%);
-  }
-  .mb-card-fit {
-    right: 0;
-    max-width: 94%;
-  }
-  .mb-card-video {
-    left: 8px;
-    bottom: -26px;
-    width: min(238px, 68%);
-  }
 }
 @media (max-width: 479.98px) {
   .mb-hero-h1 {
     font-size: 32px;
-    min-height: 3.6em;
   }
   .mb-h2 {
     font-size: 29px;
