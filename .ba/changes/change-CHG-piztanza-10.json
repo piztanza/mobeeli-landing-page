@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "change_id": "CHG-piztanza-10",
+  "author": "piztanza",
+  "type": "modify",
+  "description": "Responsive overhaul (F-001) + mobile hamburger navigation on all 5 pages + team headshots (F-013): collapsible nav sheet below ~880px (animated icon, scroll lock, Escape/outside close, a11y), per-breakpoint audit of every section at 360/390/768/1024/1280px with no horizontal overflow, 44px touch targets and 16px inputs in the wizard, and Salman + Ferdinansyah headshots (already placed at public/assets/team/salman.jpg + ferdinansyah.jpg, web-optimized) wired into the Team cards via next/image (Yavet keeps the gradient placeholder). No copy changes.",
+  "created_at": "2026-07-22T10:57:52.317Z",
+  "base_spec_version": "2026-07-22T09:48:40Z",
+  "target_branch": "change/CHG-piztanza-10",
+  "seed_ids": [
+    "F-001",
+    "F-013"
+  ],
+  "blast_radius": {
+    "affected_features": [
+      "F-001",
+      "F-013"
+    ],
+    "affected_files": []
+  },
+  "spec_deltas": {
+    "added": [],
+    "modified": [
+      "F-001",
+      "F-013"
+    ],
+    "removed": []
+  },
+  "cascade_flags": [],
+  "overlaps": [
+    {
+      "change_id": "CHG-piztanza-01",
+      "author": "piztanza",
+      "shared": [
+        "F-001"
+      ]
+    },
+    {
+      "change_id": "CHG-piztanza-09",
+      "author": "piztanza",
+      "shared": [
+        "F-001"
+      ]
+    }
+  ],
+  "acceptance_criteria": [
+    "Below ~880px every page shows logo + hamburger; menu opens a full-width sheet with the 6 links, EN/ID toggle and Join CTA; closes on link tap/outside tap/Escape; aria-expanded + focus management correct; desktop nav unchanged at >=880px",
+    "No horizontal scroll on any page at 360, 390, 768, 1024 or 1280px; headlines never overflow; floating hero cards stay within bounds on phone",
+    "Grid collapses verified: proof bar 4→2→1, cards stack, comparison single-column on phone, AI catalog stage stacks above headline with scaled sprites, join page stacks panel above wizard",
+    "Wizard touch targets >=44px and input font-size >=16px (no iOS zoom)",
+    "Team cards render salman.jpg and ferdinansyah.jpg (object-fit cover, top position, full-name alts); Yavet keeps the gradient placeholder",
+    "Suite green incl. new nav + team tests"
+  ],
+  "status": "building"
+}

@@ -1,14 +1,18 @@
 "use client";
 
+import Image from "next/image";
+
 import type { CopyKey } from "@/lib/i18n";
 import { useT } from "@/lib/i18n/LanguageProvider";
 
-// Gradient placeholders per the design; real headshots slot in with F-013.
+// Real headshots slot into the 1:1 card area (F-013, CHG-piztanza-10); founders
+// without a supplied photo keep the design's gradient placeholder.
 const FOUNDERS: readonly {
   name: CopyKey;
   role: CopyKey;
   bio: CopyKey;
   photo: string;
+  headshot?: string;
   linkedin?: string;
 }[] = [
   { name: "team_n1", role: "team_r1", bio: "team_c1", photo: "mb-team-photo--a" },
@@ -17,6 +21,7 @@ const FOUNDERS: readonly {
     role: "team_r2",
     bio: "team_c2",
     photo: "mb-team-photo--b",
+    headshot: "/assets/team/salman.jpg",
     linkedin: "https://www.linkedin.com/in/msalmanalhafizh/",
   },
   {
@@ -24,6 +29,7 @@ const FOUNDERS: readonly {
     role: "team_r3",
     bio: "team_c3",
     photo: "mb-team-photo--c",
+    headshot: "/assets/team/ferdinansyah.jpg",
     linkedin: "https://www.linkedin.com/in/ferdinansyah-h-864134157/",
   },
 ];
@@ -43,7 +49,19 @@ export default function TeamSection() {
         <div className="mb-team-grid">
           {FOUNDERS.map((founder, i) => (
             <div key={founder.name} data-rev={i} className="mb-team-card">
-              <div className={`mb-team-photo ${founder.photo}`} aria-hidden />
+              <div
+                className={`mb-team-photo ${founder.photo}`}
+                {...(founder.headshot ? {} : { "aria-hidden": true })}
+              >
+                {founder.headshot && (
+                  <Image
+                    src={founder.headshot}
+                    alt={t(founder.name)}
+                    fill
+                    sizes="(max-width: 700px) 100vw, 420px"
+                  />
+                )}
+              </div>
               <div className="mb-team-body">
                 <div className="mb-team-namerow">
                   <div className="mb-team-name">{t(founder.name)}</div>
