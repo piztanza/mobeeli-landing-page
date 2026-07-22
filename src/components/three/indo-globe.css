@@ -1,0 +1,51 @@
+/* <IndoGlobe> (F-006) — ported 1:1 from the design's indo-globe.js shadow
+   styles. The host paints a dark radial gradient that shows until the canvas
+   renders and remains the fallback when WebGL is unavailable; the .fade
+   overlay reproduces the design's radial edge fade over the canvas. */
+
+.mb-indo {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: none;
+  background:
+    radial-gradient(115% 100% at 50% 42%, rgba(18, 63, 158, 0.18), transparent 58%),
+    radial-gradient(115% 100% at 50% 42%, #101b2e 40%, #0d1522 96%);
+}
+.mb-indo.is-drag {
+  cursor: grabbing;
+}
+.mb-indo canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+.mb-indo-fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(115% 100% at 50% 42%, transparent 58%, #0d1522 96%);
+}
+.mb-indo-lbl {
+  position: absolute;
+  transform: translate(-50%, -130%);
+  white-space: nowrap;
+  background: rgba(13, 21, 34, 0.78);
+  border: 1px solid rgba(91, 155, 247, 0.45);
+  border-radius: 999px;
+  padding: 6px 13px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+.mb-indo-lbl b {
+  color: #5b9bf7;
+  font-weight: 800;
+}

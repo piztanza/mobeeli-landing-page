@@ -158,6 +158,8 @@ const en = {
   uni_p:
     "100,000+ workshops and thousands of parts shops, finally speaking the same language — starting in Jakarta, 2026, then island by island.",
   uni_drag: "Drag the map to explore — launching in Jakarta first.",
+  indo_city: "Jakarta",
+  indo_note: "— first market, 2026",
   foot_tag: "One platform to unify Indonesia's auto industry.",
   foot_copyright: "Mobeeli — Jakarta, Indonesia · 2026",
 } as const satisfies Record<string, string>;
@@ -309,6 +311,8 @@ const id: Record<CopyKey, string> = {
   uni_p:
     "100.000+ bengkel dan ribuan toko onderdil, akhirnya bicara dalam bahasa katalog yang sama — mulai dari Jakarta di 2026, lalu pulau demi pulau.",
   uni_drag: "Geser petanya — kami mulai dari Jakarta.",
+  indo_city: "Jakarta",
+  indo_note: "— pasar pertama, 2026",
   foot_tag: "Satu platform yang menyatukan industri otomotif Indonesia.",
   foot_copyright: "Mobeeli — Jakarta, Indonesia · 2026",
 };
