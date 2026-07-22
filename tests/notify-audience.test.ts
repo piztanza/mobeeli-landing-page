@@ -105,6 +105,76 @@ describe("buyer audience capture (F-015)", () => {
       error: { message: "internal error", statusCode: 500, name: "internal_server_error" },
     });
     await expect(addBuyerContact("buyer@example.com")).rejects.toThrow("internal error");
+    // No property-related rejection → no retry.
+    expect(createMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("retries WITHOUT properties when the property definition does not exist (best-effort tag)", async () => {
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    createMock
+      .mockResolvedValueOnce({
+        data: null,
+        error: {
+          message: "Properties source do not exist on this audience",
+          statusCode: 422,
+          name: "validation_error",
+        },
+      })
+      .mockResolvedValueOnce({ data: { id: "c_2" }, error: null });
+
+    await expect(addBuyerContact("buyer@example.com")).resolves.toBeUndefined();
+
+    expect(createMock).toHaveBeenCalledTimes(2);
+    expect(createMock).toHaveBeenNthCalledWith(1, {
+      audienceId: "aud_only",
+      email: "buyer@example.com",
+      unsubscribed: false,
+      properties: { [BUYER_SOURCE_PROPERTY]: BUYER_SOURCE_VALUE },
+    });
+    // The retry drops the properties entirely so the buyer still lands in the audience.
+    expect(createMock).toHaveBeenNthCalledWith(2, {
+      audienceId: "aud_only",
+      email: "buyer@example.com",
+      unsubscribed: false,
+    });
+
+    // Exactly one warning, naming the missing property definition.
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy.mock.calls[0][0]).toContain(`"${BUYER_SOURCE_PROPERTY}"`);
+    expect(warnSpy.mock.calls[0][0]).toContain("Properties source do not exist");
+    warnSpy.mockRestore();
+  });
+
+  it("treats a duplicate contact on the properties-less retry as success", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    createMock
+      .mockResolvedValueOnce({
+        data: null,
+        error: { message: "Property not found", statusCode: 422, name: "validation_error" },
+      })
+      .mockResolvedValueOnce({
+        data: null,
+        error: { message: "Contact already exists", statusCode: 409, name: "validation_error" },
+      });
+    await expect(addBuyerContact("buyer@example.com")).resolves.toBeUndefined();
+    expect(createMock).toHaveBeenCalledTimes(2);
+    vi.mocked(console.warn).mockRestore();
+  });
+
+  it("throws (→ alert-email fallback) when the properties-less retry fails too", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    createMock
+      .mockResolvedValueOnce({
+        data: null,
+        error: { message: "Properties do not exist", statusCode: 422, name: "validation_error" },
+      })
+      .mockResolvedValueOnce({
+        data: null,
+        error: { message: "internal error", statusCode: 500, name: "internal_server_error" },
+      });
+    await expect(addBuyerContact("buyer@example.com")).rejects.toThrow("internal error");
+    expect(createMock).toHaveBeenCalledTimes(2);
+    vi.mocked(console.warn).mockRestore();
   });
 
   it("fallback alert emails the buyer address to WAITLIST_ALERT_TO", async () => {
