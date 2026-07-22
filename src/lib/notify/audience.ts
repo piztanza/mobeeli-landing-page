@@ -78,11 +78,26 @@ function isAlreadyExists(error: { message: string; statusCode: number | null }):
 }
 
 /**
+ * Resend rejects a create that references contact properties with no matching
+ * property definition on the audience (e.g. "source" was never defined in the
+ * dashboard). That rejection is about the tag, not the address.
+ */
+function isMissingPropertyDefinition(error: {
+  message: string;
+  statusCode: number | null;
+}): boolean {
+  return /propert/i.test(error.message) && /(not exist|not found|unknown|not defined)/i.test(error.message);
+}
+
+/**
  * Add a buyer email to the Resend audience, tagged source=buyer_launch so the
  * user's "Buyers" segment includes it. A duplicate email resolves normally
  * (the buyer is already captured — the client shows the same success state).
- * Throws AudienceDiscoveryError / Error on anything else so the route can run
- * the alert-email fallback.
+ * The property tag is best-effort: if Resend rejects the create because the
+ * property definition does not exist on the audience, the create is retried
+ * WITHOUT properties (one warning logged) so the buyer still lands in the
+ * audience. Throws AudienceDiscoveryError / Error on anything else so the
+ * route can run the alert-email fallback.
  */
 export async function addBuyerContact(email: string): Promise<void> {
   const resend = resendClient();
@@ -94,9 +109,27 @@ export async function addBuyerContact(email: string): Promise<void> {
     unsubscribed: false,
     properties: { [BUYER_SOURCE_PROPERTY]: BUYER_SOURCE_VALUE },
   });
-  if (error && !isAlreadyExists(error)) {
-    throw new Error(`Resend contact create failed: ${error.message}`);
+  if (!error || isAlreadyExists(error)) return;
+
+  if (isMissingPropertyDefinition(error)) {
+    console.warn(
+      `notify: Resend audience has no "${BUYER_SOURCE_PROPERTY}" property definition — ` +
+        `retrying the contact create without properties; the "Buyers" segment ` +
+        `(${BUYER_SOURCE_PROPERTY}=${BUYER_SOURCE_VALUE}) will not pick this contact up ` +
+        `until the property is defined. Resend said: ${error.message}`,
+    );
+    const { error: retryError } = await resend.contacts.create({
+      audienceId,
+      email,
+      unsubscribed: false,
+    });
+    if (retryError && !isAlreadyExists(retryError)) {
+      throw new Error(`Resend contact create failed: ${retryError.message}`);
+    }
+    return;
   }
+
+  throw new Error(`Resend contact create failed: ${error.message}`);
 }
 
 /**
