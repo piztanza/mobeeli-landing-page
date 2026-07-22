@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "change_id": "CHG-piztanza-11",
+  "author": "piztanza",
+  "type": "modify",
+  "description": "Remove WhatsApp from the wizard success panel (F-007): primary CTA becomes a bilingual prefilled mailto to info@mobeeli.com personalized with the business name; wa.me builder, NEXT_PUBLIC_WHATSAPP_NUMBER, and related i18n/tests removed.",
+  "created_at": "2026-07-22T11:16:28.707Z",
+  "base_spec_version": "2026-07-22T10:56:24Z",
+  "target_branch": "change/CHG-piztanza-11",
+  "seed_ids": [
+    "F-007"
+  ],
+  "blast_radius": {
+    "affected_features": [
+      "F-007"
+    ],
+    "affected_files": []
+  },
+  "spec_deltas": {
+    "added": [],
+    "modified": [
+      "F-007"
+    ],
+    "removed": []
+  },
+  "cascade_flags": [],
+  "overlaps": [
+    {
+      "change_id": "CHG-piztanza-05",
+      "author": "piztanza",
+      "shared": [
+        "F-007"
+      ]
+    }
+  ],
+  "acceptance_criteria": [
+    "Success panel primary CTA opens mailto:info@mobeeli.com with language-appropriate prefilled subject + body including the submitted business name (URL-encoded correctly)",
+    "No WhatsApp remnants anywhere: no wa.me code, no NEXT_PUBLIC_WHATSAPP_NUMBER in code or .env.example, no orphaned i18n keys",
+    "Secondary 'Back to Mobeeli' unchanged; panel behavior otherwise identical in both languages",
+    "Suite green with mailto builder tests replacing the WhatsApp tests"
+  ],
+  "status": "building"
+}

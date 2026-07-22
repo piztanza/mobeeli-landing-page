@@ -235,15 +235,16 @@ const en = {
   jw_errPhone: "That number doesn't look right.",
   jw_successTitle: "You're on the list.",
   jw_succBody:
-    "Thank you, {n}. A founder will reach out personally on WhatsApp or email. Want to talk sooner? Message us on WhatsApp now.",
-  jw_waCta: "Chat on WhatsApp",
+    "Thank you, {n}. A founder will reach out personally by email. Want to talk sooner? Email us now.",
+  jw_emailCta: "Email us",
   jw_homeCta: "Back to Mobeeli",
   /* Design-hardcoded visible strings promoted to keys (identical in both languages). */
   jw_ph_email: "nama@toko.com",
   jw_ph_phone: "+62 812 …",
-  /* Success/WhatsApp interpolation strings from the design's script. */
+  /* Success/mailto interpolation strings for the prefilled email CTA. */
   jw_fallback_name: "there",
-  jw_wa_msg:
+  jw_mail_subject: "Early Adaptor waitlist — {n}",
+  jw_mail_body:
     "Hi Mobeeli, I just joined the Early Adaptor waitlist. Business: {n}. I'd like to get started.",
   /* Submit states (F-008 — the design stops at a client-side success). */
   jw_submitting: "Submitting…",
@@ -475,15 +476,16 @@ const id: Record<CopyKey, string> = {
   jw_errPhone: "Format nomor sepertinya belum benar.",
   jw_successTitle: "Pendaftaran Anda diterima.",
   jw_succBody:
-    "Terima kasih, {n}. Salah satu founder akan menghubungi langsung lewat WhatsApp atau email. Ingin ngobrol lebih cepat? Chat kami via WhatsApp sekarang.",
-  jw_waCta: "Chat via WhatsApp",
+    "Terima kasih, {n}. Salah satu founder akan menghubungi langsung lewat email. Ingin ngobrol lebih cepat? Email kami sekarang.",
+  jw_emailCta: "Email kami",
   jw_homeCta: "Kembali ke Mobeeli",
   /* Design-hardcoded visible strings promoted to keys (identical in both languages). */
   jw_ph_email: "nama@toko.com",
   jw_ph_phone: "+62 812 …",
-  /* Success/WhatsApp interpolation strings from the design's script. */
+  /* Success/mailto interpolation strings for the prefilled email CTA. */
   jw_fallback_name: "rekan",
-  jw_wa_msg: "Halo Mobeeli, saya baru daftar Early Adaptor. Bisnis: {n}. Saya ingin mulai.",
+  jw_mail_subject: "Waitlist Early Adaptor — {n}",
+  jw_mail_body: "Halo Mobeeli, saya baru daftar Early Adaptor. Bisnis: {n}. Saya ingin mulai.",
   /* Submit states (F-008 — the design stops at a client-side success). */
   jw_submitting: "Mengirim…",
   jw_submitErr:
