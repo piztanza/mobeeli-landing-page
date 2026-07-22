@@ -33,5 +33,5 @@
     "RESEND_AUDIENCE_ID documented as optional in .env.example; README notes the property key used for the segment filter",
     "Suite green incl. validation, honeypot, discovery single/zero/multiple, and already-exists tests"
   ],
-  "status": "drafted"
+  "status": "building"
 }
