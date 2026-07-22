@@ -39,5 +39,5 @@
     "Unrelated create errors still use the alert-email fallback",
     "Suite green with new retry tests"
   ],
-  "status": "building"
+  "status": "merged"
 }
