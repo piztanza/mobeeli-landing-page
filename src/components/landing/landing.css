@@ -1064,8 +1064,9 @@
 
 /* ---------- AI catalog card (loop animation ships with F-005) ---------- */
 
+/* Between the buyer strip and Why Mobeeli with symmetric 96px padding (CHG-piztanza-14). */
 .mb-cat-section {
-  padding: var(--mb-section-y) var(--mb-container-pad) 0;
+  padding: var(--mb-section-y) var(--mb-container-pad);
 }
 .mb-cat-card {
   max-width: var(--mb-container-max);

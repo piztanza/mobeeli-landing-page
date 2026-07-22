@@ -2,10 +2,20 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type MouseEvent as ReactMouseEvent,
+} from "react";
 
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { langs, type CopyKey } from "@/lib/i18n";
 import { useLang, useT } from "@/lib/i18n/LanguageProvider";
+import { scrollToSectionId } from "@/lib/scroll/sectionScroll";
+
+import { useActiveSection } from "./ActiveSectionProvider";
 
 // Landing anchors are /#id links so they resolve from every page, not just /
 // (CHG-piztanza-09); Team, Early Adaptors and Investors live on their own routes.
@@ -46,14 +56,53 @@ function LangToggle() {
  * /join). Below 880px the links/toggle/CTA collapse into a hamburger sheet (CHG-piztanza-10):
  * animated icon, body scroll lock, closes on link tap / outside tap / Escape (returning focus
  * to the toggle), aria-expanded + aria-controls wired to the sheet.
+ *
+ * On the landing page the /#id anchors scroll programmatically (CHG-piztanza-14) — a re-click
+ * on the same item always scrolls back, short sections center in the viewport, reduced motion
+ * jumps instantly — and the scrollspy's active section carries aria-current/data-active (no
+ * visible styling yet). From other pages the links navigate to /#id as before.
  */
 export default function Nav() {
   const t = useT();
   const [open, setOpen] = useState(false);
+  const activeId = useActiveSection();
+  const reduced = useReducedMotion();
   const toggleRef = useRef<HTMLButtonElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
 
   const close = useCallback(() => setOpen(false), []);
+
+  const onSectionClick = useCallback(
+    (event: ReactMouseEvent<HTMLAnchorElement>, id: string) => {
+      close();
+      // Modified/secondary clicks and non-landing pages fall through to the Link navigation.
+      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (window.location.pathname !== "/") return;
+      if (!document.getElementById(id)) return;
+      event.preventDefault();
+      // Next frame: the sheet's body scroll lock must release before the glide starts.
+      requestAnimationFrame(() => scrollToSectionId(id, { instant: reduced }));
+    },
+    [close, reduced],
+  );
+
+  // One markup for desktop bar and mobile sheet: /#id anchors get the programmatic
+  // scroll + scrollspy state; route links just close the sheet (a no-op on desktop).
+  const sectionLink = ([href, key]: readonly [href: string, key: CopyKey]) => {
+    const id = href.startsWith("/#") ? href.slice("/#".length) : null;
+    return (
+      <Link
+        key={key}
+        href={href}
+        aria-current={id !== null && id === activeId ? "location" : undefined}
+        data-active={id !== null && id === activeId ? "true" : undefined}
+        onClick={id === null ? close : (event) => onSectionClick(event, id)}
+      >
+        {t(key)}
+      </Link>
+    );
+  };
 
   // Body scroll lock while the sheet is open.
   useEffect(() => {
@@ -97,13 +146,7 @@ export default function Nav() {
         <Link href="/" className="mb-nav-logo" onClick={close}>
           <Image src="/assets/mobeeli-logo-blue.png" alt="Mobeeli" width={2891} height={1109} />
         </Link>
-        <div className="mb-nav-links">
-          {NAV_LINKS.map(([href, key]) => (
-            <Link key={key} href={href}>
-              {t(key)}
-            </Link>
-          ))}
-        </div>
+        <div className="mb-nav-links">{NAV_LINKS.map(sectionLink)}</div>
         <div className="mb-nav-spacer" />
         <LangToggle />
         <Link href="/join" className="mb-nav-cta">
@@ -130,13 +173,7 @@ export default function Nav() {
         className={`mb-nav-sheet${open ? " is-open" : ""}`}
         hidden={!open}
       >
-        <div className="mb-nav-sheet-links">
-          {NAV_LINKS.map(([href, key]) => (
-            <Link key={key} href={href} onClick={close}>
-              {t(key)}
-            </Link>
-          ))}
-        </div>
+        <div className="mb-nav-sheet-links">{NAV_LINKS.map(sectionLink)}</div>
         <div className="mb-nav-sheet-foot">
           <LangToggle />
           <Link href="/join" className="mb-nav-cta" onClick={close}>
