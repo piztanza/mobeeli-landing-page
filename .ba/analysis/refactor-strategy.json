@@ -1,0 +1,70 @@
+{
+  "version": "1.0",
+  "created_at": "2026-07-22T06:21:47.886Z",
+  "source": "proposed",
+  "chosen": "STRAT-001",
+  "candidates": [
+    {
+      "id": "STRAT-001",
+      "title": "Next.js (App Router) + TypeScript on Vercel — static marketing pages, client-island 3D, one lead API route, Neon Postgres + Resend",
+      "stack": [
+        "node",
+        "typescript",
+        "nextjs",
+        "react"
+      ],
+      "structure": "src/app (routes: / landing, /join wizard, /api/waitlist route handler) · src/components (section components per design band) · src/components/three (FitmentWheel, IndoGlobe — client-only islands, dynamic import, no SSR) · src/lib/i18n (TXT copy maps EN/ID mirroring the design keys, lang context + localStorage persistence) · src/lib/db (drizzle schema + client for waitlist_leads) · src/lib/email (Resend notification template) · public/assets (logos, part sprites, icons, unify-graph.mp4) · public/fonts (self-hosted Plus Jakarta Sans woff2)",
+      "conventions": [
+        "TypeScript strict mode",
+        "ESLint (next/core-web-vitals) + Prettier",
+        "All user-facing strings live ONLY in src/lib/i18n copy maps (both en and id) — no hardcoded copy in components",
+        "Brand tokens as CSS custom properties in globals.css matching design/style.json exactly",
+        "Design copy rules enforced in code review: no exact fee, no incumbent names, 'Early Adaptors' spelling"
+      ],
+      "patterns": [
+        "Server components for static sections; 'use client' islands only for interactive pieces (language toggle, rotator, wizard, 3D scenes, scroll reveal)",
+        "three.js scenes as self-contained client components honoring the design's lang/static contract; three imported from npm (not unpkg CDN), lazy-loaded via next/dynamic + IntersectionObserver",
+        "POST /api/waitlist: zod-validated payload → honeypot + rate-limit check → drizzle insert into Postgres → Resend email alert to the team → 200; client shows success only after 200",
+        "prefers-reduced-motion media handling centralized in a useReducedMotion hook feeding all animated components",
+        "next/image for logos/sprites with explicit sizes; fonts via @font-face with font-display swap"
+      ],
+      "test_approach": "Vitest unit tests: waitlist payload validation (zod schema incl. honeypot/limits), wa.me link builder, i18n completeness (every key present in both en and id), numbers-canon switch; plus a green smoke suite at foundation. Playwright e2e (wizard happy path + language toggle) added as a later change.",
+      "security": [
+        "Server-side zod validation + field length limits on /api/waitlist",
+        "Honeypot rejection and per-IP rate limiting on the lead endpoint",
+        "Secrets (DATABASE_URL, RESEND_API_KEY) only in Vercel env vars — never in client bundles",
+        "HTTPS-only; no third-party trackers without approval"
+      ],
+      "performance": [
+        "LCP < 2.5s mobile: hero copy renders server-side before any 3D loads; three.js code-split and deferred until idle/in-view",
+        "Static generation for both pages (landing fully static; wizard client-side with API)",
+        "Optimized assets: resized logos, compressed sprites, latin-subset fonts, lazy muted looping mp4",
+        "Animations gated by IntersectionObserver; reduced-motion static fallbacks"
+      ],
+      "risk": "low",
+      "effort": "M",
+      "fit_to_intent": "Matches every MUST feature: faithful port of the design's DOM/CSS (inline-style design translates to CSS modules/globals with identical tokens), the two three.js custom elements port nearly 1:1 as React-wrapped client components, and the one dynamic need (waitlist persistence + email, per the approved decision) is a single route handler on the same Vercel deployment — no separate backend to operate. Vercel is already connected in the user's tooling.",
+      "constraints": {
+        "source_globs": [
+          "src/**",
+          "public/**"
+        ],
+        "forbidden_globs": [
+          "pages/**"
+        ],
+        "forbidden_deps": [
+          "jquery",
+          "bootstrap"
+        ],
+        "required_deps": [
+          "next",
+          "react",
+          "three",
+          "zod",
+          "drizzle-orm",
+          "resend"
+        ]
+      }
+    }
+  ]
+}
