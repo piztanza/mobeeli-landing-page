@@ -32,5 +32,5 @@
     "three code-split (next/dynamic ssr:false), init on approach, clean unmount disposal; dark gradient fallback without WebGL",
     "Suite stays green; new unit tests cover the point-in-polygon fill and label translation"
   ],
-  "status": "building"
+  "status": "merged"
 }
