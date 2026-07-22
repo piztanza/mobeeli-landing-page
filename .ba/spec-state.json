@@ -89,30 +89,11 @@
     ],
     "features": {
       "must": [
-        "F-001",
-        "F-002",
-        "F-003",
-        "F-004",
-        "F-005",
-        "F-006",
-        "F-007",
-        "F-008",
-        "F-009"
+        "F-016"
       ],
-      "should": [
-        "F-010",
-        "F-011",
-        "F-012",
-        "F-013"
-      ],
-      "could": [
-        "F-014",
-        "F-015"
-      ],
-      "wont": [
-        "F-W01",
-        "F-W02"
-      ]
+      "should": [],
+      "could": [],
+      "wont": []
     },
     "roles": [
       null,
@@ -167,7 +148,7 @@
     "integrations": []
   },
   "next_id": {
-    "feature": 16,
+    "feature": 17,
     "feature_wont": 3,
     "screen": 4,
     "flow": 5,

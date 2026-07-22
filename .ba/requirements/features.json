@@ -1,252 +1,32 @@
 {
   "version": "1.0",
-  "created_at": "2026-07-22T10:06:00.000Z",
+  "created_at": "2026-07-22T11:20:00.000Z",
   "features": {
     "must_have": [
       {
-        "id": "F-001",
-        "title": "Landing page — full approved section stack",
+        "title": "Investor deck request + timed hosted deck viewer",
         "priority": "must",
-        "description": "Single-page landing matching the approved design (checkpoint 3.2): sticky nav (logo, 6 section links, EN/ID pill toggle, Join Waitlist CTA) → dark hero → proof bar (4 stats) → The problem (3 pain tiles + Senen market quote) → How it works (3 steps + 'The same search, two outcomes' comparison) → buyer strip → Why Mobeeli blue band → AI catalog showcase card → Early Adaptors (3 benefit cards + waitlist CTA) → Team (3 founders) → Investors → Unify band with Indonesia map → dark footer.",
+        "description": "Founder-in-loop deck flow: /investors 'Request the deck' opens a bilingual form (name, firm/fund, work email required; LinkedIn/website + message optional; honeypot) → rate-limited POST /api/deck-request → Resend alert to the team with the requester's details and three mint options (primary 'Generate 1-hour deck link' button; plain text links for a non-expiring link and a custom-hours link) → founder-only /deck-admin page gated by DECK_SECRET mints stateless HMAC-signed tokens → /deck?token= renders the private pitch deck (private/deck/mobeeli-pitchdeck.pdf, never under public/) on pdfjs canvases with no download UI, streaming bytes from token-gated /api/deck-file; expired links show a bilingual re-request page. Email-only — no database writes.",
         "acceptance_criteria": [
-          "All 13 sections present in the approved order with approved copy (EN and ID)",
-          "Brand tokens match the design (Plus Jakarta Sans, #2f7df6 palette, #0d1522 dark surfaces, 18px card radii, pill buttons)",
-          "Anchor navigation works from nav links with sticky-header scroll offset",
-          "Section reveal animations on scroll (data-rev pattern) with reduced-motion fallback"
+          "Request form validates and alerts the team with the three mint options (1-hour primary button, non-expiring + custom-hours text links)",
+          "/deck-admin 404s without the correct DECK_SECRET; presets auto-generate; custom hours input works; links shown with expiry + copy button",
+          "Tokens are tamper-proof HMAC with exp|null enforced server-side on /deck and /api/deck-file (403 without valid token)",
+          "Viewer renders all deck pages on canvases with no native PDF toolbar or download button; deck routes are noindex and not in the sitemap",
+          "Expired links show the bilingual 'link has expired' page pointing to /investors"
         ],
-        "screen_refs": [
-          "S-001"
-        ]
-      },
-      {
-        "id": "F-002",
-        "title": "3D hero fitment scene",
-        "priority": "must",
-        "description": "Port fitment-3d.js: <fitment-wheel> three.js scene — blueprint wireframe car, camera on front arch, wheel mounts onto studs, 4 bolts streak in and seat with a flash ring on a ~7s loop; spec labels (PCD, center bore, authenticity) appear after the first loop; floating white cards over the scene (part card 'Front brake pad set / Rp 385.000 / ✓ Verified fit', fit pill '✓ Fits: Toyota Avanza 1.5 G 2019', video card); lang attribute switches label language; 'static' attribute for reduced motion.",
-        "acceptance_criteria": [
-          "Scene renders and loops as in the design on desktop and mobile",
-          "Labels + hero cards appear after the first mount (fitment-first-loop event)",
-          "reduced-motion renders the static seated state",
-          "Language toggle updates the 3D scene labels"
-        ],
-        "screen_refs": [
-          "S-001"
-        ]
-      },
-      {
-        "id": "F-003",
-        "title": "Hero headline rotation",
-        "priority": "must",
-        "description": "H1 rotates four approved phrase pairs per language every ~3.4s with the two-line slide transition: 'Every part, / verified to fit.' → 'One platform, / to unify the auto industry.' → 'Every checkout, / protected on both sides.' → 'Every seller, / keeping more of every sale.' (ID equivalents as written in the design).",
-        "acceptance_criteria": [
-          "Four pairs rotate in both languages",
-          "Rotation pauses under reduced motion",
-          "No layout shift (min-height reserved)"
-        ],
-        "screen_refs": [
-          "S-001"
-        ]
-      },
-      {
-        "id": "F-004",
-        "title": "Full-site EN/ID i18n",
-        "priority": "must",
-        "description": "Every string on both pages driven by the approved TXT maps (en + id, with 'deck' number variants where defined); pill toggle in nav; choice persisted in localStorage ('mobeeli-lang'); html lang attribute updated; 3D scenes receive the lang.",
-        "acceptance_criteria": [
-          "100% of approved i18n keys present in both languages, text taken verbatim from the design",
-          "Language persists across pages and reloads",
-          "Default language configurable (default: en)"
-        ],
-        "screen_refs": [
-          "S-001",
-          "S-002",
-          "S-003"
-        ]
-      },
-      {
-        "id": "F-005",
-        "title": "AI catalog showcase animation",
-        "priority": "must",
-        "description": "Dark rounded card: XLS/PDF/JPG file chips + AI status chip ('reading 3 catalogs…' → 'catalog assembled ✓'), six 3D part sprites (pad, filter, plug, disc, shock, air) that pop in one-by-one with name chips, glide onto a circle and orbit with self-spin, bloom out to a grid, then snap-assemble with the centered '✓ One catalog · 120M+ mappings' pill; ~15s loop, IntersectionObserver start/stop, static assembled state under reduced motion.",
-        "acceptance_criteria": [
-          "Phased loop matches the design (pop-in → orbit → bloom → assemble → restart)",
-          "AI status chip text flips at the right phase in both languages",
-          "Animation only runs while the card is in view",
-          "Reduced motion shows the assembled static state"
-        ],
-        "screen_refs": [
-          "S-001"
-        ]
-      },
-      {
-        "id": "F-006",
-        "title": "Indonesia flyover map (Unify band)",
-        "priority": "must",
-        "description": "Port indo-globe.js: <indo-globe> dot-matrix archipelago flyover — tilted land plane, two-tone blue island dots with pseudo-elevation, faint ocean grid, fog horizon, west↔east camera drift, drag to pan (clamped), Jakarta marker with pulse ring + label ('— first market, 2026') and animated arcs to 6 cities.",
-        "acceptance_criteria": [
-          "Map renders at 1.9:1 in the Unify band and matches the design",
-          "Drag pans; idle drift resumes after 3s",
-          "Jakarta label translates with the language toggle"
-        ],
-        "screen_refs": [
-          "S-001"
-        ]
-      },
-      {
-        "id": "F-007",
-        "title": "Join Waitlist page — 4-step wizard",
-        "priority": "must",
-        "description": "Split-screen page: dark brand panel (0% offer chip, headline, 3 benefits, floating part sprites) + wizard card. Steps: intro → 1/4 business type (Store/Garage/Distributor) → 2/4 business name + contact name (labels/placeholders adapt to type) → 3/4 email/phone/WhatsApp/city (all optional, validated when present) → 4/4 volume, tools (garage only) or brands, Net-30 interest, message → success panel with personalized thank-you, WhatsApp deep link (prefilled message) and back-to-home. Progress bar, slide transitions, honeypot field, EN/ID toggle.",
-        "acceptance_criteria": [
-          "All 4 steps + intro + success behave as in the design, including per-type field switching (tools for garages, brands otherwise)",
-          "Validation: business name required; email/phone/WhatsApp format-checked only when filled; inline errors in the active language",
-          "WhatsApp CTA builds the prefilled wa.me link with business name and language-appropriate message",
-          "Honeypot present; wizard usable entirely on mobile"
-        ],
-        "screen_refs": [
-          "S-002",
-          "S-003"
-        ]
-      },
-      {
-        "id": "F-008",
-        "title": "Waitlist lead capture backend",
-        "priority": "must",
-        "description": "Real persistence for wizard submissions (the design stops at a client-side success panel). Store every submission (type, businessName, contactName, email, phone, whatsappNumber, city, monthlyOrderVolume, toolsUsed, brandsCarried, net30Interest, message, lang, timestamp) and notify the founding team. Exact mechanism (DB + API route, form service, or email relay) decided at strategy phase.",
-        "acceptance_criteria": [
-          "Submission is persisted before the success panel shows; failure shows a retriable error, not silent loss",
-          "Founding team receives/can access every lead",
-          "Honeypot-flagged and malformed submissions rejected server-side",
-          "No exact-fee copy anywhere in stored/notification templates"
-        ],
-        "screen_refs": [
-          "S-002",
-          "S-003"
-        ]
-      },
-      {
-        "id": "F-009",
-        "title": "Waitlist CTA wiring",
-        "priority": "must",
-        "description": "Nav 'Join Waitlist' and Early Adaptors CTA route to the Join Waitlist page (same site), replacing the design's waitlistUrl/mailto fallback; buyer strip 'Get notified' and investor 'Request the deck' keep their mailto: actions to info@mobeeli.com with the approved subjects.",
-        "acceptance_criteria": [
-          "Both waitlist CTAs open the wizard page",
-          "Buyer and investor mailtos use approved addresses and subject lines",
-          "Founder direct emails listed in Investors section"
-        ],
-        "screen_refs": [
-          "S-001",
-          "S-002"
-        ]
+        "screen_refs": [],
+        "id": "F-016"
       }
     ],
-    "should_have": [
-      {
-        "id": "F-010",
-        "title": "SEO + social meta",
-        "priority": "should",
-        "description": "Title/description per language, Open Graph/Twitter cards with a brand image, canonical URL, sitemap, robots; favicon from the Mobeeli mark.",
-        "acceptance_criteria": [
-          "OG preview renders logo + tagline when shared on WhatsApp/LinkedIn",
-          "Lighthouse SEO ≥ 90"
-        ],
-        "screen_refs": [
-          "S-001",
-          "S-002"
-        ]
-      },
-      {
-        "id": "F-011",
-        "title": "Analytics for funnel measurement",
-        "priority": "should",
-        "description": "Privacy-light analytics: page views, language choice, wizard step progression, submission success — enough to measure the Early Adaptor funnel.",
-        "acceptance_criteria": [
-          "Wizard drop-off per step is measurable",
-          "No cookie-consent-triggering trackers unless approved"
-        ],
-        "screen_refs": [
-          "S-001",
-          "S-002"
-        ]
-      },
-      {
-        "id": "F-012",
-        "title": "Hero video card (unify-graph.mp4)",
-        "priority": "should",
-        "description": "The floating hero card plays the unify-graph video ('One platform. Five links.'). Asset supplied by the user on 2026-07-22 (assets/unify-graph.mp4, 1.3 MB) — compress/transcode at build if needed.",
-        "acceptance_criteria": [
-          "Muted, looping, lazy-loaded video in the floating card",
-          "Poster/first frame shown until playback starts; no layout shift"
-        ],
-        "screen_refs": [
-          "S-001"
-        ]
-      },
-      {
-        "id": "F-013",
-        "title": "Team headshots",
-        "priority": "should",
-        "description": "Replace image-slot drop targets with real founder headshots when supplied; until then keep the design's gradient placeholders.",
-        "acceptance_criteria": [
-          "Headshot images slot into the 1:1 card area without layout change"
-        ],
-        "screen_refs": [
-          "S-001"
-        ]
-      }
-    ],
-    "could_have": [
-      {
-        "id": "F-014",
-        "title": "Numbers canon switch",
-        "priority": "could",
-        "description": "Build-time or config flag mirroring the design's 'numbers' prop: brief (120M+, 9 of 14) vs deck (190K+, 38 of 60) variants.",
-        "acceptance_criteria": [
-          "Flag flips all deck-variant strings consistently in both languages"
-        ],
-        "screen_refs": [
-          "S-001"
-        ]
-      },
-      {
-        "id": "F-015",
-        "title": "Buyer notify-me form",
-        "priority": "could",
-        "description": "Upgrade the buyer strip's mailto to a one-field email capture stored alongside waitlist leads.",
-        "acceptance_criteria": [
-          "Email stored and confirmed inline without leaving the page"
-        ],
-        "screen_refs": [
-          "S-001"
-        ]
-      }
-    ],
-    "wont_have": [
-      {
-        "id": "F-W01",
-        "title": "Marketplace product features",
-        "priority": "wont",
-        "description": "No login, search, listings, checkout, or seller dashboard.",
-        "reason": "This project is the pre-launch marketing site + waitlist only; the marketplace itself is a separate product built by the CTO.",
-        "acceptance_criteria": [],
-        "screen_refs": []
-      },
-      {
-        "id": "F-W02",
-        "title": "Blog/CMS",
-        "priority": "wont",
-        "description": "No content management system in this phase.",
-        "reason": "Copy is finalized and reviewed in the design; it ships in code per the approved TXT maps — a CMS adds cost with no pre-launch benefit.",
-        "acceptance_criteria": [],
-        "screen_refs": []
-      }
-    ]
+    "should_have": [],
+    "could_have": [],
+    "wont_have": []
   },
   "summary": {
-    "total": 17,
-    "must": 9,
-    "should": 4,
-    "could": 2,
-    "wont": 2
+    "total": 1,
+    "must": 1,
+    "should": 0,
+    "could": 0,
+    "wont": 0
   }
 }

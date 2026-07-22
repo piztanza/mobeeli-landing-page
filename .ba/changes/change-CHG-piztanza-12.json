@@ -1,0 +1,39 @@
+{
+  "version": "1.0",
+  "change_id": "CHG-piztanza-12",
+  "author": "piztanza",
+  "type": "add",
+  "description": "Investor deck request flow + founder-in-loop hosted deck viewer (F-016): /investors request form (name/firm/email required) → rate-limited /api/deck-request → Resend alert with three mint options (primary 1-hour button; text links for non-expiring and custom-hours) → founder-only /deck-admin (DECK_SECRET-gated) mints stateless HMAC tokens → /deck?token= renders the private 19-page deck via pdfjs canvases (no download UI) streaming from token-gated /api/deck-file; expired links show a friendly bilingual re-request page. PDF at private/deck/mobeeli-pitchdeck.pdf (not public/), bundled via outputFileTracingIncludes; email-only, no DB writes.",
+  "created_at": "2026-07-22T11:27:40.948Z",
+  "base_spec_version": "2026-07-22T11:15:37Z",
+  "target_branch": "change/CHG-piztanza-12",
+  "seed_ids": [
+    "F-016"
+  ],
+  "blast_radius": {
+    "affected_features": [
+      "F-016"
+    ],
+    "affected_files": []
+  },
+  "spec_deltas": {
+    "added": [
+      "F-016"
+    ],
+    "modified": [],
+    "removed": []
+  },
+  "cascade_flags": [],
+  "overlaps": [],
+  "acceptance_criteria": [
+    "/investors 'Request the deck' opens the bilingual form (name/firm/work-email required, LinkedIn/message optional, honeypot); success copy confirms a personal follow-up",
+    "/api/deck-request: 5/h/IP rate limit, validation → 400, honeypot → silent fake 200, then a Resend alert to WAITLIST_ALERT_TO containing requester details + a prominent 'Generate 1-hour deck link' button and two plain text links (non-expiring, custom duration) pointing at /deck-admin with the right presets",
+    "/deck-admin: wrong or missing key → 404; preset=1h and preset=never auto-generate; custom hours input works; output shows full link, expiry time or 'never expires', and copy button; noindex",
+    "Tokens are HMAC-SHA256 base64url with exp|null; tampered or malformed tokens rejected; expiry enforced server-side on both /deck and /api/deck-file",
+    "/deck renders all 19 pages on canvases via pdfjs-dist with no native toolbar/download button; direct /api/deck-file without a valid token → 403; valid → inline PDF with private no-store caching; deck routes noindex and absent from the sitemap",
+    "Expired link shows the bilingual 'link has expired' page linking /investors",
+    "PDF lives under private/ (not public/) and ships with the serverless bundle on Vercel",
+    "DECK_SECRET documented in .env.example; suite green incl. token, validation, and gating tests"
+  ],
+  "status": "drafted"
+}
