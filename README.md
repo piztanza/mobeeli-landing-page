@@ -40,3 +40,12 @@ npm run lint    # ESLint
 
 Copy `.env.example` → `.env.local`. Secrets (`DATABASE_URL`, `RESEND_API_KEY`) live only in
 server-side env vars (Vercel), never in client bundles.
+
+## Buyer "get notified" capture (F-015)
+
+The buyer strip's CTA expands an inline email field posting to `/api/notify`. Addresses are
+added as contacts to the account's single Resend Audience — `RESEND_AUDIENCE_ID` when set,
+otherwise auto-discovered (requires exactly one audience; zero/multiple fall back to an alert
+email to `WAITLIST_ALERT_TO` so no address is lost). Each contact is tagged with the contact
+property **`source=buyer_launch`** — that property key/value is what the "Buyers" segment in
+Resend filters on.

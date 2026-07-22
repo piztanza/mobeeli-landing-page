@@ -212,10 +212,15 @@ describe("landing page render (F-001 + F-009)", () => {
     }
   });
 
-  it("uses the approved buyer mailto (F-009)", () => {
-    expect(html).toContain(
+  it("upgrades the buyer mailto to the inline notify capture (F-015, CHG-piztanza-13)", () => {
+    // The F-009 buyer mailto is superseded — the CTA is now a button expanding an inline
+    // email field. (The footer's plain contact mailto is unrelated and stays.)
+    expect(html).not.toContain(
       "mailto:info@mobeeli.com?subject=Notify%20me%20at%20launch%20%E2%80%94%20buyer",
     );
+    const cta = html.match(/<button[^>]*mb-buyer-cta[^>]*>/)?.[0] ?? "";
+    expect(cta).toContain('type="button"');
+    expect(cta).toContain('aria-expanded="false"');
   });
 
   it("uses the official logo variants — blue on light nav, white on dark footer", () => {
