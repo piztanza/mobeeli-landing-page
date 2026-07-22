@@ -13,9 +13,10 @@
     "stage1": "confirmed",
     "stage2": "confirmed",
     "stage3": "confirmed",
-    "business_context": "confirmed"
+    "business_context": "confirmed",
+    "strategy": "confirmed"
   },
-  "foundation": "pending",
+  "foundation": "building",
   "id_registry": {
     "stakeholders": [
       null,

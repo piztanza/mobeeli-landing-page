@@ -1,0 +1,77 @@
+/* Plus Jakarta Sans — self-hosted variable font (ital+wght 200-800), per design/style.json */
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/fonts/pjs-normal-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/fonts/pjs-italic-latin.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+/* Brand tokens — must match .ba/design/style.json exactly */
+:root {
+  /* colors */
+  --mb-primary: #2f7df6;
+  --mb-primary-hover: #5596f7;
+  --mb-deep-blue: #1b5fd9;
+  --mb-deep-blue-hover: #123f9e;
+  --mb-light-accent: #5b9bf7;
+  --mb-tint: #e4edfd;
+  --mb-ink: #0d1522;
+  --mb-bg: #f5f7fa;
+  --mb-surface: #ffffff;
+  --mb-border: #e3e7ee;
+  --mb-border-soft: #e8ebf1;
+  --mb-muted: #636e7e;
+  --mb-muted-2: #8b95a4;
+  --mb-dark-muted: #a9b4c6;
+  --mb-danger: #b91c1c; /* pain stats / errors ONLY */
+  --mb-danger-bg: #fdeaea;
+
+  /* typography */
+  --mb-font: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+
+  /* radii */
+  --mb-radius-card: 18px;
+  --mb-radius-input: 12px;
+  --mb-radius-pill: 999px;
+
+  /* layout */
+  --mb-container-max: 1280px;
+  --mb-container-pad: 24px;
+  --mb-section-y: 96px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--mb-font);
+  background: var(--mb-bg);
+  color: var(--mb-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
