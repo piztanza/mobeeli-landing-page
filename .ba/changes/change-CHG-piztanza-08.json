@@ -42,5 +42,5 @@
     "JSONL fallback mirrors the same field names when DATABASE_URL is unset",
     "Resend alert renders the new field names and includes source; suite green with updated tests"
   ],
-  "status": "drafted"
+  "status": "building"
 }
