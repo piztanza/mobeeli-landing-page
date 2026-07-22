@@ -36,5 +36,5 @@
     ".env.example documents DATABASE_URL, RESEND_API_KEY, WAITLIST_ALERT_TO, NEXT_PUBLIC_WHATSAPP_NUMBER",
     "Suite stays green; new unit tests cover zod accept/reject, honeypot, wa.me builder, and en/id wizard key completeness"
   ],
-  "status": "building"
+  "status": "merged"
 }
