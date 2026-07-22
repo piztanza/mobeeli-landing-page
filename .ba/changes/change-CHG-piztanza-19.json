@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "change_id": "CHG-piztanza-19",
+  "author": "piztanza",
+  "type": "modify",
+  "description": "Simplify the deck-request alert email (F-016): one primary button labeled \"Generate Deck Link\" opening /deck-admin (no presets); the 1-hour button and both text links removed; the mint page keeps all duration controls.",
+  "created_at": "2026-07-22T14:29:29.591Z",
+  "base_spec_version": "2026-07-22T14:09:47Z",
+  "target_branch": "change/CHG-piztanza-19",
+  "seed_ids": [
+    "F-016"
+  ],
+  "blast_radius": {
+    "affected_features": [
+      "F-016"
+    ],
+    "affected_files": []
+  },
+  "spec_deltas": {
+    "added": [],
+    "modified": [
+      "F-016"
+    ],
+    "removed": []
+  },
+  "cascade_flags": [],
+  "overlaps": [
+    {
+      "change_id": "CHG-piztanza-12",
+      "author": "piztanza",
+      "shared": [
+        "F-016"
+      ]
+    }
+  ],
+  "acceptance_criteria": [
+    "Alert email contains exactly one mint CTA: a button labeled 'Generate Deck Link' linking to /deck-admin?key=<DECK_SECRET> with no preset parameter",
+    "The old 1-hour button and the two text links are gone; no dead preset-link code remains in the email builder",
+    "/deck-admin duration controls (quick options + custom hours + link display/copy) still work",
+    "Suite green with updated email tests"
+  ],
+  "status": "building"
+}

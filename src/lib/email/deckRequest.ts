@@ -18,10 +18,9 @@ function escapeHtml(value: string): string {
     .replace(/"/g, "&quot;");
 }
 
-/** /deck-admin URL carrying the founder key and an optional mint preset. */
-export function deckAdminUrl(secret: string, preset?: "1h" | "never"): string {
+/** /deck-admin URL carrying the founder key — no preset; durations are chosen on the page. */
+export function deckAdminUrl(secret: string): string {
   const params = new URLSearchParams({ key: secret });
-  if (preset) params.set("preset", preset);
   return `${siteUrl()}/deck-admin?${params.toString()}`;
 }
 
@@ -32,16 +31,14 @@ export interface DeckRequestAlert {
 }
 
 /**
- * Alert email for a deck request (F-016): the requester's details plus the
- * founder's three mint options — a prominent "Generate 1-hour deck link"
- * button and plain text links for a non-expiring link and a custom-hours link,
- * all pointing at the DECK_SECRET-gated /deck-admin with the right presets.
- * Pure so tests can assert the content without sending anything.
+ * Alert email for a deck request (F-016): the requester's details plus one
+ * mint CTA — a prominent "Generate Deck Link" button pointing at the
+ * DECK_SECRET-gated /deck-admin (no preset; the founder picks the duration
+ * on the mint page). Pure so tests can assert the content without sending
+ * anything.
  */
 export function deckRequestAlert(request: DeckRequestPayload, secret: string): DeckRequestAlert {
-  const oneHourUrl = deckAdminUrl(secret, "1h");
-  const neverUrl = deckAdminUrl(secret, "never");
-  const customUrl = deckAdminUrl(secret);
+  const adminUrl = deckAdminUrl(secret);
 
   const details = [
     line("Name", request.name),
@@ -58,22 +55,14 @@ export function deckRequestAlert(request: DeckRequestPayload, secret: string): D
     "",
     ...details,
     "",
-    "Generate 1-hour deck link:",
-    oneHourUrl,
-    "",
-    "Non-expiring link:",
-    neverUrl,
-    "",
-    "Custom duration:",
-    customUrl,
+    "Generate Deck Link:",
+    adminUrl,
   ].join("\n");
 
   const html = [
     "<h2>New investor deck request</h2>",
     `<p>${details.map((detail) => escapeHtml(detail)).join("<br/>")}</p>`,
-    `<p><a href="${escapeHtml(oneHourUrl)}" style="display:inline-block;background:#2f7df6;color:#ffffff;font-weight:800;text-decoration:none;padding:14px 28px;border-radius:999px;">Generate 1-hour deck link</a></p>`,
-    `<p>Non-expiring link: <a href="${escapeHtml(neverUrl)}">${escapeHtml(neverUrl)}</a></p>`,
-    `<p>Custom duration: <a href="${escapeHtml(customUrl)}">${escapeHtml(customUrl)}</a></p>`,
+    `<p><a href="${escapeHtml(adminUrl)}" style="display:inline-block;background:#2f7df6;color:#ffffff;font-weight:800;text-decoration:none;padding:14px 28px;border-radius:999px;">Generate Deck Link</a></p>`,
   ].join("\n");
 
   return { subject: `Deck request — ${request.name} (${request.firm})`, text, html };

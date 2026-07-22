@@ -19,14 +19,8 @@ afterEach(() => {
 });
 
 describe("deck request alert email (F-016)", () => {
-  it("deckAdminUrl points at /deck-admin with the key and the right preset", () => {
+  it("deckAdminUrl points at /deck-admin with only the key — no preset parameter", () => {
     vi.stubEnv("NEXT_PUBLIC_SITE_URL", "");
-    expect(deckAdminUrl(SECRET, "1h")).toBe(
-      `https://mobeeli.com/deck-admin?key=${SECRET}&preset=1h`,
-    );
-    expect(deckAdminUrl(SECRET, "never")).toBe(
-      `https://mobeeli.com/deck-admin?key=${SECRET}&preset=never`,
-    );
     expect(deckAdminUrl(SECRET)).toBe(`https://mobeeli.com/deck-admin?key=${SECRET}`);
   });
 
@@ -45,22 +39,28 @@ describe("deck request alert email (F-016)", () => {
     }
   });
 
-  it("offers the three mint options: prominent 1-hour button + non-expiring and custom text links", () => {
+  it("offers exactly one mint CTA: a 'Generate Deck Link' button to /deck-admin with no preset", () => {
     vi.stubEnv("NEXT_PUBLIC_SITE_URL", "");
     const { text, html } = deckRequestAlert(request, SECRET);
 
-    // The prominent button (html) links the 1h preset.
-    expect(html).toContain(`href="https://mobeeli.com/deck-admin?key=${SECRET}&amp;preset=1h"`);
-    expect(html).toContain("Generate 1-hour deck link");
+    // The single prominent button (html) links the bare admin URL — key only.
+    expect(html).toContain(`href="https://mobeeli.com/deck-admin?key=${SECRET}"`);
+    expect(html).toContain("Generate Deck Link");
 
-    // Plain text links for all three options, presets included.
-    expect(text).toContain("Generate 1-hour deck link:");
-    expect(text).toContain(`https://mobeeli.com/deck-admin?key=${SECRET}&preset=1h`);
-    expect(text).toContain("Non-expiring link:");
-    expect(text).toContain(`https://mobeeli.com/deck-admin?key=${SECRET}&preset=never`);
-    // Custom-duration link is the bare admin URL (no preset), on its own line.
-    expect(text).toContain(`Custom duration:\nhttps://mobeeli.com/deck-admin?key=${SECRET}`);
+    // Exactly one link in the html body besides the details block.
+    expect(html.match(/<a /g)).toHaveLength(1);
+
+    // Plain text carries the same single link, on its own labelled line.
+    expect(text).toContain(`Generate Deck Link:\nhttps://mobeeli.com/deck-admin?key=${SECRET}`);
     expect(text.trimEnd().endsWith(`?key=${SECRET}`)).toBe(true);
+
+    // The old preset options are gone from both bodies.
+    for (const body of [text, html]) {
+      expect(body).not.toContain("preset=");
+      expect(body).not.toContain("1-hour");
+      expect(body).not.toContain("Non-expiring");
+      expect(body).not.toContain("Custom duration");
+    }
   });
 
   it("notifyDeckRequest throws when RESEND_API_KEY / WAITLIST_ALERT_TO / DECK_SECRET are missing", async () => {
