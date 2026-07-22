@@ -10,12 +10,15 @@ function clientIp(request: Request): string {
 }
 
 /**
- * POST /api/waitlist (F-008) — validates, persists, notifies:
+ * POST /api/waitlist (F-008) — mirrors the platform's /api/partners/signup
+ * contract (uppercase partnerType, contactPhone, currentToolsUsed/brandsCarried
+ * arrays, _honeypot) and validates, persists, notifies:
  *  1. per-IP rate limit;
- *  2. honeypot (`website`) filled → fake success, nothing stored;
- *  3. zod validation (length limits mirror the design's maxlengths) → 400;
- *  4. drizzle insert (JSONL fallback without DATABASE_URL) — MUST succeed
- *     before the client may show success, so a failure returns 500 (retriable);
+ *  2. zod validation (platform whitelists/regexes/limits) → 400;
+ *  3. `_honeypot` non-empty → silent fake success, no insert, no email;
+ *  4. drizzle insert into partner_signups (JSONL fallback without
+ *     DATABASE_URL) — MUST succeed before the client may show success, so a
+ *     failure returns 500 (retriable);
  *  5. Resend alert to the team — failure after a successful insert is logged
  *     but still returns 200 (the lead is safe).
  */
@@ -26,20 +29,14 @@ export async function POST(request: Request): Promise<Response> {
 
   const body: unknown = await request.json().catch(() => null);
 
-  // Honeypot tripped: pretend everything worked so bots learn nothing.
-  if (
-    typeof body === "object" &&
-    body !== null &&
-    "website" in body &&
-    typeof (body as { website: unknown }).website === "string" &&
-    (body as { website: string }).website.trim() !== ""
-  ) {
-    return Response.json({ ok: true });
-  }
-
   const parsed = waitlistPayloadSchema.safeParse(body);
   if (!parsed.success) {
     return Response.json({ error: "invalid_payload" }, { status: 400 });
+  }
+
+  // Honeypot tripped: pretend everything worked so bots learn nothing.
+  if (parsed.data._honeypot.length > 0) {
+    return Response.json({ ok: true });
   }
 
   try {

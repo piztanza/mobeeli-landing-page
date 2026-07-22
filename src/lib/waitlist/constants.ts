@@ -37,3 +37,9 @@ export const VOLUME_OPTIONS = [
   ["50-200", "50–200"],
   ["200+", "200+"],
 ] as const;
+
+/**
+ * Provenance tag written to partner_signups.source for every lead from this
+ * site — distinguishes landing leads from the platform's own LANDING_PLATFORM.
+ */
+export const LEAD_SOURCE = "LANDING_MOBEELI_COM";

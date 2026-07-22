@@ -1,23 +1,51 @@
-import { boolean, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, jsonb, pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
 /**
- * waitlist_leads — one row per wizard submission (F-008).
- * Column set mirrors src/lib/waitlist/schema.ts.
+ * partner_signups — the platform's EXISTING production table (F-008). This app
+ * NEVER creates or migrates it (no DDL); the model below mirrors the
+ * introspected live table verbatim: camelCase quoted columns, Prisma-managed
+ * enums and defaults. This landing page only ever INSERTs lead rows — the
+ * triage/telemetry columns (utm, sessionId, status, internalNote, reviewedBy,
+ * reviewedAt, convertedUserId) belong to the platform and are never written.
  */
-export const waitlistLeads = pgTable("waitlist_leads", {
-  id: serial("id").primaryKey(),
-  type: text("type").notNull(),
-  businessName: text("business_name").notNull(),
-  contactName: text("contact_name"),
+
+export const partnerTypeEnum = pgEnum("PartnerType", ["STORE", "GARAGE", "DISTRIBUTOR"]);
+
+export const partnerSignupStatusEnum = pgEnum("PartnerSignupStatus", [
+  "NEW",
+  "CONTACTED",
+  "QUALIFIED",
+  "CONVERTED",
+  "REJECTED",
+  "SPAM",
+]);
+
+export const partnerSignups = pgTable("partner_signups", {
+  id: text("id").primaryKey(),
+  partnerType: partnerTypeEnum("partnerType").notNull(),
+  // Contact — businessName is the only required field on the public form.
+  businessName: text("businessName").notNull(),
+  contactName: text("contactName"),
   email: text("email"),
-  phone: text("phone"),
-  whatsappNumber: text("whatsapp_number"),
+  contactPhone: text("contactPhone"),
+  whatsappNumber: text("whatsappNumber"),
   city: text("city"),
-  monthlyOrderVolume: text("monthly_order_volume"),
-  toolsUsed: text("tools_used"),
-  brandsCarried: text("brands_carried"),
-  net30Interest: boolean("net30_interest"),
+  // Light qualification
+  monthlyOrderVolume: text("monthlyOrderVolume"),
+  brandsCarried: text("brandsCarried").array().default([]),
+  currentToolsUsed: text("currentToolsUsed").array().default([]),
+  interestedInNet30: boolean("interestedInNet30").notNull().default(false),
   message: text("message"),
-  lang: text("lang").notNull().default("en"),
-  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  // Provenance / telemetry — we send source='LANDING_MOBEELI_COM'; utm/sessionId are the platform's.
+  source: text("source").notNull().default("LANDING_PLATFORM"),
+  utm: jsonb("utm"),
+  sessionId: text("sessionId"),
+  // Triage workflow — platform-owned; left to DB defaults / the founding team.
+  status: partnerSignupStatusEnum("status").notNull().default("NEW"),
+  internalNote: text("internalNote"),
+  reviewedBy: text("reviewedBy"),
+  reviewedAt: timestamp("reviewedAt", { precision: 3 }),
+  convertedUserId: text("convertedUserId"),
+  createdAt: timestamp("createdAt", { precision: 3 }).notNull().defaultNow(),
+  updatedAt: timestamp("updatedAt", { precision: 3 }).notNull(),
 });

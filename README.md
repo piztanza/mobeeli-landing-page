@@ -19,7 +19,7 @@ src/components       section components per design band
 src/components/three FitmentWheel, IndoGlobe — client-only islands (dynamic import, no SSR)
 src/lib/i18n         EN/ID copy maps — the ONLY place user-facing strings live
 src/lib/waitlist     zod payload schema for /api/waitlist
-src/lib/db           drizzle schema + lazy Neon client (waitlist_leads)
+src/lib/db           drizzle model of the platform's live partner_signups + lazy Neon client (no DDL/migrations — insert-only)
 src/lib/email        Resend notification (stub until F-008)
 src/lib/hooks        useReducedMotion — central reduced-motion gate
 public/assets        logos, part sprites, icons, unify-graph.mp4
