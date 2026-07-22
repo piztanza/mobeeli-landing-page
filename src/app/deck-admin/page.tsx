@@ -21,9 +21,10 @@ function first(value: string | string[] | undefined): string | undefined {
 /**
  * Founder-only deck-link minting page (F-016), gated by DECK_SECRET: a wrong
  * or missing `key` is a plain 404, so the page is indistinguishable from a
- * non-route to anyone without the secret. The alert email's links land here
- * with preset=1h / preset=never (auto-generate) or no preset (custom hours
- * form). Output: the full /deck link, its expiry (or "never expires") and a
+ * non-route to anyone without the secret. The alert email's single "Generate
+ * Deck Link" button lands here with no preset; durations are chosen on this
+ * page (preset=1h / preset=never quick options or the custom-hours form).
+ * Output: the full /deck link, its expiry (or "never expires") and a
  * copy button. Strings resolve server-side from the i18n maps.
  */
 export default async function DeckAdminPage({
