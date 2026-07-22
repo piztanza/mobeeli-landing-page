@@ -39,5 +39,5 @@
     "Favicon served at 48x48 and 192x192 generated from mobeeli-mark.png; apple-icon unchanged",
     "All existing tests updated for the new titles; new tests assert both JSON-LD types are present and valid; suite green"
   ],
-  "status": "building"
+  "status": "merged"
 }
