@@ -35,5 +35,5 @@
     "PDF lives under private/ (not public/) and ships with the serverless bundle on Vercel",
     "DECK_SECRET documented in .env.example; suite green incl. token, validation, and gating tests"
   ],
-  "status": "building"
+  "status": "merged"
 }
