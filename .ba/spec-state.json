@@ -26,6 +26,12 @@
       "type": "add",
       "status": "merged",
       "created_at": "2026-07-22T07:30:38.097Z"
+    },
+    {
+      "change_id": "CHG-piztanza-04",
+      "type": "add",
+      "status": "merged",
+      "created_at": "2026-07-22T07:43:05.357Z"
     }
   ],
   "onboarding": {

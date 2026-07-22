@@ -31,5 +31,5 @@
     "Language toggle updates chips, pill, and status text live, including mid-loop",
     "Suite stays green; unit tests cover the phase scheduler timings and en/id key completeness for scn1-6, cat_pill, cat_ai_read, cat_ai_done"
   ],
-  "status": "building"
+  "status": "merged"
 }
