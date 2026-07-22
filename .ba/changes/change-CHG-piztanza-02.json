@@ -1,0 +1,36 @@
+{
+  "version": "1.0",
+  "change_id": "CHG-piztanza-02",
+  "author": "piztanza",
+  "type": "add",
+  "description": "Implement the 3D hero fitment scene (F-002): near-1:1 port of .ba/discovery/design-reference/fitment-3d.js into src/components/three/FitmentWheel.tsx as a client-only React component (three from npm), wired into the Hero scene container with lazy loading, lang/static props, fitment-first-loop callback revealing the floating hero cards, and WebGL-unavailable fallback.",
+  "created_at": "2026-07-22T07:03:26.027Z",
+  "base_spec_version": "2026-07-22T05:58:03.533Z",
+  "target_branch": "change/CHG-piztanza-02",
+  "seed_ids": [
+    "F-002"
+  ],
+  "blast_radius": {
+    "affected_features": [
+      "F-002"
+    ],
+    "affected_files": []
+  },
+  "spec_deltas": {
+    "added": [],
+    "modified": [],
+    "removed": []
+  },
+  "cascade_flags": [],
+  "overlaps": [],
+  "acceptance_criteria": [
+    "Scene graph and timeline match the design reference: wireframe car with feature lines, rear wheel, hub/studs, ground shadows; ~7s mount/dismount loop; 4 bolts streak in and seat with spin; flash ring after seating; entrance ease then idle sway",
+    "Projected spec labels (PCD 4×100 / center bore ⌀ 54.1mm / Genuine, with ID translations) appear after the first loop and track their 3D anchor points",
+    "A fitment-first-loop callback fires once and reveals the floating hero cards (part card, fit pill, video card)",
+    "lang prop switches label text live; static prop (and prefers-reduced-motion) renders the seated wheel with labels immediately visible",
+    "three.js is code-split (next/dynamic ssr:false) and initialized only near the viewport; the hero's static gradient shows until ready and remains the fallback when WebGL is unavailable",
+    "Renderer disposes cleanly on unmount (no leaked RAF/ResizeObserver); devicePixelRatio capped at 2",
+    "Existing suite stays green; new unit tests cover the label set per language and the timeline phase math (wheel z / bolt z at key timestamps)"
+  ],
+  "status": "building"
+}

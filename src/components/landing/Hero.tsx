@@ -79,7 +79,7 @@ export default function Hero() {
         </div>
         <div data-rev="2" className="mb-hero-visual">
           <div className="mb-hero-scene">
-            <FitmentWheel lang={lang} isStatic={reduced} />
+            <FitmentWheel lang={lang} isStatic={reduced} onFirstLoop={() => setCardsShown(true)} />
           </div>
           <div className={`${cardClass("mb-card-part")} mb-float-a`} style={cardDelay(0)}>
             <div className="mb-card-part-thumb" aria-hidden />
