@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 
-import { DEFAULT_LANG, t } from "@/lib/i18n";
+import { DEFAULT_LANG, t, type CopyKey } from "@/lib/i18n";
 
 /**
  * SEO + social meta (F-010). Canonical URLs, metadataBase, robots and the
@@ -59,16 +59,42 @@ export function rootMetadata(): Metadata {
   };
 }
 
-/** Per-route metadata for the two pages. Next.js does not deep-merge openGraph
+/**
+ * Section pages split off the landing stack (CHG-piztanza-09). Titles follow
+ * the "<Page> | Mobeeli" pipe pattern using the approved nav labels; the
+ * descriptions reuse approved section copy — no new strings outside the i18n
+ * maps.
+ */
+const SECTION_PAGE_COPY = {
+  "/team": { titleKey: "nav_team", descriptionKey: "team_h2" },
+  "/early-adaptors": { titleKey: "nav_early", descriptionKey: "early_h2" },
+  "/investors": { titleKey: "nav_inv", descriptionKey: "inv_p" },
+} as const satisfies Record<string, { titleKey: CopyKey; descriptionKey: CopyKey }>;
+
+/** Routes for the sections moved off the landing page (CHG-piztanza-09). */
+export type SectionPagePath = keyof typeof SECTION_PAGE_COPY;
+
+type PagePath = "/" | "/join" | SectionPagePath;
+
+function pageTitle(pagePath: PagePath): string {
+  if (pagePath === "/") return t(DEFAULT_LANG, "meta.title");
+  if (pagePath === "/join") return t(DEFAULT_LANG, "meta.join.title");
+  return `${t(DEFAULT_LANG, SECTION_PAGE_COPY[pagePath].titleKey)} | ${SITE_NAME}`;
+}
+
+function pageDescription(pagePath: PagePath): string {
+  if (pagePath === "/") return t(DEFAULT_LANG, "meta.description");
+  if (pagePath === "/join") return t(DEFAULT_LANG, "meta.join.description");
+  return t(DEFAULT_LANG, SECTION_PAGE_COPY[pagePath].descriptionKey);
+}
+
+/** Per-route metadata. Next.js does not deep-merge openGraph
  *  across layout/page, so each page carries its complete OG/Twitter block; the
  *  file-convention opengraph-image/twitter-image routes append og:image /
  *  twitter:image automatically. */
-function pageMetadata(pagePath: "/" | "/join"): Metadata {
-  const title = pagePath === "/" ? t(DEFAULT_LANG, "meta.title") : t(DEFAULT_LANG, "meta.join.title");
-  const description =
-    pagePath === "/"
-      ? t(DEFAULT_LANG, "meta.description")
-      : t(DEFAULT_LANG, "meta.join.description");
+function pageMetadata(pagePath: PagePath): Metadata {
+  const title = pageTitle(pagePath);
+  const description = pageDescription(pagePath);
   return {
     title,
     description,
@@ -96,6 +122,11 @@ export function landingMetadata(): Metadata {
 
 export function joinMetadata(): Metadata {
   return pageMetadata("/join");
+}
+
+/** Metadata for /team, /early-adaptors and /investors (CHG-piztanza-09). */
+export function sectionMetadata(pagePath: SectionPagePath): Metadata {
+  return pageMetadata(pagePath);
 }
 
 /**
