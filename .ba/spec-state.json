@@ -1,0 +1,118 @@
+{
+  "version": "5.0",
+  "project_type": "greenfield",
+  "product_repo": {
+    "url": "https://github.com/piztanza/mobeeli-landing-page.git",
+    "local_checkout": "product",
+    "default_branch": "main",
+    "last_pr": null
+  },
+  "pending_reconcile": [],
+  "changes": [],
+  "onboarding": {
+    "stage1": "confirmed",
+    "stage2": "confirmed",
+    "stage3": "confirmed",
+    "business_context": "confirmed"
+  },
+  "foundation": "pending",
+  "id_registry": {
+    "stakeholders": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "features": {
+      "must": [
+        "F-001",
+        "F-002",
+        "F-003",
+        "F-004",
+        "F-005",
+        "F-006",
+        "F-007",
+        "F-008",
+        "F-009"
+      ],
+      "should": [
+        "F-010",
+        "F-011",
+        "F-012",
+        "F-013"
+      ],
+      "could": [
+        "F-014",
+        "F-015"
+      ],
+      "wont": [
+        "F-W01",
+        "F-W02"
+      ]
+    },
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "screens": [
+      "S-001",
+      "S-002",
+      "S-003"
+    ],
+    "flows": [
+      "UF-001",
+      "UF-002",
+      "UF-003",
+      "UF-004"
+    ],
+    "components": [
+      "C-001",
+      "C-002",
+      "C-003",
+      "C-004",
+      "C-005",
+      "C-006",
+      "C-007",
+      "C-008",
+      "C-009",
+      "C-010",
+      "C-011",
+      "C-012",
+      "C-013",
+      "C-014",
+      "C-015",
+      "C-016",
+      "C-017",
+      "C-018",
+      "C-019",
+      "C-020",
+      "C-021",
+      "C-022"
+    ],
+    "metrics": [
+      "M-001",
+      "M-002",
+      "M-003",
+      "M-004",
+      "M-005"
+    ],
+    "assets": [],
+    "integrations": []
+  },
+  "next_id": {
+    "feature": 16,
+    "feature_wont": 3,
+    "screen": 4,
+    "flow": 5,
+    "component": 23,
+    "metric": 6,
+    "asset": 1,
+    "change": 1,
+    "integration": 1
+  }
+}

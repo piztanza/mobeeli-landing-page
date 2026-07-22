@@ -1,0 +1,52 @@
+{
+  "version": "5.0",
+  "generated_at": "2026-07-22T05:58:03.533Z",
+  "project": {
+    "name": "mobeeli-landing-page",
+    "display_name": "Mobeeli Landing Page",
+    "workspace": "C:/Projects/Mobeeli/mobeeli-workspace-landing/mobeeli-landing-page"
+  },
+  "files": {
+    "discovery": {
+      "problem": ".ba/discovery/problem.json",
+      "stakeholders": ".ba/discovery/stakeholders.json",
+      "constraints": ".ba/discovery/constraints.json",
+      "success_metrics": ".ba/discovery/success-metrics.json"
+    },
+    "requirements": {
+      "features": ".ba/requirements/features.json",
+      "roles": ".ba/requirements/roles.json",
+      "nfr": ".ba/requirements/nfr.json"
+    },
+    "design": {
+      "layout": ".ba/design/layout.json",
+      "style": ".ba/design/style.json",
+      "screens": ".ba/design/screens.json",
+      "components": ".ba/design/components.json",
+      "flows": ".ba/design/flows.json"
+    },
+    "validation": {
+      "prd": ".ba/validation/prd.json",
+      "traceability": ".ba/validation/traceability.json"
+    }
+  },
+  "summary": {
+    "stakeholder_count": 6,
+    "feature_count": {
+      "must": 9,
+      "should": 4,
+      "could": 2,
+      "wont": 2
+    },
+    "role_count": 5,
+    "screen_count": 3,
+    "flow_count": 4,
+    "component_count": 22
+  },
+  "phase_status": {
+    "discovery": "completed",
+    "elicitation": "completed",
+    "design": "completed",
+    "validation": "completed"
+  }
+}

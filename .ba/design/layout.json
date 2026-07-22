@@ -1,0 +1,82 @@
+{
+  "version": "1.0",
+  "created_at": "2026-07-22T11:00:00.000Z",
+  "type": "topbar",
+  "header": {
+    "kind": "sticky-nav",
+    "height_px": 66,
+    "background": "rgba(255,255,255,.94) + backdrop blur",
+    "contents": [
+      "Mobeeli logo (blue-on-light, links #top)",
+      "6 anchor links: The problem, How it works, Why Mobeeli, Early Adaptors, Team, Investors",
+      "EN/ID pill toggle",
+      "Join Waitlist dark pill button → Join Waitlist page"
+    ],
+    "mobile_behavior": "links wrap/condense; logo + language toggle + CTA always visible"
+  },
+  "content": {
+    "landing": {
+      "pattern": "single-column stack of full-width alternating bands (light #f5f7fa / white / dark #0d1522 / brand-blue #123f9e), each constrained to a 1280px max-width container with 24px side padding; sections are anchor targets with scroll-margin-top 84px",
+      "band_order": [
+        "hero (dark, 2-col: copy left / 3D fitment scene + floating cards right)",
+        "proof-bar (white, 4-col stat grid)",
+        "problem (light, 3 pain tiles + full-width dark quote)",
+        "how-it-works (white, 3 step cards + 2-col comparison)",
+        "buyer-strip (tint #e4edfd, single centered row, 34px padding)",
+        "why-mobeeli (blue band, centered 900px)",
+        "ai-catalog-card (light bg, full-width dark 28px-radius card, min-height 560px)",
+        "early-adaptors (light, centered, 3 cards + waitlist CTA)",
+        "team (white, 3 profile cards)",
+        "investors (light bg, dark 28px-radius centered panel, 1100px)",
+        "unify-band (dark, centered header + 1.9:1 Indonesia map, 1060px)",
+        "footer (dark)"
+      ]
+    },
+    "join_waitlist": {
+      "pattern": "full-viewport split: responsive 2-col grid (auto-fit minmax(min(440px,100%),1fr)) — dark brand panel left (logo, offer chip, H1, 3 benefits, trust line, floating part sprites), light wizard column right (back link + lang toggle header; centered 540px card with progress bar, honeypot, intro + steps 1-4, back/next; success panel replaces card)"
+    }
+  },
+  "responsive": {
+    "strategy": "mobile-first; all card grids collapse via auto-fit minmax with 18px gaps; hero becomes single column (scene below copy); floating hero cards reposition/scale on small screens; AI catalog stage stacks above headline on mobile; join page stacks brand panel above wizard below ~880px",
+    "min_supported_width_px": 360,
+    "section_padding_y": "96px standard, 100px dark bands, 34px buyer strip"
+  },
+  "navigation": {
+    "anchors": [
+      {
+        "label": "The problem",
+        "target": "#problem"
+      },
+      {
+        "label": "How it works",
+        "target": "#how-it-works"
+      },
+      {
+        "label": "Why Mobeeli",
+        "target": "#why-now"
+      },
+      {
+        "label": "Early Adaptors",
+        "target": "#early-adaptor"
+      },
+      {
+        "label": "Team",
+        "target": "#team"
+      },
+      {
+        "label": "Investors",
+        "target": "#investors"
+      }
+    ],
+    "cross_page": [
+      {
+        "label": "Join Waitlist (nav + Early Adaptors CTA)",
+        "target": "Join Waitlist page"
+      },
+      {
+        "label": "← Back to Mobeeli / logo / success 'Back to Mobeeli'",
+        "target": "Landing page"
+      }
+    ]
+  }
+}

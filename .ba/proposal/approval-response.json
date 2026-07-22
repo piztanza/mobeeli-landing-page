@@ -1,0 +1,7 @@
+{
+  "version": "1.0",
+  "created_at": "2026-07-22T11:30:00.000Z",
+  "status": "approved",
+  "approved_by": "Yavet (wyavet@gmail.com)",
+  "notes": "Spec approved as presented (17 features, 3 screens S-001..S-003, 22 components C-001..C-022, 4 flows UF-001..UF-004; faithful port of the reviewed Claude Design project 'Mobeeli Landing Page Design', checkpoint 3.2 state, plus a real waitlist lead-capture backend). Decision recorded: waitlist submissions go to a database AND trigger an email alert to the founding team per submission. Outstanding non-blocking inputs: founder WhatsApp number for wa.me links (placeholder 6281234567890 until supplied), Yavet's LinkedIn URL, founder headshots, production domain confirmation."
+}

@@ -1,0 +1,46 @@
+{
+  "version": "1.0",
+  "created_at": "2026-07-22T10:08:00.000Z",
+  "requirements": [
+    {
+      "category": "performance",
+      "requirement": "Fast on mid-range Android over 4G — the primary seller audience arrives via WhatsApp links on phones. LCP < 2.5s mobile, CLS < 0.1; three.js and both 3D scenes lazy-loaded/deferred so they never block first paint; part sprite PNGs and fonts optimized (latin woff2 subsets, font-display: swap); animations paused off-screen via IntersectionObserver.",
+      "priority": "must"
+    },
+    {
+      "category": "accessibility",
+      "requirement": "prefers-reduced-motion honored everywhere (static 3D states, no headline rotation, no float/orbit animations); semantic landmarks and heading order; wizard fully keyboard-operable with visible focus, labeled inputs, and error text tied to fields; color contrast per WCAG AA on approved brand colors; alt text on meaningful images, decorative sprites hidden from AT.",
+      "priority": "must"
+    },
+    {
+      "category": "compatibility",
+      "requirement": "Works on recent Chrome/Safari/Firefox and Android WebView (WhatsApp in-app browser); mobile-first responsive from 360px up to 1280px+ max-width layouts; graceful WebGL fallback (if WebGL unavailable, hero/map areas show the static gradient background without breaking layout).",
+      "priority": "must"
+    },
+    {
+      "category": "i18n",
+      "requirement": "All user-facing text sourced from the bilingual copy maps; no hardcoded strings outside them; number formats follow the approved copy (e.g. '120 juta+', '19,4%' in ID); language switch is instant with no reload artifacts and persists via localStorage.",
+      "priority": "must"
+    },
+    {
+      "category": "security",
+      "requirement": "Waitlist endpoint validates and length-limits all fields server-side, rejects honeypot hits, and rate-limits by IP; no secrets in client code; HTTPS only; lead data stored/transmitted only to founder-controlled destinations (privacy promise: 'your details stay with the founding team').",
+      "priority": "must"
+    },
+    {
+      "category": "reliability",
+      "requirement": "Waitlist submissions must not be silently lost: persistence confirmed before success UI; failed submits show a retriable error and preserve entered data; static site content availability independent of the form backend (page still renders if the API is down).",
+      "priority": "must"
+    },
+    {
+      "category": "seo",
+      "requirement": "Indexable landing page with per-language meta, OG/Twitter cards, sitemap and robots; sensible URLs (/ and /join or equivalent); Lighthouse SEO ≥ 90.",
+      "priority": "should"
+    },
+    {
+      "category": "maintainability",
+      "requirement": "Copy centralized in typed TXT maps mirroring the design keys so future edits stay one-file changes; brand tokens as CSS variables; 3D scenes isolated as self-contained components matching the design's custom-element contracts (lang/static attributes).",
+      "priority": "should"
+    }
+  ]
+}

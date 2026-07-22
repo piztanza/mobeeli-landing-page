@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:200 800;font-display:swap;src:url(fonts/pjs-normal-latin.woff2) format('woff2');}
+@font-face{font-family:'Plus Jakarta Sans';font-style:italic;font-weight:200 800;font-display:swap;src:url(fonts/pjs-italic-latin.woff2) format('woff2');}
+html{scroll-behavior:smooth;overflow-x:clip;}
+body{margin:0;background:#f5f7fa;color:#0d1522;font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip;}
+a{color:#1b5fd9;text-decoration:none;}
+a:hover{color:#123f9e;}
+::selection{background:rgba(47,125,246,.25);}
+@keyframes mbFloatA{from{transform:translateY(0)}to{transform:translateY(-14px)}}
+@keyframes mbFloatB{from{transform:translateY(0)}to{transform:translateY(-9px)}}
+@keyframes mbKen{from{transform:scale(1) translate(0,0)}to{transform:scale(1.1) translate(-2.2%,-1.6%)}}
+@keyframes mbPulse{0%,100%{opacity:.45}50%{opacity:1}}
+@keyframes mbDrive{from{transform:translateX(-16px)}to{transform:translateX(16px)}}
+</style>
+<script src="image-slot.js"></script>
+</helmet>
+
+<nav data-screen-label="Nav" style="position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid #e3e7ee">
+  <div style="max-width:1280px;margin:0 auto;padding:0 24px;height:66px;display:flex;align-items:center;gap:26px">
+    <a href="#top" style="display:flex;align-items:center"><img src="assets/mobeeli-logo-blue.png" alt="Mobeeli" style="height:34px;display:block"></a>
+    <div style="display:flex;gap:22px;flex-wrap:wrap;align-items:center;font-size:14px;font-weight:600">
+      <a href="#problem" data-i18n="nav_problem" style="color:#3c4654" style-hover="color:#1b5fd9">The problem</a>
+      <a href="#how-it-works" data-i18n="nav_how" style="color:#3c4654" style-hover="color:#1b5fd9">How it works</a>
+      <a href="#why-now" data-i18n="nav_why" style="color:#3c4654" style-hover="color:#1b5fd9">Why Mobeeli</a>
+      <a href="#early-adaptor" data-i18n="nav_early" style="color:#3c4654" style-hover="color:#1b5fd9">Early Adaptors</a>
+      <a href="#team" data-i18n="nav_team" style="color:#3c4654" style-hover="color:#1b5fd9">Team</a>
+      <a href="#investors" data-i18n="nav_inv" style="color:#3c4654" style-hover="color:#1b5fd9">Investors</a>
+    </div>
+    <div style="flex:1"></div>
+    <div style="display:flex;align-items:center;gap:2px;border:1px solid #d8deea;border-radius:999px;padding:3px">
+      <button type="button" data-langbtn="en" onClick="{{ setEn }}" style="border:none;background:#0d1522;color:#fff;font:700 12px 'Plus Jakarta Sans',sans-serif;padding:5px 11px;border-radius:999px;cursor:pointer">EN</button>
+      <button type="button" data-langbtn="id" onClick="{{ setId }}" style="border:none;background:transparent;color:#3c4654;font:700 12px 'Plus Jakarta Sans',sans-serif;padding:5px 11px;border-radius:999px;cursor:pointer">ID</button>
+    </div>
+    <a href="{{ waitlistHref }}" data-i18n="nav_cta" style="background:#0d1522;color:#fff;font-size:13.5px;font-weight:700;padding:10px 18px;border-radius:999px;white-space:nowrap" style-hover="background:#123f9e;color:#fff">Join Waitlist</a>
+  </div>
+</nav>
+
+<header id="top" data-screen-label="Hero" style="background:#0d1522;background-image:radial-gradient(720px 420px at 82% 12%, rgba(47,125,246,.16), transparent 70%),radial-gradient(560px 380px at 8% 92%, rgba(18,63,158,.28), transparent 70%);padding:88px 24px 112px">
+  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(460px,100%),1fr));gap:64px;align-items:center">
+    <div>
+      <div data-rev="0" style="display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:700;letter-spacing:.06em;color:#c7cfdd;text-transform:uppercase">
+        <span data-anim style="width:8px;height:8px;border-radius:50%;background:#5b9bf7;animation:mbPulse 2.4s ease-in-out infinite"></span>
+        <span data-i18n="hero_chip">Launching 2026 â€” Jakarta, Indonesia</span>
+      </div>
+      <h1 data-rev="1" style="margin:22px 0 0;min-height:3.4em;font-size:clamp(36px,4.6vw,60px);line-height:1.1;letter-spacing:-0.03em;font-weight:800;color:#ffffff"><span data-rotline1 style="display:block;transition:transform .45s cubic-bezier(.2,.6,.2,1), opacity .45s cubic-bezier(.2,.6,.2,1)">Every part,</span><span data-rotline2 style="display:block;color:#5b9bf7;transition:transform .45s cubic-bezier(.2,.6,.2,1), opacity .45s cubic-bezier(.2,.6,.2,1)">verified to fit.</span></h1>
+      <p data-rev="2" data-i18n="hero_sub" style="margin:24px 0 0;max-width:580px;font-size:17.5px;line-height:1.65;color:#a9b4c6;text-wrap:pretty">Mobeeli is the trust infrastructure for Indonesia's $5.3B automotive aftermarket â€” a parts marketplace where fitment is verified before checkout, sellers keep more of every sale, and both sides are protected.</p>
+      <div data-rev="3" style="display:flex;gap:14px;flex-wrap:wrap;margin-top:34px">
+        <a href="#early-adaptor" data-i18n="hero_cta_shops" style="background:#2f7df6;color:#ffffff;font-size:15px;font-weight:800;padding:15px 28px;border-radius:999px" style-hover="background:#5596f7;color:#ffffff">Join Early Adaptor Program</a>
+        <a href="#investors" data-i18n="hero_cta_inv" style="border:1.5px solid rgba(255,255,255,.34);color:#fff;font-size:15px;font-weight:700;padding:14px 26px;border-radius:999px" style-hover="border-color:#5b9bf7;color:#5b9bf7">For investors</a>
+      </div>
+    </div>
+    <div data-rev="2" style="position:relative;min-height:440px">
+      <div style="border-radius:22px;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,.5);aspect-ratio:16/11;background:radial-gradient(120% 90% at 38% 28%,#16263f,#0a1322 75%)">
+        <x-import component-from-global-scope="fitment-wheel" from="./fitment-3d.js" hint-size="100%,100%" style="width:100%;height:100%;display:block"></x-import>
+      </div>
+      <div data-anim data-herocard style="position:absolute;top:28px;left:-18px;width:242px;background:#fff;border-radius:16px;padding:13px;box-shadow:0 24px 54px rgba(3,8,16,.45);display:flex;gap:12px;align-items:center;animation:mbFloatA 5.5s ease-in-out infinite alternate">
+        <div style="width:48px;height:48px;border-radius:10px;flex:none;background:repeating-linear-gradient(45deg,#eef1f6 0 7px,#e0e6f0 7px 14px)"></div>
+        <div style="min-width:0">
+          <div data-i18n="card_part_name" style="font-size:13.5px;font-weight:700">Front brake pad set</div>
+          <div data-i18n="card_part_sub" style="font-size:11.5px;color:#636e7e;margin-top:1px">Front axle Â· ceramic</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
+            <span style="font-size:12.5px;font-weight:800">Rp 385.000</span>
+            <span data-i18n="card_part_chip" style="background:#e4edfd;color:#123f9e;font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:999px;white-space:nowrap">âœ“ Verified fit</span>
+          </div>
+        </div>
+      </div>
+      <div data-anim data-herocard style="position:absolute;right:-14px;bottom:104px;background:#fff;border-radius:999px;padding:11px 17px;box-shadow:0 20px 44px rgba(3,8,16,.45);display:flex;align-items:center;gap:9px;animation:mbFloatB 6.5s ease-in-out .8s infinite alternate">
+        <span data-anim style="width:9px;height:9px;border-radius:50%;background:#5b9bf7;animation:mbPulse 2.2s ease-in-out infinite"></span>
+        <span data-i18n="card_fit" style="font-size:13px;font-weight:700">âœ“ Fits: Toyota Avanza 1.5 G 2019</span>
+      </div>
+      <div data-anim data-herocard style="position:absolute;left:20px;bottom:-34px;width:238px;background:#fff;border-radius:16px;padding:10px;box-shadow:0 26px 60px rgba(3,8,16,.5);animation:mbFloatA 7s ease-in-out 1.3s infinite alternate">
+        <video data-mbvideo src="assets/unify-graph.mp4" poster="" style="width:100%;border-radius:10px;display:block;background:#f4f6fa"></video>
+        <div data-i18n="card_video_cap" style="font-size:11.5px;font-weight:600;color:#636e7e;margin-top:7px">One platform. Five links.</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section data-screen-label="Proof bar" style="background:#fff;border-bottom:1px solid #e3e7ee">
+  <div style="max-width:1280px;margin:0 auto;padding:0 24px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));background:#fff">
+      <div data-rev="0" style="background:#fff;padding:28px 26px;border-left:1px solid #e8ebf1;border-top:1px solid #e8ebf1;margin-left:-1px;margin-top:-1px">
+        <div data-i18n="pf1_v" style="font-size:30px;font-weight:800;letter-spacing:-0.02em">120M+</div>
+        <div data-i18n="pf1_l" style="font-size:14px;color:#636e7e;margin-top:4px">fitment mappings behind every listing</div>
+      </div>
+      <div data-rev="1" style="background:#fff;padding:28px 26px;border-left:1px solid #e8ebf1;border-top:1px solid #e8ebf1;margin-left:-1px;margin-top:-1px">
+        <div data-i18n="pf2_v" style="font-size:30px;font-weight:800;letter-spacing:-0.02em;color:#1b5fd9">0%</div>
+        <div data-i18n="pf2_l" style="font-size:14px;color:#636e7e;margin-top:4px">platform fee for the first 300 shops</div>
+      </div>
+      <div data-rev="2" style="background:#fff;padding:28px 26px;border-left:1px solid #e8ebf1;border-top:1px solid #e8ebf1;margin-left:-1px;margin-top:-1px">
+        <div data-i18n="pf3_v" style="font-size:30px;font-weight:800;letter-spacing:-0.02em">100,000+</div>
+        <div data-i18n="pf3_l" style="font-size:14px;color:#636e7e;margin-top:4px">workshops across Indonesia's aftermarket</div>
+      </div>
+      <div data-rev="3" style="background:#fff;padding:28px 26px;border-left:1px solid #e8ebf1;border-top:1px solid #e8ebf1;margin-left:-1px;margin-top:-1px">
+        <div data-i18n="pf4_v" style="font-size:30px;font-weight:800;letter-spacing:-0.02em">2026</div>
+        <div data-i18n="pf4_l" style="font-size:14px;color:#636e7e;margin-top:4px">launching â€” Jakarta first</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="problem" data-screen-label="The problem" style="scroll-margin-top:84px;padding:96px 24px">
+  <div style="max-width:1280px;margin:0 auto">
+    <div data-rev="0" data-i18n="prob_kicker" style="font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#1b5fd9">The problem</div>
+    <h2 data-rev="1" data-i18n="prob_h2" style="margin:14px 0 0;font-size:clamp(32px,3.8vw,50px);line-height:1.08;letter-spacing:-0.025em;font-weight:800;max-width:760px;text-wrap:balance">Buying car parts online is a guessing game.</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:18px;margin-top:44px">
+      <div data-rev="0" style="background:#fff;border:1px solid #e3e7ee;border-radius:18px;padding:30px">
+        <div style="font-size:46px;font-weight:800;letter-spacing:-0.03em;color:#b91c1c">19.4%</div>
+        <div data-i18n="prob_t1_t" style="font-size:14px;font-weight:800;color:#0d1522;margin-top:8px">return rate on big online marketplaces</div>
+        <div data-i18n="prob_t1_l" style="font-size:14.5px;line-height:1.55;color:#636e7e;margin-top:6px">Nearly 1 in 5 parts ordered online gets sent back.</div>
+      </div>
+      <div data-rev="1" style="background:#fff;border:1px solid #e3e7ee;border-radius:18px;padding:30px">
+        <div style="font-size:46px;font-weight:800;letter-spacing:-0.03em;color:#b91c1c">86%</div>
+        <div data-i18n="prob_t2_t" style="font-size:14px;font-weight:800;color:#0d1522;margin-top:8px">of those returns caused by wrong fit</div>
+        <div data-i18n="prob_t2_l" style="font-size:14.5px;line-height:1.55;color:#636e7e;margin-top:6px">Almost 9 in 10 returns are the same story: the part didn't fit the car.</div>
+      </div>
+      <div data-rev="2" style="background:#fff;border:1px solid #e3e7ee;border-radius:18px;padding:30px">
+        <div data-i18n="prob_t3_v" style="font-size:46px;font-weight:800;letter-spacing:-0.03em;color:#b91c1c">16.75â€“19.66%</div>
+        <div data-i18n="prob_t3_t" style="font-size:14px;font-weight:800;color:#0d1522;margin-top:8px">seller fees on big marketplaces</div>
+        <div data-i18n="prob_t3_l" style="font-size:14.5px;line-height:1.55;color:#636e7e;margin-top:6px">Sellers hand over up to a fifth of every sale in fees.</div>
+        <div data-i18n="prob_t3_chip" style="display:inline-block;background:#e4edfd;color:#123f9e;font-size:12.5px;font-weight:800;padding:6px 12px;border-radius:999px;margin-top:14px">Mobeeli: one low, flat rate</div>
+      </div>
+    </div>
+    <figure data-rev="1" style="margin:18px 0 0;background:#0d1522;border-radius:18px;padding:44px 40px;color:#fff">
+      <div style="font-size:44px;line-height:0;color:#5b9bf7;font-weight:800;font-family:Georgia,serif">â€œ</div>
+      <blockquote data-i18n="quote_main" style="margin:16px 0 0;font-size:clamp(20px,2.2vw,27px);line-height:1.45;font-weight:700;letter-spacing:-0.01em;max-width:900px;text-wrap:pretty">Toko saya sampai ditutup karena terlalu banyak retur COD. Platform menghukum saya. Bukan pembelinya.</blockquote>
+      <div data-i18n="quote_en" style="margin-top:14px;font-size:15px;line-height:1.6;color:#8b95a4;font-style:italic;max-width:760px">â€œMy shop was closed because of too many returns from COD. The platform penalized me. Not the customer.â€</div>
+      <figcaption data-i18n="quote_by" style="margin-top:18px;font-size:13px;font-weight:700;letter-spacing:.05em;color:#5b9bf7">Shop owner, Senen Market, Jakarta â€” shared with permission</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="how-it-works" data-screen-label="How it works" style="scroll-margin-top:84px;background:#fff;border-top:1px solid #e3e7ee;border-bottom:1px solid #e3e7ee;padding:96px 24px">
+  <div style="max-width:1280px;margin:0 auto">
+    <div data-rev="0" data-i18n="how_kicker" style="font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#1b5fd9">How it works</div>
+    <h2 data-rev="1" data-i18n="how_h2" style="margin:14px 0 0;font-size:clamp(32px,3.8vw,50px);line-height:1.08;letter-spacing:-0.025em;font-weight:800;max-width:700px">Three steps. Zero guessing.</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:18px;margin-top:44px">
+      <div data-rev="0" style="border:1px solid #e3e7ee;border-radius:18px;padding:30px;background:#f5f7fa">
+        <div style="width:40px;height:40px;border-radius:50%;background:#0d1522;color:#fff;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center">1</div>
+        <h3 data-i18n="how_s1_t" style="margin:18px 0 0;font-size:20px;font-weight:800;letter-spacing:-0.01em">Select your vehicle</h3>
+        <p data-i18n="how_s1_d" style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#636e7e">Year Â· make Â· model â€” down to trim and engine.</p>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:20px">
+          <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #dde4f0;border-radius:999px;padding:8px 16px;font-size:13px"><span data-i18n="ymm_y" style="font-weight:800;letter-spacing:.08em;font-size:10.5px;text-transform:uppercase;color:#636e7e">Year</span><span style="font-weight:700">2019</span></div>
+          <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #dde4f0;border-radius:999px;padding:8px 16px;font-size:13px;margin-left:14px"><span data-i18n="ymm_mk" style="font-weight:800;letter-spacing:.08em;font-size:10.5px;text-transform:uppercase;color:#636e7e">Make</span><span style="font-weight:700">Toyota</span></div>
+          <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #dde4f0;border-radius:999px;padding:8px 16px;font-size:13px;margin-left:28px"><span data-i18n="ymm_md" style="font-weight:800;letter-spacing:.08em;font-size:10.5px;text-transform:uppercase;color:#636e7e">Model</span><span style="font-weight:700">Avanza</span></div>
+          <div style="display:flex;align-items:center;gap:10px;background:#e4edfd;border:1px solid #a9c6f6;border-radius:999px;padding:8px 16px;font-size:13px;margin-left:42px"><span data-i18n="ymm_tr" style="font-weight:800;letter-spacing:.08em;font-size:10.5px;text-transform:uppercase;color:#123f9e">Trim</span><span style="font-weight:700;color:#123f9e">1.5 G Â· âœ“</span></div>
+        </div>
+      </div>
+      <div data-rev="1" style="border:1px solid #e3e7ee;border-radius:18px;padding:30px;background:#f5f7fa">
+        <div style="width:40px;height:40px;border-radius:50%;background:#0d1522;color:#fff;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center">2</div>
+        <h3 data-i18n="how_s2_t" style="margin:18px 0 0;font-size:20px;font-weight:800;letter-spacing:-0.01em">See only parts that fit</h3>
+        <p data-i18n="how_s2_d" style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#636e7e">Every listing is checked against 120M+ fitment mappings before you ever see it.</p>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:20px">
+          <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #dde4f0;border-radius:12px;padding:10px 14px"><span style="width:26px;height:26px;flex:none;border-radius:7px;background:repeating-linear-gradient(45deg,#eef1f6 0 6px,#e0e6f0 6px 12px)"></span><span data-i18n="fit_r1" style="font-size:13px;font-weight:600;flex:1">Oil filter â€” 2NR-VE engine</span><span style="color:#1b5fd9;font-weight:800;font-size:13px">âœ“</span></div>
+          <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #dde4f0;border-radius:12px;padding:10px 14px"><span style="width:26px;height:26px;flex:none;border-radius:7px;background:repeating-linear-gradient(45deg,#eef1f6 0 6px,#e0e6f0 6px 12px)"></span><span data-i18n="fit_r2" style="font-size:13px;font-weight:600;flex:1">Front shock absorber</span><span style="color:#1b5fd9;font-weight:800;font-size:13px">âœ“</span></div>
+          <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #efe3e3;border-radius:12px;padding:10px 14px;opacity:.55"><span style="width:26px;height:26px;flex:none;border-radius:7px;background:repeating-linear-gradient(45deg,#f4efef 0 6px,#eadfdf 6px 12px)"></span><span data-i18n="fit_r3" style="font-size:13px;font-weight:600;flex:1;text-decoration:line-through">Wrong-generation bumper</span><span style="color:#b91c1c;font-weight:800;font-size:13px">âœ—</span></div>
+        </div>
+      </div>
+      <div data-rev="2" style="border:1px solid #e3e7ee;border-radius:18px;padding:30px;background:#f5f7fa">
+        <div style="width:40px;height:40px;border-radius:50%;background:#0d1522;color:#fff;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center">3</div>
+        <h3 data-i18n="how_s3_t" style="margin:18px 0 0;font-size:20px;font-weight:800;letter-spacing:-0.01em">Check out protected</h3>
+        <p data-i18n="how_s3_d" style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#636e7e">Fair resolution with video evidence and authenticity verification. Funds release when the part fits â€” not just when it ships.</p>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:20px">
+          <div data-i18n="prot_r1" style="background:#fff;border:1px solid #dde4f0;border-radius:12px;padding:10px 14px;font-size:13px;font-weight:600">âœ“ Video-evidence resolution</div>
+          <div data-i18n="prot_r2" style="background:#fff;border:1px solid #dde4f0;border-radius:12px;padding:10px 14px;font-size:13px;font-weight:600">âœ“ Authenticity verification</div>
+          <div data-i18n="prot_r3" style="background:#e4edfd;border:1px solid #a9c6f6;border-radius:12px;padding:10px 14px;font-size:13px;font-weight:700;color:#123f9e">âœ“ Funds release when the part fits</div>
+        </div>
+      </div>
+    </div>
+    <div data-rev="1" style="max-width:1100px;margin:64px auto 0">
+      <h3 data-i18n="cmp_h" style="margin:0 0 26px;text-align:center;font-size:clamp(22px,2.4vw,30px);font-weight:800;letter-spacing:-0.02em">The same search, two outcomes.</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:18px">
+        <div style="background:#fff;border:1px solid #e3e7ee;border-radius:18px;padding:30px">
+          <div data-i18n="cmp_bad_t" style="font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#636e7e">On a generalist marketplace</div>
+          <div style="display:flex;flex-direction:column;gap:14px;margin-top:22px">
+            <div style="display:flex;gap:12px;align-items:flex-start"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#eef1f6;color:#636e7e;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">1</span><span data-i18n="cmp_bad_1" style="font-size:14.5px;line-height:1.55;color:#3c4654">Search â€œbrake pad Honda Brio 2018â€ â€” 500 listings, none that know your car.</span></div>
+            <div style="display:flex;gap:12px;align-items:flex-start"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#eef1f6;color:#636e7e;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">2</span><span data-i18n="cmp_bad_2" style="font-size:14.5px;line-height:1.55;color:#3c4654">WhatsApp the seller to ask if it fits â€” you both guess.</span></div>
+            <div style="display:flex;gap:12px;align-items:flex-start"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#eef1f6;color:#636e7e;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">3</span><span data-i18n="cmp_bad_3" style="font-size:14.5px;line-height:1.55;color:#3c4654">The order arrives â€” wrong generation, wrong part.</span></div>
+            <div style="display:flex;gap:12px;align-items:flex-start"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#fdeaea;color:#b91c1c;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">âœ—</span><span data-i18n="cmp_bad_4" style="font-size:14.5px;line-height:1.55;color:#3c4654">Return, dispute, wait â€” or keep a part you can't use.</span></div>
+          </div>
+          <div data-i18n="cmp_bad_res" style="margin-top:22px;background:#fdeaea;color:#b91c1c;font-size:13.5px;font-weight:800;padding:12px 16px;border-radius:12px">19.4% of orders come back â€” 86% from fitment errors.</div>
+        </div>
+        <div style="background:#fff;border:1.5px solid #a9c6f6;border-radius:18px;padding:30px;box-shadow:0 18px 44px rgba(47,125,246,.1)">
+          <div style="display:flex;align-items:center;gap:8px">
+            <img src="assets/mobeeli-mark.png" alt="" style="height:18px;display:none">
+            <div data-i18n="cmp_good_t" style="font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#1b5fd9">On Mobeeli</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px;margin-top:22px">
+            <div style="display:flex;gap:12px;align-items:flex-start"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#e4edfd;color:#123f9e;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">1</span><span data-i18n="cmp_good_1" style="font-size:14.5px;line-height:1.55;color:#3c4654">Tell us your car once â€” year Â· make Â· model Â· trim.</span></div>
+            <div style="display:flex;gap:12px;align-items:flex-start"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#e4edfd;color:#123f9e;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">2</span><span data-i18n="cmp_good_2" style="font-size:14.5px;line-height:1.55;color:#3c4654">Search shows only parts verified to fit your exact car.</span></div>
+            <div style="display:flex;gap:12px;align-items:flex-start"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#e4edfd;color:#123f9e;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">3</span><span data-i18n="cmp_good_3" style="font-size:14.5px;line-height:1.55;color:#3c4654">The part arrives and bolts on â€” as verified.</span></div>
+            <div style="display:flex;gap:12px;align-items:flex-start"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#e4edfd;color:#123f9e;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">âœ“</span><span data-i18n="cmp_good_4" style="font-size:14.5px;line-height:1.55;color:#3c4654">Protected checkout: funds release when the part fits.</span></div>
+          </div>
+          <div data-i18n="cmp_good_res" style="margin-top:22px;background:#e4edfd;color:#123f9e;font-size:13.5px;font-weight:800;padding:12px 16px;border-radius:12px">Verified before checkout â€” returns stop being the norm.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="For buyers" style="background:#e4edfd;padding:34px 24px">
+  <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;text-align:center">
+    <div data-i18n="buyer_line" style="font-size:16.5px;font-weight:700;color:#123f9e">Buying parts? Be first to know when Mobeeli opens in Jakarta.</div>
+    <a href="mailto:info@mobeeli.com?subject=Notify%20me%20at%20launch%20%E2%80%94%20buyer" data-i18n="buyer_cta" style="border:1.5px solid #1b5fd9;color:#1b5fd9;font-size:14px;font-weight:800;padding:11px 22px;border-radius:999px;white-space:nowrap" style-hover="background:#1b5fd9;color:#ffffff">Get notified</a>
+  </div>
+</section>
+
+<section id="why-now" data-screen-label="Why now" style="scroll-margin-top:84px;background:#123f9e;background-image:radial-gradient(680px 380px at 88% 0%, rgba(47,125,246,.35), transparent 70%);padding:100px 24px">
+  <div style="max-width:900px;margin:0 auto;text-align:center">
+    <div data-rev="0" data-i18n="why_kicker" style="font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8fb8f8">Why Mobeeli</div>
+    <h2 data-rev="1" data-i18n="why_h2" style="margin:14px 0 0;font-size:clamp(32px,3.8vw,50px);line-height:1.08;letter-spacing:-0.025em;font-weight:800;color:#fff">Fees went up. Trust didn't.</h2>
+    <p data-rev="2" data-i18n="why_p" style="margin:26px 0 0;font-size:clamp(17px,1.6vw,20px);line-height:1.75;color:#d7e5fb;text-wrap:pretty">In May 2026, the big marketplaces raised seller fees to roughly 17â€“20%. Mobeeli is the alternative built for the auto industry â€” verified fitment, honest economics, and protection on both sides.</p>
+  </div>
+</section>
+
+<section data-screen-label="AI catalog card" style="padding:96px 24px 0">
+  <div data-rev="0" style="max-width:1280px;margin:0 auto;background:#0d1522;background-image:radial-gradient(640px 380px at 82% 18%, rgba(47,125,246,.16), transparent 70%),radial-gradient(480px 320px at 12% 92%, rgba(18,63,158,.24), transparent 70%);border-radius:28px;padding:clamp(36px,5vw,64px);position:relative;overflow:hidden;min-height:560px;display:flex;flex-direction:column;justify-content:space-between">
+    <div style="position:relative;z-index:2;display:flex;align-items:center;flex-wrap:wrap;gap:12px">
+      <div style="display:flex">
+        <div style="width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(3,8,16,.4)"><img src="assets/icons/xls2.png" alt="Excel file" style="height:26px;width:auto;display:block"></div>
+        <div style="width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(3,8,16,.4);margin-left:-9px"><img src="assets/icons/pdf2.png" alt="PDF file" style="height:26px;width:auto;display:block"></div>
+        <div style="width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(3,8,16,.4);margin-left:-9px"><img src="assets/icons/jpg2.png" alt="Photo file" style="height:26px;width:auto;display:block"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(13,21,34,.88);border:1px solid rgba(91,155,247,.4);border-radius:999px;padding:0 16px;height:44px;position:relative;z-index:3">
+        <span data-anim style="width:8px;height:8px;border-radius:50%;background:#5b9bf7;animation:mbPulse 2s ease-in-out infinite"></span>
+        <span data-scai style="font-size:12.5px;font-weight:700;color:#c7cfdd;white-space:nowrap">Mobeeli AI Â· reading 3 catalogsâ€¦</span>
+      </div>
+    </div>
+    <div data-scstage style="position:absolute;right:4%;top:50%;transform:translateY(-50%);width:min(560px,54%);aspect-ratio:14/9;pointer-events:none;z-index:1">
+      <div data-sc style="position:absolute;left:4%;top:8%;width:clamp(110px,13vw,160px);opacity:0">
+        <img src="assets/parts/pad.png" alt="Brake pads" style="display:block;width:100%;filter:drop-shadow(0 16px 26px rgba(3,8,16,.55))">
+        <span data-scname data-i18n="scn1" style="position:absolute;left:50%;top:100%;transform:translate(-50%,4px);background:rgba(13,21,34,.88);border:1px solid rgba(91,155,247,.4);border-radius:999px;padding:5px 12px;font-size:11.5px;font-weight:700;color:#fff;white-space:nowrap;opacity:0;transition:opacity .4s">Brake pads</span>
+      </div>
+      <div data-sc style="position:absolute;left:39%;top:0%;width:clamp(100px,11vw,140px);opacity:0">
+        <img src="assets/parts/filter.png" alt="Oil filter" style="display:block;width:100%;filter:drop-shadow(0 16px 26px rgba(3,8,16,.55))">
+        <span data-scname data-i18n="scn2" style="position:absolute;left:50%;top:100%;transform:translate(-50%,4px);background:rgba(13,21,34,.88);border:1px solid rgba(91,155,247,.4);border-radius:999px;padding:5px 12px;font-size:11.5px;font-weight:700;color:#fff;white-space:nowrap;opacity:0;transition:opacity .4s">Oil filter</span>
+      </div>
+      <div data-sc style="position:absolute;left:70%;top:8%;width:clamp(95px,10vw,130px);opacity:0">
+        <img src="assets/parts/plug.png" alt="Spark plug" style="display:block;width:100%;filter:drop-shadow(0 16px 26px rgba(3,8,16,.55))">
+        <span data-scname data-i18n="scn3" style="position:absolute;left:50%;top:100%;transform:translate(-50%,4px);background:rgba(13,21,34,.88);border:1px solid rgba(91,155,247,.4);border-radius:999px;padding:5px 12px;font-size:11.5px;font-weight:700;color:#fff;white-space:nowrap;opacity:0;transition:opacity .4s">Spark plugs</span>
+      </div>
+      <div data-sc style="position:absolute;left:6%;top:46%;width:clamp(110px,13vw,160px);opacity:0">
+        <img src="assets/parts/disc.png" alt="Brake disc" style="display:block;width:100%;filter:drop-shadow(0 16px 26px rgba(3,8,16,.55))">
+        <span data-scname data-i18n="scn4" style="position:absolute;left:50%;top:100%;transform:translate(-50%,4px);background:rgba(13,21,34,.88);border:1px solid rgba(91,155,247,.4);border-radius:999px;padding:5px 12px;font-size:11.5px;font-weight:700;color:#fff;white-space:nowrap;opacity:0;transition:opacity .4s">Brake disc</span>
+      </div>
+      <div data-sc style="position:absolute;left:40%;top:42%;width:clamp(105px,12vw,150px);opacity:0">
+        <img src="assets/parts/shock.png" alt="Shock absorber" style="display:block;width:100%;filter:drop-shadow(0 16px 26px rgba(3,8,16,.55))">
+        <span data-scname data-i18n="scn5" style="position:absolute;left:50%;top:100%;transform:translate(-50%,4px);background:rgba(13,21,34,.88);border:1px solid rgba(91,155,247,.4);border-radius:999px;padding:5px 12px;font-size:11.5px;font-weight:700;color:#fff;white-space:nowrap;opacity:0;transition:opacity .4s">Shock absorber</span>
+      </div>
+      <div data-sc style="position:absolute;left:70%;top:48%;width:clamp(110px,13vw,160px);opacity:0">
+        <img src="assets/parts/air.png" alt="Air filter" style="display:block;width:100%;filter:drop-shadow(0 16px 26px rgba(3,8,16,.55))">
+        <span data-scname data-i18n="scn6" style="position:absolute;left:50%;top:100%;transform:translate(-50%,4px);background:rgba(13,21,34,.88);border:1px solid rgba(91,155,247,.4);border-radius:999px;padding:5px 12px;font-size:11.5px;font-weight:700;color:#fff;white-space:nowrap;opacity:0;transition:opacity .4s">Air filter</span>
+      </div>
+      <div data-scpill data-i18n="cat_pill" style="position:absolute;left:50%;transform:translateX(-50%);top:86%;background:#2f7df6;color:#fff;font-size:12.5px;font-weight:800;padding:9px 16px;border-radius:999px;box-shadow:0 14px 34px rgba(47,125,246,.4);opacity:0;white-space:nowrap">âœ“ One catalog Â· 120M+ mappings</div>
+    </div>
+    <div style="position:relative;z-index:2;max-width:560px;margin-top:180px">
+      <h2 data-rev="1" data-i18n="cat_h2" style="margin:0;font-size:clamp(30px,3.6vw,46px);line-height:1.08;letter-spacing:-0.025em;font-weight:800;color:#fff;text-wrap:balance">The catalog that puts itself together.</h2>
+      <p data-rev="2" data-i18n="cat_p" style="margin:16px 0 0;font-size:16px;line-height:1.7;color:#a9b4c6;text-wrap:pretty">Excel sheets, PDFs, even photos of handwritten ledgers â€” Mobeeli's AI reads them all and builds one clean catalog, mapped to every car on the road.</p>
+    </div>
+  </div>
+</section>
+
+<section id="early-adaptor" data-screen-label="Early Adaptors" style="scroll-margin-top:84px;padding:96px 24px">
+  <div style="max-width:1280px;margin:0 auto;text-align:center">
+    <div data-rev="0" data-i18n="early_kicker" style="font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#1b5fd9">Early Adaptors Program</div>
+    <h2 data-rev="1" data-i18n="early_h2" style="margin:14px 0 0;font-size:clamp(32px,3.8vw,50px);line-height:1.08;letter-spacing:-0.025em;font-weight:800;max-width:820px;margin-left:auto;margin-right:auto;text-wrap:balance">0% platform fee for the first 300 shops.</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:18px;margin-top:48px;text-align:left">
+      <div data-rev="0" style="background:#fff;border:1px solid #e3e7ee;border-radius:18px;padding:32px">
+        <div style="width:46px;height:46px;border-radius:50%;border:1.5px solid #1b5fd9;color:#1b5fd9;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">AI</div>
+        <h3 data-i18n="early_f1_t" style="margin:20px 0 0;font-size:19px;font-weight:800;letter-spacing:-0.01em">Automated catalog uploads</h3>
+        <p data-i18n="early_f1_d" style="margin:9px 0 0;font-size:15px;line-height:1.6;color:#636e7e">Thousands of SKUs uploaded automatically by AI â€” Excel files or PDFs become an online store in hours.</p>
+      </div>
+      <div data-rev="1" style="background:#fff;border:1px solid #e3e7ee;border-radius:18px;padding:32px">
+        <div style="width:46px;height:46px;border-radius:50%;border:1.5px solid #1b5fd9;color:#1b5fd9;font-size:17px;font-weight:800;display:flex;align-items:center;justify-content:center">âœ“</div>
+        <h3 data-i18n="early_f2_t" style="margin:20px 0 0;font-size:19px;font-weight:800;letter-spacing:-0.01em">Fraud protection</h3>
+        <p data-i18n="early_f2_d" style="margin:9px 0 0;font-size:15px;line-height:1.6;color:#636e7e">Built-in protection against fraud, backed by video evidence and insurance.</p>
+      </div>
+      <div data-rev="2" style="background:#fff;border:1px solid #e3e7ee;border-radius:18px;padding:32px">
+        <div style="width:46px;height:46px;border-radius:50%;border:1.5px solid #1b5fd9;color:#1b5fd9;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center">Rp</div>
+        <h3 data-i18n="early_f3_t" style="margin:20px 0 0;font-size:19px;font-weight:800;letter-spacing:-0.01em">One low, flat commission</h3>
+        <p data-i18n="early_f3_d" style="margin:9px 0 0;font-size:15px;line-height:1.6;color:#636e7e">After the promo period, one flat rate that stays a fraction of standard marketplace fees â€” transparent, predictable, and built to keep quality sellers profitable.</p>
+      </div>
+    </div>
+    <div data-rev="1" style="margin-top:40px;display:flex;flex-direction:column;align-items:center;gap:12px">
+      <a href="{{ waitlistHref }}" data-wlbtn target="{{ waitlistTarget }}" data-i18n="early_cta" style="background:#1b5fd9;color:#fff;font-size:16px;font-weight:800;padding:16px 36px;border-radius:999px;display:inline-block" style-hover="background:#123f9e;color:#fff">Join Waitlist</a>
+      <div data-i18n="early_note" style="font-size:13px;color:#8b95a4">First 300 shops lock in 0% â€” takes two minutes.</div>
+    </div>
+  </div>
+</section>
+
+<section id="team" data-screen-label="Team" style="scroll-margin-top:84px;background:#fff;border-top:1px solid #e3e7ee;padding:96px 24px">
+  <div style="max-width:1280px;margin:0 auto">
+    <div data-rev="0" data-i18n="team_kicker" style="font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#1b5fd9">The team</div>
+    <h2 data-rev="1" data-i18n="team_h2" style="margin:14px 0 0;font-size:clamp(32px,3.8vw,50px);line-height:1.08;letter-spacing:-0.025em;font-weight:800">Three founders. One engine.</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));gap:18px;margin-top:44px">
+      <div data-rev="0" style="border:1px solid #e3e7ee;border-radius:18px;overflow:hidden;background:#f5f7fa">
+        <div style="aspect-ratio:1/1;background:linear-gradient(160deg,#5b9bf7,#1b5fd9)">
+          <image-slot id="team-ya" shape="rect" placeholder="Drop Yavet's headshot â€” uniform shirt"></image-slot>
+        </div>
+        <div style="padding:24px 24px 26px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+            <div style="font-size:18px;font-weight:800;letter-spacing:-0.01em">Yavet Arimathea Widjaja</div>
+            <a href="#" aria-label="LinkedIn â€” Yavet Arimathea Widjaja" style="flex:none;width:27px;height:27px;border-radius:7px;background:#0d1522;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center" style-hover="background:#1b5fd9;color:#fff">in</a>
+          </div>
+          <div style="font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#1b5fd9;margin-top:5px">CEO &amp; Founder</div>
+          <p data-i18n="team_c1" style="margin:11px 0 0;font-size:14.5px;line-height:1.6;color:#636e7e">Signed 9 of 14 shops in one afternoon â€” runs market strategy and the seller program.</p>
+        </div>
+      </div>
+      <div data-rev="1" style="border:1px solid #e3e7ee;border-radius:18px;overflow:hidden;background:#f5f7fa">
+        <div style="aspect-ratio:1/1;background:linear-gradient(160deg,#566274,#3c4654)">
+          <image-slot id="team-ms" shape="rect" placeholder="Drop Salman's headshot â€” uniform shirt"></image-slot>
+        </div>
+        <div style="padding:24px 24px 26px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+            <div style="font-size:18px;font-weight:800;letter-spacing:-0.01em">Muhammad Salman Al Hafizh</div>
+            <a href="https://www.linkedin.com/in/msalmanalhafizh/" target="_blank" rel="noopener" aria-label="LinkedIn â€” Muhammad Salman Al Hafizh" style="flex:none;width:27px;height:27px;border-radius:7px;background:#0d1522;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center" style-hover="background:#1b5fd9;color:#fff">in</a>
+          </div>
+          <div style="font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#1b5fd9;margin-top:5px">CTO &amp; Co-Founder</div>
+          <p data-i18n="team_c2" style="margin:11px 0 0;font-size:14.5px;line-height:1.6;color:#636e7e">Built the platform pre-funding â€” the fitment engine, gated AI ingestion, the marketplace.</p>
+        </div>
+      </div>
+      <div data-rev="2" style="border:1px solid #e3e7ee;border-radius:18px;overflow:hidden;background:#f5f7fa">
+        <div style="aspect-ratio:1/1;background:linear-gradient(160deg,#8b95a4,#636e7e)">
+          <image-slot id="team-fh" shape="rect" placeholder="Drop Ferdinansyah's headshot â€” uniform shirt"></image-slot>
+        </div>
+        <div style="padding:24px 24px 26px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+            <div style="font-size:18px;font-weight:800;letter-spacing:-0.01em">Ferdinansyah Husein</div>
+            <a href="https://www.linkedin.com/in/ferdinansyah-h-864134157/" target="_blank" rel="noopener" aria-label="LinkedIn â€” Ferdinansyah Husein" style="flex:none;width:27px;height:27px;border-radius:7px;background:#0d1522;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center" style-hover="background:#1b5fd9;color:#fff">in</a>
+          </div>
+          <div style="font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#1b5fd9;margin-top:5px">COO &amp; Co-Founder</div>
+          <p data-i18n="team_c3" style="margin:11px 0 0;font-size:14.5px;line-height:1.6;color:#636e7e">Runs operations and partnerships â€” logistics, payments, and the wholesaler pipeline.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="investors" data-screen-label="Investors" style="scroll-margin-top:84px;padding:96px 24px">
+  <div data-rev="0" style="max-width:1100px;margin:0 auto;background:#0d1522;background-image:radial-gradient(560px 320px at 90% 10%, rgba(47,125,246,.18), transparent 70%);border-radius:28px;padding:clamp(44px,6vw,76px);text-align:center">
+    <div data-i18n="inv_kicker" style="font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#5b9bf7">For investors</div>
+    <h2 data-i18n="inv_h2" style="margin:14px 0 0;font-size:clamp(30px,3.6vw,46px);line-height:1.1;letter-spacing:-0.025em;font-weight:800;color:#fff;text-wrap:balance">Come see what we've built.</h2>
+    <p data-i18n="inv_p" style="margin:20px auto 0;max-width:640px;font-size:16.5px;line-height:1.7;color:#a9b4c6;text-wrap:pretty">Mobeeli is built and already signing shops â€” 9 of the first 14 we visited signed in one afternoon. If you follow commerce infrastructure in Southeast Asia, we'd like to show you what's coming.</p>
+    <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:32px">
+      <a href="mailto:info@mobeeli.com?subject=Mobeeli%20%E2%80%94%20deck%20request" data-i18n="inv_cta" style="background:#2f7df6;color:#ffffff;font-size:15px;font-weight:800;padding:15px 30px;border-radius:999px" style-hover="background:#5596f7;color:#ffffff">Request the deck</a>
+    </div>
+    <div style="margin-top:26px;font-size:13.5px;color:#8b95a4">
+      <span data-i18n="inv_or">or write to the founders directly</span>
+      <div style="display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:10px">
+        <a href="mailto:matheau@mobeeli.com" style="color:#5b9bf7;font-weight:700">matheau@mobeeli.com</a>
+        <a href="mailto:hafizh@mobeeli.com" style="color:#5b9bf7;font-weight:700">hafizh@mobeeli.com</a>
+        <a href="mailto:ferdi@mobeeli.com" style="color:#5b9bf7;font-weight:700">ferdi@mobeeli.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Unify band" style="background:#0d1522;background-image:radial-gradient(720px 420px at 78% 18%, rgba(47,125,246,.14), transparent 70%),radial-gradient(560px 380px at 10% 88%, rgba(18,63,158,.26), transparent 70%);padding:100px 24px;overflow:hidden">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="text-align:center;max-width:840px;margin:0 auto">
+      <div data-rev="0" data-i18n="uni_kicker" style="font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#5b9bf7">Across the archipelago</div>
+      <h2 data-rev="1" data-i18n="uni_h2" style="margin:14px 0 0;font-size:clamp(34px,4vw,54px);line-height:1.06;letter-spacing:-0.028em;font-weight:800;color:#fff;text-wrap:balance">From Sabang to Merauke, one catalog.</h2>
+      <p data-rev="2" data-i18n="uni_p" style="margin:20px auto 0;max-width:620px;font-size:16.5px;line-height:1.7;color:#a9b4c6;text-wrap:pretty">100,000+ workshops and thousands of parts shops, finally speaking the same language â€” starting in Jakarta, 2026, then island by island.</p>
+    </div>
+    <div data-rev="2" style="max-width:1060px;margin:40px auto 0">
+      <div style="aspect-ratio:1.9/1">
+        <x-import component-from-global-scope="indo-globe" from="./indo-globe.js" hint-size="100%,100%" style="width:100%;height:100%;display:block"></x-import>
+      </div>
+      <div data-i18n="uni_drag" style="text-align:center;font-size:12.5px;font-weight:600;color:#8b95a4;margin-top:14px">Drag the map to explore â€” launching in Jakarta first.</div>
+    </div>
+  </div>
+</section>
+
+<footer data-screen-label="Footer" style="background:#0d1522;padding:64px 24px 44px">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:28px;flex-wrap:wrap">
+      <div>
+        <img src="assets/mobeeli-logo-blue.png" alt="Mobeeli" style="height:32px;display:block;filter:brightness(0) invert(1)">
+        <div data-i18n="foot_tag" style="margin-top:14px;font-size:14.5px;color:#8b95a4;max-width:340px;line-height:1.6">One platform to unify Indonesia's auto industry.</div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <a href="#" aria-label="LinkedIn" style="width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.22);color:#fff;font-size:12.5px;font-weight:800;display:flex;align-items:center;justify-content:center" style-hover="border-color:#5b9bf7;color:#5b9bf7">in</a>
+
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.12);margin-top:36px;padding-top:26px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap">
+      <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px">
+        <a href="mailto:info@mobeeli.com" style="color:#5b9bf7;font-weight:600">info@mobeeli.com</a>
+      </div>
+      <div style="font-size:13px;color:#636e7e;font-weight:600">Mobeeli â€” Jakarta, Indonesia Â· 2026</div>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;en&quot;,&quot;id&quot;],&quot;default&quot;:&quot;en&quot;,&quot;tsType&quot;:&quot;\&quot;en\&quot;|\&quot;id\&quot;&quot;,&quot;section&quot;:&quot;Language&quot;},&quot;numbers&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;brief&quot;,&quot;deck&quot;],&quot;default&quot;:&quot;brief&quot;,&quot;tsType&quot;:&quot;\&quot;brief\&quot;|\&quot;deck\&quot;&quot;,&quot;section&quot;:&quot;Copy&quot;},&quot;reducedMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;section&quot;:&quot;Motion&quot;},&quot;waitlistUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#&quot;,&quot;section&quot;:&quot;Links&quot;}}">
+const TXT = {
+  nav_problem:{en:"The problem",id:"Masalah"},
+  nav_how:{en:"How it works",id:"Cara kerja"},
+  nav_why:{en:"Why Mobeeli",id:"Kenapa Mobeeli"},
+  nav_early:{en:"Early Adaptors",id:"Early Adaptors"},
+  nav_team:{en:"Team",id:"Tim"},
+  nav_inv:{en:"Investors",id:"Investor"},
+  nav_cta:{en:"Join Waitlist",id:"Join Waitlist"},
+  hero_chip:{en:"Launching 2026 â€” Jakarta, Indonesia",id:"Launching 2026 â€” Jakarta, Indonesia"},
+  hero_sub:{en:"Mobeeli is the trust infrastructure for Indonesia's $5.3B automotive aftermarket â€” a parts marketplace where fitment is verified before checkout, sellers keep more of every sale, and both sides are protected.",id:"Mobeeli adalah infrastruktur kepercayaan untuk aftermarket otomotif Indonesia senilai $5,3 miliar â€” marketplace suku cadang tempat setiap barang dipastikan cocok sebelum checkout, penjual membawa pulang lebih banyak dari tiap transaksi, dan dua belah pihak sama-sama terlindungi."},
+  hero_cta_inv:{en:"For investors",id:"Untuk investor"},
+  hero_cta_shops:{en:"Join Early Adaptor Program",id:"Gabung Program Early Adaptor"},
+  card_part_name:{en:"Front brake pad set",id:"Kampas rem depan"},
+  card_part_sub:{en:"Front axle Â· ceramic",id:"As depan Â· keramik"},
+  card_part_chip:{en:"âœ“ Verified fit",id:"âœ“ Dijamin cocok"},
+  card_fit:{en:"âœ“ Fits: Toyota Avanza 1.5 G 2019",id:"âœ“ Cocok: Toyota Avanza 1.5 G 2019"},
+  card_video_cap:{en:"One platform. Five links.",id:"Satu platform. Lima mata rantai."},
+  pf1_v:{en:"120M+",id:"120 juta+",deck:{en:"190K+",id:"190 ribu+"}},
+  pf1_l:{en:"fitment mappings behind every listing",id:"data kecocokan di balik setiap listing",deck:{en:"verified fitment edges behind every listing",id:"relasi kecocokan terverifikasi di balik setiap listing"}},
+  pf2_v:{en:"0%",id:"0%"},
+  pf2_l:{en:"platform fee for the first 300 shops",id:"biaya platform untuk 300 toko pertama"},
+  pf3_v:{en:"100,000+",id:"100.000+"},
+  pf3_l:{en:"workshops across Indonesia's aftermarket",id:"bengkel di seluruh aftermarket Indonesia"},
+  pf4_v:{en:"2026",id:"2026"},
+  pf4_l:{en:"launching â€” Jakarta first",id:"Launching â€” mulai dari Jakarta"},
+  prob_kicker:{en:"The problem",id:"Masalah"},
+  prob_h2:{en:"Buying car parts online is a guessing game.",id:"Beli onderdil online masih untung-untungan."},
+  prob_t1_t:{en:"return rate on big online marketplaces",id:"tingkat retur di marketplace besar"},
+  prob_t1_l:{en:"Nearly 1 in 5 parts ordered online gets sent back.",id:"Hampir 1 dari 5 onderdil yang dibeli online berakhir dikirim balik."},
+  prob_t2_t:{en:"of those returns caused by wrong fit",id:"retur karena barang tidak cocok"},
+  prob_t2_l:{en:"Almost 9 in 10 returns are the same story: the part didn't fit the car.",id:"Hampir 9 dari 10 retur ceritanya sama: barangnya tidak cocok dengan mobil."},
+  prob_t3_v:{en:"16.75â€“19.66%",id:"16,75â€“19,66%",deck:{en:"~17â€“20%",id:"~17â€“20%"}},
+  prob_t3_t:{en:"seller fees on big marketplaces",id:"potongan biaya penjual di marketplace besar"},
+  prob_t3_l:{en:"Sellers hand over up to a fifth of every sale in fees.",id:"Sementara penjual harus merelakan sampai seperlima omzetnya untuk biaya platform."},
+  prob_t3_chip:{en:"Mobeeli: one low, flat rate",id:"Mobeeli: satu tarif flat, ringan"},
+  quote_main:{en:"Toko saya sampai ditutup karena terlalu banyak retur COD. Platform menghukum saya. Bukan pembelinya.",id:"Toko saya sampai ditutup karena terlalu banyak retur COD. Platform menghukum saya. Bukan pembelinya."},
+  quote_en:{en:"â€œMy shop was closed because of too many returns from COD. The platform penalized me. Not the customer.â€",id:"â€œMy shop was closed because of too many returns from COD. The platform penalized me. Not the customer.â€"},
+  quote_by:{en:"Shop owner, Senen Market, Jakarta â€” shared with permission",id:"Pemilik toko, Pasar Senen, Jakarta â€” dibagikan seizin beliau"},
+  how_kicker:{en:"How it works",id:"Cara kerja"},
+  how_h2:{en:"Three steps. Zero guessing.",id:"Tiga langkah. Tanpa menebak."},
+  how_s1_t:{en:"Select your vehicle",id:"Pilih mobil Anda"},
+  how_s1_d:{en:"Year Â· make Â· model â€” down to trim and engine.",id:"Tahun Â· merek Â· model â€” sampai ke tipe dan mesinnya."},
+  ymm_y:{en:"Year",id:"Tahun"},
+  ymm_mk:{en:"Make",id:"Merek"},
+  ymm_md:{en:"Model",id:"Model"},
+  ymm_tr:{en:"Trim",id:"Tipe"},
+  how_s2_t:{en:"See only parts that fit",id:"Lihat yang cocok saja"},
+  how_s2_d:{en:"Every listing is checked against 120M+ fitment mappings before you ever see it.",id:"Setiap listing sudah dicek ke 120 juta+ data kecocokan sebelum sampai ke layar Anda.",deck:{en:"Every listing is checked against 190K+ verified fitment edges before you ever see it.",id:"Setiap listing sudah dicek ke 190 ribu+ data kecocokan terverifikasi sebelum sampai ke layar Anda."}},
+  fit_r1:{en:"Oil filter â€” 2NR-VE engine",id:"Filter oli â€” mesin 2NR-VE"},
+  fit_r2:{en:"Front shock absorber",id:"Sokbreker depan"},
+  fit_r3:{en:"Wrong-generation bumper",id:"Bumper beda generasi"},
+  how_s3_t:{en:"Check out protected",id:"Checkout dengan tenang"},
+  how_s3_d:{en:"Fair resolution with video evidence and authenticity verification. Funds release when the part fits â€” not just when it ships.",id:"Sengketa diselesaikan adil dengan bukti video dan verifikasi keaslian. Dana baru cair setelah barang terbukti cocok â€” bukan sekadar setelah dikirim."},
+  prot_r1:{en:"âœ“ Video-evidence resolution",id:"âœ“ Penyelesaian sengketa dengan bukti video"},
+  prot_r2:{en:"âœ“ Authenticity verification",id:"âœ“ Verifikasi barang asli"},
+  prot_r3:{en:"âœ“ Funds release when the part fits",id:"âœ“ Dana cair setelah barang cocok"},
+  cmp_h:{en:"The same search, two outcomes.",id:"Pencarian sama, hasilnya beda jauh."},
+  cmp_bad_t:{en:"On a generalist marketplace",id:"Di marketplace biasa"},
+  cmp_bad_1:{en:"Search â€œbrake pad Honda Brio 2018â€ â€” 500 listings, none that know your car.",id:"Ketik â€œkampas rem Brio 2018â€ â€” muncul 500 listing, tak ada yang paham mobil Anda."},
+  cmp_bad_2:{en:"WhatsApp the seller to ask if it fits â€” you both guess.",id:"Tanya penjual lewat WhatsApp, cocok atau tidak â€” dua-duanya cuma menebak."},
+  cmp_bad_3:{en:"The order arrives â€” wrong generation, wrong part.",id:"Barang datang â€” beda generasi, salah tipe."},
+  cmp_bad_4:{en:"Return, dispute, wait â€” or keep a part you can't use.",id:"Ajukan retur, sengketa, menunggu â€” atau terpaksa menyimpan barang yang tak terpakai."},
+  cmp_bad_res:{en:"19.4% of orders come back â€” 86% from fitment errors.",id:"19,4% pesanan berakhir retur â€” 86% karena salah kecocokan."},
+  cmp_good_t:{en:"On Mobeeli",id:"Di Mobeeli"},
+  cmp_good_1:{en:"Tell us your car once â€” year Â· make Â· model Â· trim.",id:"Cukup sekali isi data mobil â€” tahun Â· merek Â· model Â· tipe."},
+  cmp_good_2:{en:"Search shows only parts verified to fit your exact car.",id:"Hasil pencarian hanya menampilkan onderdil yang pasti cocok untuk mobil Anda."},
+  cmp_good_3:{en:"The part arrives and bolts on â€” as verified.",id:"Barang tiba, langsung terpasang â€” sesuai janji."},
+  cmp_good_4:{en:"Protected checkout: funds release when the part fits.",id:"Checkout terlindungi: dana cair setelah barang cocok."},
+  cmp_good_res:{en:"Verified before checkout â€” returns stop being the norm.",id:"Sudah dipastikan cocok sebelum checkout â€” retur tak lagi jadi rutinitas."},
+  why_kicker:{en:"Why Mobeeli",id:"Kenapa Mobeeli"},
+  why_h2:{en:"Fees went up. Trust didn't.",id:"Biaya naik. Kepercayaan tidak."},
+  why_p:{en:"In May 2026, the big marketplaces raised seller fees to roughly 17â€“20%. Mobeeli is the alternative built for the auto industry â€” verified fitment, honest economics, and protection on both sides.",id:"Mei 2026, marketplace besar menaikkan biaya penjual hingga sekitar 17â€“20%. Mobeeli hadir sebagai alternatif yang memang dibangun untuk industri otomotif â€” kecocokan terjamin, biaya masuk akal, dan perlindungan untuk dua belah pihak."},
+  early_kicker:{en:"Early Adaptors Program",id:"Program Early Adaptors"},
+  early_h2:{en:"0% platform fee for the first 300 shops.",id:"Biaya platform 0% untuk 300 toko pertama."},
+  early_f1_t:{en:"Automated catalog uploads",id:"Unggah katalog serba otomatis"},
+  early_f1_d:{en:"Thousands of SKUs uploaded automatically by AI â€” Excel files or PDFs become an online store in hours.",id:"Ribuan SKU terunggah otomatis oleh AI â€” dari file Excel atau PDF jadi toko online hanya dalam hitungan jam."},
+  early_f2_t:{en:"Fraud protection",id:"Perlindungan dari penipuan"},
+  early_f2_d:{en:"Built-in protection against fraud, backed by video evidence and insurance.",id:"Perlindungan bawaan dari penipuan, ditopang bukti video dan asuransi."},
+  early_f3_t:{en:"One low, flat commission",id:"Satu komisi flat yang ringan"},
+  early_f3_d:{en:"After the promo period, one flat rate that stays a fraction of standard marketplace fees â€” transparent, predictable, and built to keep quality sellers profitable.",id:"Setelah masa promo, berlaku satu tarif flat yang jauh lebih ringan dari biaya marketplace pada umumnya â€” transparan, mudah dihitung, dan menjaga penjual tetap untung."},
+  early_cta:{en:"Join Waitlist",id:"Join Waitlist"},
+  early_note:{en:"First 300 shops lock in 0% â€” takes two minutes.",id:"300 toko pertama mengunci tarif 0% â€” daftarnya cuma dua menit."},
+  buyer_line:{en:"Buying parts? Be first to know when Mobeeli opens in Jakarta.",id:"Butuh onderdil? Jadi yang pertama tahu begitu Mobeeli hadir di Jakarta."},
+  buyer_cta:{en:"Get notified",id:"Kabari saya"},
+  team_kicker:{en:"The team",id:"Tim"},
+  team_h2:{en:"Three founders. One engine.",id:"Tiga founders. Satu mesin."},
+  team_c1:{en:"Signed 9 of 14 shops in one afternoon â€” runs market strategy and the seller program.",id:"Meneken 9 dari 14 toko dalam satu sore â€” memegang strategi pasar dan program penjual.",deck:{en:"Signed 38 of 60 shops pre-launch â€” runs market strategy and the seller program.",id:"Meneken 38 dari 60 toko sebelum peluncuran â€” memegang strategi pasar dan program penjual."}},
+  team_c2:{en:"Built the platform pre-funding â€” the fitment engine, gated AI ingestion, the marketplace.",id:"Membangun platform ini sebelum ada pendanaan â€” dari mesin kecocokan, ingesti AI, sampai marketplace-nya."},
+  team_c3:{en:"Runs operations and partnerships â€” logistics, payments, and the wholesaler pipeline.",id:"Memegang operasional dan kemitraan â€” logistik, pembayaran, dan jalur distribusi grosir."},
+  inv_kicker:{en:"For investors",id:"Untuk investor"},
+  inv_h2:{en:"Come see what we've built.",id:"Lihat apa yang sudah kami bangun."},
+  inv_p:{en:"Mobeeli is built and already signing shops â€” 9 of the first 14 we visited signed in one afternoon. If you follow commerce infrastructure in Southeast Asia, we'd like to show you what's coming.",id:"Mobeeli sudah jadi dan toko-toko mulai minat bergabung â€” 9 dari 14 toko pertama yang kami datangi setuju untuk join waitlist di sore yang sama. Kalau Anda mengikuti infrastruktur commerce di Asia Tenggara, kami ingin menunjukkan apa yang kami persiapkan.",deck:{en:"Mobeeli is built and already signing shops â€” 38 of the first 60 we visited signed pre-launch. If you follow commerce infrastructure in Southeast Asia, we'd like to show you what's coming.",id:"Mobeeli sudah jadi dan toko-toko mulai minat bergabung â€” 38 dari 60 toko pertama yang kami datangi setuju untuk join waitlist sebelum peluncuran. Kalau Anda mengikuti infrastruktur commerce di Asia Tenggara, kami ingin menunjukkan apa yang kami persiapkan."}},
+  inv_cta:{en:"Request the deck",id:"Minta deck"},
+  inv_or:{en:"or write to the founders directly",id:"atau langsung hubungi para founders"},
+  cat_h2:{en:"The catalog that puts itself together.",id:"Katalog yang menyusun dirinya sendiri."},
+  cat_p:{en:"Excel sheets, PDFs, even photos of handwritten ledgers â€” Mobeeli's AI reads them all and builds one clean catalog, mapped to every car on the road.",id:"File Excel, PDF, sampai foto catatan tulis tangan â€” AI Mobeeli membaca semuanya, lalu merapikannya jadi satu katalog yang terpetakan ke setiap mobil di jalanan."},
+  cat_pill:{en:"âœ“ One catalog Â· 120M+ mappings",id:"âœ“ Satu katalog Â· 120 juta+ data kecocokan",deck:{en:"âœ“ One catalog Â· 190K+ verified edges",id:"âœ“ Satu katalog Â· 190 ribu+ relasi terverifikasi"}},
+  cat_ai_read:{en:"Mobeeli AI Â· reading 3 catalogsâ€¦",id:"AI Mobeeli Â· sedang membaca 3 katalogâ€¦"},
+  cat_ai_done:{en:"Mobeeli AI Â· catalog assembled âœ“",id:"AI Mobeeli Â· katalog selesai disusun âœ“"},
+  scn1:{en:"Brake pads",id:"Kampas rem"},
+  scn2:{en:"Oil filter",id:"Filter oli"},
+  scn3:{en:"Spark plugs",id:"Busi"},
+  scn4:{en:"Brake disc",id:"Cakram rem"},
+  scn5:{en:"Shock absorber",id:"Sokbreker"},
+  scn6:{en:"Air filter",id:"Filter udara"},
+  uni_kicker:{en:"Across the archipelago",id:"Menuju seluruh Nusantara"},
+  uni_h2:{en:"From Sabang to Merauke, one catalog.",id:"Dari Sabang sampai Merauke, satu katalog."},
+  uni_p:{en:"100,000+ workshops and thousands of parts shops, finally speaking the same language â€” starting in Jakarta, 2026, then island by island.",id:"100.000+ bengkel dan ribuan toko onderdil, akhirnya bicara dalam bahasa katalog yang sama â€” mulai dari Jakarta di 2026, lalu pulau demi pulau."},
+  uni_drag:{en:"Drag the map to explore â€” launching in Jakarta first.",id:"Geser petanya â€” kami mulai dari Jakarta."},
+  foot_tag:{en:"One platform to unify Indonesia's auto industry.",id:"Satu platform yang menyatukan industri otomotif Indonesia."}
+};
+
+const ROT = {
+  en: [["Every part,", "verified to fit."], ["One platform,", "to unify the auto industry."], ["Every checkout,", "protected on both sides."], ["Every seller,", "keeping more of every sale."]],
+  id: [["Setiap suku cadang,", "dipastikan cocok."], ["Satu platform,", "menyatukan industri otomotif."], ["Setiap checkout,", "aman dua belah pihak."], ["Setiap penjual,", "untung lebih tiap transaksi."]]
+};
+
+class Component extends DCLogic {
+  lang = "en";
+  renderVals() {
+    const u = this.props.waitlistUrl ?? "#";
+    const live = u && u !== "#";
+    return {
+      waitlistHref: live ? u : "Join Waitlist.dc.html",
+      waitlistTarget: live ? "_blank" : "_self",
+      setEn: () => this.setLang("en"),
+      setId: () => this.setLang("id")
+    };
+  }
+  canon() { return this.props.numbers === "deck" ? "deck" : "brief"; }
+  setLang(l) {
+    this.lang = l;
+    try { localStorage.setItem("mobeeli-lang", l); } catch (e) {}
+    this.applyLang();
+  }
+  applyLang() {
+    const lang = this.lang, canon = this.canon();
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const e = TXT[el.getAttribute("data-i18n")];
+      if (!e) return;
+      const v = (canon === "deck" && e.deck) ? e.deck : e;
+      const s = v[lang] ?? v.en;
+      if (el.textContent !== s) el.textContent = s;
+    });
+    document.querySelectorAll("[data-i18n-ph]").forEach(el => {
+      const e = TXT[el.getAttribute("data-i18n-ph")];
+      if (!e) return;
+      const v = (canon === "deck" && e.deck) ? e.deck : e;
+      el.setAttribute("placeholder", v[lang] ?? v.en);
+    });
+    document.querySelectorAll("[data-langbtn]").forEach(b => {
+      const on = b.getAttribute("data-langbtn") === lang;
+      b.style.background = on ? "#0d1522" : "transparent";
+      b.style.color = on ? "#ffffff" : "#3c4654";
+    });
+    const l1 = document.querySelector("[data-rotline1]"), l2 = document.querySelector("[data-rotline2]");
+    if (l1 && l2) { const list = ROT[lang] || ROT.en; this._rotIdx = (this._rotIdx || 0) % list.length; l1.textContent = list[this._rotIdx][0]; l2.textContent = list[this._rotIdx][1]; }
+    const fwl = document.querySelector("fitment-wheel");
+    if (fwl) fwl.setAttribute("lang", lang);
+    const ig = document.querySelector("indo-globe");
+    if (ig) ig.setAttribute("lang", lang);
+    const ai = document.querySelector("[data-scai]");
+    if (ai) { const k = this._scState === "in" ? "cat_ai_done" : "cat_ai_read"; ai.textContent = TXT[k][lang] ?? TXT[k].en; }
+    document.documentElement.setAttribute("lang", lang === "id" ? "id" : "en");
+  }
+  startRotate() {
+    if (this._rotTimer || this.props.reducedMotion) return;
+    const l1 = document.querySelector("[data-rotline1]"), l2 = document.querySelector("[data-rotline2]");
+    if (!l1 || !l2) return;
+    this._rotIdx = this._rotIdx || 0;
+    const out = s => { s.style.opacity = "0"; s.style.transform = "translateY(-40%)"; };
+    const prep = s => { s.style.transition = "none"; s.style.transform = "translateY(35%)"; void s.offsetHeight; s.style.transition = "transform .45s cubic-bezier(.2,.6,.2,1), opacity .45s cubic-bezier(.2,.6,.2,1)"; };
+    const show = s => { s.style.opacity = "1"; s.style.transform = "none"; };
+    this._rotTimer = setInterval(() => {
+      const list = ROT[this.lang] || ROT.en;
+      this._rotIdx = (this._rotIdx + 1) % list.length;
+      out(l1); out(l2);
+      setTimeout(() => {
+        l1.textContent = list[this._rotIdx][0];
+        l2.textContent = list[this._rotIdx][1];
+        prep(l1); prep(l2);
+        show(l1); show(l2);
+      }, 460);
+    }, 3400);
+  }
+  stopRotate() {
+    if (this._rotTimer) { clearInterval(this._rotTimer); this._rotTimer = null; }
+    document.querySelectorAll("[data-rotline1],[data-rotline2]").forEach(s => { s.style.opacity = "1"; s.style.transform = "none"; });
+  }
+  applyMotion() {
+    const red = !!this.props.reducedMotion;
+    document.querySelectorAll("[data-anim]").forEach(el => {
+      if (el.dataset.animSaved === undefined) el.dataset.animSaved = el.style.animation || "";
+      el.style.animation = red ? "none" : el.dataset.animSaved;
+    });
+    const fw = document.querySelector("fitment-wheel");
+    if (fw) { if (red) fw.setAttribute("static", ""); else fw.removeAttribute("static"); }
+    const ig = document.querySelector("indo-globe");
+    if (ig) { if (red) ig.setAttribute("static", ""); else ig.removeAttribute("static"); }
+    if (red && this._scStill) { this._scClear && this._scClear(); this._scRunning = true; this._scStill(); }
+    if (red) this.showHeroCards(true);
+  }
+  setupScatter() {
+    const stage = document.querySelector("[data-scstage]");
+    if (!stage || this._scSetup) return;
+    this._scSetup = true;
+    const parts = Array.from(stage.querySelectorAll("[data-sc]"));
+    const names = parts.map(p => p.querySelector("[data-scname]"));
+    const pill = stage.querySelector("[data-scpill]");
+    const ai = document.querySelector("[data-scai]");
+    const ENTER = [[-70,-20,-14],[60,-60,10],[90,-20,18],[-50,40,-16],[40,70,-8],[90,50,14]];
+    const tfOf = (o, s) => "translate(" + o[0] + "px," + o[1] + "px) rotate(" + o[2] + "deg)" + (s ? " scale(" + s + ")" : "");
+    const T = (el, tf, op, dur, delay, ease) => {
+      el.style.transition = "transform " + dur + "ms " + (ease || "cubic-bezier(.22,.75,.2,1)") + " " + (delay || 0) + "ms, opacity " + Math.min(dur, 600) + "ms ease " + (delay || 0) + "ms";
+      el.style.transform = tf;
+      el.style.opacity = op;
+    };
+    const setAI = state => { this._scState = state; if (ai) { const k = state === "in" ? "cat_ai_done" : "cat_ai_read"; ai.textContent = TXT[k][this.lang] ?? TXT[k].en; } };
+    const hideAll = () => parts.forEach((p, i) => { p.style.transition = "none"; p.style.transform = tfOf(ENTER[i], 0.55); p.style.opacity = "0"; if (names[i]) names[i].style.opacity = "0"; });
+    this._scStill = () => {
+      parts.forEach(p => { p.style.transition = "none"; p.style.transform = "translate(0,0) rotate(0deg)"; p.style.opacity = "1"; });
+      names.forEach(n => n && (n.style.opacity = "0"));
+      if (pill) { pill.style.transition = "none"; pill.style.opacity = "1"; }
+      setAI("in");
+    };
+    const timers = [];
+    const at = (ms, fn) => timers.push(setTimeout(fn, ms));
+    this._scClear = () => { timers.forEach(clearTimeout); timers.length = 0; if (this._scRaf) cancelAnimationFrame(this._scRaf); };
+    const cycle = () => {
+      setAI("out");
+      if (pill) { pill.style.transition = "opacity .35s ease"; pill.style.opacity = "0"; }
+      hideAll();
+      parts.forEach((p, i) => at(380 + i * 560, () => {
+        T(p, tfOf(ENTER[i], 1), "1", 750, 0, "cubic-bezier(.2,1.4,.35,1)");
+        if (names[i]) at(230, () => { names[i].style.opacity = "1"; });
+      }));
+      const tB = 380 + 6 * 560 + 450;
+      at(tB, () => names.forEach(n => n && (n.style.opacity = "0")));
+      const tC = tB + 250;
+      const geoOf = () => {
+        const m = Math.min(stage.clientWidth, stage.clientHeight);
+        const geo = { cx: stage.clientWidth / 2, cy: stage.clientHeight / 2, r0: m * 0.36, r1: m * 0.12, hx: [], hy: [] };
+        parts.forEach((p, i) => { geo.hx[i] = p.offsetLeft + p.offsetWidth / 2; geo.hy[i] = p.offsetTop + p.offsetHeight / 2; });
+        return geo;
+      };
+      const orbitPos = (i, prog, geo) => {
+        const th = i * Math.PI / 3 + prog * 3.6;
+        const e = prog < 0.5 ? 2 * prog * prog : 1 - Math.pow(-2 * prog + 2, 2) / 2;
+        const r = geo.r0 + (geo.r1 - geo.r0) * e;
+        return { x: geo.cx + r * Math.cos(th) - geo.hx[i], y: geo.cy + r * Math.sin(th) - geo.hy[i], spin: prog * 330 + i * 12 };
+      };
+      at(tC, () => {
+        const geo = this._scGeo = geoOf();
+        parts.forEach((p, i) => { const o = orbitPos(i, 0, geo); T(p, "translate(" + o.x + "px," + o.y + "px) rotate(0deg)", "1", 750, i * 50); });
+      });
+      at(tC + 880, () => {
+        const geo = this._scGeo || geoOf();
+        const t0 = performance.now(), DUR = 1300;
+        const step = () => {
+          const prog = Math.min(1, (performance.now() - t0) / DUR);
+          parts.forEach((p, i) => { const o = orbitPos(i, prog, geo); p.style.transition = "none"; p.style.transform = "translate(" + o.x + "px," + o.y + "px) rotate(" + o.spin + "deg)"; });
+          if (prog < 1 && this._scRunning) this._scRaf = requestAnimationFrame(step);
+        };
+        this._scRaf = requestAnimationFrame(step);
+      });
+      at(tC + 2230, () => parts.forEach((p, i) => T(p, "translate(0,0) rotate(360deg)", "1", 850, i * 60)));
+      at(tC + 3150, () => { if (pill) { pill.style.transition = "opacity .5s ease"; pill.style.opacity = "1"; } setAI("in"); });
+      const tD = tC + 5650;
+      at(tD, () => {
+        parts.forEach((p, i) => T(p, tfOf(ENTER[i], 0.9), "0", 480, i * 40));
+        if (pill) { pill.style.transition = "opacity .35s ease"; pill.style.opacity = "0"; }
+      });
+      at(tD + 850, cycle);
+    };
+    if (this.props.reducedMotion) { this._scStill(); return; }
+    hideAll();
+    this._scIO = new IntersectionObserver(es => es.forEach(en => {
+      if (en.isIntersecting && !this._scRunning) { this._scRunning = true; cycle(); }
+      else if (!en.isIntersecting && this._scRunning) { this._scRunning = false; this._scClear(); }
+    }), { threshold: 0.3 });
+    this._scIO.observe(stage);
+  }
+  showHeroCards(instant) {
+    if (this._cardsShown) return;
+    this._cardsShown = true;
+    if (this._cardsTimer) { clearTimeout(this._cardsTimer); this._cardsTimer = null; }
+    document.querySelectorAll("[data-herocard]").forEach((el, i) => {
+      setTimeout(() => {
+        el.style.opacity = "1";
+        el.style.transform = "none";
+      }, instant ? 0 : i * 180);
+    });
+  }
+  componentDidMount() {
+    try { this.lang = localStorage.getItem("mobeeli-lang") || (this.props.defaultLang ?? "en"); } catch (e) { this.lang = this.props.defaultLang ?? "en"; }
+    this.applyLang();
+    this.applyMotion();
+    this.startRotate();
+    this.setupScatter();
+    const v = document.querySelector("[data-mbvideo]");
+    if (v) { v.muted = true; v.loop = true; v.playsInline = true; const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+    if (this.props.reducedMotion) { this.showHeroCards(true); }
+    else {
+      document.querySelectorAll("[data-herocard]").forEach(el => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(14px)";
+        el.style.transition = "opacity .7s cubic-bezier(.2,.6,.2,1), transform .7s cubic-bezier(.2,.6,.2,1)";
+      });
+      document.addEventListener("fitment-first-loop", () => this.showHeroCards(false), { once: true });
+      this._cardsTimer = setTimeout(() => this.showHeroCards(false), 9500);
+    }
+    const els = Array.from(document.querySelectorAll("[data-rev]"));
+    if (this.props.reducedMotion) return;
+    els.forEach(el => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(26px)";
+      el.style.transition = "opacity .75s cubic-bezier(.2,.6,.2,1), transform .75s cubic-bezier(.2,.6,.2,1)";
+      el.style.transitionDelay = ((+el.dataset.rev || 0) * 90) + "ms";
+    });
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.style.opacity = "1";
+          en.target.style.transform = "none";
+          io.unobserve(en.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    els.forEach(el => io.observe(el));
+  }
+  componentDidUpdate() {
+    this.applyLang();
+    this.applyMotion();
+    if (this.props.reducedMotion) this.stopRotate(); else this.startRotate();
+  }
+}
+</script>
+</body>
+</html>

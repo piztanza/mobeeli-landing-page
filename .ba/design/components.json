@@ -1,0 +1,184 @@
+{
+  "version": "1.0",
+  "created_at": "2026-07-22T11:06:00.000Z",
+  "components": [
+    {
+      "name": "Sticky nav bar",
+      "description": "66px sticky top bar, translucent white + backdrop blur, bottom border; logo (blue variant), 6 anchor links with hover color, language toggle, dark-pill Join Waitlist CTA.",
+      "used_on": [
+        "S-001"
+      ],
+      "id": "C-001"
+    },
+    {
+      "name": "Language toggle (EN/ID pill)",
+      "description": "Two-segment pill; active segment ink bg + white text; sets lang across all i18n keys + 3D scene attributes; persists to localStorage 'mobeeli-lang'; updates html lang.",
+      "used_on": [
+        "S-001",
+        "S-002"
+      ],
+      "id": "C-002"
+    },
+    {
+      "name": "FitmentWheel 3D scene",
+      "description": "Self-contained three.js component (port of fitment-3d.js custom element contract: lang + static attrs): blueprint wireframe car, front-arch camera, ~7s wheel mount/dismount loop with 4 bolts + flash ring, projected spec labels (PCD 4×100, center bore ⌀ 54.1mm, Genuine), fitment-first-loop event, radial dark-blue background, vignette; static attr renders seated state.",
+      "used_on": [
+        "S-001"
+      ],
+      "id": "C-003"
+    },
+    {
+      "name": "Floating hero cards",
+      "description": "Three white cards absolutely positioned over the hero scene with float animations: part card (thumb, 'Front brake pad set', 'Rp 385.000', '✓ Verified fit' chip), fit pill ('✓ Fits: Toyota Avanza 1.5 G 2019' with pulsing dot), video card (unify-graph.mp4, caption 'One platform. Five links.'). Revealed after fitment-first-loop.",
+      "used_on": [
+        "S-001"
+      ],
+      "id": "C-004"
+    },
+    {
+      "name": "Hero headline rotator",
+      "description": "Two-line H1 (white line + light-accent line) rotating 4 approved phrase pairs per language every 3.4s with slide/fade transition; min-height reserved; disabled under reduced motion.",
+      "used_on": [
+        "S-001"
+      ],
+      "id": "C-005"
+    },
+    {
+      "name": "Proof bar stat cell",
+      "description": "White grid cell with hairline borders: 30px 800 stat value (deep-blue for 0%) + 14px muted label. Four instances: 120M+ mappings, 0% first 300 shops, 100,000+ workshops, 2026 Jakarta first.",
+      "used_on": [
+        "S-001"
+      ],
+      "id": "C-006"
+    },
+    {
+      "name": "Pain stat tile",
+      "description": "White 18px-radius card: 46px red stat, bold sub-line, muted human-sentence explainer; third tile adds 'Mobeeli: one low, flat rate' tint chip.",
+      "used_on": [
+        "S-001"
+      ],
+      "id": "C-007"
+    },
+    {
+      "name": "Field quote block",
+      "description": "Dark 18px-radius figure: oversized serif quotation mark, Bahasa quote in 20-27px bold, italic EN translation, light-accent attribution 'Shop owner, Senen Market, Jakarta — shared with permission'.",
+      "used_on": [
+        "S-001"
+      ],
+      "id": "C-008"
+    },
+    {
+      "name": "How-it-works step card",
+      "description": "Light 18px-radius card: numbered ink circle, H3, muted body, illustrative stack (YMM cascade pills / fitment result rows with ✓✕ / protection rows).",
+      "used_on": [
+        "S-001"
+      ],
+      "id": "C-009"
+    },
+    {
+      "name": "Comparison panel",
+      "description": "Two-card grid 'The same search, two outcomes.': generalist-marketplace card (numbered steps ending in red ✕ + red result banner) vs Mobeeli card (blue-highlighted border/shadow, steps ending in ✓ + tint result banner).",
+      "used_on": [
+        "S-001"
+      ],
+      "id": "C-010"
+    },
+    {
+      "name": "Buyer strip",
+      "description": "Tint #e4edfd band, centered single row: bold deep-blue line 'Buying parts? Be first to know…' + outlined 'Get notified' pill (mailto info@mobeeli.com, buyer subject).",
+      "used_on": [
+        "S-001"
+      ],
+      "id": "C-011"
+    },
+    {
+      "name": "AI catalog showcase",
+      "description": "Full-width dark 28px-radius card (min 560px): XLS/PDF/JPG white circle chips + AI status chip (reading…/assembled ✓); animated stage with 6 part sprites (pad, filter, plug, disc, shock, air) — phased ~15s loop: pop-in with name chips → orbit + self-spin → bloom to grid → snap assemble + centered '✓ One catalog · 120M+ mappings' pill → fade/restart; IntersectionObserver gated; bottom-left H2 'The catalog that puts itself together.' + body; reduced motion = assembled static.",
+      "used_on": [
+        "S-001"
+      ],
+      "id": "C-012"
+    },
+    {
+      "name": "Early Adaptor benefit card",
+      "description": "White 18px-radius card with outlined circle glyph (AI / ✓ / Rp), H3, muted body. Three instances: automated catalog uploads, fraud protection, one low flat commission.",
+      "used_on": [
+        "S-001"
+      ],
+      "id": "C-013"
+    },
+    {
+      "name": "Team profile card",
+      "description": "18px-radius card: 1:1 headshot area (gradient placeholder until real photos), name + LinkedIn square button, deep-blue uppercase role, one-line bio. Yavet / Salman / Ferdi.",
+      "used_on": [
+        "S-001"
+      ],
+      "id": "C-014"
+    },
+    {
+      "name": "Investor panel",
+      "description": "Dark 28px-radius centered panel: kicker, 'Come see what we've built.', 9-of-14 traction paragraph, primary 'Request the deck' mailto CTA, 'or write to the founders directly' + three founder email links.",
+      "used_on": [
+        "S-001"
+      ],
+      "id": "C-015"
+    },
+    {
+      "name": "IndoGlobe flyover map",
+      "description": "Self-contained three.js component (port of indo-globe.js contract: lang + static attrs): dot-matrix archipelago on tilted plane, two-tone island dots + faint ocean grid + fog, west↔east idle drift, clamped drag panning, Jakarta marker + pulse ring + translated label + animated arcs to 6 cities; 1.9:1 in Unify band with drag hint caption.",
+      "used_on": [
+        "S-001"
+      ],
+      "id": "C-016"
+    },
+    {
+      "name": "Site footer",
+      "description": "Dark band: white logo variant, tagline 'One platform to unify Indonesia's auto industry.', LinkedIn icon button, info@mobeeli.com, 'Mobeeli — Jakarta, Indonesia · 2026'.",
+      "used_on": [
+        "S-001"
+      ],
+      "id": "C-017"
+    },
+    {
+      "name": "Waitlist wizard",
+      "description": "Card-based 5-view flow (intro + 4 steps) with 4px gradient progress bar, slide transitions, honeypot, per-type field adaptation (Store/Garage/Distributor), inline bilingual validation, back/next controls (next becomes Submit on 4/4), autofocus per step; submits to the lead-capture endpoint before showing success.",
+      "used_on": [
+        "S-002"
+      ],
+      "id": "C-018"
+    },
+    {
+      "name": "Business-type selector card",
+      "description": "Full-width option button: glyph square, bold title + muted subtitle; selected state = blue border + tinted bg; choosing a type auto-advances after 260ms.",
+      "used_on": [
+        "S-002"
+      ],
+      "id": "C-019"
+    },
+    {
+      "name": "Wizard success panel",
+      "description": "White card with blue-tinted border/shadow: check badge, 'You're on the list.', personalized body with business name, WhatsApp deep-link primary CTA + 'Back to Mobeeli' secondary.",
+      "used_on": [
+        "S-003"
+      ],
+      "id": "C-020"
+    },
+    {
+      "name": "WhatsApp deep-link CTA",
+      "description": "Builds wa.me/<number>?text=<prefilled message> from configured founder WhatsApp number, submitted business name, and active language; opens in new tab.",
+      "used_on": [
+        "S-003"
+      ],
+      "id": "C-021"
+    },
+    {
+      "name": "Scroll reveal",
+      "description": "IntersectionObserver-driven staggered fade/slide-in applied via data-rev indexes across all sections; disabled under reduced motion.",
+      "used_on": [
+        "S-001",
+        "S-002"
+      ],
+      "id": "C-022"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "created_at": "2026-07-22T10:00:00.000Z",
+  "stakeholders": [
+    {
+      "name": "Yavet Arimathea Widjaja",
+      "role": "CEO & Founder (Mobeeli)",
+      "interest": "Owns market strategy and the seller program; signed 9 of 14 shops in one afternoon. Wants the site to convert Early Adaptor sign-ups and present Mobeeli credibly to investors. Primary decision-maker on copy and design (both already reviewed in the Claude Design project).",
+      "influence": "high"
+    },
+    {
+      "name": "Muhammad Salman Al Hafizh",
+      "role": "CTO & Co-Founder (Mobeeli)",
+      "interest": "Built the fitment engine and marketplace platform pre-funding; cares that the site's tech stack is maintainable and the waitlist data reaches the team reliably.",
+      "influence": "high"
+    },
+    {
+      "name": "Ferdinansyah Husein",
+      "role": "COO & Co-Founder (Mobeeli)",
+      "interest": "Runs operations and partnerships; follows up waitlist leads personally via WhatsApp/email, so lead capture quality and follow-up channel links matter to him.",
+      "influence": "high"
+    },
+    {
+      "name": "Parts shops / sellers (Early Adaptors)",
+      "role": "Primary site audience — stores, garages/workshops, distributors",
+      "interest": "Want to understand the 0% first-300-shops offer, AI catalog upload, fraud protection, and low flat commission; need a fast Bahasa-Indonesia-first waitlist wizard (many will arrive on mobile via WhatsApp links).",
+      "influence": "medium"
+    },
+    {
+      "name": "Car owners / buyers (Jakarta)",
+      "role": "Secondary audience",
+      "interest": "Want to be notified at launch; served by the buyer strip's 'Get notified' action.",
+      "influence": "low"
+    },
+    {
+      "name": "Investors (SEA commerce infrastructure)",
+      "role": "Tertiary audience",
+      "interest": "Evaluate traction and team; use the Investors section to request the deck or email founders directly. Copy must invite a look and never say 'raising'.",
+      "influence": "medium"
+    }
+  ]
+}

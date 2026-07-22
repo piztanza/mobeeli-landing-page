@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "created_at": "2026-07-22T10:00:00.000Z",
+  "metrics": [
+    {
+      "name": "Waitlist sign-ups captured",
+      "description": "Seller/garage/distributor waitlist submissions successfully persisted and delivered to the founding team (the site's primary conversion). Supports the 'first 300 shops at 0%' promo.",
+      "target": "Every submission captured with zero data loss; funnel live before the next Early Adaptor field push",
+      "measurement": "Count of stored waitlist records / notifications received by the team",
+      "id": "M-001"
+    },
+    {
+      "name": "Design fidelity to approved prototype",
+      "description": "The deployed site matches the reviewed Claude Design prototype section-for-section, including the 3D hero fitment scene, AI-catalog animation, Indonesia flyover map, and all approved copy in both languages.",
+      "target": "Visual/copy parity signed off by Yavet against the design project (checkpoint 3.2 state)",
+      "measurement": "Side-by-side review of deployed site vs design prototype, EN and ID",
+      "id": "M-002"
+    },
+    {
+      "name": "Bilingual experience quality",
+      "description": "EN/ID toggle works across every section of both pages, persists across visits, and the ID copy is the naturalized text from the design (not re-translated).",
+      "target": "100% of i18n keys rendered correctly in both languages",
+      "measurement": "i18n key coverage check + manual review of both language modes",
+      "id": "M-003"
+    },
+    {
+      "name": "Mobile performance and accessibility",
+      "description": "Most seller traffic arrives via WhatsApp on mid-range Android phones; the page must load fast and stay usable, and heavy 3D scenes must degrade gracefully (reduced-motion, static fallbacks).",
+      "target": "Good Core Web Vitals on mobile (LCP < 2.5s on 4G mid-range device); prefers-reduced-motion respected",
+      "measurement": "Lighthouse/PageSpeed mobile run on the production URL",
+      "id": "M-004"
+    },
+    {
+      "name": "Site live on production URL",
+      "description": "Repo https://github.com/piztanza/mobeeli-landing-page.git holds the code and the site is deployed and reachable (production hosting/domain decided at strategy phase).",
+      "target": "Deployed and publicly reachable, landing + join-waitlist pages both live",
+      "measurement": "Production URL check; repo main branch builds green",
+      "id": "M-005"
+    }
+  ]
+}

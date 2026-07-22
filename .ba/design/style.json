@@ -1,0 +1,75 @@
+{
+  "version": "1.0",
+  "created_at": "2026-07-22T11:02:00.000Z",
+  "colors": {
+    "primary": "#2f7df6",
+    "primary_hover": "#5596f7",
+    "deep_blue": "#1b5fd9",
+    "deep_blue_hover": "#123f9e",
+    "light_accent": "#5b9bf7",
+    "tint": "#e4edfd",
+    "ink": "#0d1522",
+    "bg": "#f5f7fa",
+    "surface": "#ffffff",
+    "border": "#e3e7ee",
+    "border_soft": "#e8ebf1",
+    "muted_text": "#636e7e",
+    "muted_text_2": "#8b95a4",
+    "dark_muted": "#a9b4c6",
+    "danger": "#b91c1c",
+    "danger_bg": "#fdeaea",
+    "notes": "Red #b91c1c ONLY for pain stats/errors. Dark surfaces #0d1522 get radial blue glows: rgba(47,125,246,.14-.18) and rgba(18,63,158,.24-.30). Light-accent chips on dark use rgba(91,155,247,.4-.5) borders."
+  },
+  "typography": {
+    "family": "'Plus Jakarta Sans', system-ui, -apple-system, sans-serif (self-hosted variable woff2, ital+wght 200-800, font-display swap)",
+    "h1": "clamp(36px,4.6vw,60px), weight 800, line-height 1.1, letter-spacing -0.03em",
+    "h2": "clamp(32px,3.8vw,50px), weight 800, line-height 1.08, letter-spacing -0.025em",
+    "h3": "19-20px, weight 800, letter-spacing -0.01em",
+    "body": "14.5-17.5px, line-height 1.55-1.75",
+    "kicker": "12.5px, weight 800, letter-spacing .14em, uppercase, color deep_blue (light bg) or light_accent (dark bg)",
+    "stat": "30px (proof bar) / 46px (pain tiles), weight 800, letter-spacing -0.02/-0.03em",
+    "chip": "10.5-13px, weight 700-800",
+    "smoothing": "-webkit-font-smoothing: antialiased; text-wrap balance on headings, pretty on long paragraphs"
+  },
+  "spacing": {
+    "section_y": "96px (34px buyer strip, 100px dark bands)",
+    "container": "max-width 1280px, 24px side padding",
+    "card_padding": "30-32px",
+    "grid_gap": "18px"
+  },
+  "borders": {
+    "card_radius": "18px",
+    "large_card_radius": "22-28px (wizard 22px, AI catalog/investors 28px)",
+    "pill_radius": "999px (all buttons, chips, toggles)",
+    "input_radius": "12px",
+    "card_border": "1px solid #e3e7ee (1.5px #a9c6f6 for highlighted/blue cards)"
+  },
+  "shadows": {
+    "floating_card": "0 24px 54px rgba(3,8,16,.45) (hero cards on dark)",
+    "wizard_card": "0 30px 70px -28px rgba(13,21,34,.35)",
+    "highlight_card": "0 18px 44px rgba(47,125,246,.1)",
+    "hero_scene": "0 40px 90px rgba(0,0,0,.5)",
+    "sprite": "drop-shadow(0 16px 26px rgba(3,8,16,.55))"
+  },
+  "components": {
+    "buttons": {
+      "primary_on_dark": "bg #2f7df6 → hover #5596f7, white text, weight 800, 15-16px, padding 15px 28px, pill",
+      "primary_on_light": "bg #1b5fd9 → hover #123f9e, white text, pill",
+      "secondary_on_dark": "1.5px border rgba(255,255,255,.34) → hover border/text #5b9bf7, pill",
+      "secondary_on_light": "1.5px border #1b5fd9 or #d8deea, pill",
+      "nav_cta": "bg #0d1522 → hover #123f9e, 13.5px, pill"
+    },
+    "inputs": "bg #f7f9fc, 1.5px border #e3e7ee → focus #2f7df6 + white bg, 12px radius, 13px 15px padding, 15px text; labels 11px 800 uppercase muted; errors #b91c1c 12.5px",
+    "chips": "tint bg #e4edfd + #123f9e text (light) or rgba(13,21,34,.88) bg + 1px rgba(91,155,247,.4) border + white text (dark)",
+    "language_toggle": "pill group, active segment #0d1522 bg + white text, inactive transparent + #3c4654",
+    "motion": {
+      "reveal": "data-rev staggered fade/slide on scroll",
+      "floats": "mbFloatA/B 5.5-7s ease-in-out alternate on hero cards/sprites",
+      "pulse": "mbPulse 2-2.4s on status dots",
+      "hero_rotation": "H1 pair swap every 3.4s, .45s cubic-bezier(.2,.6,.2,1)",
+      "wizard_steps": "translateX ±34px slide, .42s cubic-bezier(.2,.7,.2,1)",
+      "reduced_motion": "all of the above disabled; 3D scenes static"
+    },
+    "logo_usage": "mobeeli-logo-blue.png on light surfaces; mobeeli-logo-white.png on dark surfaces (official dark-bg variant — replaces the design's CSS invert); mobeeli-mark.png for favicon/compact uses"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "version": "1.0",
+  "created_at": "2026-07-22T11:04:00.000Z",
+  "screens": [
+    {
+      "name": "Landing page",
+      "route": "/",
+      "description": "Single-page bilingual marketing site — the full approved 13-band stack: sticky nav; dark hero (rotating H1, sub, two CTAs, 3D fitment scene with floating part/fit/video cards); proof bar (120M+ / 0% / 100,000+ / 2026); The problem (19.4% / 86% / 16.75–19.66% tiles + Senen market quote); How it works (3 steps + 'The same search, two outcomes' comparison); buyer strip; 'Fees went up. Trust didn't.' blue band; AI catalog showcase card (animated part sprites); Early Adaptors (3 benefit cards + Join Waitlist CTA); Team (3 founder cards); Investors panel (deck request + founder emails); Unify band (Indonesia flyover map); dark footer.",
+      "audience": [
+        "Visitor",
+        "Prospective seller (Early Adaptor applicant)",
+        "Buyer (notify-me subscriber)",
+        "Investor"
+      ],
+      "entry_points": [
+        "Direct URL / marketing links / WhatsApp shares",
+        "Back-links from Join Waitlist page"
+      ],
+      "key_actions": [
+        "Anchor-navigate sections",
+        "Toggle EN/ID",
+        "Join Waitlist (nav + Early Adaptors CTA → /join)",
+        "Get notified (buyer mailto)",
+        "Request the deck (investor mailto)",
+        "Drag the Indonesia map"
+      ],
+      "states": [
+        "default",
+        "reduced-motion (static 3D, no rotation/floats)",
+        "WebGL-unavailable fallback (static gradients)"
+      ],
+      "id": "S-001"
+    },
+    {
+      "name": "Join Waitlist page",
+      "route": "/join",
+      "description": "Split-screen seller waitlist wizard: dark brand panel (white logo, '0% platform fee · first 300 shops' chip, 'Be one of the first shops on Mobeeli.', 3 benefit rows, trust line, floating disc/plug sprites) + wizard card with progress bar and steps: intro → 1/4 business type (Store/Garage/Distributor) → 2/4 business name (type-adaptive label/placeholder) + contact name → 3/4 email/phone/WhatsApp/city (optional, format-validated) → 4/4 volume + tools (garage) or brands + Net-30 checkbox + message → submit.",
+      "audience": [
+        "Prospective seller (Early Adaptor applicant)"
+      ],
+      "entry_points": [
+        "Nav Join Waitlist button",
+        "Early Adaptors section CTA",
+        "Direct /join links shared via WhatsApp"
+      ],
+      "key_actions": [
+        "Complete 4-step wizard",
+        "Toggle EN/ID",
+        "Submit application (persisted server-side)",
+        "← Back to Mobeeli"
+      ],
+      "states": [
+        "intro",
+        "steps 1-4 with inline validation errors",
+        "submitting",
+        "submit-failed (retriable, data preserved)",
+        "success"
+      ],
+      "id": "S-002"
+    },
+    {
+      "name": "Waitlist success state",
+      "route": "/join (post-submit)",
+      "description": "Success panel replacing the wizard card: check badge, 'You're on the list.' headline, personalized body (business name interpolated), primary 'Chat on WhatsApp' CTA (prefilled wa.me deep link with business name + language-appropriate message), secondary 'Back to Mobeeli'.",
+      "audience": [
+        "Prospective seller (Early Adaptor applicant)"
+      ],
+      "entry_points": [
+        "Successful wizard submission"
+      ],
+      "key_actions": [
+        "Open WhatsApp deep link",
+        "Return to landing page"
+      ],
+      "states": [
+        "default (EN/ID)"
+      ],
+      "id": "S-003"
+    }
+  ]
+}

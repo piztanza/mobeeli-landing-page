@@ -1,0 +1,76 @@
+{
+  "version": "1.0",
+  "created_at": "2026-07-22T11:08:00.000Z",
+  "flows": [
+    {
+      "name": "Seller joins the waitlist",
+      "role": "Prospective seller (Early Adaptor applicant)",
+      "trigger": "Clicks 'Join Waitlist' in the nav or the Early Adaptors CTA (often arriving from a WhatsApp link on mobile)",
+      "screens": [
+        "S-001",
+        "S-002",
+        "S-003"
+      ],
+      "steps": [
+        "Land on S-001 (or arrive directly at S-002 via shared link); language auto-applies from localStorage or default",
+        "Open S-002; read the 0%-offer brand panel; press 'Get started →'",
+        "Step 1/4: pick business type (Store / Garage / Distributor) — auto-advances",
+        "Step 2/4: enter business name (required; label/placeholder adapts to type) and optional contact name",
+        "Step 3/4: optionally enter email / phone / WhatsApp / city — format-validated only when filled, inline errors in active language",
+        "Step 4/4: optionally pick monthly volume, tools (garage) or brands carried, Net-30 interest, free-text message; press Submit",
+        "Client validates + honeypot check; submission POSTs to the lead endpoint; server validates, persists, notifies the founding team",
+        "On success: S-003 panel with personalized thank-you; optionally 'Chat on WhatsApp' (prefilled wa.me message) or 'Back to Mobeeli'",
+        "On failure: retriable error shown, entered data preserved"
+      ],
+      "outcome": "Lead persisted and delivered to founders; seller optionally continues in WhatsApp",
+      "id": "UF-001"
+    },
+    {
+      "name": "Buyer requests launch notification",
+      "role": "Buyer (notify-me subscriber)",
+      "trigger": "Buyer strip 'Get notified' button on the landing page",
+      "screens": [
+        "S-001"
+      ],
+      "steps": [
+        "Scroll to buyer strip",
+        "Click 'Get notified' → mail client opens to info@mobeeli.com with the approved buyer subject",
+        "Send email; founders reply at launch"
+      ],
+      "outcome": "Buyer email reaches the founding team inbox",
+      "id": "UF-002"
+    },
+    {
+      "name": "Investor requests the deck",
+      "role": "Investor",
+      "trigger": "Investors section CTA or founder email links",
+      "screens": [
+        "S-001"
+      ],
+      "steps": [
+        "Navigate to #investors (nav link or hero 'For investors' CTA)",
+        "Read the traction copy (9 of 14 signed)",
+        "Click 'Request the deck' → mailto info@mobeeli.com with deck-request subject, or email a founder directly (matheau@ / hafizh@ / ferdi@)"
+      ],
+      "outcome": "Deck request lands in the founders' inbox; follow-up is manual",
+      "id": "UF-003"
+    },
+    {
+      "name": "Visitor switches language",
+      "role": "Visitor",
+      "trigger": "EN/ID pill toggle on either page",
+      "screens": [
+        "S-001",
+        "S-002",
+        "S-003"
+      ],
+      "steps": [
+        "Click ID (or EN) segment",
+        "All i18n-keyed text swaps instantly (including 3D scene labels, AI status chip, wizard labels/placeholders/errors, success copy, WhatsApp message template)",
+        "Choice persists to localStorage and html lang updates; subsequent visits and the other page honor it"
+      ],
+      "outcome": "Entire experience runs in the chosen language until changed",
+      "id": "UF-004"
+    }
+  ]
+}

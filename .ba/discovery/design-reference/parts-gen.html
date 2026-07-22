@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Mobeeli part sprite generator</title>
+<style>body{margin:0;background:#1a2334;display:flex;flex-wrap:wrap;gap:14px;padding:14px}div.cell{width:340px}canvas{width:340px;height:340px;display:block;background:transparent}p{color:#fff;font:12px monospace;margin:4px 0}</style>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
+</head>
+<body>
+<div class="cell"><canvas id="part-disc" width="680" height="680"></canvas><p>disc</p></div>
+<div class="cell"><canvas id="part-pad" width="680" height="680"></canvas><p>pad</p></div>
+<div class="cell"><canvas id="part-filter" width="680" height="680"></canvas><p>filter</p></div>
+<div class="cell"><canvas id="part-plug" width="680" height="680"></canvas><p>plug</p></div>
+<div class="cell"><canvas id="part-shock" width="680" height="680"></canvas><p>shock</p></div>
+<div class="cell"><canvas id="part-air" width="680" height="680"></canvas><p>air</p></div>
+<script type="module">
+import * as THREE from 'three';
+const solid = new THREE.MeshPhysicalMaterial({ color: 0xe6ebf4, metalness: 0.35, roughness: 0.45, clearcoat: 0.5, emissive: 0x8fa3c4, emissiveIntensity: 0.06, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 });
+const dark = new THREE.MeshBasicMaterial({ color: 0x05080f });
+const wire = (g, c, o) => new THREE.LineSegments(new THREE.EdgesGeometry(g, 12), new THREE.LineBasicMaterial({ color: c || 0x5f6c80, transparent: true, opacity: o || 0.85 }));
+const sw = (grp, g, m, x, y, z, rx, ry, rz, wc) => {
+  const mesh = new THREE.Mesh(g, m || solid);
+  mesh.position.set(x || 0, y || 0, z || 0);
+  mesh.rotation.set(rx || 0, ry || 0, rz || 0);
+  grp.add(mesh);
+  const w = wire(g, wc); w.position.copy(mesh.position); w.rotation.copy(mesh.rotation);
+  grp.add(w);
+  return mesh;
+};
+function view(id, build, dist, rot) {
+  const canvas = document.getElementById(id);
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+  renderer.setClearColor(0x000000, 0);
+  const scene = new THREE.Scene();
+  const cam = new THREE.PerspectiveCamera(35, 1, 0.1, 50);
+  cam.position.set(dist * 0.72, dist * 0.55, dist);
+  cam.lookAt(0, 0, 0);
+  scene.add(new THREE.AmbientLight(0xffffff, 1.15));
+  const d1 = new THREE.DirectionalLight(0xffffff, 2.4); d1.position.set(4, 6, 5); scene.add(d1);
+  const d2 = new THREE.DirectionalLight(0xbcd0ea, 1.2); d2.position.set(-5, -2, 4); scene.add(d2);
+  const g = new THREE.Group(); scene.add(g);
+  build(g);
+  if (rot) g.rotation.set(rot[0], rot[1], rot[2]);
+  renderer.render(scene, cam);
+  setTimeout(() => renderer.render(scene, cam), 400);
+}
+// Brake disc
+view('part-disc', g => {
+  sw(g, new THREE.CylinderGeometry(1.35, 1.35, 0.15, 48));
+  sw(g, new THREE.CylinderGeometry(0.55, 0.55, 0.36, 32), solid, 0, 0.12, 0, 0, 0, 0, 0x76839a);
+  for (let i = 0; i < 5; i++) {
+    const a = i / 5 * Math.PI * 2;
+    sw(g, new THREE.CylinderGeometry(0.085, 0.085, 0.42, 12), dark, Math.cos(a) * 0.34, 0.12, Math.sin(a) * 0.34, 0, 0, 0, 0x76839a);
+  }
+  const ring = wire(new THREE.TorusGeometry(1.02, 0.002, 4, 64), 0x76839a, 0.5);
+  ring.rotation.x = Math.PI / 2; ring.position.y = 0.08; g.add(ring);
+}, 4.4, [0.62, -0.5, 0]);
+// Brake pad
+view('part-pad', g => {
+  sw(g, new THREE.BoxGeometry(1.7, 0.16, 0.95));
+  sw(g, new THREE.BoxGeometry(1.55, 0.26, 0.82), solid, 0, 0.21, 0, 0, 0, 0, 0x76839a);
+  sw(g, new THREE.CylinderGeometry(0.09, 0.09, 0.1, 10), solid, -0.5, -0.13, 0);
+  sw(g, new THREE.CylinderGeometry(0.09, 0.09, 0.1, 10), solid, 0.5, -0.13, 0);
+}, 3.6, [0.5, -0.55, 0]);
+// Oil filter
+view('part-filter', g => {
+  sw(g, new THREE.CylinderGeometry(0.72, 0.72, 1.5, 32));
+  sw(g, new THREE.CylinderGeometry(0.5, 0.56, 0.26, 24), solid, 0, 0.86, 0, 0, 0, 0, 0x76839a);
+  sw(g, new THREE.CylinderGeometry(0.17, 0.17, 0.14, 12), solid, 0, 1.05, 0);
+  const kn = sw(g, new THREE.TorusGeometry(0.72, 0.05, 8, 36), solid, 0, 0.42, 0, Math.PI / 2, 0, 0, 0x76839a);
+  void kn;
+}, 4.2, [0.35, -0.4, 0.06]);
+// Spark plug
+view('part-plug', g => {
+  sw(g, new THREE.CylinderGeometry(0.42, 0.42, 0.34, 6));
+  sw(g, new THREE.CylinderGeometry(0.24, 0.24, 0.6, 20), solid, 0, -0.45, 0, 0, 0, 0, 0x76839a);
+  sw(g, new THREE.CylinderGeometry(0.07, 0.07, 0.3, 10), solid, 0, -0.86, 0);
+  sw(g, new THREE.CylinderGeometry(0.3, 0.35, 0.72, 24), solid, 0, 0.52, 0, 0, 0, 0, 0x76839a);
+  sw(g, new THREE.CylinderGeometry(0.12, 0.12, 0.24, 12), solid, 0, 0.99, 0);
+}, 3.9, [0.28, 0, -0.5]);
+// Shock absorber
+view('part-shock', g => {
+  const pts = [];
+  for (let i = 0; i <= 100; i++) {
+    const t = i / 100, a = t * Math.PI * 9;
+    pts.push(new THREE.Vector3(Math.cos(a) * 0.46, t * 1.7 - 0.85, Math.sin(a) * 0.46));
+  }
+  const tube = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 140, 0.058, 8);
+  sw(g, tube, solid, 0, 0, 0, 0, 0, 0, 0x5f6c80);
+  sw(g, new THREE.CylinderGeometry(0.2, 0.2, 1.8, 20), solid, 0, 0, 0, 0, 0, 0, 0x76839a);
+  sw(g, new THREE.TorusGeometry(0.15, 0.05, 8, 20), solid, 0, 1.02, 0, Math.PI / 2, 0, 0);
+  sw(g, new THREE.TorusGeometry(0.15, 0.05, 8, 20), solid, 0, -1.02, 0, Math.PI / 2, 0, 0);
+}, 4.6, [0.22, 0, -0.35]);
+// Air filter
+view('part-air', g => {
+  sw(g, new THREE.CylinderGeometry(1.12, 1.12, 0.5, 48));
+  sw(g, new THREE.CylinderGeometry(0.55, 0.55, 0.54, 32), dark, 0, 0, 0, 0, 0, 0, 0x76839a);
+  for (let i = 0; i < 30; i++) {
+    const a = i / 30 * Math.PI * 2;
+    const b = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.44, 0.03), solid);
+    b.position.set(Math.cos(a) * 0.83, 0, Math.sin(a) * 0.83);
+    b.rotation.y = -a;
+    g.add(b);
+  }
+  const rim = wire(new THREE.TorusGeometry(1.12, 0.002, 4, 64), 0x5f6c80, 0.7);
+  rim.rotation.x = Math.PI / 2; rim.position.y = 0.25; g.add(rim);
+}, 4.5, [0.7, -0.4, 0]);
+</script>
+</body>
+</html>

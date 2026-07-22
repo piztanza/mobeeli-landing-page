@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:200 800;font-display:swap;src:url(fonts/pjs-normal-latin.woff2) format('woff2');}
+@font-face{font-family:'Plus Jakarta Sans';font-style:italic;font-weight:200 800;font-display:swap;src:url(fonts/pjs-italic-latin.woff2) format('woff2');}
+html{overflow-x:clip;}
+body{margin:0;background:#f5f7fa;color:#0d1522;font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;}
+a{color:#1b5fd9;text-decoration:none;}
+a:hover{color:#123f9e;}
+::selection{background:rgba(47,125,246,.22);}
+input,select,textarea,button{font-family:inherit;}
+input::placeholder,textarea::placeholder{color:#9aa4b5;}
+@keyframes jwFloatA{from{transform:translateY(0) rotate(-8deg)}to{transform:translateY(-16px) rotate(-8deg)}}
+@keyframes jwFloatB{from{transform:translateY(0) rotate(10deg)}to{transform:translateY(-11px) rotate(10deg)}}
+@keyframes jwPulse{0%,100%{opacity:.5}50%{opacity:1}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(440px,100%),1fr))">
+
+  <aside data-screen-label="Join brand panel" style="position:relative;background:#0d1522;background-image:radial-gradient(680px 420px at 78% 8%, rgba(47,125,246,.18), transparent 70%),radial-gradient(520px 380px at 12% 92%, rgba(18,63,158,.30), transparent 70%);color:#fff;padding:clamp(36px,4.5vw,64px);display:flex;flex-direction:column;overflow:hidden">
+    <img data-anim src="assets/parts/disc.png" alt="" style="position:absolute;right:-40px;top:64px;width:190px;opacity:.5;filter:drop-shadow(0 20px 40px rgba(3,8,16,.6));animation:jwFloatA 6s ease-in-out infinite alternate;pointer-events:none">
+    <img data-anim src="assets/parts/plug.png" alt="" style="position:absolute;right:96px;bottom:60px;width:120px;opacity:.4;filter:drop-shadow(0 20px 40px rgba(3,8,16,.6));animation:jwFloatB 7s ease-in-out .6s infinite alternate;pointer-events:none">
+    <a href="Mobeeli Landing.dc.html" style="display:flex;align-items:center;position:relative;z-index:2">
+      <img src="assets/mobeeli-logo-blue.png" alt="Mobeeli" style="height:32px;display:block;filter:brightness(0) invert(1)">
+    </a>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2;padding:44px 0">
+      <div data-i18n="offer" style="align-self:flex-start;display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(91,155,247,.5);border-radius:999px;padding:7px 15px;font-size:12.5px;font-weight:800;letter-spacing:.05em;color:#8fb8f8;text-transform:uppercase">0% platform fee · first 300 shops</div>
+      <h1 data-i18n="left_h" style="margin:22px 0 0;font-size:clamp(30px,3.4vw,44px);line-height:1.08;letter-spacing:-0.03em;font-weight:800;max-width:420px;text-wrap:balance">Be one of the first shops on Mobeeli.</h1>
+      <p data-i18n="left_sub" style="margin:16px 0 0;font-size:16px;line-height:1.65;color:#a9b4c6;max-width:400px;text-wrap:pretty">Tell us about your business. A founder follows up personally — no payment, no commitment to express interest.</p>
+      <div style="display:flex;flex-direction:column;gap:16px;margin-top:34px;max-width:420px">
+        <div style="display:flex;gap:13px;align-items:flex-start">
+          <span style="flex:none;width:38px;height:38px;border-radius:50%;border:1.5px solid #5b9bf7;color:#8fb8f8;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center">AI</span>
+          <div><div data-i18n="ben1_t" style="font-size:15px;font-weight:800">Automated catalog uploads</div><div data-i18n="ben1_s" style="font-size:13.5px;color:#8b95a4;margin-top:2px;line-height:1.5">Excel or PDF becomes an online store in hours.</div></div>
+        </div>
+        <div style="display:flex;gap:13px;align-items:flex-start">
+          <span style="flex:none;width:38px;height:38px;border-radius:50%;border:1.5px solid #5b9bf7;color:#8fb8f8;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center">✓</span>
+          <div><div data-i18n="ben2_t" style="font-size:15px;font-weight:800">Fraud protection built in</div><div data-i18n="ben2_s" style="font-size:13.5px;color:#8b95a4;margin-top:2px;line-height:1.5">Backed by video evidence and insurance.</div></div>
+        </div>
+        <div style="display:flex;gap:13px;align-items:flex-start">
+          <span style="flex:none;width:38px;height:38px;border-radius:50%;border:1.5px solid #5b9bf7;color:#8fb8f8;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">Rp</span>
+          <div><div data-i18n="ben3_t" style="font-size:15px;font-weight:800">One low, flat commission</div><div data-i18n="ben3_s" style="font-size:13.5px;color:#8b95a4;margin-top:2px;line-height:1.5">After the promo — far below the big marketplaces.</div></div>
+        </div>
+      </div>
+    </div>
+    <div data-i18n="trust" style="position:relative;z-index:2;font-size:12.5px;color:#66707e;border-top:1px solid rgba(255,255,255,.1);padding-top:20px">Pre-launch pilot · your details stay with the founding team.</div>
+  </aside>
+
+  <main data-screen-label="Join wizard" style="position:relative;display:flex;flex-direction:column;background:#f5f7fa">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:20px clamp(24px,3vw,44px)">
+      <a href="Mobeeli Landing.dc.html" data-i18n="back_home" style="display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:#636e7e" style-hover="color:#1b5fd9">← Back to Mobeeli</a>
+      <div style="display:flex;align-items:center;gap:2px;border:1px solid #d8deea;border-radius:999px;padding:3px">
+        <button type="button" data-langbtn="en" onClick="{{ setEn }}" style="border:none;background:#0d1522;color:#fff;font:700 12px 'Plus Jakarta Sans',sans-serif;padding:5px 11px;border-radius:999px;cursor:pointer">EN</button>
+        <button type="button" data-langbtn="id" onClick="{{ setId }}" style="border:none;background:transparent;color:#3c4654;font:700 12px 'Plus Jakarta Sans',sans-serif;padding:5px 11px;border-radius:999px;cursor:pointer">ID</button>
+      </div>
+    </div>
+
+    <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:12px clamp(24px,3vw,44px) 48px">
+      <div style="width:100%;max-width:540px">
+        <div data-wform style="background:#fff;border:1px solid #e3e7ee;border-radius:22px;box-shadow:0 30px 70px -28px rgba(13,21,34,.35);overflow:hidden">
+          <div data-wprogwrap style="height:4px;width:100%;background:#eef1f6;display:none">
+            <div data-wprog style="height:100%;width:0%;background:linear-gradient(90deg,#2f7df6,#1b5fd9);transition:width .5s cubic-bezier(.2,.7,.2,1)"></div>
+          </div>
+          <div style="padding:clamp(26px,3vw,38px)">
+            <input data-honeypot type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;pointer-events:none">
+            <div data-wsteps style="position:relative">
+
+              <div data-wstep="0" style="text-align:center;padding:14px 0">
+                <div data-i18n="eyebrow" style="display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:#e4edfd;color:#1b5fd9;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:22px">Become a partner</div>
+                <h2 data-i18n="introTitle" style="margin:0;font-size:clamp(26px,3vw,34px);font-weight:800;letter-spacing:-0.02em">Join Mobeeli</h2>
+                <p data-i18n="introBody" style="margin:14px auto 0;font-size:15.5px;line-height:1.65;color:#636e7e;max-width:400px">Tell us a little about your business in a few quick steps. A founder will reach out personally on WhatsApp or email.</p>
+                <button type="button" onClick="{{ start }}" data-i18n="start" style="margin-top:28px;background:#1b5fd9;color:#fff;font-size:15px;font-weight:800;padding:15px 30px;border-radius:999px;border:none;cursor:pointer" style-hover="background:#123f9e">Get started →</button>
+                <div data-i18n="minutes" style="margin-top:14px;font-size:12.5px;color:#9aa4b5">Takes about a minute.</div>
+              </div>
+
+              <div data-wstep="1" style="display:none">
+                <div style="margin-bottom:22px">
+                  <div style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px"><span style="color:#1b5fd9">1/4</span><span data-i18n="stepType" style="color:#9aa4b5">Who you are</span></div>
+                  <h3 data-i18n="qType" style="margin:0;font-size:20px;font-weight:800;letter-spacing:-0.01em">What best describes you?</h3>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr;gap:10px">
+                  <button type="button" data-type="STORE" onClick="{{ pickStore }}" style="display:flex;gap:13px;align-items:center;padding:16px;border-radius:14px;border:1.5px solid #e3e7ee;background:#fff;text-align:left;cursor:pointer;transition:border-color .2s,background .2s" style-hover="border-color:#2f7df6;background:#f7faff">
+                    <span style="flex:none;width:40px;height:40px;border-radius:10px;background:#e4edfd;color:#1b5fd9;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800">◧</span>
+                    <span><span data-i18n="typeStore" style="display:block;font-size:15px;font-weight:800">Store / Seller</span><span data-i18n="typeStoreSub" style="display:block;font-size:12.5px;color:#636e7e">Sell parts online</span></span>
+                  </button>
+                  <button type="button" data-type="GARAGE" onClick="{{ pickGarage }}" style="display:flex;gap:13px;align-items:center;padding:16px;border-radius:14px;border:1.5px solid #e3e7ee;background:#fff;text-align:left;cursor:pointer;transition:border-color .2s,background .2s" style-hover="border-color:#2f7df6;background:#f7faff">
+                    <span style="flex:none;width:40px;height:40px;border-radius:10px;background:#e4edfd;color:#1b5fd9;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800">⚙</span>
+                    <span><span data-i18n="typeGarage" style="display:block;font-size:15px;font-weight:800">Garage / Workshop</span><span data-i18n="typeGarageSub" style="display:block;font-size:12.5px;color:#636e7e">Buy for cars on your lift</span></span>
+                  </button>
+                  <button type="button" data-type="DISTRIBUTOR" onClick="{{ pickDist }}" style="display:flex;gap:13px;align-items:center;padding:16px;border-radius:14px;border:1.5px solid #e3e7ee;background:#fff;text-align:left;cursor:pointer;transition:border-color .2s,background .2s" style-hover="border-color:#2f7df6;background:#f7faff">
+                    <span style="flex:none;width:40px;height:40px;border-radius:10px;background:#e4edfd;color:#1b5fd9;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800">▦</span>
+                    <span><span data-i18n="typeDist" style="display:block;font-size:15px;font-weight:800">Distributor</span><span data-i18n="typeDistSub" style="display:block;font-size:12.5px;color:#636e7e">Wholesale to workshops</span></span>
+                  </button>
+                </div>
+              </div>
+
+              <div data-wstep="2" style="display:none">
+                <div style="margin-bottom:22px">
+                  <div style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px"><span style="color:#1b5fd9">2/4</span><span data-i18n="stepBusiness" style="color:#9aa4b5">Your business</span></div>
+                  <h3 data-i18n="qBusiness" style="margin:0;font-size:20px;font-weight:800;letter-spacing:-0.01em">Tell us about your business.</h3>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:16px">
+                  <div>
+                    <label data-i18n="bizLabel" style="display:block;font-size:11px;font-weight:800;color:#636e7e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Store name</label>
+                    <input data-f="businessName" data-autofocus type="text" maxlength="200" placeholder="" style="width:100%;box-sizing:border-box;background:#f7f9fc;border:1.5px solid #e3e7ee;border-radius:12px;padding:13px 15px;font-size:15px;color:#0d1522;outline:none" style-focus="border-color:#2f7df6;background:#fff">
+                    <div data-err="businessName" style="display:none;color:#b91c1c;font-size:12.5px;font-weight:600;margin-top:6px"></div>
+                  </div>
+                  <div>
+                    <label data-i18n="contactName" style="display:block;font-size:11px;font-weight:800;color:#636e7e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Contact name (optional)</label>
+                    <input data-f="contactName" type="text" maxlength="200" style="width:100%;box-sizing:border-box;background:#f7f9fc;border:1.5px solid #e3e7ee;border-radius:12px;padding:13px 15px;font-size:15px;color:#0d1522;outline:none" style-focus="border-color:#2f7df6;background:#fff">
+                  </div>
+                </div>
+              </div>
+
+              <div data-wstep="3" style="display:none">
+                <div style="margin-bottom:22px">
+                  <div style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px"><span style="color:#1b5fd9">3/4</span><span data-i18n="stepContact" style="color:#9aa4b5">How to reach you</span></div>
+                  <h3 data-i18n="qContact" style="margin:0;font-size:20px;font-weight:800;letter-spacing:-0.01em">Where can we reach you?</h3>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:16px">
+                  <div>
+                    <label data-i18n="email" style="display:block;font-size:11px;font-weight:800;color:#636e7e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Email (optional)</label>
+                    <input data-f="email" data-autofocus type="email" maxlength="200" placeholder="nama@toko.com" style="width:100%;box-sizing:border-box;background:#f7f9fc;border:1.5px solid #e3e7ee;border-radius:12px;padding:13px 15px;font-size:15px;color:#0d1522;outline:none" style-focus="border-color:#2f7df6;background:#fff">
+                    <div data-err="email" style="display:none;color:#b91c1c;font-size:12.5px;font-weight:600;margin-top:6px"></div>
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));gap:16px">
+                    <div>
+                      <label data-i18n="contactPhone" style="display:block;font-size:11px;font-weight:800;color:#636e7e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Phone (optional)</label>
+                      <input data-f="contactPhone" type="tel" maxlength="30" placeholder="+62 812 …" style="width:100%;box-sizing:border-box;background:#f7f9fc;border:1.5px solid #e3e7ee;border-radius:12px;padding:13px 15px;font-size:15px;color:#0d1522;outline:none" style-focus="border-color:#2f7df6;background:#fff">
+                      <div data-err="contactPhone" style="display:none;color:#b91c1c;font-size:12.5px;font-weight:600;margin-top:6px"></div>
+                    </div>
+                    <div>
+                      <label data-i18n="whatsapp" style="display:block;font-size:11px;font-weight:800;color:#636e7e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">WhatsApp (optional)</label>
+                      <input data-f="whatsappNumber" type="tel" maxlength="30" placeholder="+62 812 …" style="width:100%;box-sizing:border-box;background:#f7f9fc;border:1.5px solid #e3e7ee;border-radius:12px;padding:13px 15px;font-size:15px;color:#0d1522;outline:none" style-focus="border-color:#2f7df6;background:#fff">
+                      <div data-err="whatsappNumber" style="display:none;color:#b91c1c;font-size:12.5px;font-weight:600;margin-top:6px"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <label data-i18n="city" style="display:block;font-size:11px;font-weight:800;color:#636e7e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">City (optional)</label>
+                    <select data-f="city" style="width:100%;box-sizing:border-box;background:#f7f9fc;border:1.5px solid #e3e7ee;border-radius:12px;padding:13px 15px;font-size:15px;color:#0d1522;outline:none;cursor:pointer" style-focus="border-color:#2f7df6;background:#fff">
+                      <option value="" data-i18n="pickCity">Pick a city…</option>
+                      <option value="Jakarta">Jakarta</option><option value="Tangerang">Tangerang</option><option value="Bekasi">Bekasi</option><option value="Depok">Depok</option><option value="Bogor">Bogor</option><option value="Bandung">Bandung</option><option value="Surabaya">Surabaya</option><option value="Semarang">Semarang</option><option value="Medan">Medan</option><option value="Other" data-i18n="cityOther">Other</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div data-wstep="4" style="display:none">
+                <div style="margin-bottom:22px">
+                  <div style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px"><span style="color:#1b5fd9">4/4</span><span data-i18n="stepDetails" style="color:#9aa4b5">A few details</span></div>
+                  <h3 data-i18n="qDetails" style="margin:0;font-size:20px;font-weight:800;letter-spacing:-0.01em">Anything else that helps us prepare?</h3>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:18px">
+                  <div>
+                    <label data-i18n="volume" style="display:block;font-size:11px;font-weight:800;color:#636e7e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Monthly order volume (optional)</label>
+                    <select data-f="monthlyOrderVolume" style="width:100%;box-sizing:border-box;background:#f7f9fc;border:1.5px solid #e3e7ee;border-radius:12px;padding:13px 15px;font-size:15px;color:#0d1522;outline:none;cursor:pointer" style-focus="border-color:#2f7df6;background:#fff">
+                      <option value="" data-i18n="pickVolume">Pick volume…</option>
+                      <option value="<10">&lt;10</option><option value="10-50">10–50</option><option value="50-200">50–200</option><option value="200+">200+</option>
+                    </select>
+                  </div>
+                  <div data-toolsgroup style="display:none">
+                    <label data-i18n="toolsUsed" style="display:block;font-size:11px;font-weight:800;color:#636e7e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Tools you use today (select all)</label>
+                    <div data-toolswrap style="display:flex;flex-wrap:wrap;gap:8px"></div>
+                  </div>
+                  <div data-brandsgroup>
+                    <label data-i18n="brands" style="display:block;font-size:11px;font-weight:800;color:#636e7e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Brands you carry (optional)</label>
+                    <input data-f="brandsCarried" type="text" maxlength="300" placeholder="e.g. Denso, Aspira, NGK" style="width:100%;box-sizing:border-box;background:#f7f9fc;border:1.5px solid #e3e7ee;border-radius:12px;padding:13px 15px;font-size:15px;color:#0d1522;outline:none" style-focus="border-color:#2f7df6;background:#fff">
+                  </div>
+                  <label style="display:flex;align-items:flex-start;gap:11px;cursor:pointer">
+                    <input data-net30 type="checkbox" style="margin-top:2px;width:17px;height:17px;accent-color:#2f7df6;cursor:pointer">
+                    <span data-i18n="net30" style="font-size:14px;color:#3c4654;line-height:1.5">Interested in Net-30 credit terms (subject to approval)</span>
+                  </label>
+                  <div>
+                    <label data-i18n="message" style="display:block;font-size:11px;font-weight:800;color:#636e7e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Anything else? (optional)</label>
+                    <textarea data-f="message" rows="3" maxlength="2000" style="width:100%;box-sizing:border-box;background:#f7f9fc;border:1.5px solid #e3e7ee;border-radius:12px;padding:13px 15px;font-size:15px;color:#0d1522;outline:none;resize:none" style-focus="border-color:#2f7df6;background:#fff"></textarea>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div data-wnav style="display:none;align-items:center;justify-content:space-between;padding-top:24px">
+              <button type="button" data-wback onClick="{{ back }}" data-i18n="back" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:#636e7e;background:none;border:none;cursor:pointer" style-hover="color:#0d1522">← Back</button>
+              <button type="button" data-wnext onClick="{{ next }}" data-i18n="next" style="display:inline-flex;align-items:center;gap:8px;background:#1b5fd9;color:#fff;font-size:14px;font-weight:800;padding:12px 24px;border-radius:999px;border:none;cursor:pointer" style-hover="background:#123f9e">Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <div data-wsuccess style="display:none;background:#fff;border:1.5px solid #a9c6f6;border-radius:22px;box-shadow:0 30px 70px -28px rgba(47,125,246,.4);padding:clamp(30px,4vw,44px);text-align:center">
+          <div style="width:64px;height:64px;border-radius:50%;background:#e4edfd;color:#1b5fd9;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;margin:0 auto 18px">✓</div>
+          <h2 data-i18n="successTitle" style="margin:0;font-size:26px;font-weight:800;letter-spacing:-0.02em;color:#123f9e">You're on the list.</h2>
+          <p data-wsucc-body style="margin:14px auto 0;font-size:15px;line-height:1.65;color:#636e7e;max-width:400px"></p>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px">
+            <a data-wa href="#" target="_blank" rel="noopener" data-i18n="waCta" style="display:inline-flex;align-items:center;gap:8px;background:#1b5fd9;color:#fff;font-size:14.5px;font-weight:800;padding:14px 26px;border-radius:999px" style-hover="background:#123f9e;color:#fff">Chat on WhatsApp</a>
+            <a href="Mobeeli Landing.dc.html" data-i18n="homeCta" style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid #d8deea;color:#0d1522;font-size:14.5px;font-weight:700;padding:13px 24px;border-radius:999px" style-hover="border-color:#2f7df6;color:#1b5fd9">Back to Mobeeli</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;en&quot;,&quot;id&quot;],&quot;default&quot;:&quot;en&quot;,&quot;tsType&quot;:&quot;\&quot;en\&quot;|\&quot;id\&quot;&quot;,&quot;section&quot;:&quot;Language&quot;},&quot;whatsapp&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;6281234567890&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Links&quot;},&quot;reducedMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;section&quot;:&quot;Motion&quot;}}">
+const TOOLS = ["Excel","Buku Manual","Scanner","Tokopedia/Shopee","WhatsApp Order","Custom POS","None"];
+const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+const PHONE_RE = /^[+0-9 -]{6,20}$/;
+const LAST = 4;
+
+const TXT = {
+  back_home:{en:"← Back to Mobeeli",id:"← Kembali ke Mobeeli"},
+  offer:{en:"0% platform fee · first 300 shops",id:"Biaya platform 0% · 300 toko pertama"},
+  left_h:{en:"Be one of the first shops on Mobeeli.",id:"Jadi salah satu toko pertama di Mobeeli."},
+  left_sub:{en:"Tell us about your business. A founder follows up personally — no payment, no commitment to express interest.",id:"Ceritakan tentang bisnis Anda. Salah satu founder akan menghubungi langsung — tanpa bayar, tanpa komitmen untuk menyatakan minat."},
+  ben1_t:{en:"Automated catalog uploads",id:"Unggah katalog serba otomatis"},
+  ben1_s:{en:"Excel or PDF becomes an online store in hours.",id:"File Excel atau PDF jadi toko online dalam hitungan jam."},
+  ben2_t:{en:"Fraud protection built in",id:"Perlindungan penipuan bawaan"},
+  ben2_s:{en:"Backed by video evidence and insurance.",id:"Ditopang bukti video dan asuransi."},
+  ben3_t:{en:"One low, flat commission",id:"Satu komisi flat yang ringan"},
+  ben3_s:{en:"After the promo — far below the big marketplaces.",id:"Setelah promo — jauh di bawah marketplace besar."},
+  trust:{en:"Pre-launch pilot · your details stay with the founding team.",id:"Pilot pra-peluncuran · data Anda hanya dipegang tim pendiri."},
+  eyebrow:{en:"Become a partner",id:"Jadi partner"},
+  introTitle:{en:"Join Mobeeli",id:"Gabung Mobeeli"},
+  introBody:{en:"Tell us a little about your business in a few quick steps. A founder will reach out personally on WhatsApp or email.",id:"Ceritakan sedikit tentang bisnis Anda lewat beberapa langkah singkat. Salah satu founder akan menghubungi langsung lewat WhatsApp atau email."},
+  start:{en:"Get started →",id:"Mulai →"},
+  minutes:{en:"Takes about a minute.",id:"Cuma sekitar satu menit."},
+  stepType:{en:"Who you are",id:"Siapa Anda"},
+  stepBusiness:{en:"Your business",id:"Bisnis Anda"},
+  stepContact:{en:"How to reach you",id:"Cara menghubungi"},
+  stepDetails:{en:"A few details",id:"Beberapa detail"},
+  qType:{en:"What best describes you?",id:"Mana yang paling sesuai?"},
+  qBusiness:{en:"Tell us about your business.",id:"Ceritakan tentang bisnis Anda."},
+  qContact:{en:"Where can we reach you?",id:"Di mana kami bisa menghubungi Anda?"},
+  qDetails:{en:"Anything else that helps us prepare?",id:"Ada hal lain yang membantu kami bersiap?"},
+  typeStore:{en:"Store / Seller",id:"Toko / Penjual"},
+  typeStoreSub:{en:"Sell parts online",id:"Jual onderdil online"},
+  typeGarage:{en:"Garage / Workshop",id:"Bengkel"},
+  typeGarageSub:{en:"Buy for cars on your lift",id:"Beli untuk mobil di lift"},
+  typeDist:{en:"Distributor",id:"Distributor"},
+  typeDistSub:{en:"Wholesale to workshops",id:"Grosir ke bengkel"},
+  contactName:{en:"Contact name (optional)",id:"Nama kontak (opsional)"},
+  email:{en:"Email (optional)",id:"Email (opsional)"},
+  contactPhone:{en:"Phone (optional)",id:"Telepon (opsional)"},
+  whatsapp:{en:"WhatsApp (optional)",id:"WhatsApp (opsional)"},
+  city:{en:"City (optional)",id:"Kota (opsional)"},
+  pickCity:{en:"Pick a city…",id:"Pilih kota…"},
+  cityOther:{en:"Other",id:"Lainnya"},
+  volume:{en:"Monthly order volume (optional)",id:"Volume order per bulan (opsional)"},
+  pickVolume:{en:"Pick volume…",id:"Pilih volume…"},
+  toolsUsed:{en:"Tools you use today (select all)",id:"Tools yang dipakai sekarang (boleh beberapa)"},
+  brands:{en:"Brands you carry (optional)",id:"Brand yang Anda jual (opsional)"},
+  brandsPh:{en:"e.g. Denso, Aspira, NGK",id:"mis. Denso, Aspira, NGK"},
+  net30:{en:"Interested in Net-30 credit terms (subject to approval)",id:"Tertarik fasilitas kredit Tempo Net-30 (jika disetujui)"},
+  message:{en:"Anything else? (optional)",id:"Ada hal lain? (opsional)"},
+  back:{en:"← Back",id:"← Kembali"},
+  next:{en:"Next →",id:"Lanjut →"},
+  submit:{en:"Submit →",id:"Kirim →"},
+  bizStore:{en:"Store name",id:"Nama toko"},
+  bizGarage:{en:"Workshop name",id:"Nama bengkel"},
+  bizDist:{en:"Company name",id:"Nama perusahaan"},
+  bizPhStore:{en:"e.g. Jaya Motor Parts",id:"mis. Jaya Motor Parts"},
+  bizPhGarage:{en:"e.g. Bengkel Sumber Rejeki",id:"mis. Bengkel Sumber Rejeki"},
+  bizPhDist:{en:"e.g. Sinar Sparepart Nusantara",id:"mis. Sinar Sparepart Nusantara"},
+  errBiz:{en:"Please enter your business name.",id:"Mohon isi nama bisnis Anda."},
+  errEmail:{en:"That email doesn't look right.",id:"Format email sepertinya belum benar."},
+  errPhone:{en:"That number doesn't look right.",id:"Format nomor sepertinya belum benar."},
+  successTitle:{en:"You're on the list.",id:"Pendaftaran Anda diterima."},
+  succBody:{en:"Thank you, {n}. A founder will reach out personally on WhatsApp or email. Want to talk sooner? Message us on WhatsApp now.",id:"Terima kasih, {n}. Salah satu founder akan menghubungi langsung lewat WhatsApp atau email. Ingin ngobrol lebih cepat? Chat kami via WhatsApp sekarang."},
+  waCta:{en:"Chat on WhatsApp",id:"Chat via WhatsApp"},
+  homeCta:{en:"Back to Mobeeli",id:"Kembali ke Mobeeli"}
+};
+
+class Component extends DCLogic {
+  lang = "en";
+  step = 0;
+  ptype = null;
+  tools = [];
+  renderVals() {
+    const nav = (n, d) => { this._dir = d; this.showStep(n); };
+    return {
+      setEn: () => this.setLang("en"),
+      setId: () => this.setLang("id"),
+      start: () => nav(1, 1),
+      back: () => nav(this.step - 1, -1),
+      next: () => this.onNext(),
+      pickStore: () => this.pick("STORE"),
+      pickGarage: () => this.pick("GARAGE"),
+      pickDist: () => this.pick("DISTRIBUTOR")
+    };
+  }
+  t(k) { const e = TXT[k]; return e ? (e[this.lang] ?? e.en) : ""; }
+  setLang(l) { this.lang = l; try { localStorage.setItem("mobeeli-lang", l); } catch (e) {} this.applyLang(); }
+  applyLang() {
+    const lang = this.lang;
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (key === "bizLabel") return;
+      const e = TXT[key]; if (!e) return;
+      el.textContent = e[lang] ?? e.en;
+    });
+    const bl = document.querySelector('[data-i18n="bizLabel"]');
+    if (bl) bl.textContent = this.t(this.ptype === "GARAGE" ? "bizGarage" : this.ptype === "DISTRIBUTOR" ? "bizDist" : "bizStore");
+    const bi = document.querySelector('[data-f="businessName"]');
+    if (bi) bi.setAttribute("placeholder", this.t(this.ptype === "GARAGE" ? "bizPhGarage" : this.ptype === "DISTRIBUTOR" ? "bizPhDist" : "bizPhStore"));
+    const br = document.querySelector('[data-f="brandsCarried"]');
+    if (br) br.setAttribute("placeholder", this.t("brandsPh"));
+    document.querySelectorAll("[data-langbtn]").forEach(b => {
+      const on = b.getAttribute("data-langbtn") === lang;
+      b.style.background = on ? "#0d1522" : "transparent";
+      b.style.color = on ? "#fff" : "#3c4654";
+    });
+    document.querySelectorAll("[data-tool]").forEach(b => { b.textContent = b.getAttribute("data-tool"); });
+    const nb = document.querySelector("[data-wnext]");
+    if (nb) nb.textContent = this.step === LAST ? this.t("submit") : this.t("next");
+    if (this._success) this.fillSuccessBody();
+    document.documentElement.setAttribute("lang", lang === "id" ? "id" : "en");
+  }
+  buildTools() {
+    const wrap = document.querySelector("[data-toolswrap]");
+    if (!wrap || wrap.childElementCount) return;
+    TOOLS.forEach(tool => {
+      const b = document.createElement("button");
+      b.type = "button"; b.setAttribute("data-tool", tool); b.textContent = tool;
+      b.style.cssText = "font-size:12.5px;font-weight:700;padding:9px 14px;border-radius:10px;border:1.5px solid #e3e7ee;background:#fff;color:#636e7e;cursor:pointer;transition:all .18s";
+      b.addEventListener("click", () => {
+        const on = this.tools.includes(tool);
+        if (on) this.tools = this.tools.filter(x => x !== tool); else this.tools.push(tool);
+        const active = this.tools.includes(tool);
+        b.style.background = active ? "#e4edfd" : "#fff";
+        b.style.borderColor = active ? "#2f7df6" : "#e3e7ee";
+        b.style.color = active ? "#123f9e" : "#636e7e";
+      });
+      wrap.appendChild(b);
+    });
+  }
+  pick(pt) {
+    this.ptype = pt;
+    document.querySelectorAll("[data-type]").forEach(b => {
+      const on = b.getAttribute("data-type") === pt;
+      b.style.borderColor = on ? "#2f7df6" : "#e3e7ee";
+      b.style.background = on ? "#f7faff" : "#fff";
+    });
+    const tg = document.querySelector("[data-toolsgroup]"), bg = document.querySelector("[data-brandsgroup]");
+    if (tg && bg) { tg.style.display = pt === "GARAGE" ? "block" : "none"; bg.style.display = pt === "GARAGE" ? "none" : "block"; }
+    this.applyLang();
+    this._dir = 1;
+    setTimeout(() => this.showStep(2), 260);
+  }
+  clearErr(f) { const e = document.querySelector('[data-err="' + f + '"]'); if (e) e.style.display = "none"; const i = document.querySelector('[data-f="' + f + '"]'); if (i) i.style.borderColor = "#e3e7ee"; }
+  showErr(f, key) {
+    const e = document.querySelector('[data-err="' + f + '"]');
+    if (e) { e.textContent = this.t(key); e.style.display = "block"; }
+    const i = document.querySelector('[data-f="' + f + '"]');
+    if (i) { i.style.borderColor = "#b91c1c"; i.focus(); }
+  }
+  val(f) { const i = document.querySelector('[data-f="' + f + '"]'); return i ? i.value.trim() : ""; }
+  validate() {
+    if (this.step === 2) { if (!this.val("businessName")) { this.showErr("businessName", "errBiz"); return false; } }
+    if (this.step === 3) {
+      const em = this.val("email"); if (em && !EMAIL_RE.test(em)) { this.showErr("email", "errEmail"); return false; }
+      const ph = this.val("contactPhone"); if (ph && !PHONE_RE.test(ph)) { this.showErr("contactPhone", "errPhone"); return false; }
+      const wa = this.val("whatsappNumber"); if (wa && !PHONE_RE.test(wa)) { this.showErr("whatsappNumber", "errPhone"); return false; }
+    }
+    return true;
+  }
+  onNext() {
+    if (!this.validate()) return;
+    if (this.step === LAST) { this.finish(); return; }
+    this._dir = 1;
+    this.showStep(this.step + 1);
+  }
+  showStep(n) {
+    this.step = n;
+    const dir = this._dir || 1;
+    const reduce = !!this.props.reducedMotion;
+    document.querySelectorAll("[data-wstep]").forEach(el => {
+      const s = +el.getAttribute("data-wstep");
+      if (s === n) {
+        el.style.display = "block";
+        if (reduce) { el.style.opacity = "1"; el.style.transform = "none"; return; }
+        el.style.transition = "none"; el.style.opacity = "0"; el.style.transform = "translateX(" + (dir > 0 ? 34 : -34) + "px)";
+        void el.offsetHeight;
+        el.style.transition = "transform .42s cubic-bezier(.2,.7,.2,1), opacity .38s ease";
+        el.style.opacity = "1"; el.style.transform = "none";
+      } else { el.style.display = "none"; }
+    });
+    const prog = document.querySelector("[data-wprog]"), pw = document.querySelector("[data-wprogwrap]");
+    if (prog && pw) { pw.style.display = n > 0 ? "block" : "none"; prog.style.width = (n / LAST * 100) + "%"; }
+    const navEl = document.querySelector("[data-wnav]");
+    if (navEl) navEl.style.display = n > 0 ? "flex" : "none";
+    const bk = document.querySelector("[data-wback]"), nx = document.querySelector("[data-wnext]");
+    if (bk) bk.style.visibility = n > 0 ? "visible" : "hidden";
+    if (nx) { nx.style.display = n === 1 ? "none" : "inline-flex"; nx.textContent = n === LAST ? this.t("submit") : this.t("next"); }
+    const af = document.querySelector('[data-wstep="' + n + '"] [data-autofocus]');
+    if (af && n > 1) setTimeout(() => { try { af.focus(); } catch (e) {} }, 260);
+  }
+  waLink() {
+    const num = (this.props.whatsapp && String(this.props.whatsapp).replace(/[^0-9]/g, "")) || "6281234567890";
+    const name = this._biz || "";
+    const msg = this.lang === "id" ? ("Halo Mobeeli, saya baru daftar Early Adaptor. Bisnis: " + name + ". Saya ingin mulai.") : ("Hi Mobeeli, I just joined the Early Adaptor waitlist. Business: " + name + ". I'd like to get started.");
+    return "https://wa.me/" + num + "?text=" + encodeURIComponent(msg);
+  }
+  fillSuccessBody() {
+    const el = document.querySelector("[data-wsucc-body]");
+    if (el) el.textContent = this.t("succBody").replace("{n}", this._biz || (this.lang === "id" ? "rekan" : "there"));
+    const wa = document.querySelector("[data-wa]");
+    if (wa) wa.setAttribute("href", this.waLink());
+  }
+  finish() {
+    this._biz = this.val("businessName") || (this.lang === "id" ? "rekan" : "there");
+    this._success = true;
+    const form = document.querySelector("[data-wform]"), succ = document.querySelector("[data-wsuccess]");
+    this.fillSuccessBody();
+    if (form) form.style.display = "none";
+    if (succ) { succ.style.display = "block"; succ.style.opacity = "0"; succ.style.transform = "translateY(14px)"; succ.style.transition = "opacity .5s ease, transform .5s cubic-bezier(.2,.7,.2,1)"; void succ.offsetHeight; succ.style.opacity = "1"; succ.style.transform = "none"; }
+    try { window.scrollTo({ top: 0, behavior: "smooth" }); } catch (e) {}
+  }
+  componentDidMount() {
+    try { this.lang = localStorage.getItem("mobeeli-lang") || (this.props.defaultLang ?? "en"); } catch (e) { this.lang = this.props.defaultLang ?? "en"; }
+    this.buildTools();
+    this.applyLang();
+    this.showStep(0);
+    if (this.props.reducedMotion) document.querySelectorAll("[data-anim]").forEach(el => { el.style.animation = "none"; });
+    ["businessName","email","contactPhone","whatsappNumber"].forEach(f => {
+      const i = document.querySelector('[data-f="' + f + '"]');
+      if (i) i.addEventListener("input", () => this.clearErr(f));
+    });
+  }
+  componentDidUpdate() { this.applyLang(); }
+}
+</script>
+</body>
+</html>

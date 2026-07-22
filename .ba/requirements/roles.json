@@ -1,0 +1,51 @@
+{
+  "version": "1.0",
+  "created_at": "2026-07-22T10:05:00.000Z",
+  "roles": [
+    {
+      "name": "Visitor",
+      "description": "Anonymous public visitor (any audience). Browses the landing page, switches EN/ID, watches the 3D scenes and animations, follows anchor navigation.",
+      "permissions": [
+        "view landing page",
+        "toggle language",
+        "navigate sections"
+      ]
+    },
+    {
+      "name": "Prospective seller (Early Adaptor applicant)",
+      "description": "Parts store, garage/workshop, or distributor considering the Early Adaptor program. Completes the 4-step Join Waitlist wizard (business type, business name, contact channels, details) and optionally continues to WhatsApp after submitting.",
+      "permissions": [
+        "view landing page",
+        "toggle language",
+        "submit waitlist application",
+        "open WhatsApp deep link"
+      ]
+    },
+    {
+      "name": "Buyer (notify-me subscriber)",
+      "description": "Car owner in Jakarta who wants to be notified at launch; uses the buyer strip's 'Get notified' action (mailto in the design; may become a lightweight form).",
+      "permissions": [
+        "view landing page",
+        "toggle language",
+        "request launch notification"
+      ]
+    },
+    {
+      "name": "Investor",
+      "description": "SEA commerce-infrastructure investor; reads the Investors section, requests the deck via mailto, or emails a founder directly.",
+      "permissions": [
+        "view landing page",
+        "toggle language",
+        "request deck via email"
+      ]
+    },
+    {
+      "name": "Founding team (lead recipient)",
+      "description": "Yavet, Salman, Ferdi — receive every waitlist submission and buyer/investor email, and follow up personally via WhatsApp or email. Not a logged-in role on the site itself; consumes leads through the delivery channel chosen at strategy phase (e.g. email notification, stored records, or dashboard export).",
+      "permissions": [
+        "receive waitlist submissions",
+        "receive contact emails"
+      ]
+    }
+  ]
+}
