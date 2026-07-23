@@ -19,7 +19,7 @@ describe("Proposal Q1 — Cursor-Tracked Glow-Border Card System", () => {
       </LanguageProvider>,
     );
     expect(html).toContain("mb-glow-card mb-glow-card-fill");
-    expect(html).toContain('class="mb-fit3d-cards"');
+    expect(html).toContain('class="mb-fit3d-layout"');
   });
 
   it("defines CSS rules for border mask and fill variant in landing.css", () => {

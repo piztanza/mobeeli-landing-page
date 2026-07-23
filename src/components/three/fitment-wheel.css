@@ -66,5 +66,5 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(circle at 50% 45%, transparent 55%, rgba(10, 19, 34, 0.85) 118%);
+  background: radial-gradient(circle at 50% 45%, transparent 62%, rgba(10, 19, 34, 0.85) 118%);
 }

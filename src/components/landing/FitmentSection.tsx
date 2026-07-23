@@ -66,43 +66,49 @@ export default function FitmentSection() {
         <div data-rev="0" className="mb-kicker mb-kicker--accent">
           {t("fit3d_kicker")}
         </div>
-        <div data-rev="1" className="mb-fit3d-stage">
-          <div className="mb-fit3d-telemetry">
-            <span className="mb-dot mb-pulse" aria-hidden />
-            <span>{t("fit3d_chip")}</span>
-          </div>
-          <div className="mb-fit3d-stage-glow" aria-hidden />
-          <div className="mb-hero-scene">
-            <FitmentWheel lang={lang} isStatic={reduced} onFirstLoop={() => setCardsShown(true)} />
-          </div>
-        </div>
-        <div ref={cardsGlowRef} className="mb-fit3d-cards">
-          <div className={cardClass("mb-card-part")} style={cardDelay(0)}>
-            <div className="mb-card-part-thumb" aria-hidden />
-            <div className="mb-card-part-body">
-              <div className="mb-card-part-name">{t("card_part_name")}</div>
-              <div className="mb-card-part-sub">{t("card_part_sub")}</div>
-              <div className="mb-card-part-row">
-                <span className="mb-card-part-price">{t("card_part_price")}</span>
-                <span className="mb-chip-tint">{t("card_part_chip")}</span>
+        {/* R7: wheel centered, spec boxes flanking it left/right in a grid —
+            "boxes around it" without overlaying the 3D scene (no collisions). */}
+        <div ref={cardsGlowRef} className="mb-fit3d-layout">
+          <div className="mb-fit3d-col mb-fit3d-col--left">
+            <div className={cardClass("mb-card-part")} style={cardDelay(0)}>
+              <div className="mb-card-part-thumb" aria-hidden />
+              <div className="mb-card-part-body">
+                <div className="mb-card-part-name">{t("card_part_name")}</div>
+                <div className="mb-card-part-sub">{t("card_part_sub")}</div>
+                <div className="mb-card-part-row">
+                  <span className="mb-card-part-price">{t("card_part_price")}</span>
+                  <span className="mb-chip-tint">{t("card_part_chip")}</span>
+                </div>
               </div>
             </div>
           </div>
-          <div className={cardClass("mb-card-fit")} style={cardDelay(1)}>
-            <span className="mb-dot mb-dot--lg mb-pulse mb-pulse--fit" aria-hidden />
-            <span className="mb-card-fit-label">{t("card_fit")}</span>
+          <div data-rev="1" className="mb-fit3d-stage">
+            <div className="mb-fit3d-telemetry">
+              <span className="mb-dot mb-pulse" aria-hidden />
+              <span>{t("fit3d_chip")}</span>
+            </div>
+            <div className="mb-fit3d-stage-glow" aria-hidden />
+            <div className="mb-hero-scene">
+              <FitmentWheel lang={lang} isStatic={reduced} onFirstLoop={() => setCardsShown(true)} />
+            </div>
           </div>
-          <div className={cardClass("mb-card-video")} style={cardDelay(2)}>
-            <video
-              ref={videoRef}
-              src="/assets/unify-graph.mp4"
-              muted
-              loop
-              playsInline
-              autoPlay
-              preload="none"
-            />
-            <div className="mb-card-video-cap">{t("card_video_cap")}</div>
+          <div className="mb-fit3d-col mb-fit3d-col--right">
+            <div className={cardClass("mb-card-fit")} style={cardDelay(1)}>
+              <span className="mb-dot mb-dot--lg mb-pulse mb-pulse--fit" aria-hidden />
+              <span className="mb-card-fit-label">{t("card_fit")}</span>
+            </div>
+            <div className={cardClass("mb-card-video")} style={cardDelay(2)}>
+              <video
+                ref={videoRef}
+                src="/assets/unify-graph.mp4"
+                muted
+                loop
+                playsInline
+                autoPlay
+                preload="none"
+              />
+              <div className="mb-card-video-cap">{t("card_video_cap")}</div>
+            </div>
           </div>
         </div>
       </div>
