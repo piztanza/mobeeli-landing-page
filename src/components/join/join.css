@@ -472,7 +472,6 @@
   font-size: 16px;
   font-family: inherit;
   color: var(--mb-ink);
-  outline: none;
 }
 .mb-jw-input:focus {
   border-color: var(--mb-primary);

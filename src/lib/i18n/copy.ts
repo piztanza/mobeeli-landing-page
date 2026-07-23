@@ -34,18 +34,25 @@ const en = {
   nav_problem: "The problem",
   nav_how: "How it works",
   nav_why: "Why Mobeeli",
-  nav_early: "Early Adaptors",
+  nav_early: "Early Adopters",
   nav_team: "Team",
   nav_inv: "Investors",
   nav_cta: "Join Waitlist",
   /* Mobile hamburger nav a11y labels (CHG-piztanza-10) — not part of the design TXT map. */
   nav_menu_open: "Open menu",
   nav_menu_close: "Close menu",
+  /* Skip-to-content link (accessibility pass) — not part of the design TXT map. */
+  skip_to_content: "Skip to content",
   hero_chip: "Launching 2026 — Jakarta, Indonesia",
   hero_sub:
     "Mobeeli is the trust infrastructure for Indonesia's $5.3B automotive aftermarket — a parts marketplace where fitment is verified before checkout, sellers keep more of every sale, and both sides are protected.",
+  /* Slim-landing hero sub (redesign phase 4) — the deck's approved thesis line
+     (mobeeli-site: One platform to unify Indonesia's auto industry), kept broad
+     per founder direction: no market figures, no moat mechanics on the front page. */
+  hero_sub_short:
+    "One platform to unify Indonesia's auto industry — brands, distributors, stores, mechanics and drivers on one verified catalog.",
   hero_cta_inv: "For investors",
-  hero_cta_shops: "Join Early Adaptor Program",
+  hero_cta_shops: "Join Early Adopter Program",
   card_part_name: "Front brake pad set",
   card_part_sub: "Front axle · ceramic",
   card_part_price: "Rp 385.000",
@@ -97,6 +104,17 @@ const en = {
   ymm_tr_v: "1.5 G · ✓",
   how_s2_t: "See only parts that fit",
   how_s2_d: "Every listing is checked against 120M+ fitment mappings before you ever see it.",
+  /* Broad variant for the slim landing (redesign phase 4) — founder direction:
+     moat specifics (mapping counts) stay off the front page. */
+  how_s2_d_short: "Every listing is checked for fitment before you ever see it.",
+  how_s2_fnl_q1: "Brake Pads",
+  how_s2_fnl_q2: "+ Toyota",
+  how_s2_fnl_q3: "+ Avanza G 2018",
+  how_s2_fnl_c1: "14,002",
+  how_s2_fnl_c2: "3,012",
+  how_s2_fnl_c3: "4",
+  how_s2_fnl_badge: "EXACT FIT",
+  how_s2_fnl_unit: "listings",
   fit_r1: "Oil filter — 2NR-VE engine",
   fit_r2: "Front shock absorber",
   fit_r3: "Wrong-generation bumper",
@@ -123,7 +141,7 @@ const en = {
   why_h2: "Fees went up. Trust didn't.",
   why_p:
     "In May 2026, the big marketplaces raised seller fees to roughly 17–20%. Mobeeli is the alternative built for the auto industry — verified fitment, honest economics, and protection on both sides.",
-  early_kicker: "Early Adaptors Program",
+  early_kicker: "Early Adopters Program",
   early_h2: "0% platform fee for the first 300 shops.",
   early_f1_t: "Automated catalog uploads",
   early_f1_d:
@@ -288,9 +306,9 @@ const en = {
   jw_ph_phone: "+62 812 …",
   /* Success/mailto interpolation strings for the prefilled email CTA. */
   jw_fallback_name: "there",
-  jw_mail_subject: "Early Adaptor waitlist — {n}",
+  jw_mail_subject: "Early Adopter waitlist — {n}",
   jw_mail_body:
-    "Hi Mobeeli, I just joined the Early Adaptor waitlist. Business: {n}. I'd like to get started.",
+    "Hi Mobeeli, I just joined the Early Adopter waitlist. Business: {n}. I'd like to get started.",
   /* Submit states (F-008 — the design stops at a client-side success). */
   jw_submitting: "Submitting…",
   jw_submitErr:
@@ -319,18 +337,25 @@ const id: Record<CopyKey, string> = {
   nav_problem: "Masalah",
   nav_how: "Cara kerja",
   nav_why: "Kenapa Mobeeli",
-  nav_early: "Early Adaptors",
+  nav_early: "Early Adopters",
   nav_team: "Tim",
   nav_inv: "Investor",
   nav_cta: "Join Waitlist",
   /* Mobile hamburger nav a11y labels (CHG-piztanza-10) — not part of the design TXT map. */
   nav_menu_open: "Buka menu",
   nav_menu_close: "Tutup menu",
+  /* Skip-to-content link (accessibility pass) — not part of the design TXT map. */
+  skip_to_content: "Langsung ke konten",
   hero_chip: "Launching 2026 — Jakarta, Indonesia",
   hero_sub:
     "Mobeeli adalah infrastruktur kepercayaan untuk aftermarket otomotif Indonesia senilai $5,3 miliar — marketplace suku cadang tempat setiap barang dipastikan cocok sebelum checkout, penjual membawa pulang lebih banyak dari tiap transaksi, dan dua belah pihak sama-sama terlindungi.",
+  /* Slim-landing hero sub (redesign phase 4) — the deck's approved thesis line
+     (mobeeli-site: One platform to unify Indonesia's auto industry), kept broad
+     per founder direction: no market figures, no moat mechanics on the front page. */
+  hero_sub_short:
+    "Satu platform yang menyatukan industri otomotif Indonesia — merek, distributor, toko, mekanik, dan pengemudi dalam satu katalog terverifikasi.",
   hero_cta_inv: "Untuk investor",
-  hero_cta_shops: "Gabung Program Early Adaptor",
+  hero_cta_shops: "Gabung Program Early Adopter",
   card_part_name: "Kampas rem depan",
   card_part_sub: "As depan · keramik",
   card_part_price: "Rp 385.000",
@@ -382,6 +407,17 @@ const id: Record<CopyKey, string> = {
   ymm_tr_v: "1.5 G · ✓",
   how_s2_t: "Lihat yang cocok saja",
   how_s2_d: "Setiap listing sudah dicek ke 120 juta+ data kecocokan sebelum sampai ke layar Anda.",
+  /* Broad variant for the slim landing (redesign phase 4) — founder direction:
+     moat specifics (mapping counts) stay off the front page. */
+  how_s2_d_short: "Setiap listing sudah dicek kecocokannya sebelum sampai ke layar Anda.",
+  how_s2_fnl_q1: "Kampas Rem",
+  how_s2_fnl_q2: "+ Toyota",
+  how_s2_fnl_q3: "+ Avanza G 2018",
+  how_s2_fnl_c1: "14.002",
+  how_s2_fnl_c2: "3.012",
+  how_s2_fnl_c3: "4",
+  how_s2_fnl_badge: "EXACT FIT",
+  how_s2_fnl_unit: "listing",
   fit_r1: "Filter oli — mesin 2NR-VE",
   fit_r2: "Sokbreker depan",
   fit_r3: "Bumper beda generasi",
@@ -408,7 +444,7 @@ const id: Record<CopyKey, string> = {
   why_h2: "Biaya naik. Kepercayaan tidak.",
   why_p:
     "Mei 2026, marketplace besar menaikkan biaya penjual hingga sekitar 17–20%. Mobeeli hadir sebagai alternatif yang memang dibangun untuk industri otomotif — kecocokan terjamin, biaya masuk akal, dan perlindungan untuk dua belah pihak.",
-  early_kicker: "Program Early Adaptors",
+  early_kicker: "Program Early Adopters",
   early_h2: "Biaya platform 0% untuk 300 toko pertama.",
   early_f1_t: "Unggah katalog serba otomatis",
   early_f1_d:
@@ -574,8 +610,8 @@ const id: Record<CopyKey, string> = {
   jw_ph_phone: "+62 812 …",
   /* Success/mailto interpolation strings for the prefilled email CTA. */
   jw_fallback_name: "rekan",
-  jw_mail_subject: "Waitlist Early Adaptor — {n}",
-  jw_mail_body: "Halo Mobeeli, saya baru daftar Early Adaptor. Bisnis: {n}. Saya ingin mulai.",
+  jw_mail_subject: "Waitlist Early Adopter — {n}",
+  jw_mail_body: "Halo Mobeeli, saya baru daftar Early Adopter. Bisnis: {n}. Saya ingin mulai.",
   /* Submit states (F-008 — the design stops at a client-side success). */
   jw_submitting: "Mengirim…",
   jw_submitErr:

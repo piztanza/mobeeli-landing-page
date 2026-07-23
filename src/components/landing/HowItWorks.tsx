@@ -1,12 +1,35 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
+import { useGlowCards } from "@/lib/hooks/useGlowCards";
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { useT } from "@/lib/i18n/LanguageProvider";
 
-/** How it works — 3 step cards + the "same search, two outcomes" comparison. */
+/**
+ * How it works, slimmed for the redesigned landing: the 3 step cards only.
+ * Step 2 features the search-funnel narrowing simulator ported from platform
+ * (Hypothesis 1, zero framer motion, recolored to Mobeeli blue system).
+ * Cards feature Q1 cursor-tracked glow-border system.
+ */
 export default function HowItWorks() {
   const t = useT();
+  const reduced = useReducedMotion();
+  const glowRef = useGlowCards<HTMLElement>();
+  const [funnelStep, setFunnelStep] = useState(0);
+
+  useEffect(() => {
+    if (reduced) return;
+    const interval = setInterval(() => {
+      setFunnelStep((prev) => (prev + 1) % 3);
+    }, 2400);
+    return () => clearInterval(interval);
+  }, [reduced]);
+
+  const stepIndex = reduced ? 2 : funnelStep;
+
   return (
-    <section id="how-it-works" className="mb-section mb-how">
+    <section ref={glowRef} id="how-it-works" className="mb-section mb-how">
       <div className="mb-section-inner">
         <div data-rev="0" className="mb-kicker">
           {t("how_kicker")}
@@ -15,7 +38,7 @@ export default function HowItWorks() {
           {t("how_h2")}
         </h2>
         <div className="mb-grid3">
-          <div data-rev="0" className="mb-step-card">
+          <div data-rev="0" className="mb-step-card mb-glow-card">
             <div className="mb-step-num">1</div>
             <h3 className="mb-step-t">{t("how_s1_t")}</h3>
             <p className="mb-step-d">{t("how_s1_d")}</p>
@@ -38,29 +61,40 @@ export default function HowItWorks() {
               </div>
             </div>
           </div>
-          <div data-rev="1" className="mb-step-card">
+          <div data-rev="1" className="mb-step-card mb-glow-card">
             <div className="mb-step-num">2</div>
             <h3 className="mb-step-t">{t("how_s2_t")}</h3>
-            <p className="mb-step-d">{t("how_s2_d")}</p>
-            <div className="mb-step-stack">
-              <div className="mb-fit-row">
-                <span className="mb-fit-thumb" aria-hidden />
-                <span className="mb-fit-label">{t("fit_r1")}</span>
-                <span className="mb-fit-mark">{"✓"}</span>
+            <p className="mb-step-d">{t("how_s2_d_short")}</p>
+            <div className="mb-funnel-sim">
+              <div className="mb-funnel-input">
+                <span className="mb-funnel-chip">{t("how_s2_fnl_q1")}</span>
+                {stepIndex >= 1 && (
+                  <span className="mb-funnel-chip">{t("how_s2_fnl_q2")}</span>
+                )}
+                {stepIndex >= 2 && (
+                  <span className="mb-funnel-chip is-active">{t("how_s2_fnl_q3")}</span>
+                )}
+                <span className="mb-funnel-cursor" aria-hidden />
               </div>
-              <div className="mb-fit-row">
-                <span className="mb-fit-thumb" aria-hidden />
-                <span className="mb-fit-label">{t("fit_r2")}</span>
-                <span className="mb-fit-mark">{"✓"}</span>
-              </div>
-              <div className="mb-fit-row is-bad">
-                <span className="mb-fit-thumb" aria-hidden />
-                <span className="mb-fit-label">{t("fit_r3")}</span>
-                <span className="mb-fit-mark">{"✗"}</span>
+              <div className="mb-funnel-results">
+                <div className="mb-funnel-count">
+                  <span className={`mb-funnel-num${stepIndex === 2 ? " is-exact" : ""}`}>
+                    {stepIndex === 0 && t("how_s2_fnl_c1")}
+                    {stepIndex === 1 && t("how_s2_fnl_c2")}
+                    {stepIndex === 2 && t("how_s2_fnl_c3")}
+                  </span>
+                  <span className="mb-funnel-unit">{t("how_s2_fnl_unit")}</span>
+                </div>
+                {stepIndex === 2 && (
+                  <div className="mb-funnel-badge">
+                    <span>✓</span>
+                    <span>{t("how_s2_fnl_badge")}</span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
-          <div data-rev="2" className="mb-step-card">
+          <div data-rev="2" className="mb-step-card mb-glow-card">
             <div className="mb-step-num">3</div>
             <h3 className="mb-step-t">{t("how_s3_t")}</h3>
             <p className="mb-step-d">{t("how_s3_d")}</p>
@@ -71,56 +105,8 @@ export default function HowItWorks() {
             </div>
           </div>
         </div>
-        <div data-rev="1" className="mb-cmp">
-          <h3 className="mb-cmp-h">{t("cmp_h")}</h3>
-          <div className="mb-cmp-grid">
-            <div className="mb-cmp-card">
-              <div className="mb-cmp-t">{t("cmp_bad_t")}</div>
-              <div className="mb-cmp-rows">
-                <div className="mb-cmp-row">
-                  <span className="mb-cmp-num">1</span>
-                  <span className="mb-cmp-text">{t("cmp_bad_1")}</span>
-                </div>
-                <div className="mb-cmp-row">
-                  <span className="mb-cmp-num">2</span>
-                  <span className="mb-cmp-text">{t("cmp_bad_2")}</span>
-                </div>
-                <div className="mb-cmp-row">
-                  <span className="mb-cmp-num">3</span>
-                  <span className="mb-cmp-text">{t("cmp_bad_3")}</span>
-                </div>
-                <div className="mb-cmp-row">
-                  <span className="mb-cmp-num is-x">{"✗"}</span>
-                  <span className="mb-cmp-text">{t("cmp_bad_4")}</span>
-                </div>
-              </div>
-              <div className="mb-cmp-res is-bad">{t("cmp_bad_res")}</div>
-            </div>
-            <div className="mb-cmp-card is-good">
-              <div className="mb-cmp-t">{t("cmp_good_t")}</div>
-              <div className="mb-cmp-rows">
-                <div className="mb-cmp-row">
-                  <span className="mb-cmp-num">1</span>
-                  <span className="mb-cmp-text">{t("cmp_good_1")}</span>
-                </div>
-                <div className="mb-cmp-row">
-                  <span className="mb-cmp-num">2</span>
-                  <span className="mb-cmp-text">{t("cmp_good_2")}</span>
-                </div>
-                <div className="mb-cmp-row">
-                  <span className="mb-cmp-num">3</span>
-                  <span className="mb-cmp-text">{t("cmp_good_3")}</span>
-                </div>
-                <div className="mb-cmp-row">
-                  <span className="mb-cmp-num is-check">{"✓"}</span>
-                  <span className="mb-cmp-text">{t("cmp_good_4")}</span>
-                </div>
-              </div>
-              <div className="mb-cmp-res is-good">{t("cmp_good_res")}</div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
 }
+

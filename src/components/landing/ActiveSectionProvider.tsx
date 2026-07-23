@@ -11,8 +11,9 @@ import {
   spyRootMargin,
 } from "@/lib/scroll/scrollspy";
 
-/** Landing sections with nav anchors, in band order — the spy tracks these. */
-export const SPY_SECTION_IDS = ["problem", "how-it-works", "why-now"] as const;
+/** Landing sections with nav anchors, in band order — the spy tracks these.
+ *  (why-now left the landing for /why-mobeeli in the redesign.) */
+export const SPY_SECTION_IDS = ["problem", "how-it-works"] as const;
 
 /** How long after the last scroll event an interrupted glide counts as over. */
 const SETTLE_MS = 200;

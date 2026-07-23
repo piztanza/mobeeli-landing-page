@@ -5,18 +5,44 @@ import { useRef } from "react";
 import { useScrollReveal } from "@/lib/hooks/useScrollReveal";
 import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
 
-import EarlyAdaptors from "./EarlyAdaptors";
+import EarlyAdopters from "./EarlyAdopters";
 import Footer from "./Footer";
 import Investors from "./Investors";
 import Nav from "./Nav";
+import ProblemStats from "./ProblemStats";
+import ProofBar from "./ProofBar";
+import SearchComparison from "./SearchComparison";
+import SkipLink from "./SkipLink";
 import TeamSection from "./TeamSection";
+import WhyMobeeli from "./WhyMobeeli";
 
 import "./landing.css";
 
+/**
+ * /why-mobeeli — the data & facts page: the why-now narrative plus every
+ * stat band moved off the slim landing (pain tiles, search comparison,
+ * proof bar). Keeps id="why-now" so legacy /#why-now links still resolve.
+ */
+function WhyDataSections() {
+  return (
+    <>
+      <WhyMobeeli />
+      <section className="mb-section">
+        <div className="mb-section-inner">
+          <ProblemStats />
+          <SearchComparison />
+        </div>
+      </section>
+      <ProofBar />
+    </>
+  );
+}
+
 const SECTIONS = {
   team: TeamSection,
-  "early-adaptors": EarlyAdaptors,
+  "early-adopters": EarlyAdopters,
   investors: Investors,
+  "why-mobeeli": WhyDataSections,
 } as const;
 
 /** Section slugs that moved off the landing page onto their own routes. */
@@ -35,8 +61,9 @@ export default function SectionPage({ section }: { section: SectionPageId }) {
   return (
     <LanguageProvider>
       <div ref={rootRef} className="mb-landing">
+        <SkipLink />
         <Nav />
-        <main>
+        <main id="main-content" tabIndex={-1}>
           <Section />
         </main>
         <Footer />

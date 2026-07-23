@@ -41,7 +41,7 @@ describe("nav scroll math (F-001, CHG-piztanza-14)", () => {
 
 describe("scrollspy (F-001, CHG-piztanza-14)", () => {
   it("tracks exactly the nav-anchored landing sections in band order", () => {
-    expect(SPY_SECTION_IDS).toEqual(["problem", "how-it-works", "why-now"]);
+    expect(SPY_SECTION_IDS).toEqual(["problem", "how-it-works"]);
   });
 
   it("builds the spy band root margin below the sticky nav", () => {

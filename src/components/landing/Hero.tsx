@@ -1,9 +1,12 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
+import { useGlowCards } from "@/lib/hooks/useGlowCards";
+import { useMagneticCTA } from "@/lib/hooks/useMagneticCTA";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { useLang, useT } from "@/lib/i18n/LanguageProvider";
 
@@ -30,6 +33,9 @@ export default function Hero() {
   const t = useT();
   const { lang } = useLang();
   const reduced = useReducedMotion();
+  const primaryCtaRef = useMagneticCTA<HTMLAnchorElement>();
+  const secondaryCtaRef = useMagneticCTA<HTMLAnchorElement>();
+  const heroGlowRef = useGlowCards<HTMLDivElement>();
   const [cardsShown, setCardsShown] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -53,12 +59,29 @@ export default function Hero() {
   }, []);
 
   const shown = cardsShown || reduced;
-  const cardClass = (extra: string) => `mb-herocard ${extra}${shown ? " is-in" : ""}`;
+  const cardClass = (extra: string) =>
+    `mb-herocard mb-glow-card mb-glow-card-fill ${extra}${shown ? " is-in" : ""}`;
   const cardDelay = (i: number) =>
     cardsShown && !reduced ? { transitionDelay: `${i * HERO_CARD_STAGGER_MS}ms` } : undefined;
 
   return (
     <header id="top" className="mb-hero">
+      <div className="mb-hero-bg-media" aria-hidden>
+        {!reduced ? (
+          <video
+            src="/veo/jakarta-hero-bg.mp4"
+            poster="/veo/jakarta-hero-bg-poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+          />
+        ) : (
+          <Image src="/veo/jakarta-hero-bg-poster.jpg" alt="" fill sizes="100vw" />
+        )}
+        <div className="mb-hero-bg-scrim" />
+      </div>
       <div className="mb-hero-grid">
         <div>
           <div data-rev="0" className="mb-hero-chip">
@@ -67,18 +90,25 @@ export default function Hero() {
           </div>
           <HeroRotator />
           <p data-rev="2" className="mb-hero-sub">
-            {t("hero_sub")}
+            {t("hero_sub_short")}
           </p>
           <div data-rev="3" className="mb-hero-ctas">
-            <Link href="/early-adaptors" className="mb-btn-primary-dark">
+            {/* Straight to platform registration (founder decision 2026-07-23). */}
+            <a
+              ref={primaryCtaRef}
+              href="https://mobilee-demo.vercel.app/platform/join"
+              target="_blank"
+              rel="noreferrer"
+              className="mb-btn-primary-dark mb-magnetic-cta"
+            >
               {t("hero_cta_shops")}
-            </Link>
-            <Link href="/investors" className="mb-btn-ghost-dark">
+            </a>
+            <Link ref={secondaryCtaRef} href="/investors" className="mb-btn-ghost-dark mb-magnetic-cta">
               {t("hero_cta_inv")}
             </Link>
           </div>
         </div>
-        <div data-rev="2" className="mb-hero-visual">
+        <div ref={heroGlowRef} data-rev="2" className="mb-hero-visual">
           <div className="mb-hero-scene">
             <FitmentWheel lang={lang} isStatic={reduced} onFirstLoop={() => setCardsShown(true)} />
           </div>

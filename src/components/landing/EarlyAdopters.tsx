@@ -4,11 +4,12 @@ import Link from "next/link";
 
 import { useT } from "@/lib/i18n/LanguageProvider";
 
-/** Early Adaptors — 3 benefit cards + the waitlist CTA (F-009: routes to /join). */
-export default function EarlyAdaptors() {
+/** Early Adopters — 3 benefit cards + the waitlist CTA (F-009: routes to /join).
+ *  (Renamed from Early Adaptors by founder decision, 2026-07-23.) */
+export default function EarlyAdopters() {
   const t = useT();
   return (
-    <section id="early-adaptor" className="mb-section mb-early">
+    <section id="early-adopter" className="mb-section mb-early">
       <div className="mb-section-inner">
         <div data-rev="0" className="mb-kicker">
           {t("early_kicker")}

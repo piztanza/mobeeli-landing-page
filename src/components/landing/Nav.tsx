@@ -10,6 +10,7 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from "react";
 
+import { useOverlaySolid } from "@/lib/hooks/useOverlaySolid";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { langs, type CopyKey } from "@/lib/i18n";
 import { useLang, useT } from "@/lib/i18n/LanguageProvider";
@@ -17,13 +18,18 @@ import { scrollToSectionId } from "@/lib/scroll/sectionScroll";
 
 import { useActiveSection } from "./ActiveSectionProvider";
 
+/** The live platform's partner pitch + registration surface (founder decision
+ *  2026-07-23: the Early Adopters nav slot points straight at the platform). */
+export const PLATFORM_URL = "https://mobilee-demo.vercel.app/platform";
+
 // Landing anchors are /#id links so they resolve from every page, not just /
-// (CHG-piztanza-09); Team, Early Adaptors and Investors live on their own routes.
+// (CHG-piztanza-09); Team, Investors and Why Mobeeli (the data page) live on
+// their own routes; the Early Adopters slot is an external platform link.
 const NAV_LINKS: readonly (readonly [href: string, key: CopyKey])[] = [
   ["/#problem", "nav_problem"],
   ["/#how-it-works", "nav_how"],
-  ["/#why-now", "nav_why"],
-  ["/early-adaptors", "nav_early"],
+  ["/why-mobeeli", "nav_why"],
+  [PLATFORM_URL, "nav_early"],
   ["/team", "nav_team"],
   ["/investors", "nav_inv"],
 ];
@@ -61,10 +67,16 @@ function LangToggle() {
  * on the same item always scrolls back, short sections center in the viewport, reduced motion
  * jumps instantly — and the scrollspy's active section carries aria-current/data-active (no
  * visible styling yet). From other pages the links navigate to /#id as before.
+ *
+ * With `overlay` (landing page only) the bar starts transparent over the dark full-viewport
+ * hero — white links/burger, white logo variant — and turns solid once the hero scrolls past
+ * (useOverlaySolid); the open mobile sheet forces solid so the bar never sits transparent
+ * over its own white sheet.
  */
-export default function Nav() {
+export default function Nav({ overlay = false }: { overlay?: boolean }) {
   const t = useT();
   const [open, setOpen] = useState(false);
+  const solid = useOverlaySolid(overlay);
   const activeId = useActiveSection();
   const reduced = useReducedMotion();
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -88,8 +100,16 @@ export default function Nav() {
   );
 
   // One markup for desktop bar and mobile sheet: /#id anchors get the programmatic
-  // scroll + scrollspy state; route links just close the sheet (a no-op on desktop).
+  // scroll + scrollspy state; route links just close the sheet (a no-op on desktop);
+  // external links (the platform) open in a new tab.
   const sectionLink = ([href, key]: readonly [href: string, key: CopyKey]) => {
+    if (href.startsWith("http")) {
+      return (
+        <a key={key} href={href} target="_blank" rel="noreferrer" onClick={close}>
+          {t(key)}
+        </a>
+      );
+    }
     const id = href.startsWith("/#") ? href.slice("/#".length) : null;
     return (
       <Link
@@ -141,15 +161,33 @@ export default function Nav() {
   }, [open]);
 
   return (
-    <nav className="mb-nav">
+    <nav
+      className={`mb-nav${overlay ? " mb-nav--overlay" : ""}${
+        overlay && (solid || open) ? " is-solid" : ""
+      }`}
+    >
       <div className="mb-nav-inner">
         <Link href="/" className="mb-nav-logo" onClick={close}>
-          <Image src="/assets/mobeeli-logo-blue.png" alt="Mobeeli" width={2891} height={1109} />
+          <Image
+            className="mb-nav-logo-blue"
+            src="/assets/mobeeli-logo-blue.png"
+            alt="Mobeeli"
+            width={2891}
+            height={1109}
+          />
+          <Image
+            className="mb-nav-logo-white"
+            src="/assets/mobeeli-logo-white.png"
+            alt=""
+            aria-hidden
+            width={2891}
+            height={1109}
+          />
         </Link>
         <div className="mb-nav-links">{NAV_LINKS.map(sectionLink)}</div>
         <div className="mb-nav-spacer" />
         <LangToggle />
-        <Link href="/join" className="mb-nav-cta">
+        <Link href="/join" className="mb-nav-cta mb-btn-spring">
           {t("nav_cta")}
         </Link>
         <button
@@ -176,7 +214,7 @@ export default function Nav() {
         <div className="mb-nav-sheet-links">{NAV_LINKS.map(sectionLink)}</div>
         <div className="mb-nav-sheet-foot">
           <LangToggle />
-          <Link href="/join" className="mb-nav-cta" onClick={close}>
+          <Link href="/join" className="mb-nav-cta mb-btn-spring" onClick={close}>
             {t("nav_cta")}
           </Link>
         </div>

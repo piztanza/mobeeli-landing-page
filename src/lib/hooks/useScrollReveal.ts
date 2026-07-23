@@ -20,10 +20,10 @@ export function useScrollReveal(ref: RefObject<HTMLElement | null>): void {
     const els = Array.from(root.querySelectorAll<HTMLElement>("[data-rev]"));
     for (const el of els) {
       el.style.opacity = "0";
-      el.style.transform = "translateY(26px)";
+      el.style.transform = "translateY(16px)";
       el.style.transition =
-        "opacity .75s cubic-bezier(.2,.6,.2,1), transform .75s cubic-bezier(.2,.6,.2,1)";
-      el.style.transitionDelay = `${(Number(el.dataset.rev) || 0) * 90}ms`;
+        "opacity 480ms cubic-bezier(0.19, 1, 0.22, 1), transform 480ms cubic-bezier(0.19, 1, 0.22, 1)";
+      el.style.transitionDelay = `${(Number(el.dataset.rev) || 0) * 70}ms`;
     }
 
     const io = new IntersectionObserver(
