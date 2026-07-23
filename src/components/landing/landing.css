@@ -1064,8 +1064,16 @@
 
 /* ---------- buyer strip ---------- */
 
+.mb-bg-grid-dots {
+  background-image: radial-gradient(rgba(91, 155, 247, 0.12) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+}
+
 .mb-buyer {
+  position: relative;
   background: var(--mb-tint);
+  background-image: radial-gradient(rgba(91, 155, 247, 0.1) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
   padding: 34px var(--mb-container-pad);
 }
 .mb-buyer-inner {
