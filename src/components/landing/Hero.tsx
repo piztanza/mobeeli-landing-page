@@ -71,7 +71,6 @@ export default function Hero() {
             preload="none"
           />
         ) : (
-          /* eslint-disable-next-line @next/next/no-img-element */
           <img src="/veo/jakarta-hero-bg-poster.jpg" alt="" />
         )}
         <div className="mb-hero-bg-scrim" />

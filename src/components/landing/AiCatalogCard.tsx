@@ -28,14 +28,16 @@ import {
   type OrbitGeometry,
 } from "./catalogLoop";
 
-// Part sprites in stage positions (slots 0–5).
+// Part sprites in the design's stage positions, with their scattered entry
+// offsets (design slot indices 1–5). The brake-pad sprite (scn1, slot 0,
+// parts/pad.png) has no supplied asset yet — when it lands, add it here with
+// ENTER_OFFSETS[0] and the loop picks it up.
 const SPRITES: readonly {
   name: CopyKey;
   src: string;
   pos: string;
   enter: readonly [number, number, number];
 }[] = [
-  { name: "scn1", src: "/assets/parts/pad.png", pos: "mb-sprite--pad", enter: ENTER_OFFSETS[0] },
   { name: "scn2", src: "/assets/parts/filter.png", pos: "mb-sprite--filter", enter: ENTER_OFFSETS[1] },
   { name: "scn3", src: "/assets/parts/plug.png", pos: "mb-sprite--plug", enter: ENTER_OFFSETS[2] },
   { name: "scn4", src: "/assets/parts/disc.png", pos: "mb-sprite--disc", enter: ENTER_OFFSETS[3] },
