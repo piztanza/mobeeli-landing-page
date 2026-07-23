@@ -59,6 +59,22 @@ export default function Hero() {
 
   return (
     <header id="top" className="mb-hero">
+      <div className="mb-hero-bg-media" aria-hidden>
+        {!reduced ? (
+          <video
+            src="/veo/jakarta-hero-bg.mp4"
+            poster="/veo/jakarta-hero-bg-poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+          />
+        ) : (
+          <img src="/veo/jakarta-hero-bg-poster.jpg" alt="" />
+        )}
+        <div className="mb-hero-bg-scrim" />
+      </div>
       <div className="mb-hero-grid">
         <div>
           <div data-rev="0" className="mb-hero-chip">

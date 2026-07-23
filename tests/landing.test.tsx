@@ -271,7 +271,7 @@ describe("landing page render (F-001 + F-009)", () => {
   it("renders the floating hero cards over the scene container", () => {
     expect(html).toContain(t("en", "card_part_name"));
     expect(html).toContain(t("en", "card_fit"));
-    const video = html.match(/<video[^>]*>/)?.[0] ?? "";
+    const video = html.match(/<video[^>]*unify-graph\.mp4[^>]*>/)?.[0] ?? "";
     expect(video).toContain("unify-graph.mp4");
     expect(video).toContain("muted");
     expect(video).toContain("loop");
