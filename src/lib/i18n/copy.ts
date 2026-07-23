@@ -107,6 +107,14 @@ const en = {
   /* Broad variant for the slim landing (redesign phase 4) — founder direction:
      moat specifics (mapping counts) stay off the front page. */
   how_s2_d_short: "Every listing is checked for fitment before you ever see it.",
+  how_s2_fnl_q1: "Brake Pads",
+  how_s2_fnl_q2: "+ Toyota",
+  how_s2_fnl_q3: "+ Avanza G 2018",
+  how_s2_fnl_c1: "14,002",
+  how_s2_fnl_c2: "3,012",
+  how_s2_fnl_c3: "4",
+  how_s2_fnl_badge: "EXACT FIT",
+  how_s2_fnl_unit: "listings",
   fit_r1: "Oil filter — 2NR-VE engine",
   fit_r2: "Front shock absorber",
   fit_r3: "Wrong-generation bumper",
@@ -402,6 +410,14 @@ const id: Record<CopyKey, string> = {
   /* Broad variant for the slim landing (redesign phase 4) — founder direction:
      moat specifics (mapping counts) stay off the front page. */
   how_s2_d_short: "Setiap listing sudah dicek kecocokannya sebelum sampai ke layar Anda.",
+  how_s2_fnl_q1: "Kampas Rem",
+  how_s2_fnl_q2: "+ Toyota",
+  how_s2_fnl_q3: "+ Avanza G 2018",
+  how_s2_fnl_c1: "14.002",
+  how_s2_fnl_c2: "3.012",
+  how_s2_fnl_c3: "4",
+  how_s2_fnl_badge: "EXACT FIT",
+  how_s2_fnl_unit: "listing",
   fit_r1: "Filter oli — mesin 2NR-VE",
   fit_r2: "Sokbreker depan",
   fit_r3: "Bumper beda generasi",

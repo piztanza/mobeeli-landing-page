@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
+import { useMagneticCTA } from "@/lib/hooks/useMagneticCTA";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { useLang, useT } from "@/lib/i18n/LanguageProvider";
 
@@ -31,6 +32,8 @@ export default function Hero() {
   const t = useT();
   const { lang } = useLang();
   const reduced = useReducedMotion();
+  const primaryCtaRef = useMagneticCTA<HTMLAnchorElement>();
+  const secondaryCtaRef = useMagneticCTA<HTMLAnchorElement>();
   const [cardsShown, setCardsShown] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -89,14 +92,15 @@ export default function Hero() {
           <div data-rev="3" className="mb-hero-ctas">
             {/* Straight to platform registration (founder decision 2026-07-23). */}
             <a
+              ref={primaryCtaRef}
               href="https://mobilee-demo.vercel.app/platform/join"
               target="_blank"
               rel="noreferrer"
-              className="mb-btn-primary-dark"
+              className="mb-btn-primary-dark mb-magnetic-cta"
             >
               {t("hero_cta_shops")}
             </a>
-            <Link href="/investors" className="mb-btn-ghost-dark">
+            <Link ref={secondaryCtaRef} href="/investors" className="mb-btn-ghost-dark mb-magnetic-cta">
               {t("hero_cta_inv")}
             </Link>
           </div>

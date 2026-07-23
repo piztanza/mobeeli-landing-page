@@ -527,6 +527,19 @@
   flex-wrap: wrap;
   margin-top: 34px;
 }
+.mb-magnetic-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mb-magnetic-cta {
+    transform: none !important;
+    transition: none !important;
+  }
+}
 .mb-btn-primary-dark {
   background: var(--mb-primary);
   font-size: 15px;
@@ -881,6 +894,95 @@
   flex-direction: column;
   gap: 8px;
   margin-top: 20px;
+}
+/* Step 2 Funnel Simulator */
+.mb-funnel-sim {
+  background: var(--mb-ink);
+  border: 1px solid rgba(47, 125, 246, 0.2);
+  border-radius: 12px;
+  padding: 14px;
+  margin-top: 20px;
+}
+.mb-funnel-input {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(47, 125, 246, 0.3);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 13px;
+  min-height: 42px;
+}
+.mb-funnel-chip {
+  background: rgba(47, 125, 246, 0.15);
+  color: var(--mb-light-accent);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 12px;
+  border: 1px solid rgba(91, 155, 247, 0.3);
+  transition: all 0.25s ease;
+}
+.mb-funnel-chip.is-active {
+  background: var(--mb-primary);
+  color: #fff;
+  border-color: var(--mb-primary);
+}
+.mb-funnel-cursor {
+  width: 6px;
+  height: 14px;
+  background: var(--mb-primary);
+  border-radius: 1px;
+  animation: mbPulse 1s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mb-funnel-cursor {
+    animation: none;
+  }
+}
+.mb-funnel-results {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.mb-funnel-count {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mb-funnel-num {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--mb-primary);
+  letter-spacing: -0.02em;
+  transition: color 0.3s ease;
+}
+/* Success state stays in the blue family — the design's verified semantic
+   (.mb-fit-mark, .is-check) is deep-blue/light-accent, never green. */
+.mb-funnel-num.is-exact {
+  color: var(--mb-light-accent);
+}
+.mb-funnel-unit {
+  font-size: 12.5px;
+  color: var(--mb-dark-muted);
+}
+.mb-funnel-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(47, 125, 246, 0.18);
+  color: var(--mb-light-accent);
+  border: 1px solid rgba(91, 155, 247, 0.45);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
 }
 .mb-ymm-pill {
   display: flex;
