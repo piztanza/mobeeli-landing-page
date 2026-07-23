@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -71,7 +72,7 @@ export default function Hero() {
             preload="none"
           />
         ) : (
-          <img src="/veo/jakarta-hero-bg-poster.jpg" alt="" />
+          <Image src="/veo/jakarta-hero-bg-poster.jpg" alt="" fill sizes="100vw" />
         )}
         <div className="mb-hero-bg-scrim" />
       </div>

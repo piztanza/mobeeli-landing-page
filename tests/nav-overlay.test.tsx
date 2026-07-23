@@ -88,3 +88,39 @@ describe("nav overlay + hero viewport (CSS contracts)", () => {
     expect(hero).toMatch(/padding: calc\(66px \+ 40px\)/);
   });
 });
+
+describe("hero background media (visual-polish iteration 1 + audit fix)", () => {
+  it("ships the decorative background video with poster, inert and deferred", () => {
+    const html = renderToStaticMarkup(<LandingPage />);
+    const media = html.match(/<div[^>]*mb-hero-bg-media[^>]*>[\s\S]*?<\/video>/)?.[0] ?? "";
+    expect(media).toContain('aria-hidden="true"');
+    const video = media.match(/<video[^>]*>/)?.[0] ?? "";
+    expect(video).toContain("/veo/jakarta-hero-bg.mp4");
+    expect(video).toContain('poster="/veo/jakarta-hero-bg-poster.jpg"');
+    expect(video).toContain('preload="none"');
+    expect(video).toContain("muted");
+    expect(video.toLowerCase()).toContain("playsinline");
+  });
+
+  it("keeps the media layer inert and below the content grid (CSS contract)", () => {
+    expect(landingCss).toMatch(/\.mb-hero-bg-media \{[^}]*pointer-events: none;/s);
+    expect(landingCss).toMatch(/\.mb-hero-bg-media \{[^}]*z-index: 0;/s);
+    expect(landingCss).toMatch(/\.mb-hero-grid \{[^}]*z-index: 1;/s);
+  });
+
+  it("grades the near-white clip dark so hero text keeps AA contrast (CSS contract)", () => {
+    // Audit fix: brightness-graded video + a flat ink veil in the scrim.
+    expect(landingCss).toMatch(
+      /\.mb-hero-bg-media video,\s*\.mb-hero-bg-media img \{[^}]*filter: brightness\(0\.4/s,
+    );
+    expect(landingCss).toMatch(
+      /\.mb-hero-bg-scrim \{[^}]*linear-gradient\(rgba\(13, 21, 34, 0\.35\), rgba\(13, 21, 34, 0\.35\)\)/s,
+    );
+  });
+
+  it("dots the buyer strip with the engineering grid (CSS contract)", () => {
+    expect(landingCss).toMatch(
+      /\.mb-buyer \{[^}]*radial-gradient\(rgba\(91, 155, 247, 0\.1\) 1\.2px, transparent 1\.2px\);/s,
+    );
+  });
+});
