@@ -2,7 +2,7 @@ import type { ReactElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
-import EarlyAdaptorsPage, { metadata as earlyAdaptorsMetadata } from "@/app/early-adaptors/page";
+import EarlyAdoptersPage, { metadata as earlyAdoptersMetadata } from "@/app/early-adopters/page";
 import InvestorsPage, { metadata as investorsMetadata } from "@/app/investors/page";
 import TeamPage, { metadata as teamMetadata } from "@/app/team/page";
 import WhyMobeeliPage, { metadata as whyMobeeliMetadata } from "@/app/why-mobeeli/page";
@@ -22,7 +22,7 @@ function esc(s: string): string {
 
 /** The section pages split off the landing stack (CHG-piztanza-09 + redesign phase 3). */
 const PAGES: readonly {
-  path: "/team" | "/early-adaptors" | "/investors" | "/why-mobeeli";
+  path: "/team" | "/early-adopters" | "/investors" | "/why-mobeeli";
   Page: () => ReactElement;
   metadata: typeof teamMetadata;
   titleKey: CopyKey;
@@ -40,12 +40,12 @@ const PAGES: readonly {
     h2Key: "team_h2",
   },
   {
-    path: "/early-adaptors",
-    Page: EarlyAdaptorsPage,
-    metadata: earlyAdaptorsMetadata,
+    path: "/early-adopters",
+    Page: EarlyAdoptersPage,
+    metadata: earlyAdoptersMetadata,
     titleKey: "nav_early",
     descriptionKey: "early_h2",
-    sectionId: "early-adaptor",
+    sectionId: "early-adopter",
     h2Key: "early_h2",
   },
   {
@@ -89,12 +89,12 @@ describe.each(PAGES)(
       expect(html).toContain('aria-pressed="true"');
     });
 
-    it("nav points at the section routes and resolves landing anchors via /#id", () => {
+    it("nav points at the section routes, /#id anchors and the external platform", () => {
       for (const href of [
         "/#problem",
         "/#how-it-works",
         "/why-mobeeli",
-        "/early-adaptors",
+        "https://mobilee-demo.vercel.app/platform",
         "/team",
         "/investors",
         "/join",
@@ -121,8 +121,8 @@ describe.each(PAGES)(
 );
 
 describe("section page specifics (CHG-piztanza-09)", () => {
-  it("/early-adaptors routes its waitlist CTA to /join (F-009)", () => {
-    const html = renderToStaticMarkup(<EarlyAdaptorsPage />);
+  it("/early-adopters routes its waitlist CTA to /join (F-009)", () => {
+    const html = renderToStaticMarkup(<EarlyAdoptersPage />);
     // nav CTA + section CTA both target /join
     expect(html.match(/href="\/join"/g)?.length).toBeGreaterThanOrEqual(2);
     expect(html).toContain(esc(t("en", "early_cta")));
@@ -135,9 +135,9 @@ describe("section page specifics (CHG-piztanza-09)", () => {
     }
   });
 
-  it("/early-adaptors hosts the AI catalog demo moved off the slim landing", () => {
-    const html = renderToStaticMarkup(<EarlyAdaptorsPage />);
-    expect(html).toContain(esc(t("en", "cat_h2")));
+  it("/early-adopters no longer hosts the AI catalog demo (returned to /)", () => {
+    const html = renderToStaticMarkup(<EarlyAdoptersPage />);
+    expect(html).not.toContain(esc(t("en", "cat_h2")));
   });
 
   it("/why-mobeeli gathers the pain tiles, search comparison and proof bar", () => {

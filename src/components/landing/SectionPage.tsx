@@ -5,8 +5,7 @@ import { useRef } from "react";
 import { useScrollReveal } from "@/lib/hooks/useScrollReveal";
 import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
 
-import AiCatalogCard from "./AiCatalogCard";
-import EarlyAdaptors from "./EarlyAdaptors";
+import EarlyAdopters from "./EarlyAdopters";
 import Footer from "./Footer";
 import Investors from "./Investors";
 import Nav from "./Nav";
@@ -18,16 +17,6 @@ import TeamSection from "./TeamSection";
 import WhyMobeeli from "./WhyMobeeli";
 
 import "./landing.css";
-
-/** /early-adaptors also hosts the AI catalog demo moved off the slim landing. */
-function EarlyAdaptorsWithCatalog() {
-  return (
-    <>
-      <EarlyAdaptors />
-      <AiCatalogCard />
-    </>
-  );
-}
 
 /**
  * /why-mobeeli — the data & facts page: the why-now narrative plus every
@@ -51,7 +40,7 @@ function WhyDataSections() {
 
 const SECTIONS = {
   team: TeamSection,
-  "early-adaptors": EarlyAdaptorsWithCatalog,
+  "early-adopters": EarlyAdopters,
   investors: Investors,
   "why-mobeeli": WhyDataSections,
 } as const;

@@ -67,7 +67,7 @@ export function rootMetadata(): Metadata {
  */
 const SECTION_PAGE_COPY = {
   "/team": { titleKey: "nav_team", descriptionKey: "team_h2" },
-  "/early-adaptors": { titleKey: "nav_early", descriptionKey: "early_h2" },
+  "/early-adopters": { titleKey: "nav_early", descriptionKey: "early_h2" },
   "/investors": { titleKey: "nav_inv", descriptionKey: "inv_p" },
   "/why-mobeeli": { titleKey: "nav_why", descriptionKey: "why_h2" },
 } as const satisfies Record<string, { titleKey: CopyKey; descriptionKey: CopyKey }>;
@@ -125,7 +125,7 @@ export function joinMetadata(): Metadata {
   return pageMetadata("/join");
 }
 
-/** Metadata for /team, /early-adaptors and /investors (CHG-piztanza-09). */
+/** Metadata for /team, /early-adopters and /investors (CHG-piztanza-09). */
 export function sectionMetadata(pagePath: SectionPagePath): Metadata {
   return pageMetadata(pagePath);
 }

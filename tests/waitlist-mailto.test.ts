@@ -12,18 +12,18 @@ describe("success panel mailto builder", () => {
   it("prefills the English subject and body with the business name", () => {
     const link = buildMailtoLink("Toko Jaya Motor", "en");
     const params = new URLSearchParams(link.split("?")[1]);
-    expect(params.get("subject")).toBe("Early Adaptor waitlist — Toko Jaya Motor");
+    expect(params.get("subject")).toBe("Early Adopter waitlist — Toko Jaya Motor");
     expect(params.get("body")).toBe(
-      "Hi Mobeeli, I just joined the Early Adaptor waitlist. Business: Toko Jaya Motor. I'd like to get started.",
+      "Hi Mobeeli, I just joined the Early Adopter waitlist. Business: Toko Jaya Motor. I'd like to get started.",
     );
   });
 
   it("prefills the Indonesian subject and body with the business name", () => {
     const link = buildMailtoLink("Bengkel Sumber Rejeki", "id");
     const params = new URLSearchParams(link.split("?")[1]);
-    expect(params.get("subject")).toBe("Waitlist Early Adaptor — Bengkel Sumber Rejeki");
+    expect(params.get("subject")).toBe("Waitlist Early Adopter — Bengkel Sumber Rejeki");
     expect(params.get("body")).toBe(
-      "Halo Mobeeli, saya baru daftar Early Adaptor. Bisnis: Bengkel Sumber Rejeki. Saya ingin mulai.",
+      "Halo Mobeeli, saya baru daftar Early Adopter. Bisnis: Bengkel Sumber Rejeki. Saya ingin mulai.",
     );
   });
 

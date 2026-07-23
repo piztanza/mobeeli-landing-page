@@ -34,7 +34,7 @@ const en = {
   nav_problem: "The problem",
   nav_how: "How it works",
   nav_why: "Why Mobeeli",
-  nav_early: "Early Adaptors",
+  nav_early: "Early Adopters",
   nav_team: "Team",
   nav_inv: "Investors",
   nav_cta: "Join Waitlist",
@@ -52,7 +52,7 @@ const en = {
   hero_sub_short:
     "One platform to unify Indonesia's auto industry — brands, distributors, stores, mechanics and drivers on one verified catalog.",
   hero_cta_inv: "For investors",
-  hero_cta_shops: "Join Early Adaptor Program",
+  hero_cta_shops: "Join Early Adopter Program",
   card_part_name: "Front brake pad set",
   card_part_sub: "Front axle · ceramic",
   card_part_price: "Rp 385.000",
@@ -133,7 +133,7 @@ const en = {
   why_h2: "Fees went up. Trust didn't.",
   why_p:
     "In May 2026, the big marketplaces raised seller fees to roughly 17–20%. Mobeeli is the alternative built for the auto industry — verified fitment, honest economics, and protection on both sides.",
-  early_kicker: "Early Adaptors Program",
+  early_kicker: "Early Adopters Program",
   early_h2: "0% platform fee for the first 300 shops.",
   early_f1_t: "Automated catalog uploads",
   early_f1_d:
@@ -298,9 +298,9 @@ const en = {
   jw_ph_phone: "+62 812 …",
   /* Success/mailto interpolation strings for the prefilled email CTA. */
   jw_fallback_name: "there",
-  jw_mail_subject: "Early Adaptor waitlist — {n}",
+  jw_mail_subject: "Early Adopter waitlist — {n}",
   jw_mail_body:
-    "Hi Mobeeli, I just joined the Early Adaptor waitlist. Business: {n}. I'd like to get started.",
+    "Hi Mobeeli, I just joined the Early Adopter waitlist. Business: {n}. I'd like to get started.",
   /* Submit states (F-008 — the design stops at a client-side success). */
   jw_submitting: "Submitting…",
   jw_submitErr:
@@ -329,7 +329,7 @@ const id: Record<CopyKey, string> = {
   nav_problem: "Masalah",
   nav_how: "Cara kerja",
   nav_why: "Kenapa Mobeeli",
-  nav_early: "Early Adaptors",
+  nav_early: "Early Adopters",
   nav_team: "Tim",
   nav_inv: "Investor",
   nav_cta: "Join Waitlist",
@@ -347,7 +347,7 @@ const id: Record<CopyKey, string> = {
   hero_sub_short:
     "Satu platform yang menyatukan industri otomotif Indonesia — merek, distributor, toko, mekanik, dan pengemudi dalam satu katalog terverifikasi.",
   hero_cta_inv: "Untuk investor",
-  hero_cta_shops: "Gabung Program Early Adaptor",
+  hero_cta_shops: "Gabung Program Early Adopter",
   card_part_name: "Kampas rem depan",
   card_part_sub: "As depan · keramik",
   card_part_price: "Rp 385.000",
@@ -428,7 +428,7 @@ const id: Record<CopyKey, string> = {
   why_h2: "Biaya naik. Kepercayaan tidak.",
   why_p:
     "Mei 2026, marketplace besar menaikkan biaya penjual hingga sekitar 17–20%. Mobeeli hadir sebagai alternatif yang memang dibangun untuk industri otomotif — kecocokan terjamin, biaya masuk akal, dan perlindungan untuk dua belah pihak.",
-  early_kicker: "Program Early Adaptors",
+  early_kicker: "Program Early Adopters",
   early_h2: "Biaya platform 0% untuk 300 toko pertama.",
   early_f1_t: "Unggah katalog serba otomatis",
   early_f1_d:
@@ -594,8 +594,8 @@ const id: Record<CopyKey, string> = {
   jw_ph_phone: "+62 812 …",
   /* Success/mailto interpolation strings for the prefilled email CTA. */
   jw_fallback_name: "rekan",
-  jw_mail_subject: "Waitlist Early Adaptor — {n}",
-  jw_mail_body: "Halo Mobeeli, saya baru daftar Early Adaptor. Bisnis: {n}. Saya ingin mulai.",
+  jw_mail_subject: "Waitlist Early Adopter — {n}",
+  jw_mail_body: "Halo Mobeeli, saya baru daftar Early Adopter. Bisnis: {n}. Saya ingin mulai.",
   /* Submit states (F-008 — the design stops at a client-side success). */
   jw_submitting: "Mengirim…",
   jw_submitErr:

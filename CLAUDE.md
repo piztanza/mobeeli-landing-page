@@ -35,7 +35,9 @@ The waitlist writes into the Mobeeli **platform's live** Neon Postgres table
 
 - **Never** state Mobeeli's exact fee/commission anywhere.
 - **Never** name specific marketplaces (e.g. Tokopedia, Shopee). Generic terms only.
-- **"Early Adaptors"** is the intentional spelling — do not "fix" it to Adopters.
+- **"Early Adopters"** is the spelling since 2026-07-23 (founder decision, superseding the
+  earlier intentional "Adaptors"); the route is /early-adopters with a permanent redirect
+  from /early-adaptors.
 - No hype language, no emoji, anywhere in user-facing copy.
 - Footer is exactly: `Mobeeli — Jakarta, Indonesia`.
 - **All** user-facing strings live in the EN/ID maps in `src/lib/i18n` — never hardcode

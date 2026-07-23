@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: `${base}/`, changeFrequency: "weekly", priority: 1 },
     { url: `${base}/join`, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${base}/early-adaptors`, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${base}/early-adopters`, changeFrequency: "weekly", priority: 0.7 },
     { url: `${base}/why-mobeeli`, changeFrequency: "weekly", priority: 0.7 },
     { url: `${base}/team`, changeFrequency: "weekly", priority: 0.6 },
     { url: `${base}/investors`, changeFrequency: "weekly", priority: 0.6 },

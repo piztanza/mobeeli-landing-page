@@ -171,7 +171,7 @@ describe("robots.txt and sitemap.xml (F-010)", () => {
     expect(urls).toEqual([
       "https://mobeeli.com/",
       "https://mobeeli.com/join",
-      "https://mobeeli.com/early-adaptors",
+      "https://mobeeli.com/early-adopters",
       "https://mobeeli.com/why-mobeeli",
       "https://mobeeli.com/team",
       "https://mobeeli.com/investors",

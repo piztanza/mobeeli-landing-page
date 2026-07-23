@@ -87,9 +87,15 @@ export default function Hero() {
             {t("hero_sub_short")}
           </p>
           <div data-rev="3" className="mb-hero-ctas">
-            <Link href="/early-adaptors" className="mb-btn-primary-dark">
+            {/* Straight to platform registration (founder decision 2026-07-23). */}
+            <a
+              href="https://mobilee-demo.vercel.app/platform/join"
+              target="_blank"
+              rel="noreferrer"
+              className="mb-btn-primary-dark"
+            >
               {t("hero_cta_shops")}
-            </Link>
+            </a>
             <Link href="/investors" className="mb-btn-ghost-dark">
               {t("hero_cta_inv")}
             </Link>

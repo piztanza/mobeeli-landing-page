@@ -22,6 +22,13 @@ const nextConfig: NextConfig = {
         destination: "/:path*",
         permanent: false,
       },
+      // Early Adaptors -> Early Adopters rename (founder decision 2026-07-23):
+      // permanent (308) so old links and search results carry over.
+      {
+        source: "/early-adaptors",
+        destination: "/early-adopters",
+        permanent: true,
+      },
     ];
   },
 };

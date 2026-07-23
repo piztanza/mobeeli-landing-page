@@ -18,14 +18,18 @@ import { scrollToSectionId } from "@/lib/scroll/sectionScroll";
 
 import { useActiveSection } from "./ActiveSectionProvider";
 
+/** The live platform's partner pitch + registration surface (founder decision
+ *  2026-07-23: the Early Adopters nav slot points straight at the platform). */
+export const PLATFORM_URL = "https://mobilee-demo.vercel.app/platform";
+
 // Landing anchors are /#id links so they resolve from every page, not just /
-// (CHG-piztanza-09); Team, Early Adaptors, Investors and Why Mobeeli (the
-// data page, redesign phase 3) live on their own routes.
+// (CHG-piztanza-09); Team, Investors and Why Mobeeli (the data page) live on
+// their own routes; the Early Adopters slot is an external platform link.
 const NAV_LINKS: readonly (readonly [href: string, key: CopyKey])[] = [
   ["/#problem", "nav_problem"],
   ["/#how-it-works", "nav_how"],
   ["/why-mobeeli", "nav_why"],
-  ["/early-adaptors", "nav_early"],
+  [PLATFORM_URL, "nav_early"],
   ["/team", "nav_team"],
   ["/investors", "nav_inv"],
 ];
@@ -96,8 +100,16 @@ export default function Nav({ overlay = false }: { overlay?: boolean }) {
   );
 
   // One markup for desktop bar and mobile sheet: /#id anchors get the programmatic
-  // scroll + scrollspy state; route links just close the sheet (a no-op on desktop).
+  // scroll + scrollspy state; route links just close the sheet (a no-op on desktop);
+  // external links (the platform) open in a new tab.
   const sectionLink = ([href, key]: readonly [href: string, key: CopyKey]) => {
+    if (href.startsWith("http")) {
+      return (
+        <a key={key} href={href} target="_blank" rel="noreferrer" onClick={close}>
+          {t(key)}
+        </a>
+      );
+    }
     const id = href.startsWith("/#") ? href.slice("/#".length) : null;
     return (
       <Link

@@ -143,7 +143,7 @@ describe("landing i18n completeness (F-001)", () => {
     expect(t("id", "card_part_chip")).toBe("✓ Dijamin cocok");
     expect(t("en", "cat_pill")).toBe("✓ One catalog · 120M+ mappings");
     expect(t("id", "why_p")).toContain("Mei 2026");
-    expect(t("en", "early_kicker")).toBe("Early Adaptors Program");
+    expect(t("en", "early_kicker")).toBe("Early Adopters Program");
     expect(t("id", "uni_h2")).toBe("Dari Sabang sampai Merauke, satu katalog.");
   });
 
@@ -179,15 +179,14 @@ describe("landing page render (F-001 + F-009)", () => {
   });
 
   it("no longer renders the sections moved to their own routes (CHG-piztanza-09 + redesign)", () => {
-    for (const id of ["early-adaptor", "team", "investors"]) {
+    for (const id of ["early-adopter", "team", "investors"]) {
       expect(html).not.toContain(`id="${id}"`);
     }
     expect(html).not.toContain(esc(t("en", "early_h2")));
     expect(html).not.toContain(esc(t("en", "team_h2")));
     expect(html).not.toContain(esc(t("en", "inv_h2")));
-    // Data bands moved to /why-mobeeli; AI catalog moved to /early-adaptors.
+    // Data bands moved to /why-mobeeli (the AI catalog demo is back on /).
     expect(html).not.toContain(esc(t("en", "why_h2")));
-    expect(html).not.toContain(esc(t("en", "cat_h2")));
     expect(html).not.toContain(esc(t("en", "pf1_l")));
     expect(html).not.toContain(esc(t("en", "prob_t1_t")));
     expect(html).not.toContain(esc(t("en", "cmp_h")));
@@ -197,12 +196,13 @@ describe("landing page render (F-001 + F-009)", () => {
     expect(html).not.toContain(esc(t("en", "how_s2_d")));
   });
 
-  it("renders the Variant-B band order — archipelago third, between problem and how-it-works", () => {
+  it("renders the Variant-B band order — archipelago third, catalog demo before the buyer strip", () => {
     const bands = [
       t("en", "hero_chip"), // hero (dark, full viewport)
       t("en", "prob_h2"), // the problem, slim (light)
-      t("en", "uni_h2"), // unify band / archipelago (dark, moved up)
+      t("en", "uni_h2"), // unify band / archipelago (dark, full section)
       t("en", "how_h2"), // how it works, slim (light)
+      t("en", "cat_h2"), // AI catalog demo (returned by founder decision)
       t("en", "buyer_line"), // buyer strip
       t("en", "foot_tag"), // footer
     ];
@@ -214,18 +214,18 @@ describe("landing page render (F-001 + F-009)", () => {
     }
   });
 
-  it("wires the nav waitlist CTA to /join and the hero CTAs to the section routes (F-009, CHG-piztanza-09)", () => {
+  it("wires the nav waitlist CTA to /join and the hero shop CTA to platform registration", () => {
     expect(html).toContain('href="/join"');
-    expect(html).toContain('href="/early-adaptors"');
+    expect(html).toContain('href="https://mobilee-demo.vercel.app/platform/join"');
     expect(html).toContain('href="/investors"');
   });
 
-  it("points the nav section links at the new routes and /#id anchors (CHG-piztanza-09)", () => {
+  it("points the nav links at the routes, /#id anchors and the external platform", () => {
     for (const href of [
       "/#problem",
       "/#how-it-works",
       "/why-mobeeli",
-      "/early-adaptors",
+      "https://mobilee-demo.vercel.app/platform",
       "/team",
       "/investors",
     ]) {

@@ -18,7 +18,7 @@ const NAV_HREFS = [
   "/#problem",
   "/#how-it-works",
   "/why-mobeeli",
-  "/early-adaptors",
+  "https://mobilee-demo.vercel.app/platform",
   "/team",
   "/investors",
 ] as const;
