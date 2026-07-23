@@ -673,16 +673,34 @@
   color: var(--mb-light-accent);
   margin-bottom: 14px;
 }
+/* Perspective for the scene's pointer-parallax tilt (#4). The tilt transform
+   must NOT live on the stage itself: the stage carries data-rev, and
+   useScrollReveal owns its inline transform (leaves `transform: none` after
+   reveal, which would override a stylesheet tilt forever — audit-caught). */
 .mb-fit3d-stage {
   position: relative;
+  perspective: 1600px;
 }
 /* Glass bezel on the stage (R5, audit-implemented — the referenced spotlight
-   class no longer existed; this is the real material treatment). */
+   class no longer existed; this is the real material treatment).
+   #4 pointer-parallax (R7): useTilt writes --tilt-rx/--tilt-ry on the stage
+   (max ±9°); the custom props inherit here, where the transform is safe from
+   the scroll-reveal's inline styles. Short transition smooths the rAF writes
+   (same idiom as .mb-magnetic-cta). */
 .mb-fit3d-stage .mb-hero-scene {
   position: relative;
   z-index: 1;
   border: 1px solid var(--mb-hairline-subtle);
   box-shadow: var(--mb-shadow-linear-4layer);
+  transform: rotateX(var(--tilt-rx, 0deg)) rotateY(var(--tilt-ry, 0deg));
+  transition: transform 0.18s ease-out;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mb-fit3d-stage .mb-hero-scene {
+    transform: none !important;
+    transition: none !important;
+  }
 }
 .mb-fit3d-stage-glow {
   position: absolute;

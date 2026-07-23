@@ -69,6 +69,16 @@
   --mb-ease-spring-btn: linear(0, 1.25, 1, 0.9, 1.04, 0.99, 1.005, 0.996, 1.001, 0.999, 1);
 }
 
+/* Proposal #8: Space Grotesk numeric data treatment */
+.mb-num-display,
+.mb-card-part-price,
+.mb-fitment-label-value,
+.mb-funnel-num,
+.mb-ds-badge {
+  font-family: var(--mb-font-display);
+  font-feature-settings: "tnum";
+}
+
 * {
   box-sizing: border-box;
 }

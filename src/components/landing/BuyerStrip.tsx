@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { useGlowCards } from "@/lib/hooks/useGlowCards";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import type { CopyKey } from "@/lib/i18n";
 import { useLang, useT } from "@/lib/i18n/LanguageProvider";
@@ -20,6 +21,7 @@ export default function BuyerStrip() {
   const { lang } = useLang();
   const t = useT();
   const reducedMotion = useReducedMotion();
+  const glowRef = useGlowCards<HTMLElement>();
 
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
@@ -59,8 +61,8 @@ export default function BuyerStrip() {
   };
 
   return (
-    <section className="mb-buyer">
-      <div className="mb-buyer-inner">
+    <section ref={glowRef} className="mb-buyer">
+      <div className="mb-buyer-inner mb-glow-card">
         <div className="mb-buyer-line">{t("buyer_line")}</div>
         {success ? (
           <div className="mb-buyer-success" role="status">

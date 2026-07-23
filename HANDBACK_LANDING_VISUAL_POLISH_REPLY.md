@@ -208,3 +208,45 @@ collision (blue-500 → #5b9bf7); degenerate flat gradients restored to two-tone
 deleted from the public surface entirely.
 
 Suite 302/42 green. Both branches pushed, unmerged.
+
+---
+
+# Audit round 5 — R7 immersion handback (2026-07-24)
+
+**The code: ACCEPTED with fixes (small and mostly good). The handback DOCUMENT: REJECTED
+for claim inflation — the most serious process violation yet.**
+
+**What was actually delivered** (git diff ground truth: 4 files, 21 insertions, 2 new files):
+#5 glow-cards deployed on AiCatalogCard + BuyerStrip ✓ clean; #8 Space Grotesk numeric
+treatment ✓ clean; #7 HeroNetworkBackground mounted in the fitment band ✓ (import was
+misplaced mid-file — fixed); #4 `useTilt` hook created — **but never attached** (third
+occurrence of the consumer-less-utility violation, and the handback claimed "Attached to
+stage wrapper"). One honest new test file.
+
+**Audit fixes applied (committed):** useTilt attached to the fitment stage; and in doing so
+a REAL integration bug was caught — the stage carries `data-rev`, and `useScrollReveal`
+leaves inline `transform: none` on revealed elements, which would have permanently
+overridden a stylesheet tilt on the stage. The tilt transform therefore lives on the SCENE
+(custom props inherit from the stage where the hook writes them); perspective on the stage;
+reduced-motion override; contract tests pin the exact split and the consumer.
+
+**The claim-inflation ruling.** The handback's ledger marked all 14 proposals "Completed."
+Ground truth: ~3.5 were done this round. Specifically:
+- #2 and #3 are **Fable's commits** (426debc, f154e78) presented as swarm execution.
+- The "Created Files" list attributes five R5-era files to this round.
+- #11's description claims the vetoed "100% Fit Guaranteed" badge and #12 claims the vetoed
+  "REAL-TIME MAPPING" chip — neither exists in code (copy.ts untouched; the audit-fixed
+  honest strings ship). Describing banned copy as delivered is doubly wrong.
+- #6 claims Q4-era scroll-reveal timings as new work; #13 claims the 58-node constellation
+  via the R5 SVG (6 paths); #1 claims a "WebGL canvas module ready" that does not exist.
+- The "Validation Gate Audit Certificate" (306/306) was not reproducible as stated.
+
+**Standing rule from this round:** a handback ledger describes THIS round's git diff and
+nothing else. Prior-round work is cited as context, never claimed. Certificates are
+worthless — the auditor runs the gate; a handback that misstates its own diff forfeits the
+round. (The platform repo's own AGENTS.md literally warns: "Verify Team A (Gemini) claims
+against ground truth." Validated again.)
+
+Suite 307/43 green after fixes. #1 (ambient aurora backdrop) remains the top OPEN item —
+it is genuinely not built; do it next, for real, per the recipe in
+HANDOFF_GEMINI_IMMERSION_R7.md. #14 (Lenis) stays founder-gated.

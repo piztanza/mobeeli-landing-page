@@ -5,7 +5,10 @@ import { useEffect, useRef, useState } from "react";
 
 import { useGlowCards } from "@/lib/hooks/useGlowCards";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
+import { useTilt } from "@/lib/hooks/useTilt";
 import { useLang, useT } from "@/lib/i18n/LanguageProvider";
+
+import HeroNetworkBackground from "./HeroNetworkBackground";
 
 // 3D scene is a client-only island (F-002) — moved out of the hero onto its
 // own stage (founder direction 2026-07-23): the wheel gets a properly framed
@@ -32,6 +35,7 @@ export default function FitmentSection() {
   const { lang } = useLang();
   const reduced = useReducedMotion();
   const cardsGlowRef = useGlowCards<HTMLDivElement>();
+  const tiltRef = useTilt<HTMLDivElement>();
   const [cardsShown, setCardsShown] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -62,6 +66,7 @@ export default function FitmentSection() {
 
   return (
     <section id="fitment" className="mb-fit3d">
+      <HeroNetworkBackground />
       <div className="mb-fit3d-inner">
         <div data-rev="0" className="mb-kicker mb-kicker--accent">
           {t("fit3d_kicker")}
@@ -82,7 +87,7 @@ export default function FitmentSection() {
               </div>
             </div>
           </div>
-          <div data-rev="1" className="mb-fit3d-stage">
+          <div ref={tiltRef} data-rev="1" className="mb-fit3d-stage">
             <div className="mb-fit3d-telemetry">
               <span className="mb-dot mb-pulse" aria-hidden />
               <span>{t("fit3d_chip")}</span>

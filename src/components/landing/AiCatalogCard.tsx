@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
+import { useGlowCards } from "@/lib/hooks/useGlowCards";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import type { CopyKey } from "@/lib/i18n";
 import { useT } from "@/lib/i18n/LanguageProvider";
@@ -77,6 +78,7 @@ function step(
 export default function AiCatalogCard({ static: staticMode = false }: { static?: boolean }) {
   const t = useT();
   const reduced = useReducedMotion();
+  const glowRef = useGlowCards<HTMLElement>();
   const animate = !reduced && !staticMode;
 
   // Assembled is the at-rest truth: SSR, no-JS, reduced motion, and the
@@ -236,8 +238,8 @@ export default function AiCatalogCard({ static: staticMode = false }: { static?:
   }, [animate]);
 
   return (
-    <section className="mb-cat-section">
-      <div data-rev="0" className="mb-cat-card">
+    <section ref={glowRef} className="mb-cat-section">
+      <div data-rev="0" className="mb-cat-card mb-glow-card">
         <div className="mb-cat-head">
           <div className="mb-file-chips">
             {/* unoptimized: these are 1–2 KB PNGs, so the optimizer saves
