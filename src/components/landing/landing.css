@@ -613,21 +613,51 @@
 
 /* ---------- fitment wheel band (own stage, R4 founder direction) ---------- */
 
+/* R7: full-viewport stage (founder: "needs to be full section"), mirroring
+   .mb-uni — the wheel becomes a centered hero with its spec boxes flanking. */
 .mb-fit3d {
   position: relative;
   background: var(--mb-ink);
   background-image:
     radial-gradient(720px 420px at 80% 10%, rgba(47, 125, 246, 0.14), transparent 70%),
     radial-gradient(560px 380px at 12% 90%, rgba(18, 63, 158, 0.24), transparent 70%);
-  padding: var(--mb-section-y) var(--mb-container-pad);
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: calc(66px + 32px) var(--mb-container-pad) 64px;
   overflow: hidden;
 }
 .mb-fit3d-inner {
   position: relative;
   z-index: 2;
+  width: 100%;
   max-width: var(--mb-container-max);
   margin: 0 auto;
   text-align: center;
+}
+/* Wheel centered; spec boxes flank it left/right (R7). */
+.mb-fit3d-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 250px) minmax(0, 1fr) minmax(0, 250px);
+  align-items: center;
+  gap: 28px;
+  margin-top: 30px;
+}
+.mb-fit3d-col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.mb-fit3d-col--left {
+  align-items: flex-end;
+}
+.mb-fit3d-col--right {
+  align-items: flex-start;
+}
+.mb-fit3d-col .mb-herocard {
+  width: 100%;
+  max-width: 100%;
 }
 .mb-fit3d-telemetry {
   display: inline-flex;
@@ -643,18 +673,34 @@
   color: var(--mb-light-accent);
   margin-bottom: 14px;
 }
+/* Perspective for the scene's pointer-parallax tilt (#4). The tilt transform
+   must NOT live on the stage itself: the stage carries data-rev, and
+   useScrollReveal owns its inline transform (leaves `transform: none` after
+   reveal, which would override a stylesheet tilt forever — audit-caught). */
 .mb-fit3d-stage {
   position: relative;
-  max-width: 1060px;
-  margin: 26px auto 0;
+  perspective: 1600px;
 }
 /* Glass bezel on the stage (R5, audit-implemented — the referenced spotlight
-   class no longer existed; this is the real material treatment). */
+   class no longer existed; this is the real material treatment).
+   #4 pointer-parallax (R7): useTilt writes --tilt-rx/--tilt-ry on the stage
+   (max ±9°); the custom props inherit here, where the transform is safe from
+   the scroll-reveal's inline styles. Short transition smooths the rAF writes
+   (same idiom as .mb-magnetic-cta). */
 .mb-fit3d-stage .mb-hero-scene {
   position: relative;
   z-index: 1;
   border: 1px solid var(--mb-hairline-subtle);
   box-shadow: var(--mb-shadow-linear-4layer);
+  transform: rotateX(var(--tilt-rx, 0deg)) rotateY(var(--tilt-ry, 0deg));
+  transition: transform 0.18s ease-out;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mb-fit3d-stage .mb-hero-scene {
+    transform: none !important;
+    transition: none !important;
+  }
 }
 .mb-fit3d-stage-glow {
   position: absolute;
@@ -663,18 +709,23 @@
   background: radial-gradient(500px 300px at 50% 40%, rgba(47, 125, 246, 0.2), transparent 70%);
   z-index: 0;
 }
-/* Docked product cards — a wrapping flex row that slightly overlaps the
-   stage's bottom edge for depth. No absolute offsets = no collisions. */
-.mb-fit3d-cards {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  justify-content: center;
-  gap: 18px;
-  margin-top: -40px;
-  padding: 0 12px;
+/* Below the wheel's flanking columns collapse (R7): stack wheel-then-cards. */
+@media (max-width: 959.98px) {
+  .mb-fit3d-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    justify-items: center;
+  }
+  .mb-fit3d-stage {
+    order: -1;
+    width: 100%;
+  }
+  .mb-fit3d-col {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+  }
 }
 .mb-hero-scene {
   border-radius: 22px;
@@ -797,14 +848,10 @@
   margin-top: 7px;
 }
 
-/* R4: the cards are permanently in-flow in the fitment band's flex row — no
-   absolute overlay exists at any viewport, so nothing can overlap
-   (supersedes the CHG-piztanza-18 phone-only static mode). Small screens just
-   let the docked row stack without the stage overlap. */
+/* R4/R7: the cards are permanently in-flow (grid columns flanking the wheel) —
+   no absolute overlay exists at any viewport, so nothing can overlap
+   (supersedes the CHG-piztanza-18 phone-only static mode). Phone: cards fill. */
 @media (max-width: 639.98px) {
-  .mb-fit3d-cards {
-    margin-top: 18px;
-  }
   .mb-card-part {
     max-width: 100%;
   }

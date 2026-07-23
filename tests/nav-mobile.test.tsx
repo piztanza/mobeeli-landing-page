@@ -111,7 +111,8 @@ describe("responsive audit CSS contracts (F-001, CHG-piztanza-10)", () => {
     // flex row, so the base card rule must never be absolute again.
     expect(landingCss).toMatch(/\.mb-herocard \{[^}]*position: relative;/s);
     expect(landingCss).not.toMatch(/\.mb-herocard \{[^}]*position: absolute;/s);
-    expect(landingCss).toMatch(/\.mb-fit3d-cards \{[^}]*flex-wrap: wrap;/s);
+    // R7: cards live in the grid columns flanking the wheel (no absolute overlay).
+    expect(landingCss).toMatch(/\.mb-fit3d-layout \{[^}]*display: grid;/s);
     // no negative horizontal offsets survive in the phone overrides (margins excluded)
     const phone = landingCss.slice(landingCss.indexOf("---------- responsive audit"));
     expect(phone).not.toMatch(/(?:^|[\s{;])(?:left|right): -\d/m);

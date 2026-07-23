@@ -186,7 +186,9 @@ function initScene(THREE: ThreeModule, host: HTMLDivElement, refs: SceneRefs): (
   const scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2("#0a1322", 0.022);
   const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-  const CAM_CLOSE = new THREE.Vector3(1.4, 0.8, 9.0);
+  // Pulled back slightly (R7) to leave margin around the wheel now that it
+  // headlines a full-viewport stage (was 1.4, 0.8, 9.0).
+  const CAM_CLOSE = new THREE.Vector3(1.4, 0.9, 10.2);
   const LOOK_CLOSE = new THREE.Vector3(0.4, 0.6, 0);
 
   scene.add(new THREE.AmbientLight(0xffffff, 1.0));

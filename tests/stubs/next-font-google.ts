@@ -6,3 +6,10 @@
 export function Inter() {
   return { variable: "--font-inter", className: "font-inter", style: { fontFamily: "Inter" } };
 }
+export function Space_Grotesk() {
+  return {
+    variable: "--font-space-grotesk",
+    className: "font-space-grotesk",
+    style: { fontFamily: "Space Grotesk" },
+  };
+}

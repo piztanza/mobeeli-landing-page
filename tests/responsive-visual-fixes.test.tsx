@@ -46,10 +46,11 @@ function mediaBlockFor(css: string, query: string, selector: string): string {
 }
 
 describe("product cards docked in the fitment band (R4, supersedes CHG-piztanza-18)", () => {
-  it("cards are relative in a wrapping flex row — the absolute overlay is gone", () => {
+  it("cards are relative, flanking the wheel in a grid — the absolute overlay is gone (R7)", () => {
     expect(landingCss).toMatch(/\.mb-herocard \{[^}]*position: relative;/s);
-    expect(landingCss).toMatch(/\.mb-fit3d-cards \{[^}]*display: flex;[^}]*flex-wrap: wrap;/s);
-    expect(landingCss).toMatch(/\.mb-fit3d-stage \{[^}]*margin: 26px auto 0;/s);
+    expect(landingCss).toMatch(
+      /\.mb-fit3d-layout \{[^}]*display: grid;[^}]*grid-template-columns: minmax\(0, 250px\)/s,
+    );
   });
 
   it("no card carries absolute offsets at any viewport", () => {

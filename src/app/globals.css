@@ -52,12 +52,11 @@
    system) — NOT part of the .ba/design/style.json contract block above, same
    register as the a11y tokens below. */
 :root {
-  /* R6 type system: GeistSans unified across body + display (`geist` package,
-     next/font, self-hosted). --mb-font (Plus Jakarta Sans) stays a fallback
-     token — swap either var to it to bring the display face back. */
-  --mb-font-geist: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
-  --mb-font-text: var(--mb-font-geist);
-  --mb-font-display: var(--mb-font-geist);
+  /* R7 type system — matches the platform: Space Grotesk display + Inter body
+     (next/font, self-hosted). --mb-font (Plus Jakarta Sans) stays a fallback. */
+  --mb-font-text: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --mb-font-display:
+    var(--font-space-grotesk), var(--font-inter), system-ui, -apple-system, sans-serif;
   --mb-ink-dp1: #0a1019;
   --mb-ink-dp2: #111927;
   --mb-ink-dp3: #16202f;
@@ -68,6 +67,16 @@
   --mb-duration-entrance: 480ms;
   --mb-stagger-entrance: 70ms;
   --mb-ease-spring-btn: linear(0, 1.25, 1, 0.9, 1.04, 0.99, 1.005, 0.996, 1.001, 0.999, 1);
+}
+
+/* Proposal #8: Space Grotesk numeric data treatment */
+.mb-num-display,
+.mb-card-part-price,
+.mb-fitment-label-value,
+.mb-funnel-num,
+.mb-ds-badge {
+  font-family: var(--mb-font-display);
+  font-feature-settings: "tnum";
 }
 
 * {
