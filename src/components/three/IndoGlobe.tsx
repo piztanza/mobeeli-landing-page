@@ -161,7 +161,9 @@ function initScene(THREE: ThreeModule, host: HTMLDivElement, refs: SceneRefs): (
   };
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(0x0d1522, 6.5, 12.5);
+  // Fog pushed out (R7) to match the pulled-back camera — the newly-visible
+  // far islands across the Java corridor no longer grey out (was 6.5, 12.5).
+  scene.fog = new THREE.Fog(0x0d1522, 7.2, 13.5);
   const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 60);
 
   const mkPts = (arr: number[], color: number, size: number, op: number) => {
