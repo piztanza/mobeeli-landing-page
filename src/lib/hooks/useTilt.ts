@@ -24,6 +24,8 @@ export function useTilt<T extends HTMLElement = HTMLDivElement>() {
     let rafId: number | null = null;
 
     const handlePointerMove = (e: PointerEvent) => {
+      // will-change promoted only during interaction (audit #28).
+      el.style.willChange = "transform";
       if (rafId) cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
         const rect = el.getBoundingClientRect();
@@ -45,6 +47,7 @@ export function useTilt<T extends HTMLElement = HTMLDivElement>() {
       if (rafId) cancelAnimationFrame(rafId);
       el.style.setProperty("--tilt-rx", "0deg");
       el.style.setProperty("--tilt-ry", "0deg");
+      el.style.willChange = "auto";
     };
 
     el.addEventListener("pointermove", handlePointerMove);
@@ -56,6 +59,7 @@ export function useTilt<T extends HTMLElement = HTMLDivElement>() {
       el.removeEventListener("pointerleave", handlePointerLeave);
       el.style.removeProperty("--tilt-rx");
       el.style.removeProperty("--tilt-ry");
+      el.style.willChange = "";
     };
   }, [reduced]);
 

@@ -19,7 +19,8 @@ describe("Hypothesis C — Magnetic CTA Hover", () => {
     );
 
     expect(landingCss).toContain(".mb-magnetic-cta {");
-    expect(landingCss).toContain("will-change: transform;");
+    // will-change moved into the hook (audit #28) — promoted on interaction,
+    // cleared on leave, so no permanent idle compositor layer.
     expect(landingCss).toContain("transition: transform");
     expect(landingCss).toMatch(
       /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[^}]*transform:\s*none\s*!important;/,
@@ -36,5 +37,7 @@ describe("Hypothesis C — Magnetic CTA Hover", () => {
     expect(hookCode).toContain("(hover: hover)");
     expect(hookCode).toContain("useReducedMotion");
     expect(hookCode).toContain("translate3d");
+    // will-change is promoted on interaction, not left on idle (audit #28).
+    expect(hookCode).toContain('willChange = "transform"');
   });
 });

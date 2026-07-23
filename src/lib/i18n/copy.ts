@@ -52,7 +52,10 @@ const en = {
   hero_sub_short:
     "One platform to unify Indonesia's auto industry — brands, distributors, stores, mechanics and drivers on one verified catalog.",
   hero_cta_inv: "For investors",
-  hero_cta_shops: "Join Early Adopter Program",
+  hero_cta_shops: "Join Early Adopters Program",
+  /* audit #24 — a11y pause control for the rotating hero headline (WCAG 2.2.2). */
+  hero_pause: "Pause the rotating headline",
+  hero_resume: "Resume the rotating headline",
   card_part_name: "Front brake pad set",
   card_part_sub: "Front axle · ceramic",
   card_part_price: "Rp 385.000",
@@ -127,10 +130,10 @@ const en = {
      approved prot_r* rows; the badge states only the scan outcome. */
   how_s3_scanner_verified: "VERIFIED AUTHENTIC",
   why_ds_title: "The Analog Margin Bleed.",
-  why_ds_sub: "The traditional B2B auto parts distribution network is fundamentally broken.",
+  why_ds_sub: "Today's B2B parts distribution network is broken for both sides.",
   why_ds_c1_t: "The 4-Tier Margin Bleed",
   why_ds_c1_d: "Every hop (Principal → Distributor → Wholesale → Store → Garage) stacks ~15% margin.",
-  why_ds_c2_t: "The Blind RMA Nightmare",
+  why_ds_c2_t: "The Counterfeit Injection",
   why_ds_c2_d: "Counterfeit OEM parts blindly infect inventory through offline WhatsApp brokers.",
   why_ds_c3_t: "The C.O.D. Chokehold",
   why_ds_c3_d: "Zero-trust trading forces strict Cash-on-Delivery, freezing working capital.",
@@ -379,11 +382,14 @@ const id: Record<CopyKey, string> = {
   hero_sub_short:
     "Satu platform yang menyatukan industri otomotif Indonesia — merek, distributor, toko, mekanik, dan pengemudi dalam satu katalog terverifikasi.",
   hero_cta_inv: "Untuk investor",
-  hero_cta_shops: "Gabung Program Early Adopter",
+  hero_cta_shops: "Gabung Program Early Adopters",
+  /* audit #24 — a11y pause control for the rotating hero headline. */
+  hero_pause: "Jeda judul yang berputar",
+  hero_resume: "Lanjutkan judul yang berputar",
   card_part_name: "Kampas rem depan",
   card_part_sub: "As depan · keramik",
   card_part_price: "Rp 385.000",
-  card_part_chip: "✓ Dijamin cocok",
+  card_part_chip: "✓ Dipastikan cocok",
   card_fit: "✓ Cocok: Toyota Avanza 1.5 G 2019",
   card_video_cap: "Satu platform. Lima mata rantai.",
   /* Fitment band kicker (R4) — verbatim fragment of the approved hero.line2. */
@@ -406,7 +412,7 @@ const id: Record<CopyKey, string> = {
   pf4_l: "Launching — mulai dari Jakarta",
   prob_kicker: "Masalah",
   prob_h2: "Beli onderdil online masih untung-untungan.",
-  prob_t1_v: "19.4%",
+  prob_t1_v: "19,4%",
   prob_t2_v: "86%",
   prob_t1_t: "tingkat retur di marketplace besar",
   prob_t1_l: "Hampir 1 dari 5 onderdil yang dibeli online berakhir dikirim balik.",
@@ -515,7 +521,7 @@ const id: Record<CopyKey, string> = {
   buyer_err_email: "Format email sepertinya belum benar.",
   buyer_err_fail: "Terjadi kendala — silakan coba lagi.",
   team_kicker: "Tim",
-  team_h2: "Tiga founders. Satu mesin.",
+  team_h2: "Tiga founder. Satu mesin.",
   team_n1: "Yavet Arimathea Widjaja",
   team_r1: "CEO & Founder",
   team_n2: "Muhammad Salman Al Hafizh",
@@ -532,7 +538,7 @@ const id: Record<CopyKey, string> = {
   inv_p:
     "Mobeeli sudah jadi dan toko-toko mulai minat bergabung — 9 dari 14 toko pertama yang kami datangi setuju untuk join waitlist di sore yang sama. Kalau Anda mengikuti infrastruktur commerce di Asia Tenggara, kami ingin menunjukkan apa yang kami persiapkan.",
   inv_cta: "Minta deck",
-  inv_or: "atau langsung hubungi para founders",
+  inv_or: "atau langsung hubungi para founder",
   /* Deck request form on /investors (F-016) — name/firm/work-email required. */
   inv_f_name: "Nama Anda",
   inv_f_firm: "Firma / dana investasi",
