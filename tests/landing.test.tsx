@@ -145,7 +145,7 @@ describe("landing i18n completeness (F-001)", () => {
     expect(t("en", "prob_t3_v")).toBe("16.75–19.66%");
     expect(t("id", "prob_t3_v")).toBe("16,75–19,66%");
     expect(t("en", "card_part_chip")).toBe("✓ Verified fit");
-    expect(t("id", "card_part_chip")).toBe("✓ Dijamin cocok");
+    expect(t("id", "card_part_chip")).toBe("✓ Dipastikan cocok");
     expect(t("en", "cat_pill")).toBe("✓ One catalog · 120M+ mappings");
     expect(t("id", "why_p")).toContain("Mei 2026");
     expect(t("en", "early_kicker")).toBe("Early Adopters Program");

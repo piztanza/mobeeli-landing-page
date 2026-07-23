@@ -31,10 +31,9 @@ export default function HowItWorks() {
   return (
     <section ref={glowRef} id="how-it-works" className="mb-section mb-how">
       <div className="mb-section-inner">
-        <div data-rev="0" className="mb-kicker">
-          {t("how_kicker")}
-        </div>
-        <h2 data-rev="1" className="mb-h2 mb-h2--how">
+        {/* Eyebrow kicker retired (audit #1): the H2 "Three steps. Zero guessing."
+            leads on its own. how_kicker copy key stays defined. */}
+        <h2 data-rev="0" className="mb-h2 mb-h2--how">
           {t("how_h2")}
         </h2>
         <div className="mb-grid3">

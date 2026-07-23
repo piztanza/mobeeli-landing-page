@@ -22,11 +22,9 @@ export default function Footer() {
             </div>
             <div className="mb-footer-tag">{t("foot_tag")}</div>
           </div>
-          <div className="mb-footer-social">
-            <a href="#" aria-label="LinkedIn">
-              in
-            </a>
-          </div>
+          {/* Social slot removed (audit #7): the dead href="#" "in" anchor read
+              as an unfinished placeholder. A real LinkedIn mark returns WITH a
+              real founder-supplied URL (see HANDOFF outstanding items). */}
         </div>
         <div className="mb-footer-bottom">
           <div className="mb-footer-contact">

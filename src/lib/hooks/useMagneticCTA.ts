@@ -26,6 +26,9 @@ export function useMagneticCTA<T extends HTMLElement = HTMLAnchorElement>() {
     let rafId: number | null = null;
 
     const handleMouseMove = (e: MouseEvent) => {
+      // will-change is promoted only during interaction (audit #28) — no idle
+      // compositor layer sitting on the button when the pointer is elsewhere.
+      el.style.willChange = "transform";
       if (rafId) cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
         const rect = el.getBoundingClientRect();
@@ -45,6 +48,7 @@ export function useMagneticCTA<T extends HTMLElement = HTMLAnchorElement>() {
     const handleMouseLeave = () => {
       if (rafId) cancelAnimationFrame(rafId);
       el.style.transform = "translate3d(0px, 0px, 0px)";
+      el.style.willChange = "auto";
     };
 
     el.addEventListener("mousemove", handleMouseMove);
@@ -55,6 +59,7 @@ export function useMagneticCTA<T extends HTMLElement = HTMLAnchorElement>() {
       el.removeEventListener("mousemove", handleMouseMove);
       el.removeEventListener("mouseleave", handleMouseLeave);
       el.style.transform = "";
+      el.style.willChange = "";
     };
   }, [reduced]);
 

@@ -67,6 +67,10 @@
   --mb-duration-entrance: 480ms;
   --mb-stagger-entrance: 70ms;
   --mb-ease-spring-btn: linear(0, 1.25, 1, 0.9, 1.04, 0.99, 1.005, 0.996, 1.001, 0.999, 1);
+  /* R8 (hallmark audit) consolidation tokens — code-level, NOT part of the
+     style.json contract block above. */
+  --mb-ease-standard: cubic-bezier(0.2, 0.6, 0.2, 1);
+  --mb-danger-on-dark: #f87171; /* danger tint legible on the near-black /why-mobeeli cards */
 }
 
 /* Proposal #8: Space Grotesk numeric data treatment */
@@ -96,6 +100,13 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Mobile safety belt (audit #5): no band may push horizontal scroll. `clip`,
+   never `hidden`, so the sticky/overlay nav positioning still works. */
+html,
+body {
+  overflow-x: clip;
+}
+
 /* Display type — GeistSans (R6 unified system). */
 h1,
 h2,
@@ -103,6 +114,9 @@ h3 {
   font-family: var(--mb-font-display);
   font-weight: 600;
   text-wrap: balance;
+  /* Long single words (esp. rotating ID tokens) break instead of clipping the
+     grid track (audit #19). */
+  overflow-wrap: anywhere;
 }
 
 /* Accessibility — focus-visible system + skip link. Code-level a11y tokens:

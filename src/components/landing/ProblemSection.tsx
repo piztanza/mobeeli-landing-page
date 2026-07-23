@@ -13,10 +13,10 @@ export default function ProblemSection() {
   return (
     <section id="problem" className="mb-section">
       <div className="mb-section-inner">
-        <div data-rev="0" className="mb-kicker">
-          {t("prob_kicker")}
-        </div>
-        <h2 data-rev="1" className="mb-h2 mb-h2--prob">
+        {/* Eyebrow kicker retired (audit #1): the illuminated H2 leads the band
+            so the page reads as one narrative, not a stack of labelled lists.
+            The prob_kicker copy key stays defined (used nowhere is harmless). */}
+        <h2 data-rev="0" className="mb-h2 mb-h2--prob">
           {words.map((word, i) => (
             <span
               key={i}
