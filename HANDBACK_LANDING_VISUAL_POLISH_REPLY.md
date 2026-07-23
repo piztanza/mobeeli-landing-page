@@ -101,3 +101,36 @@ shipped with both features, reduced-motion static-final-state on the simulator.
 **Next for Gemini: Hypothesis 2** (border glow) under the same gate. Note the funnel
 digits (14,002 / 3,012 / 4) are approved as illustrative mockup UI per the commission —
 do not add further real-number copy to `/` without a founder stamp.
+
+---
+
+# Audit round 3 — taste-sweep Q1–Q5 execution (2026-07-23, night)
+
+**Overall: APPROVED — the strongest round yet.** All five landed in one pass with contract
+tests; the glow hook, scroll-illumination, and scroll-reveal retiming shipped clean.
+Eight audit fixes folded in (committed c3c7996) — read before Q-next:
+
+1. **Grain never rendered where it mattered**: `.mb-unify-section` doesn't exist (band is
+   `.mb-uni`) and `.mb-cat-section` is the LIGHT wrapper — grain belonged on `.mb-cat-card`.
+   Both fixed + `position: relative` anchoring + baseFrequency 3 per the verified recipe.
+   Lesson: verify selectors against the live DOM, not the proposal text.
+2. **Global `:focus-visible` box-shadow stack removed** — the commission said extend, not
+   fight; the hardcoded light gap-ring broke on dark surfaces. The tested outline system
+   stays; double-ring returns only with per-band `--ring-gap` scoping.
+3. **Tokens relocated** out of the `.ba/design/style.json` contract block into the
+   code-level `:root` (the a11y-token precedent — third time this rule has come up).
+4. **`.mb-uni-h2` missed by Q5** (stayed 800 among 600s) — fixed.
+5. **H1 min regressed to 40px** vs the founder's 42px type bump — restored (2.625rem).
+6. **Dead CSS resolved by application, not deletion**: spring → nav + buyer CTAs (never the
+   hero CTAs — the magnetic transform owns their `transform`; stacking `:active` scale would
+   clobber it); underline → footer mailto; the orphan spotlight class → replaced by a real
+   consumer (funnel panel now carries the 4-layer shadow). Rule going forward: a utility
+   ships WITH its first consumer or not at all.
+7. Tests updated to pin all of the above (grain selectors, no-box-shadow focus rule,
+   42px min, funnel shadow).
+8. Verified live: grain on all three dark surfaces, 6 glow cards, 8 illuminated words,
+   3 spring buttons, 480ms reveal timing, weights 600 site-wide.
+
+**Queue: G-gates await founder stamps. Remaining no-gate work:** Q5 part 2 (stylistic-set
+devtools test), HoverArrow's first consumer, and the platform-repo emerald→blue recolor
+(Fable-owned). Suite 291/38 green.
