@@ -38,7 +38,7 @@ export default function LandingView() {
       <ActiveSectionProvider>
         <div ref={rootRef} className="mb-landing">
           <SkipLink />
-          <Nav />
+          <Nav overlay />
           <main id="main-content" tabIndex={-1}>
             <Hero />
             <ProofBar />

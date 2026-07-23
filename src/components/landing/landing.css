@@ -231,6 +231,66 @@
   background: var(--mb-deep-blue-hover);
 }
 
+/* ---------- nav overlay variant — landing page only ---------- */
+
+/* Both logo variants are always in the markup; the swap is CSS-only so SSR and
+   hydration render identically (no flash). */
+.mb-nav-logo-white {
+  display: none;
+}
+.mb-nav--overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+/* Transparent state — over the dark hero. `.is-solid` (hero scrolled past, or
+   the mobile sheet open) falls through to the base .mb-nav styling. */
+.mb-nav--overlay:not(.is-solid) {
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom-color: transparent;
+}
+.mb-nav--overlay:not(.is-solid) .mb-nav-logo-blue {
+  display: none;
+}
+.mb-nav--overlay:not(.is-solid) .mb-nav-logo-white {
+  display: block;
+}
+.mb-nav--overlay:not(.is-solid) .mb-nav-links a {
+  color: rgba(255, 255, 255, 0.88);
+}
+.mb-nav--overlay:not(.is-solid) .mb-nav-links a:hover {
+  color: #fff;
+}
+.mb-nav--overlay:not(.is-solid) .mb-lang-toggle {
+  border-color: rgba(255, 255, 255, 0.28);
+}
+.mb-nav--overlay:not(.is-solid) .mb-lang-btn {
+  color: rgba(255, 255, 255, 0.88);
+}
+.mb-nav--overlay:not(.is-solid) .mb-lang-btn.is-active {
+  background: #fff;
+  color: var(--mb-ink);
+}
+/* Ink-on-ink otherwise. */
+.mb-nav--overlay:not(.is-solid) .mb-nav-cta {
+  background: var(--mb-primary);
+}
+.mb-nav--overlay:not(.is-solid) .mb-nav-cta:hover {
+  background: var(--mb-primary-hover);
+}
+.mb-nav--overlay:not(.is-solid) .mb-nav-burger-bar {
+  background: #fff;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .mb-nav--overlay {
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease;
+  }
+}
+
 /* ---------- mobile nav — hamburger + sheet below 880px (CHG-piztanza-10) ---------- */
 
 .mb-nav-burger {
@@ -364,11 +424,21 @@
 .mb-hero {
   background: var(--mb-ink);
   background-image:
+    /* Top scrim keeps the transparent nav's white text readable even before
+       JS mounts (no-JS / first paint). */
+    linear-gradient(rgba(13, 21, 34, 0.4), transparent 120px),
     radial-gradient(720px 420px at 82% 12%, rgba(47, 125, 246, 0.16), transparent 70%),
     radial-gradient(560px 380px at 8% 92%, rgba(18, 63, 158, 0.28), transparent 70%);
-  padding: 88px var(--mb-container-pad) 112px;
+  /* Full first viewport under the fixed 66px overlay nav; svh wins where
+     supported, vh is the fallback. */
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: calc(66px + 40px) var(--mb-container-pad) 72px;
 }
 .mb-hero-grid {
+  width: 100%;
   max-width: var(--mb-container-max);
   margin: 0 auto;
   display: grid;
@@ -1822,7 +1892,7 @@
    headlines step down so nothing can overflow at 360/390px. */
 @media (max-width: 559.98px) {
   .mb-hero {
-    padding-top: 64px;
+    padding-top: calc(66px + 24px);
     padding-bottom: 96px;
   }
 }

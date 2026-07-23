@@ -10,6 +10,7 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from "react";
 
+import { useOverlaySolid } from "@/lib/hooks/useOverlaySolid";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { langs, type CopyKey } from "@/lib/i18n";
 import { useLang, useT } from "@/lib/i18n/LanguageProvider";
@@ -61,10 +62,16 @@ function LangToggle() {
  * on the same item always scrolls back, short sections center in the viewport, reduced motion
  * jumps instantly — and the scrollspy's active section carries aria-current/data-active (no
  * visible styling yet). From other pages the links navigate to /#id as before.
+ *
+ * With `overlay` (landing page only) the bar starts transparent over the dark full-viewport
+ * hero — white links/burger, white logo variant — and turns solid once the hero scrolls past
+ * (useOverlaySolid); the open mobile sheet forces solid so the bar never sits transparent
+ * over its own white sheet.
  */
-export default function Nav() {
+export default function Nav({ overlay = false }: { overlay?: boolean }) {
   const t = useT();
   const [open, setOpen] = useState(false);
+  const solid = useOverlaySolid(overlay);
   const activeId = useActiveSection();
   const reduced = useReducedMotion();
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -141,10 +148,28 @@ export default function Nav() {
   }, [open]);
 
   return (
-    <nav className="mb-nav">
+    <nav
+      className={`mb-nav${overlay ? " mb-nav--overlay" : ""}${
+        overlay && (solid || open) ? " is-solid" : ""
+      }`}
+    >
       <div className="mb-nav-inner">
         <Link href="/" className="mb-nav-logo" onClick={close}>
-          <Image src="/assets/mobeeli-logo-blue.png" alt="Mobeeli" width={2891} height={1109} />
+          <Image
+            className="mb-nav-logo-blue"
+            src="/assets/mobeeli-logo-blue.png"
+            alt="Mobeeli"
+            width={2891}
+            height={1109}
+          />
+          <Image
+            className="mb-nav-logo-white"
+            src="/assets/mobeeli-logo-white.png"
+            alt=""
+            aria-hidden
+            width={2891}
+            height={1109}
+          />
         </Link>
         <div className="mb-nav-links">{NAV_LINKS.map(sectionLink)}</div>
         <div className="mb-nav-spacer" />
