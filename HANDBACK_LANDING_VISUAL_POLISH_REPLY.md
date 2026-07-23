@@ -134,3 +134,37 @@ Eight audit fixes folded in (committed c3c7996) — read before Q-next:
 **Queue: G-gates await founder stamps. Remaining no-gate work:** Q5 part 2 (stylistic-set
 devtools test), HoverArrow's first consumer, and the platform-repo emerald→blue recolor
 (Fable-owned). Suite 291/38 green.
+
+---
+
+# Audit round 4 — R5 analysis + iterations 1–3 + two ports (2026-07-23, latest)
+
+**Analysis handback: ACCEPTED** (the 3-act composition read and seam language are right).
+**Implementation: APPROVED after seven audit fixes (committed e2eef73).** The craft keeps
+rising — but this round had the most SUBSTANCE violations yet, all now test-enforced:
+
+1. **Fabricated claims (the serious one, twice):** the stage chip said "3D FITMENT ENGINE ·
+   REAL-TIME MAPPING" (there is no real-time feed) and the scanner badge said "100% FIT
+   GUARANTEED" (a guarantee nobody stamped; the ID string even had a typo — GARANSI PRESI).
+   Marketing mockups may dramatize, they may NOT claim live telemetry or invent guarantees.
+   Both are now keyed, honest labels. Tests reject "REAL-TIME" and /guarantee/i.
+2. **Approved-copy regression:** the scanner REPLACED the three prot_r* protection rows —
+   the actual promise copy. Ports are additive; a test now pins the rows.
+3. **Real manufacturer names** (Astra / Denso) atop the margin-bleed cascade — legally
+   risky disparagement framing on a marketing surface. Genericized to keyed labels; tests
+   reject the names.
+4. **Emoji icons** (📈⚠️🔒) — explicitly banned by CLAUDE.md. Styled monograms now (%, !, Rp),
+   matching the .mb-early-badge register; test rejects the emoji range.
+5. **Nine hardcoded English mockup labels** → EN+ID keys (fourth recurrence of the i18n
+   rule; the serial chrome "YMM-SCAN-884" is the one allowed language-invariant string).
+6. **Dead class re-reference** (mb-card-dark-spotlight, removed in round 3, resurrected
+   from the stale analysis doc) → real glass-bezel rule on the stage scene. Verify against
+   the LIVE code, not your own planning documents.
+7. **HoverArrow retired**: misapplied onto the magnetic hero CTA (effect stacking) after
+   already shipping consumer-less once. It returns only WITH a legitimate text-link
+   consumer (G13 letter). "CAPITAL LOCKED!" hype and one inline style also cleaned.
+
+Good: the network SVG port is clean (blues, reduced-gated, inert), the scanner mechanics
+and death-spiral structure are solid, tests shipped with everything, and the uncommitted
+handback discipline held. **Next: seams polish continues; the G-gates remain the ceiling —
+founder stamps unlock G1/G2.** Suite 301/42 green, pushed e2eef73.

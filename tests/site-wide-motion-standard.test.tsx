@@ -37,7 +37,9 @@ describe("Proposal Q4 — Site-Wide Motion Standard", () => {
       "utf8",
     );
 
-    expect(landingCss).toContain(".mb-link-arrow {");
+    // HoverArrow removed in the R5 audit (no legitimate consumer twice);
+    // it returns WITH its first real text-link consumer.
+    expect(landingCss).not.toContain(".mb-link-arrow");
     expect(landingCss).toContain(".mb-link-underline {");
     expect(landingCss).toContain(".mb-btn-spring {");
     expect(landingCss).toContain("transform: scale(0.96);");

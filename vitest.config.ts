@@ -10,6 +10,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
+      // next/font needs the Next compiler; tests get a static stub (R4).
+      "next/font/google": fileURLToPath(new URL("./tests/stubs/next-font-google.ts", import.meta.url)),
     },
   },
   test: {

@@ -25,7 +25,9 @@ describe("Proposal Q2 — Dark-Band Material System", () => {
     // Audit contract: selectors must match real band classes — the archipelago
     // band is .mb-uni and the dark catalog surface is .mb-cat-card (its light
     // section wrapper must NOT get grain).
-    expect(landingCss).toMatch(/\.mb-hero::after,\s*\.mb-uni::after,\s*\.mb-cat-card::after \{/);
+    expect(landingCss).toMatch(
+      /\.mb-hero::after,\s*\.mb-fit3d::after,\s*\.mb-uni::after,\s*\.mb-cat-card::after \{/,
+    );
     expect(landingCss).not.toContain(".mb-unify-section");
     expect(landingCss).not.toContain(".mb-cat-section::after");
     // Verified Raycast recipe: fine grain, not coarse blobs.

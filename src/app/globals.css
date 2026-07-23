@@ -48,10 +48,13 @@
   --mb-section-y: 96px;
 }
 
-/* Code-level tokens (dark-band material Q2 + motion standard Q4) — NOT part of
-   the .ba/design/style.json contract block above, same register as the a11y
-   tokens below. */
+/* Code-level tokens (dark-band material Q2 + motion standard Q4 + R4 font
+   system) — NOT part of the .ba/design/style.json contract block above, same
+   register as the a11y tokens below. */
 :root {
+  /* R4 pairing: Inter for body/UI text (next/font variable), Plus Jakarta
+     Sans (--mb-font) stays the display face for headings and brand moments. */
+  --mb-font-text: var(--font-inter, "Inter"), var(--mb-font);
   --mb-ink-dp1: #0a1019;
   --mb-ink-dp2: #111927;
   --mb-ink-dp3: #16202f;
@@ -74,15 +77,18 @@ html {
 
 body {
   margin: 0;
-  font-family: var(--mb-font);
+  font-family: var(--mb-font-text);
   background: var(--mb-bg);
   color: var(--mb-ink);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
+/* Display type keeps the brand face (Plus Jakarta Sans). */
 h1,
 h2,
 h3 {
+  font-family: var(--mb-font);
   font-weight: 600;
   text-wrap: balance;
 }

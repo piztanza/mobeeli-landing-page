@@ -420,30 +420,10 @@
   }
 }
 
-/* Q4: Site-wide motion standard utilities */
-.mb-link-arrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  text-decoration: none;
-  color: var(--mb-light-accent);
-  font-weight: 700;
-  transition: color 0.22s var(--mb-ease-entrance);
-}
-.mb-link-arrow .mb-arrow {
-  display: inline-block;
-  transition: transform 0.22s var(--mb-ease-entrance);
-}
-.mb-link-arrow:hover .mb-arrow {
-  transform: translateX(4px);
-}
-@media (prefers-reduced-motion: reduce) {
-  .mb-link-arrow .mb-arrow {
-    transition: none !important;
-    transform: none !important;
-  }
-}
-
+/* Q4: Site-wide motion standard utilities.
+   (HoverArrow was removed in the R5 audit — it shipped twice without a
+   legitimate consumer; it returns WITH its first real text link, e.g. the
+   G13 investor letter.) */
 .mb-link-underline {
   text-decoration: none;
   background-image: linear-gradient(var(--mb-primary), var(--mb-primary));
@@ -493,6 +473,7 @@
    the real band classes (.mb-uni, .mb-cat-card — the dark CARD, not its light
    section wrapper), and baseFrequency 3 per the verified recipe. */
 .mb-hero::after,
+.mb-fit3d::after,
 .mb-uni::after,
 .mb-cat-card::after {
   content: "";
@@ -529,16 +510,25 @@
     radial-gradient(720px 420px at 82% 12%, rgba(47, 125, 246, 0.16), transparent 70%),
     radial-gradient(560px 380px at 8% 92%, rgba(18, 63, 158, 0.28), transparent 70%);
 }
+/* R4: the hero is type-focused (the 3D scene has its own band below) — a
+   single centered column reads stronger at full viewport. */
 .mb-hero-grid {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: var(--mb-container-max);
+  max-width: 880px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(460px, 100%), 1fr));
-  gap: 64px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
+}
+.mb-hero-grid .mb-hero-sub {
+  margin-left: auto;
+  margin-right: auto;
+}
+.mb-hero-ctas {
+  justify-content: center;
 }
 .mb-hero-chip {
   display: inline-flex;
@@ -641,9 +631,70 @@
   color: var(--mb-light-accent);
 }
 
-.mb-hero-visual {
+/* ---------- fitment wheel band (own stage, R4 founder direction) ---------- */
+
+.mb-fit3d {
   position: relative;
-  min-height: 440px;
+  background: var(--mb-ink);
+  background-image:
+    radial-gradient(720px 420px at 80% 10%, rgba(47, 125, 246, 0.14), transparent 70%),
+    radial-gradient(560px 380px at 12% 90%, rgba(18, 63, 158, 0.24), transparent 70%);
+  padding: var(--mb-section-y) var(--mb-container-pad);
+  overflow: hidden;
+}
+.mb-fit3d-inner {
+  position: relative;
+  z-index: 2;
+  max-width: var(--mb-container-max);
+  margin: 0 auto;
+  text-align: center;
+}
+.mb-fit3d-telemetry {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(13, 21, 34, 0.7);
+  border: 1px solid var(--mb-hairline-subtle);
+  border-radius: var(--mb-radius-pill);
+  padding: 5px 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--mb-light-accent);
+  margin-bottom: 14px;
+}
+.mb-fit3d-stage {
+  position: relative;
+  max-width: 1060px;
+  margin: 26px auto 0;
+}
+/* Glass bezel on the stage (R5, audit-implemented — the referenced spotlight
+   class no longer existed; this is the real material treatment). */
+.mb-fit3d-stage .mb-hero-scene {
+  position: relative;
+  z-index: 1;
+  border: 1px solid var(--mb-hairline-subtle);
+  box-shadow: var(--mb-shadow-linear-4layer);
+}
+.mb-fit3d-stage-glow {
+  position: absolute;
+  inset: -40px;
+  pointer-events: none;
+  background: radial-gradient(500px 300px at 50% 40%, rgba(47, 125, 246, 0.2), transparent 70%);
+  z-index: 0;
+}
+/* Docked product cards — a wrapping flex row that slightly overlaps the
+   stage's bottom edge for depth. No absolute offsets = no collisions. */
+.mb-fit3d-cards {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+  gap: 18px;
+  margin-top: -40px;
+  padding: 0 12px;
 }
 .mb-hero-scene {
   border-radius: 22px;
@@ -657,9 +708,10 @@
   height: 100%;
 }
 
-/* Floating hero cards — hidden until the scene's first loop, then staggered in. */
+/* Product cards (docked in the fitment band since R4) — hidden until the
+   scene's first loop, then staggered in. */
 .mb-herocard {
-  position: absolute;
+  position: relative;
   background: #fff;
   opacity: 0;
   transform: translateY(14px);
@@ -680,8 +732,6 @@
 }
 /* Shrink-to-fit up to 272px so the price row never wraps (CHG-piztanza-18). */
 .mb-card-part {
-  top: 28px;
-  left: -18px;
   width: auto;
   max-width: 272px;
   border-radius: 16px;
@@ -736,8 +786,7 @@
    sits clear of the projected "Authenticity — Genuine" spec label, which
    lands ~80% down the scene at desktop (CHG-piztanza-18). */
 .mb-card-fit {
-  right: -14px;
-  bottom: 24px;
+  align-self: center;
   border-radius: var(--mb-radius-pill);
   padding: 11px 17px;
   box-shadow: 0 20px 44px rgba(3, 8, 16, 0.45);
@@ -750,8 +799,6 @@
   font-weight: 700;
 }
 .mb-card-video {
-  left: 20px;
-  bottom: -34px;
   width: 238px;
   border-radius: 16px;
   padding: 10px;
@@ -770,24 +817,13 @@
   margin-top: 7px;
 }
 
-/* Below 1024px the hero cards leave the floating overlay and flow below the
-   scene (CHG-piztanza-18): no negative offsets, so they can never overlap
-   each other, the scene, the nav, or the following section. The reveal
-   transition still runs; only the ambient float bobbing is overlay-only. */
-@media (max-width: 1023.98px) {
-  .mb-hero-visual {
-    min-height: 0;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 14px;
-  }
-  .mb-hero-scene {
-    width: 100%;
-  }
-  .mb-herocard {
-    position: static;
-    animation: none;
+/* R4: the cards are permanently in-flow in the fitment band's flex row — no
+   absolute overlay exists at any viewport, so nothing can overlap
+   (supersedes the CHG-piztanza-18 phone-only static mode). Small screens just
+   let the docked row stack without the stage overlap. */
+@media (max-width: 639.98px) {
+  .mb-fit3d-cards {
+    margin-top: 18px;
   }
   .mb-card-part {
     max-width: 100%;
@@ -1131,6 +1167,7 @@
   font-weight: 800;
   color: var(--mb-primary);
   letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
   transition: color 0.3s ease;
 }
 /* Success state stays in the blue family — the design's verified semantic
@@ -1457,6 +1494,7 @@
 /* ---------- why Mobeeli ---------- */
 
 .mb-why {
+  position: relative;
   scroll-margin-top: 84px;
   background: var(--mb-deep-blue-hover);
   background-image: radial-gradient(
@@ -1465,6 +1503,193 @@
     transparent 70%
   );
   padding: 100px var(--mb-container-pad);
+  overflow: hidden;
+}
+/* Port #1: HeroBackground SVG Bezier Network in /why-mobeeli header */
+.mb-why-ds-wrap {
+  margin-top: 48px;
+}
+.mb-network-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.mb-network-mask {
+  position: absolute;
+  inset: 0;
+  mask-image: radial-gradient(ellipse 70% 80% at 50% 20%, #000 0%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 20%, #000 0%, transparent 100%);
+}
+.mb-network-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.mb-packet-anim {
+  animation: packetPulse infinite linear;
+}
+@keyframes packetPulse {
+  0% { stroke-dashoffset: 480; }
+  100% { stroke-dashoffset: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mb-packet-anim {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+/* Port #2: AnalogDeathSpiral problem cards in /why-mobeeli */
+.mb-deathspiral-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 20px;
+  text-align: left;
+}
+.mb-ds-card {
+  background: rgba(10, 16, 25, 0.85);
+  border: 1px solid var(--mb-hairline-subtle);
+  border-radius: var(--mb-radius-card);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+.mb-ds-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.mb-ds-icon {
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--mb-hairline-subtle);
+}
+.mb-ds-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+.mb-ds-desc {
+  margin: 0 0 20px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--mb-dark-muted);
+}
+.mb-ds-cascade-graph {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+.mb-ds-node {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--mb-hairline-subtle);
+  color: #fff;
+}
+.mb-ds-tag {
+  font-size: 9.5px;
+  color: var(--mb-dark-muted);
+  letter-spacing: 0.05em;
+}
+.mb-ds-badge {
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--mb-light-accent);
+}
+.mb-ds-badge--accent {
+  color: #f87171;
+}
+.mb-ds-glitch-stage {
+  margin-top: auto;
+  background: #000;
+  border: 1px solid var(--mb-hairline-subtle);
+  border-radius: 10px;
+  padding: 10px;
+  overflow: hidden;
+}
+.mb-ds-glitch-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 9.5px;
+  color: var(--mb-dark-muted);
+  margin-bottom: 8px;
+}
+.mb-ds-glitch-body {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+}
+.mb-ds-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+.mb-ds-status--safe {
+  color: var(--mb-light-accent);
+}
+.mb-ds-status--danger {
+  color: #f87171;
+}
+.mb-ds-cod-bar {
+  margin-top: auto;
+}
+.mb-ds-cod-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--mb-dark-muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.mb-ds-cod-track {
+  position: relative;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--mb-hairline-subtle);
+}
+.mb-ds-cod-fill {
+  width: 35%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--mb-deep-blue), var(--mb-primary));
+}
+.mb-ds-cod-lock {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: #f87171;
+  letter-spacing: 0.06em;
 }
 .mb-why-inner {
   max-width: 900px;
@@ -1774,6 +1999,92 @@
   justify-content: space-between;
   gap: 10px;
 }
+.mb-funnel-badge span {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+/* Port #3: GarageOS Laser Scanner in HowItWorks Step 3 card */
+.mb-scanner-box {
+  margin-top: 18px;
+  background: var(--mb-ink-dp1);
+  border: 1px solid var(--mb-hairline-subtle);
+  border-radius: var(--mb-radius-input);
+  padding: 12px;
+  overflow: hidden;
+}
+.mb-scanner-stage {
+  position: relative;
+  height: 64px;
+  background: rgba(13, 21, 34, 0.9);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mb-scanner-laser {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--mb-light-accent) 50%, transparent 100%);
+  box-shadow: 0 0 12px var(--mb-primary), 0 0 24px var(--mb-light-accent);
+  animation: laserSweep 2.8s ease-in-out infinite alternate;
+  z-index: 2;
+}
+@keyframes laserSweep {
+  0% { transform: translateY(0px); opacity: 0.6; }
+  100% { transform: translateY(62px); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mb-scanner-laser {
+    animation: none !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+  }
+}
+.mb-scanner-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(47, 125, 246, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(47, 125, 246, 0.08) 1px, transparent 1px);
+  background-size: 12px 12px;
+  z-index: 0;
+}
+.mb-scanner-text {
+  position: relative;
+  z-index: 1;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--mb-light-accent);
+  text-transform: uppercase;
+}
+.mb-verified-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--mb-light-accent);
+}
+.mb-verified-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(47, 125, 246, 0.25);
+  border: 1px solid var(--mb-light-accent);
+  color: var(--mb-light-accent);
+  font-size: 10px;
+  font-weight: 800;
+}
 .mb-team-name {
   font-size: 18px;
   font-weight: 800;
@@ -1996,14 +2307,22 @@
   overflow: hidden;
 }
 .mb-uni-inner {
+  position: relative;
+  z-index: 2;
   width: 100%;
   max-width: var(--mb-container-max);
   margin: 0 auto;
+  /* The copy floats over the interactive map — never intercept its drag. */
+  pointer-events: none;
 }
 .mb-uni-head {
   text-align: center;
   max-width: 840px;
   margin: 0 auto;
+  /* Soft scrim keeps the copy readable over the bright map dots. */
+  background: radial-gradient(62% 90% at 50% 42%, rgba(13, 21, 34, 0.62), transparent 78%);
+  padding: 36px 28px;
+  border-radius: 24px;
 }
 .mb-uni-h2 {
   margin: 14px 0 0;
@@ -2022,19 +2341,17 @@
   color: var(--mb-dark-muted);
   text-wrap: pretty;
 }
-.mb-uni-map {
-  max-width: 1060px;
-  margin: 40px auto 0;
+/* R4: the archipelago scene fills the entire band (founder: the visual IS the
+   section), dissolving into the following light band at the bottom edge. */
+.mb-uni-bleed {
+  position: absolute;
+  inset: 0;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
 }
 .mb-uni-scene {
-  aspect-ratio: 1.9/1;
-}
-/* Phone: a taller ~4:3 frame keeps the archipelago readable; the scene's own
-   drag/idle-drift behavior is untouched (CHG-piztanza-18). */
-@media (max-width: 639.98px) {
-  .mb-uni-scene {
-    aspect-ratio: 4/3;
-  }
+  width: 100%;
+  height: 100%;
 }
 .mb-uni-scene > * {
   width: 100%;

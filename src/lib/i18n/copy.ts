@@ -59,6 +59,10 @@ const en = {
   card_part_chip: "✓ Verified fit",
   card_fit: "✓ Fits: Toyota Avanza 1.5 G 2019",
   card_video_cap: "One platform. Five links.",
+  /* Fitment band kicker (R4) — verbatim fragment of the approved hero.line2. */
+  fit3d_kicker: "Verified to fit",
+  /* Stage chip (R5, audit-fixed): honest demo label — never fake telemetry. */
+  fit3d_chip: "Interactive 3D demo",
   fit3d_pcd_t: "Bolt pattern · PCD",
   fit3d_pcd_v: "4 × 100",
   fit3d_bore_t: "Center bore",
@@ -121,6 +125,29 @@ const en = {
   how_s3_t: "Check out protected",
   how_s3_d:
     "Fair resolution with video evidence and authenticity verification. Funds release when the part fits — not just when it ships.",
+  how_s3_scanner_align: "SCANNING PART EMBOSS · 2NR-VE MATCH",
+  /* Audit-fixed (R5): no fabricated guarantees — the protection promise is the
+     approved prot_r* rows; the badge states only the scan outcome. */
+  how_s3_scanner_verified: "VERIFIED AUTHENTIC",
+  why_ds_title: "The Analog Margin Bleed.",
+  why_ds_sub: "The traditional B2B auto parts distribution network is fundamentally broken.",
+  why_ds_c1_t: "The 4-Tier Margin Bleed",
+  why_ds_c1_d: "Every hop (Principal → Distributor → Wholesale → Store → Garage) stacks ~15% margin.",
+  why_ds_c2_t: "The Blind RMA Nightmare",
+  why_ds_c2_d: "Counterfeit OEM parts blindly infect inventory through offline WhatsApp brokers.",
+  why_ds_c3_t: "The C.O.D. Chokehold",
+  why_ds_c3_d: "Zero-trust trading forces strict Cash-on-Delivery, freezing working capital.",
+  /* Death-spiral mockup labels (R5 audit): keyed EN+ID, generic — no real
+     manufacturer names on marketing surfaces, no hype punctuation. */
+  why_ds_n_base: "Manufacturer",
+  why_ds_n_base_tag: "Base price",
+  why_ds_n1: "Main dealer",
+  why_ds_n2: "Regional wholesale",
+  why_ds_n3: "Offline broker",
+  why_ds_scan_ok: "Authenticated",
+  why_ds_scan_bad: "Warning: fake detected",
+  why_ds_cod_l: "100% cash buffer required",
+  why_ds_cod_lock: "Capital locked",
   prot_r1: "✓ Video-evidence resolution",
   prot_r2: "✓ Authenticity verification",
   prot_r3: "✓ Funds release when the part fits",
@@ -362,6 +389,10 @@ const id: Record<CopyKey, string> = {
   card_part_chip: "✓ Dijamin cocok",
   card_fit: "✓ Cocok: Toyota Avanza 1.5 G 2019",
   card_video_cap: "Satu platform. Lima mata rantai.",
+  /* Fitment band kicker (R4) — verbatim fragment of the approved hero.line2. */
+  fit3d_kicker: "Dipastikan cocok",
+  /* Stage chip (R5, audit-fixed): honest demo label — never fake telemetry. */
+  fit3d_chip: "Demo 3D interaktif",
   fit3d_pcd_t: "Pola baut · PCD",
   fit3d_pcd_v: "4 × 100",
   fit3d_bore_t: "Lubang tengah",
@@ -424,6 +455,29 @@ const id: Record<CopyKey, string> = {
   how_s3_t: "Checkout dengan tenang",
   how_s3_d:
     "Sengketa diselesaikan adil dengan bukti video dan verifikasi keaslian. Dana baru cair setelah barang terbukti cocok — bukan sekadar setelah dikirim.",
+  how_s3_scanner_align: "MEMINDAI EMBOSS PART · COCOK 2NR-VE",
+  /* Audit-fixed (R5): no fabricated guarantees — the protection promise is the
+     approved prot_r* rows; the badge states only the scan outcome. */
+  how_s3_scanner_verified: "TERVERIFIKASI OTENTIK",
+  why_ds_title: "Lingkaran Setan Analog.",
+  why_ds_sub: "Jaringan distribusi suku cadang saat ini merugikan kedua belah pihak.",
+  why_ds_c1_t: "Efek Domino Margin",
+  why_ds_c1_d: "Setiap pemindahan tangan membebankan tambahan marjin buta ~15%.",
+  why_ds_c2_t: "Injeksi Suku Cadang KW",
+  why_ds_c2_d: "Masuknya komponen OEM palsu merajalela melalui broker WhatsApp tanpa verifikasi.",
+  why_ds_c3_t: "Belenggu COD",
+  why_ds_c3_d: "Grosir konvensional membekukan modal kerja dengan memaksa bayar 100% tunai.",
+  /* Death-spiral mockup labels (R5 audit): keyed EN+ID, generic — no real
+     manufacturer names on marketing surfaces, no hype punctuation. */
+  why_ds_n_base: "Produsen",
+  why_ds_n_base_tag: "Harga dasar",
+  why_ds_n1: "Dealer utama",
+  why_ds_n2: "Grosir regional",
+  why_ds_n3: "Broker offline",
+  why_ds_scan_ok: "Terautentikasi",
+  why_ds_scan_bad: "Peringatan: palsu terdeteksi",
+  why_ds_cod_l: "Butuh buffer tunai 100%",
+  why_ds_cod_lock: "Modal terkunci",
   prot_r1: "✓ Penyelesaian sengketa dengan bukti video",
   prot_r2: "✓ Verifikasi barang asli",
   prot_r3: "✓ Dana cair setelah barang cocok",
