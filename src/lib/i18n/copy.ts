@@ -113,15 +113,12 @@ const en = {
   how_s2_d_short: "Every listing is checked for fitment before you ever see it.",
   how_s2_fnl_q1: "Brake Pads",
   how_s2_fnl_q2: "+ Toyota",
-  how_s2_fnl_q3: "+ Avanza G 2018",
+  how_s2_fnl_q3: "+ Avanza G 2019",
   how_s2_fnl_c1: "14,002",
   how_s2_fnl_c2: "3,012",
   how_s2_fnl_c3: "4",
   how_s2_fnl_badge: "EXACT FIT",
   how_s2_fnl_unit: "listings",
-  fit_r1: "Oil filter — 2NR-VE engine",
-  fit_r2: "Front shock absorber",
-  fit_r3: "Wrong-generation bumper",
   how_s3_t: "Check out protected",
   how_s3_d:
     "Fair resolution with video evidence and authenticity verification. Funds release when the part fits — not just when it ships.",
@@ -262,7 +259,7 @@ const en = {
   indo_city: "Jakarta",
   indo_note: "— first market, 2026",
   foot_tag: "One platform to unify Indonesia's auto industry.",
-  foot_copyright: "Mobeeli — Jakarta, Indonesia · 2026",
+  foot_copyright: "Mobeeli — Jakarta, Indonesia",
 
   /* Join Waitlist page (F-007) — keys mirror the Join Waitlist.dc.html TXT map, jw_-prefixed. */
   jw_back_home: "← Back to Mobeeli",
@@ -443,15 +440,12 @@ const id: Record<CopyKey, string> = {
   how_s2_d_short: "Setiap listing sudah dicek kecocokannya sebelum sampai ke layar Anda.",
   how_s2_fnl_q1: "Kampas Rem",
   how_s2_fnl_q2: "+ Toyota",
-  how_s2_fnl_q3: "+ Avanza G 2018",
+  how_s2_fnl_q3: "+ Avanza G 2019",
   how_s2_fnl_c1: "14.002",
   how_s2_fnl_c2: "3.012",
   how_s2_fnl_c3: "4",
   how_s2_fnl_badge: "EXACT FIT",
   how_s2_fnl_unit: "listing",
-  fit_r1: "Filter oli — mesin 2NR-VE",
-  fit_r2: "Sokbreker depan",
-  fit_r3: "Bumper beda generasi",
   how_s3_t: "Checkout dengan tenang",
   how_s3_d:
     "Sengketa diselesaikan adil dengan bukti video dan verifikasi keaslian. Dana baru cair setelah barang terbukti cocok — bukan sekadar setelah dikirim.",
@@ -593,7 +587,7 @@ const id: Record<CopyKey, string> = {
   indo_city: "Jakarta",
   indo_note: "— pasar pertama, 2026",
   foot_tag: "Satu platform yang menyatukan industri otomotif Indonesia.",
-  foot_copyright: "Mobeeli — Jakarta, Indonesia · 2026",
+  foot_copyright: "Mobeeli — Jakarta, Indonesia",
 
   /* Join Waitlist page (F-007) — keys mirror the Join Waitlist.dc.html TXT map, jw_-prefixed. */
   jw_back_home: "← Kembali ke Mobeeli",

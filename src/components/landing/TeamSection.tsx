@@ -65,14 +65,20 @@ export default function TeamSection() {
               <div className="mb-team-body">
                 <div className="mb-team-namerow">
                   <div className="mb-team-name">{t(founder.name)}</div>
-                  <a
-                    href={founder.linkedin ?? "#"}
-                    {...(founder.linkedin ? { target: "_blank", rel: "noopener" } : {})}
-                    aria-label={`LinkedIn — ${t(founder.name)}`}
-                    className="mb-team-li"
-                  >
-                    in
-                  </a>
+                  {/* Only render the LinkedIn link when a real URL exists — a
+                      founder without one no longer ships a dead href="#" that
+                      announces "LinkedIn" and scrolls to top (audit R6). */}
+                  {founder.linkedin && (
+                    <a
+                      href={founder.linkedin}
+                      target="_blank"
+                      rel="noopener"
+                      aria-label={`LinkedIn — ${t(founder.name)}`}
+                      className="mb-team-li"
+                    >
+                      in
+                    </a>
+                  )}
                 </div>
                 <div className="mb-team-role">{t(founder.role)}</div>
                 <p className="mb-team-bio">{t(founder.bio)}</p>

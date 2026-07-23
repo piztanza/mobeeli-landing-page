@@ -55,7 +55,7 @@ describe("Hypothesis 1 — Search-Funnel Narrowing Simulator in Step 2", () => {
       "utf8",
     );
     const funnelBlock = landingCss.slice(landingCss.indexOf(".mb-funnel-sim {"));
-    const funnelCss = funnelBlock.slice(0, funnelBlock.indexOf(".mb-fit-row"));
+    const funnelCss = funnelBlock.slice(0, funnelBlock.indexOf(".mb-prot-row"));
     // The platform repo's emerald/indigo tokens are banned on the landing.
     expect(funnelCss).not.toMatch(/#10b981|#34d399|#818cf8|16,\s*185,\s*129/i);
     expect(funnelCss).toMatch(/\.mb-funnel-num\.is-exact \{[^}]*var\(--mb-light-accent\);/s);

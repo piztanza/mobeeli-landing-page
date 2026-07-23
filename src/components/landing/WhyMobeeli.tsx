@@ -21,6 +21,10 @@ export default function WhyMobeeli() {
           {t("why_p")}
         </p>
         <div data-rev="3" className="mb-why-ds-wrap">
+          {/* The ported death-spiral section's own heading (was dropped in the
+              port, leaving why_ds_title/why_ds_sub orphaned — audit R6). */}
+          <h3 className="mb-why-ds-title">{t("why_ds_title")}</h3>
+          <p className="mb-why-ds-sub">{t("why_ds_sub")}</p>
           <AnalogDeathSpiral />
         </div>
       </div>

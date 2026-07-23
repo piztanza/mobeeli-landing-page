@@ -175,11 +175,14 @@ export default function Nav({ overlay = false }: { overlay?: boolean }) {
             width={2891}
             height={1109}
           />
+          {/* Both variants carry the accessible name: only ONE is ever in the
+              a11y tree (the hidden one is display:none), so the home link is
+              always named — including the transparent overlay state where the
+              white variant is the visible one (a11y fix, R6). */}
           <Image
             className="mb-nav-logo-white"
             src="/assets/mobeeli-logo-white.png"
-            alt=""
-            aria-hidden
+            alt="Mobeeli"
             width={2891}
             height={1109}
           />

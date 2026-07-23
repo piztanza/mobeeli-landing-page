@@ -33,9 +33,15 @@ describe("nav overlay variant (landing only)", () => {
     const logo = html.match(/<a[^>]*mb-nav-logo[^>]*>[\s\S]*?<\/a>/)?.[0] ?? "";
     expect(logo).toContain("mobeeli-logo-blue.png");
     expect(logo).toContain("mobeeli-logo-white.png");
+    // a11y fix (R6): BOTH logo variants carry the accessible name and neither
+    // is aria-hidden — only one is ever in the a11y tree (the other is
+    // display:none), so the home link is always named, including the
+    // transparent overlay state where the white variant is visible.
     const whiteImg = logo.match(/<img[^>]*mb-nav-logo-white[^>]*>/)?.[0] ?? "";
-    expect(whiteImg).toContain('aria-hidden="true"');
-    expect(whiteImg).toContain('alt=""');
+    expect(whiteImg).not.toContain("aria-hidden");
+    expect(whiteImg).toContain('alt="Mobeeli"');
+    const blueImg = logo.match(/<img[^>]*mb-nav-logo-blue[^>]*>/)?.[0] ?? "";
+    expect(blueImg).toContain('alt="Mobeeli"');
   });
 
   it("<Nav /> stays the solid default", () => {
