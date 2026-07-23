@@ -67,6 +67,11 @@ export default function FitmentSection() {
           {t("fit3d_kicker")}
         </div>
         <div data-rev="1" className="mb-fit3d-stage">
+          <div className="mb-fit3d-telemetry">
+            <span className="mb-dot mb-pulse" aria-hidden />
+            <span>{t("fit3d_chip")}</span>
+          </div>
+          <div className="mb-fit3d-stage-glow" aria-hidden />
           <div className="mb-hero-scene">
             <FitmentWheel lang={lang} isStatic={reduced} onFirstLoop={() => setCardsShown(true)} />
           </div>

@@ -98,6 +98,21 @@ export default function HowItWorks() {
             <div className="mb-step-num">3</div>
             <h3 className="mb-step-t">{t("how_s3_t")}</h3>
             <p className="mb-step-d">{t("how_s3_d")}</p>
+            {/* Scanner visual ADDS to the approved protection rows — it must
+                never replace them (audit-restored copy). */}
+            <div className="mb-scanner-box">
+              <div className="mb-scanner-stage">
+                <div className="mb-scanner-laser" aria-hidden />
+                <div className="mb-scanner-grid" aria-hidden />
+                <div className="mb-scanner-text">{t("how_s3_scanner_align")}</div>
+              </div>
+              <div className="mb-verified-badge">
+                <span className="mb-verified-icon" aria-hidden>
+                  {"✓"}
+                </span>
+                <span>{t("how_s3_scanner_verified")}</span>
+              </div>
+            </div>
             <div className="mb-step-stack">
               <div className="mb-prot-row">{t("prot_r1")}</div>
               <div className="mb-prot-row">{t("prot_r2")}</div>
