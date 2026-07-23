@@ -17,7 +17,7 @@ const joinCss = readFileSync(new URL("../src/components/join/join.css", import.m
 const NAV_HREFS = [
   "/#problem",
   "/#how-it-works",
-  "/#why-now",
+  "/why-mobeeli",
   "/early-adaptors",
   "/team",
   "/investors",

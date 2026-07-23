@@ -204,7 +204,7 @@ describe("landing page render (F-001 + F-009)", () => {
     for (const href of [
       "/#problem",
       "/#how-it-works",
-      "/#why-now",
+      "/why-mobeeli",
       "/early-adaptors",
       "/team",
       "/investors",

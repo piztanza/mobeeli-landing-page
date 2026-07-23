@@ -69,6 +69,7 @@ const SECTION_PAGE_COPY = {
   "/team": { titleKey: "nav_team", descriptionKey: "team_h2" },
   "/early-adaptors": { titleKey: "nav_early", descriptionKey: "early_h2" },
   "/investors": { titleKey: "nav_inv", descriptionKey: "inv_p" },
+  "/why-mobeeli": { titleKey: "nav_why", descriptionKey: "why_h2" },
 } as const satisfies Record<string, { titleKey: CopyKey; descriptionKey: CopyKey }>;
 
 /** Routes for the sections moved off the landing page (CHG-piztanza-09). */

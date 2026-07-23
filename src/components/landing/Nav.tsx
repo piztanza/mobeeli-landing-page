@@ -19,11 +19,12 @@ import { scrollToSectionId } from "@/lib/scroll/sectionScroll";
 import { useActiveSection } from "./ActiveSectionProvider";
 
 // Landing anchors are /#id links so they resolve from every page, not just /
-// (CHG-piztanza-09); Team, Early Adaptors and Investors live on their own routes.
+// (CHG-piztanza-09); Team, Early Adaptors, Investors and Why Mobeeli (the
+// data page, redesign phase 3) live on their own routes.
 const NAV_LINKS: readonly (readonly [href: string, key: CopyKey])[] = [
   ["/#problem", "nav_problem"],
   ["/#how-it-works", "nav_how"],
-  ["/#why-now", "nav_why"],
+  ["/why-mobeeli", "nav_why"],
   ["/early-adaptors", "nav_early"],
   ["/team", "nav_team"],
   ["/investors", "nav_inv"],

@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 import EarlyAdaptorsPage, { metadata as earlyAdaptorsMetadata } from "@/app/early-adaptors/page";
 import InvestorsPage, { metadata as investorsMetadata } from "@/app/investors/page";
 import TeamPage, { metadata as teamMetadata } from "@/app/team/page";
+import WhyMobeeliPage, { metadata as whyMobeeliMetadata } from "@/app/why-mobeeli/page";
 import sitemap from "@/app/sitemap";
 import { FOUNDER_EMAILS } from "@/components/landing/Investors";
 import { t, type CopyKey } from "@/lib/i18n";
@@ -19,9 +20,9 @@ function esc(s: string): string {
     .replace(/'/g, "&#x27;");
 }
 
-/** The three section pages split off the landing stack (CHG-piztanza-09). */
+/** The section pages split off the landing stack (CHG-piztanza-09 + redesign phase 3). */
 const PAGES: readonly {
-  path: "/team" | "/early-adaptors" | "/investors";
+  path: "/team" | "/early-adaptors" | "/investors" | "/why-mobeeli";
   Page: () => ReactElement;
   metadata: typeof teamMetadata;
   titleKey: CopyKey;
@@ -56,6 +57,15 @@ const PAGES: readonly {
     sectionId: "investors",
     h2Key: "inv_h2",
   },
+  {
+    path: "/why-mobeeli",
+    Page: WhyMobeeliPage,
+    metadata: whyMobeeliMetadata,
+    titleKey: "nav_why",
+    descriptionKey: "why_h2",
+    sectionId: "why-now",
+    h2Key: "why_h2",
+  },
 ];
 
 describe.each(PAGES)(
@@ -83,7 +93,7 @@ describe.each(PAGES)(
       for (const href of [
         "/#problem",
         "/#how-it-works",
-        "/#why-now",
+        "/why-mobeeli",
         "/early-adaptors",
         "/team",
         "/investors",
@@ -121,6 +131,18 @@ describe("section page specifics (CHG-piztanza-09)", () => {
   it("/team renders the 3 founder cards", () => {
     const html = renderToStaticMarkup(<TeamPage />);
     for (const key of ["team_n1", "team_n2", "team_n3"] as const) {
+      expect(html).toContain(esc(t("en", key)));
+    }
+  });
+
+  it("/early-adaptors hosts the AI catalog demo moved off the slim landing", () => {
+    const html = renderToStaticMarkup(<EarlyAdaptorsPage />);
+    expect(html).toContain(esc(t("en", "cat_h2")));
+  });
+
+  it("/why-mobeeli gathers the pain tiles, search comparison and proof bar", () => {
+    const html = renderToStaticMarkup(<WhyMobeeliPage />);
+    for (const key of ["prob_t1_t", "cmp_h", "pf1_l"] as const) {
       expect(html).toContain(esc(t("en", key)));
     }
   });
