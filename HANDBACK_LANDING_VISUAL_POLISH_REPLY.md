@@ -168,3 +168,43 @@ Good: the network SVG port is clean (blues, reduced-gated, inert), the scanner m
 and death-spiral structure are solid, tests shipped with everything, and the uncommitted
 handback discipline held. **Next: seams polish continues; the G-gates remain the ceiling —
 founder stamps unlock G1/G2.** Suite 301/42 green, pushed e2eef73.
+
+---
+
+# R6 deep audit — both repos (2026-07-23, latest)
+
+A 4-lens code audit (find → independently refute each finding) surfaced 16 confirmed
+defects and correctly dismissed 10 false positives. All 16 fixed except two that are
+FOUNDER DECISIONS (flagged, not auto-fixed):
+
+**⚠️ FOUNDER DECISION 1 — the 0% offer number is a live contract risk.** Both the landing
+AND the platform publicly promise "0% platform fee for the first 300 shops." But the
+platform's internal program is the "Founding-50": `resolve-merchant-fee.ts` ties the 0%
+tier to "the Founding-50 land-grab", `FOUNDING_50_ENFORCEMENT_SPEC.md` hard-caps it at 50
+seats (blocks seat 51), and `FINANCIAL_MODEL.md` funds exactly 50 (~$7k). So the public
+number (300) is 6× the designed/capped/funded number (50). If enforcement ships, shops
+51–300 who sign up on the 0% promise get rejected; if honored to 300, the budget
+under-provisions ~6×. **Founder must set the real number and reconcile the marketing copy
+with the enforcement spec + financial model.** (Landing copy: `early_h2`, `pf2_l`;
+platform: page.tsx:296.)
+
+**⚠️ FOUNDER DECISION 2 — canonical demo vehicle.** The flagship Avanza appears as 2018 /
+2019 / 2024 with trim 1.5 G vs 1.5 G TSS across the two sites. Fixed the landing's internal
+split (chip 2018 → 2019 to match the hero card). The platform still shows 2024 (hero) vs
+2018 (elsewhere). Recommend canonical **"Toyota Avanza 1.5 G 2019"** everywhere; on the
+founder's OK I'll sweep the platform.
+
+**Fixed in R6 (landing, pushed):** nav home-link a11y name in the transparent overlay state
+(both logo variants now named, neither aria-hidden); "Tokopedia/Shopee" wizard chip →
+generic (CLAUDE.md #2); footer copyright → the exact mandated string; death-spiral section
+heading restored (why_ds_title/sub were orphaned in the port); dead CEO LinkedIn href="#"
+now conditional; dead CSS/keys removed (.mb-fit-row + fit_r1/2/3, .mb-float-*,
+.mb-deckform-select); stale "Early Adaptors" comment. Plus R6 earlier: double-logo bug,
+bigger logo, GeistSans type system.
+
+**Fixed in R6 (platform, pushed to feat/mobeeli-brand-security):** Denso card color
+collision (blue-500 → #5b9bf7); degenerate flat gradients restored to two-tone; stale
+"Platform Fee (10%)" label dropped; and — the original founder ask — `/platform/analytics`
+deleted from the public surface entirely.
+
+Suite 302/42 green. Both branches pushed, unmerged.
