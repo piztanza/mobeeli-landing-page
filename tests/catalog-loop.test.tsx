@@ -208,7 +208,7 @@ describe("AiCatalogCard render (F-005)", () => {
     expect(html).not.toContain(t("en", "cat_ai_read"));
     expect(html).toContain(t("en", "cat_pill"));
     // every shipped sprite renders its name chip (hidden at rest via CSS)
-    for (const key of ["scn2", "scn3", "scn4", "scn5", "scn6"] as const) {
+    for (const key of ["scn1", "scn2", "scn3", "scn4", "scn5", "scn6"] as const) {
       expect(html).toContain(`>${t("en", key)}</span>`);
     }
   });
