@@ -39,5 +39,5 @@
     "/deck-admin duration controls (quick options + custom hours + link display/copy) still work",
     "Suite green with updated email tests"
   ],
-  "status": "building"
+  "status": "merged"
 }
