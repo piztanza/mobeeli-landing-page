@@ -69,7 +69,7 @@ export default function BuyerStrip() {
         ) : !open ? (
           <button
             type="button"
-            className="mb-buyer-cta"
+            className="mb-buyer-cta mb-btn-spring"
             aria-expanded={false}
             onClick={() => setOpen(true)}
           >
@@ -112,7 +112,11 @@ export default function BuyerStrip() {
               aria-label={t("buyer_email_label")}
               aria-invalid={Boolean(errorKey)}
             />
-            <button type="submit" className="mb-buyer-cta mb-buyer-send" disabled={submitting}>
+            <button
+              type="submit"
+              className="mb-buyer-cta mb-buyer-send mb-btn-spring"
+              disabled={submitting}
+            >
               {submitting ? t("buyer_sending") : t("buyer_send")}
             </button>
             {errorKey && (

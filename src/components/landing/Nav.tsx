@@ -187,7 +187,7 @@ export default function Nav({ overlay = false }: { overlay?: boolean }) {
         <div className="mb-nav-links">{NAV_LINKS.map(sectionLink)}</div>
         <div className="mb-nav-spacer" />
         <LangToggle />
-        <Link href="/join" className="mb-nav-cta">
+        <Link href="/join" className="mb-nav-cta mb-btn-spring">
           {t("nav_cta")}
         </Link>
         <button
@@ -214,7 +214,7 @@ export default function Nav({ overlay = false }: { overlay?: boolean }) {
         <div className="mb-nav-sheet-links">{NAV_LINKS.map(sectionLink)}</div>
         <div className="mb-nav-sheet-foot">
           <LangToggle />
-          <Link href="/join" className="mb-nav-cta" onClick={close}>
+          <Link href="/join" className="mb-nav-cta mb-btn-spring" onClick={close}>
             {t("nav_cta")}
           </Link>
         </div>

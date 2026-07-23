@@ -30,7 +30,9 @@ export default function Footer() {
         </div>
         <div className="mb-footer-bottom">
           <div className="mb-footer-contact">
-            <a href="mailto:info@mobeeli.com">info@mobeeli.com</a>
+            <a className="mb-link-underline" href="mailto:info@mobeeli.com">
+              info@mobeeli.com
+            </a>
           </div>
           <div className="mb-footer-copy">{t("foot_copyright")}</div>
         </div>

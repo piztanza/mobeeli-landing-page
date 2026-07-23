@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { useGlowCards } from "@/lib/hooks/useGlowCards";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { useT } from "@/lib/i18n/LanguageProvider";
 
@@ -9,10 +10,12 @@ import { useT } from "@/lib/i18n/LanguageProvider";
  * How it works, slimmed for the redesigned landing: the 3 step cards only.
  * Step 2 features the search-funnel narrowing simulator ported from platform
  * (Hypothesis 1, zero framer motion, recolored to Mobeeli blue system).
+ * Cards feature Q1 cursor-tracked glow-border system.
  */
 export default function HowItWorks() {
   const t = useT();
   const reduced = useReducedMotion();
+  const glowRef = useGlowCards<HTMLElement>();
   const [funnelStep, setFunnelStep] = useState(0);
 
   useEffect(() => {
@@ -26,7 +29,7 @@ export default function HowItWorks() {
   const stepIndex = reduced ? 2 : funnelStep;
 
   return (
-    <section id="how-it-works" className="mb-section mb-how">
+    <section ref={glowRef} id="how-it-works" className="mb-section mb-how">
       <div className="mb-section-inner">
         <div data-rev="0" className="mb-kicker">
           {t("how_kicker")}
@@ -35,7 +38,7 @@ export default function HowItWorks() {
           {t("how_h2")}
         </h2>
         <div className="mb-grid3">
-          <div data-rev="0" className="mb-step-card">
+          <div data-rev="0" className="mb-step-card mb-glow-card">
             <div className="mb-step-num">1</div>
             <h3 className="mb-step-t">{t("how_s1_t")}</h3>
             <p className="mb-step-d">{t("how_s1_d")}</p>
@@ -58,7 +61,7 @@ export default function HowItWorks() {
               </div>
             </div>
           </div>
-          <div data-rev="1" className="mb-step-card">
+          <div data-rev="1" className="mb-step-card mb-glow-card">
             <div className="mb-step-num">2</div>
             <h3 className="mb-step-t">{t("how_s2_t")}</h3>
             <p className="mb-step-d">{t("how_s2_d_short")}</p>
@@ -91,7 +94,7 @@ export default function HowItWorks() {
               </div>
             </div>
           </div>
-          <div data-rev="2" className="mb-step-card">
+          <div data-rev="2" className="mb-step-card mb-glow-card">
             <div className="mb-step-num">3</div>
             <h3 className="mb-step-t">{t("how_s3_t")}</h3>
             <p className="mb-step-d">{t("how_s3_d")}</p>

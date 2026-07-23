@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
+import { useGlowCards } from "@/lib/hooks/useGlowCards";
 import { useMagneticCTA } from "@/lib/hooks/useMagneticCTA";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { useLang, useT } from "@/lib/i18n/LanguageProvider";
@@ -34,6 +35,7 @@ export default function Hero() {
   const reduced = useReducedMotion();
   const primaryCtaRef = useMagneticCTA<HTMLAnchorElement>();
   const secondaryCtaRef = useMagneticCTA<HTMLAnchorElement>();
+  const heroGlowRef = useGlowCards<HTMLDivElement>();
   const [cardsShown, setCardsShown] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -57,7 +59,8 @@ export default function Hero() {
   }, []);
 
   const shown = cardsShown || reduced;
-  const cardClass = (extra: string) => `mb-herocard ${extra}${shown ? " is-in" : ""}`;
+  const cardClass = (extra: string) =>
+    `mb-herocard mb-glow-card mb-glow-card-fill ${extra}${shown ? " is-in" : ""}`;
   const cardDelay = (i: number) =>
     cardsShown && !reduced ? { transitionDelay: `${i * HERO_CARD_STAGGER_MS}ms` } : undefined;
 
@@ -105,7 +108,7 @@ export default function Hero() {
             </Link>
           </div>
         </div>
-        <div data-rev="2" className="mb-hero-visual">
+        <div ref={heroGlowRef} data-rev="2" className="mb-hero-visual">
           <div className="mb-hero-scene">
             <FitmentWheel lang={lang} isStatic={reduced} onFirstLoop={() => setCardsShown(true)} />
           </div>

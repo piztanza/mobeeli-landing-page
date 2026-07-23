@@ -207,7 +207,7 @@ describe("landing page render (F-001 + F-009)", () => {
   it("renders the Variant-B band order — archipelago third, catalog demo before the buyer strip", () => {
     const bands = [
       t("en", "hero_chip"), // hero (dark, full viewport)
-      t("en", "prob_h2"), // the problem, slim (light)
+      t("en", "quote_main"), // the problem, slim (light)
       t("en", "uni_h2"), // unify band / archipelago (dark, full section)
       t("en", "how_h2"), // how it works, slim (light)
       t("en", "cat_h2"), // AI catalog demo (returned by founder decision)

@@ -48,6 +48,22 @@
   --mb-section-y: 96px;
 }
 
+/* Code-level tokens (dark-band material Q2 + motion standard Q4) — NOT part of
+   the .ba/design/style.json contract block above, same register as the a11y
+   tokens below. */
+:root {
+  --mb-ink-dp1: #0a1019;
+  --mb-ink-dp2: #111927;
+  --mb-ink-dp3: #16202f;
+  --mb-hairline-subtle: rgba(255, 255, 255, 0.08);
+  --mb-hairline-med: rgba(255, 255, 255, 0.12);
+  --mb-shadow-linear-4layer: inset 0 0 0 1px rgba(255, 255, 255, 0.03), inset 0 1px rgba(255, 255, 255, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.56), 0 4px 4px rgba(0, 0, 0, 0.1);
+  --mb-ease-entrance: cubic-bezier(0.19, 1, 0.22, 1);
+  --mb-duration-entrance: 480ms;
+  --mb-stagger-entrance: 70ms;
+  --mb-ease-spring-btn: linear(0, 1.25, 1, 0.9, 1.04, 0.99, 1.005, 0.996, 1.001, 0.999, 1);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -67,6 +83,7 @@ body {
 h1,
 h2,
 h3 {
+  font-weight: 600;
   text-wrap: balance;
 }
 
