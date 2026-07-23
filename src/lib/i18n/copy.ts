@@ -46,6 +46,11 @@ const en = {
   hero_chip: "Launching 2026 — Jakarta, Indonesia",
   hero_sub:
     "Mobeeli is the trust infrastructure for Indonesia's $5.3B automotive aftermarket — a parts marketplace where fitment is verified before checkout, sellers keep more of every sale, and both sides are protected.",
+  /* Slim-landing hero sub (redesign phase 4) — the deck's approved thesis line
+     (mobeeli-site: One platform to unify Indonesia's auto industry), kept broad
+     per founder direction: no market figures, no moat mechanics on the front page. */
+  hero_sub_short:
+    "One platform to unify Indonesia's auto industry — brands, distributors, stores, mechanics and drivers on one verified catalog.",
   hero_cta_inv: "For investors",
   hero_cta_shops: "Join Early Adaptor Program",
   card_part_name: "Front brake pad set",
@@ -99,6 +104,9 @@ const en = {
   ymm_tr_v: "1.5 G · ✓",
   how_s2_t: "See only parts that fit",
   how_s2_d: "Every listing is checked against 120M+ fitment mappings before you ever see it.",
+  /* Broad variant for the slim landing (redesign phase 4) — founder direction:
+     moat specifics (mapping counts) stay off the front page. */
+  how_s2_d_short: "Every listing is checked for fitment before you ever see it.",
   fit_r1: "Oil filter — 2NR-VE engine",
   fit_r2: "Front shock absorber",
   fit_r3: "Wrong-generation bumper",
@@ -333,6 +341,11 @@ const id: Record<CopyKey, string> = {
   hero_chip: "Launching 2026 — Jakarta, Indonesia",
   hero_sub:
     "Mobeeli adalah infrastruktur kepercayaan untuk aftermarket otomotif Indonesia senilai $5,3 miliar — marketplace suku cadang tempat setiap barang dipastikan cocok sebelum checkout, penjual membawa pulang lebih banyak dari tiap transaksi, dan dua belah pihak sama-sama terlindungi.",
+  /* Slim-landing hero sub (redesign phase 4) — the deck's approved thesis line
+     (mobeeli-site: One platform to unify Indonesia's auto industry), kept broad
+     per founder direction: no market figures, no moat mechanics on the front page. */
+  hero_sub_short:
+    "Satu platform yang menyatukan industri otomotif Indonesia — merek, distributor, toko, mekanik, dan pengemudi dalam satu katalog terverifikasi.",
   hero_cta_inv: "Untuk investor",
   hero_cta_shops: "Gabung Program Early Adaptor",
   card_part_name: "Kampas rem depan",
@@ -386,6 +399,9 @@ const id: Record<CopyKey, string> = {
   ymm_tr_v: "1.5 G · ✓",
   how_s2_t: "Lihat yang cocok saja",
   how_s2_d: "Setiap listing sudah dicek ke 120 juta+ data kecocokan sebelum sampai ke layar Anda.",
+  /* Broad variant for the slim landing (redesign phase 4) — founder direction:
+     moat specifics (mapping counts) stay off the front page. */
+  how_s2_d_short: "Setiap listing sudah dicek kecocokannya sebelum sampai ke layar Anda.",
   fit_r1: "Filter oli — mesin 2NR-VE",
   fit_r2: "Sokbreker depan",
   fit_r3: "Bumper beda generasi",

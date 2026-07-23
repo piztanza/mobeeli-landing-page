@@ -2,9 +2,11 @@
 
 import { useT } from "@/lib/i18n/LanguageProvider";
 
-import SearchComparison from "./SearchComparison";
-
-/** How it works — 3 step cards + the "same search, two outcomes" comparison. */
+/**
+ * How it works, slimmed for the redesigned landing: the 3 step cards only.
+ * The "same search, two outcomes" comparison (SearchComparison) moved to
+ * /why-mobeeli.
+ */
 export default function HowItWorks() {
   const t = useT();
   return (
@@ -43,7 +45,7 @@ export default function HowItWorks() {
           <div data-rev="1" className="mb-step-card">
             <div className="mb-step-num">2</div>
             <h3 className="mb-step-t">{t("how_s2_t")}</h3>
-            <p className="mb-step-d">{t("how_s2_d")}</p>
+            <p className="mb-step-d">{t("how_s2_d_short")}</p>
             <div className="mb-step-stack">
               <div className="mb-fit-row">
                 <span className="mb-fit-thumb" aria-hidden />
@@ -73,7 +75,6 @@ export default function HowItWorks() {
             </div>
           </div>
         </div>
-        <SearchComparison />
       </div>
     </section>
   );

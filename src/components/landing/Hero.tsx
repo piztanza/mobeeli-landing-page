@@ -67,7 +67,7 @@ export default function Hero() {
           </div>
           <HeroRotator />
           <p data-rev="2" className="mb-hero-sub">
-            {t("hero_sub")}
+            {t("hero_sub_short")}
           </p>
           <div data-rev="3" className="mb-hero-ctas">
             <Link href="/early-adaptors" className="mb-btn-primary-dark">
