@@ -8,7 +8,7 @@ export const metadata: Metadata = landingMetadata();
 
 /**
  * Landing page — approved section stack (F-001) with the hero headline
- * rotation (F-003) and waitlist CTA wiring (F-009). Early Adaptors, Team and
+ * rotation (F-003) and waitlist CTA wiring (F-009). Early Adopters, Team and
  * Investors live on their own routes (CHG-piztanza-09). The 3D scenes
  * (F-002, F-006) and the AI-catalog animation loop (F-005) ship separately.
  */

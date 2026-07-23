@@ -10,7 +10,9 @@ export const GARAGE_TOOLS = [
   "Excel",
   "Buku Manual",
   "Scanner",
-  "Tokopedia/Shopee",
+  // Generic per CLAUDE.md rule #2 — never name specific marketplaces
+  // (was "Tokopedia/Shopee").
+  "Marketplace Online",
   "WhatsApp Order",
   "Custom POS",
   "None",

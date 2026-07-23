@@ -18,7 +18,7 @@
   min-height: 100vh;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(440px, 100%), 1fr));
-  font-family: var(--mb-font);
+  font-family: var(--mb-font-text);
   background: var(--mb-bg);
   color: var(--mb-ink);
 }
@@ -219,7 +219,7 @@
   background: transparent;
   color: #3c4654;
   font:
-    700 12px var(--mb-font),
+    700 12px var(--mb-font-text),
     sans-serif;
   padding: 5px 11px;
   border-radius: var(--mb-radius-pill);

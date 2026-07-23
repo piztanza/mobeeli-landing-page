@@ -33,9 +33,15 @@ describe("nav overlay variant (landing only)", () => {
     const logo = html.match(/<a[^>]*mb-nav-logo[^>]*>[\s\S]*?<\/a>/)?.[0] ?? "";
     expect(logo).toContain("mobeeli-logo-blue.png");
     expect(logo).toContain("mobeeli-logo-white.png");
+    // a11y fix (R6): BOTH logo variants carry the accessible name and neither
+    // is aria-hidden — only one is ever in the a11y tree (the other is
+    // display:none), so the home link is always named, including the
+    // transparent overlay state where the white variant is visible.
     const whiteImg = logo.match(/<img[^>]*mb-nav-logo-white[^>]*>/)?.[0] ?? "";
-    expect(whiteImg).toContain('aria-hidden="true"');
-    expect(whiteImg).toContain('alt=""');
+    expect(whiteImg).not.toContain("aria-hidden");
+    expect(whiteImg).toContain('alt="Mobeeli"');
+    const blueImg = logo.match(/<img[^>]*mb-nav-logo-blue[^>]*>/)?.[0] ?? "";
+    expect(blueImg).toContain('alt="Mobeeli"');
   });
 
   it("<Nav /> stays the solid default", () => {
@@ -86,6 +92,17 @@ describe("nav overlay + hero viewport (CSS contracts)", () => {
     expect(hero).toMatch(/min-height: 100vh;[\s\S]*min-height: 100svh;/);
     expect(hero).toContain("align-items: center;");
     expect(hero).toMatch(/padding: calc\(66px \+ 40px\)/);
+  });
+
+  it("logo visibility is per-variant, never on the shared img rule (double-logo regression, R6)", () => {
+    // The bug: `.mb-nav-logo img { display: block }` (0,1,1) out-specified
+    // `.mb-nav-logo-white { display: none }` (0,1,0), showing BOTH logos on the
+    // solid/light nav. The shared img rule must carry sizing only.
+    const imgRule = landingCss.match(/\.mb-nav-logo img \{[^}]*\}/s)?.[0] ?? "";
+    expect(imgRule).not.toContain("display:");
+    expect(imgRule).toContain("height: 42px;"); // enlarged from 34px (founder)
+    expect(landingCss).toMatch(/\.mb-nav-logo-blue \{[^}]*display: block;/s);
+    expect(landingCss).toMatch(/\.mb-nav-logo-white \{[^}]*display: none;/s);
   });
 });
 

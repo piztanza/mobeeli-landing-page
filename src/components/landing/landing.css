@@ -28,22 +28,6 @@
 
 /* ---------- motion primitives (all disabled under reduced motion) ---------- */
 
-@keyframes mbFloatA {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-14px);
-  }
-}
-@keyframes mbFloatB {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-9px);
-  }
-}
 @keyframes mbPulse {
   0%,
   100% {
@@ -61,16 +45,6 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .mb-float-a {
-    animation: mbFloatA 5.5s ease-in-out infinite alternate;
-  }
-  .mb-float-a--slow {
-    animation-duration: 7s;
-    animation-delay: 1.3s;
-  }
-  .mb-float-b {
-    animation: mbFloatB 6.5s ease-in-out 0.8s infinite alternate;
-  }
   .mb-pulse {
     animation: mbPulse 2.4s ease-in-out infinite;
   }
@@ -171,9 +145,15 @@
   display: flex;
   align-items: center;
 }
+/* Sizing only — NO `display` here. Putting display:block on the shared img
+   rule (0,1,1) out-specified `.mb-nav-logo-white { display:none }` (0,1,0) and
+   showed BOTH logos on the solid/light nav (double-logo bug, R6). Visibility is
+   controlled per-variant at equal specificity below. Enlarged 34 -> 42px. */
 .mb-nav-logo img {
-  height: 34px;
+  height: 42px;
   width: auto;
+}
+.mb-nav-logo-blue {
   display: block;
 }
 .mb-nav-links {
@@ -1229,45 +1209,6 @@
 .mb-ymm-pill.is-active .mb-ymm-v {
   color: var(--mb-deep-blue-hover);
 }
-.mb-fit-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--mb-surface);
-  border: 1px solid #dde4f0;
-  border-radius: var(--mb-radius-input);
-  padding: 10px 14px;
-}
-.mb-fit-thumb {
-  width: 26px;
-  height: 26px;
-  flex: none;
-  border-radius: 7px;
-  background: repeating-linear-gradient(45deg, #eef1f6 0 6px, #e0e6f0 6px 12px);
-}
-.mb-fit-label {
-  font-size: 13px;
-  font-weight: 600;
-  flex: 1;
-}
-.mb-fit-mark {
-  color: var(--mb-deep-blue);
-  font-weight: 800;
-  font-size: 13px;
-}
-.mb-fit-row.is-bad {
-  border-color: #efe3e3;
-  opacity: 0.55;
-}
-.mb-fit-row.is-bad .mb-fit-thumb {
-  background: repeating-linear-gradient(45deg, #f4efef 0 6px, #eadfdf 6px 12px);
-}
-.mb-fit-row.is-bad .mb-fit-label {
-  text-decoration: line-through;
-}
-.mb-fit-row.is-bad .mb-fit-mark {
-  color: var(--mb-danger);
-}
 .mb-prot-row {
   background: var(--mb-surface);
   border: 1px solid #dde4f0;
@@ -1508,6 +1449,20 @@
 /* Port #1: HeroBackground SVG Bezier Network in /why-mobeeli header */
 .mb-why-ds-wrap {
   margin-top: 48px;
+}
+.mb-why-ds-title {
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0;
+}
+.mb-why-ds-sub {
+  margin: 8px 0 28px;
+  max-width: 620px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--mb-dark-muted);
 }
 .mb-network-bg {
   position: absolute;
@@ -2230,9 +2185,6 @@
 .mb-deckform-input.is-invalid {
   border-color: var(--mb-danger);
 }
-.mb-deckform-select {
-  cursor: pointer;
-}
 .mb-deckform-textarea {
   resize: none;
 }
@@ -2383,7 +2335,7 @@
   flex-wrap: wrap;
 }
 .mb-footer-logo img {
-  height: 32px;
+  height: 40px;
   width: auto;
   display: block;
 }

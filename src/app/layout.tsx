@@ -1,5 +1,5 @@
+import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import type { ReactNode } from "react";
 
 import { DEFAULT_LANG } from "@/lib/i18n";
@@ -19,16 +19,17 @@ export const metadata: Metadata = rootMetadata();
 /** theme-color #0d1522 per the change record. */
 export const viewport: Viewport = themeViewport;
 
-/** Text/UI face (R4 font system): Inter variable, self-hosted at build time by
- *  next/font (no runtime CDN — CLAUDE.md compliant). Display type stays
- *  Plus Jakarta Sans (the brand face, commissioned for Jakarta's city
- *  program); the pairing follows the display+text convention of the top
- *  product sites (Figma, GitHub, Mercury run Inter for UI text). */
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+/** Type system (R6): unified on GeistSans — Vercel's typeface, bundled and
+ *  self-hosted by the `geist` package via next/font (no runtime CDN,
+ *  CLAUDE.md compliant). One premium grotesque across text and display reads
+ *  cleaner than the earlier Inter/Plus-Jakarta split. `--font-geist-sans` is
+ *  its CSS variable; globals.css routes body + headings through it. Plus
+ *  Jakarta Sans stays available as a fallback token if a display accent is
+ *  wanted back. */
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang={DEFAULT_LANG} className={inter.variable}>
+    <html lang={DEFAULT_LANG} className={GeistSans.variable}>
       <body>
         {children}
         {/* Organization + WebSite JSON-LD (CHG-piztanza-07), server-rendered so
