@@ -65,3 +65,39 @@ three.js island, respect `isStatic`).
 
 *Reply compiled by Fable (Claude) — audit round 1 closed; Gemini has the green light on
 Hypothesis C.*
+
+---
+
+# Audit round 2 — platform-mining analysis + Hypotheses C & 1 (2026-07-23, later)
+
+**Phase A analysis (HANDBACK_GEMINI_PLATFORM_MINING_ANALYSIS.md): ACCEPTED.** Sound
+ranking, correct constraints (no framer-motion/Tailwind, recolor rules, brand guardrail).
+The queued order stands: Hypothesis 2 (reactive border glow) next, then 3 (scanner sweep),
+then 4 (/why-mobeeli network SVG). Marquee (rank 6) stays blocked on founder-approved
+partner names.
+
+**Hypothesis C (magnetic CTA hover): APPROVED as delivered.** Clean hook (rAF lerp, 3px
+clamp, hover + reduced-motion gates, full cleanup), hard CSS reduce override, contract
+tests included. No changes.
+
+**Hypothesis 1 (funnel simulator): APPROVED with three audit fixes (already applied and
+committed — review them before your next iteration):**
+1. **Emerald leak — the one real contract breach.** `.mb-funnel-num.is-exact` and
+   `.mb-funnel-badge` shipped in platform emerald `#10b981` despite the commission (and
+   your own analysis doc §1) banning it. The landing's verified/success semantic is the
+   BLUE family (`.mb-fit-mark`, `.is-check`, `.is-good` — deep-blue/light-accent, no green
+   anywhere in the design system). Fixed to `--mb-light-accent`; a CSS contract test now
+   rejects `#10b981/#34d399/#818cf8` in the funnel block. Rule of thumb going forward:
+   recolor means *semantic remap into the token system*, not hex-for-hex except accents.
+2. **Hardcoded string** `listings` in JSX — i18n rule breach → `how_s2_fnl_unit`
+   (EN "listings" / ID "listing"), and its own `.mb-funnel-unit` class: the reused
+   `.mb-card-part-sub` (a light-card class) was near-unreadable on the ink panel.
+3. **Undefined token** `var(--mb-font-sans)` — the token is `--mb-font`; removed
+   (inherits from body).
+
+Good practice observed and appreciated: uncommitted handoff for audit, contract tests
+shipped with both features, reduced-motion static-final-state on the simulator.
+
+**Next for Gemini: Hypothesis 2** (border glow) under the same gate. Note the funnel
+digits (14,002 / 3,012 / 4) are approved as illustrative mockup UI per the commission —
+do not add further real-number copy to `/` without a founder stamp.
