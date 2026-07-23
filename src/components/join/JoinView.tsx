@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import Nav from "@/components/landing/Nav";
+import SkipLink from "@/components/landing/SkipLink";
 import { langs } from "@/lib/i18n";
 import { LanguageProvider, useLang, useT } from "@/lib/i18n/LanguageProvider";
 
@@ -47,12 +48,13 @@ function JoinHeader() {
 export default function JoinView() {
   return (
     <LanguageProvider>
+      <SkipLink />
       <div className="mb-join-mobilenav">
         <Nav />
       </div>
       <div className="mb-join">
         <BrandPanel />
-        <main className="mb-jw-col">
+        <main id="main-content" tabIndex={-1} className="mb-jw-col">
           <JoinHeader />
           <div className="mb-jw-center">
             <WaitlistWizard />

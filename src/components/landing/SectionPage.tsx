@@ -9,6 +9,7 @@ import EarlyAdaptors from "./EarlyAdaptors";
 import Footer from "./Footer";
 import Investors from "./Investors";
 import Nav from "./Nav";
+import SkipLink from "./SkipLink";
 import TeamSection from "./TeamSection";
 
 import "./landing.css";
@@ -35,8 +36,9 @@ export default function SectionPage({ section }: { section: SectionPageId }) {
   return (
     <LanguageProvider>
       <div ref={rootRef} className="mb-landing">
+        <SkipLink />
         <Nav />
-        <main>
+        <main id="main-content" tabIndex={-1}>
           <Section />
         </main>
         <Footer />

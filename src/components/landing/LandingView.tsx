@@ -14,6 +14,7 @@ import HowItWorks from "./HowItWorks";
 import Nav from "./Nav";
 import ProblemSection from "./ProblemSection";
 import ProofBar from "./ProofBar";
+import SkipLink from "./SkipLink";
 import UnifyBand from "./UnifyBand";
 import WhyMobeeli from "./WhyMobeeli";
 
@@ -36,8 +37,9 @@ export default function LandingView() {
     <LanguageProvider>
       <ActiveSectionProvider>
         <div ref={rootRef} className="mb-landing">
+          <SkipLink />
           <Nav />
-          <main>
+          <main id="main-content" tabIndex={-1}>
             <Hero />
             <ProofBar />
             <ProblemSection />

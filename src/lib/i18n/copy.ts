@@ -41,6 +41,8 @@ const en = {
   /* Mobile hamburger nav a11y labels (CHG-piztanza-10) — not part of the design TXT map. */
   nav_menu_open: "Open menu",
   nav_menu_close: "Close menu",
+  /* Skip-to-content link (accessibility pass) — not part of the design TXT map. */
+  skip_to_content: "Skip to content",
   hero_chip: "Launching 2026 — Jakarta, Indonesia",
   hero_sub:
     "Mobeeli is the trust infrastructure for Indonesia's $5.3B automotive aftermarket — a parts marketplace where fitment is verified before checkout, sellers keep more of every sale, and both sides are protected.",
@@ -326,6 +328,8 @@ const id: Record<CopyKey, string> = {
   /* Mobile hamburger nav a11y labels (CHG-piztanza-10) — not part of the design TXT map. */
   nav_menu_open: "Buka menu",
   nav_menu_close: "Tutup menu",
+  /* Skip-to-content link (accessibility pass) — not part of the design TXT map. */
+  skip_to_content: "Langsung ke konten",
   hero_chip: "Launching 2026 — Jakarta, Indonesia",
   hero_sub:
     "Mobeeli adalah infrastruktur kepercayaan untuk aftermarket otomotif Indonesia senilai $5,3 miliar — marketplace suku cadang tempat setiap barang dipastikan cocok sebelum checkout, penjual membawa pulang lebih banyak dari tiap transaksi, dan dua belah pihak sama-sama terlindungi.",

@@ -70,6 +70,51 @@ h3 {
   text-wrap: balance;
 }
 
+/* Accessibility — focus-visible system + skip link. Code-level a11y tokens:
+   not part of the .ba/design/style.json contract above. */
+:root {
+  --mb-focus-ring: var(--mb-primary);
+}
+
+/* Keyboard-focus ring on every interactive element. :focus-visible keeps
+   pointer clicks on buttons/links ring-free; editable fields match it on any
+   focus, so inputs show the ring alongside their :focus border cue.
+   --mb-primary keeps >=3:1 non-text contrast on both the light
+   (--mb-bg/--mb-surface) and dark (--mb-ink) surfaces. */
+:focus-visible {
+  outline: 2px solid var(--mb-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Skip-link target: <main> takes programmatic focus only — never a ring.
+   scroll-margin keeps it clear of the 66px sticky nav on every page (the
+   .mb-landing [id] rule covers only landing-scoped pages). */
+#main-content {
+  outline: none;
+  scroll-margin-top: 84px;
+}
+
+/* Skip-to-content link — first focusable element of every page view
+   (SkipLink.tsx); parked above the viewport until focused. No transition, so
+   the reveal is instant under any motion preference. */
+.mb-skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  padding: 10px 18px;
+  background: var(--mb-deep-blue);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--mb-radius-pill);
+  transform: translateY(calc(-100% - 16px));
+}
+.mb-skip-link:focus {
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
