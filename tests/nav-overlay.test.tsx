@@ -87,6 +87,17 @@ describe("nav overlay + hero viewport (CSS contracts)", () => {
     expect(hero).toContain("align-items: center;");
     expect(hero).toMatch(/padding: calc\(66px \+ 40px\)/);
   });
+
+  it("logo visibility is per-variant, never on the shared img rule (double-logo regression, R6)", () => {
+    // The bug: `.mb-nav-logo img { display: block }` (0,1,1) out-specified
+    // `.mb-nav-logo-white { display: none }` (0,1,0), showing BOTH logos on the
+    // solid/light nav. The shared img rule must carry sizing only.
+    const imgRule = landingCss.match(/\.mb-nav-logo img \{[^}]*\}/s)?.[0] ?? "";
+    expect(imgRule).not.toContain("display:");
+    expect(imgRule).toContain("height: 42px;"); // enlarged from 34px (founder)
+    expect(landingCss).toMatch(/\.mb-nav-logo-blue \{[^}]*display: block;/s);
+    expect(landingCss).toMatch(/\.mb-nav-logo-white \{[^}]*display: none;/s);
+  });
 });
 
 describe("hero background media (visual-polish iteration 1 + audit fix)", () => {

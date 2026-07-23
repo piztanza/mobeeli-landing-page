@@ -52,9 +52,12 @@
    system) — NOT part of the .ba/design/style.json contract block above, same
    register as the a11y tokens below. */
 :root {
-  /* R4 pairing: Inter for body/UI text (next/font variable), Plus Jakarta
-     Sans (--mb-font) stays the display face for headings and brand moments. */
-  --mb-font-text: var(--font-inter, "Inter"), var(--mb-font);
+  /* R6 type system: GeistSans unified across body + display (`geist` package,
+     next/font, self-hosted). --mb-font (Plus Jakarta Sans) stays a fallback
+     token — swap either var to it to bring the display face back. */
+  --mb-font-geist: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --mb-font-text: var(--mb-font-geist);
+  --mb-font-display: var(--mb-font-geist);
   --mb-ink-dp1: #0a1019;
   --mb-ink-dp2: #111927;
   --mb-ink-dp3: #16202f;
@@ -84,11 +87,11 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Display type keeps the brand face (Plus Jakarta Sans). */
+/* Display type — GeistSans (R6 unified system). */
 h1,
 h2,
 h3 {
-  font-family: var(--mb-font);
+  font-family: var(--mb-font-display);
   font-weight: 600;
   text-wrap: balance;
 }

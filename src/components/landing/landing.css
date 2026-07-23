@@ -171,9 +171,15 @@
   display: flex;
   align-items: center;
 }
+/* Sizing only — NO `display` here. Putting display:block on the shared img
+   rule (0,1,1) out-specified `.mb-nav-logo-white { display:none }` (0,1,0) and
+   showed BOTH logos on the solid/light nav (double-logo bug, R6). Visibility is
+   controlled per-variant at equal specificity below. Enlarged 34 -> 42px. */
 .mb-nav-logo img {
-  height: 34px;
+  height: 42px;
   width: auto;
+}
+.mb-nav-logo-blue {
   display: block;
 }
 .mb-nav-links {
@@ -2383,7 +2389,7 @@
   flex-wrap: wrap;
 }
 .mb-footer-logo img {
-  height: 32px;
+  height: 40px;
   width: auto;
   display: block;
 }
