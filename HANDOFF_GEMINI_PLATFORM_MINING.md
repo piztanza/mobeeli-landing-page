@@ -67,12 +67,26 @@ its own iteration with founder veto; images never replace the 3D scenes — they
 Problem band, /why-mobeeli, and /early-adopters cards. **Downloading assets needs the
 founder's go-ahead per batch** — list exact URLs in the handback first.
 
-## 3) Platform-repo work queue (Fable owns this — do NOT touch overtakemg-cell/mobilee)
+## 3) Brand ruling (founder, 2026-07-23) — binding on every agent
 
-For visibility only; Fable executes next: recolor `/platform` emerald/indigo → landing blue
-family; add the founder's **0% commission** mention; **auth-wall `/platform/analytics`**
-(currently PUBLIC and leaking funnel/signup telemetry); remove the "Carteria" brand leak
-(`merchant.carteria.id/orders/INV-9018A` mock URL + comment in `platform/page.tsx`); verify
-`NEXT_PUBLIC_FOUNDER_WHATSAPP` on the Vercel deploy (fallback is a dummy number).
+**"Mobeeli" is the only brand name.** "Mobilee" (the platform repo's spelling, everywhere)
+and "Carteria" (a leftover earlier project name) are both WRONG and must read Mobeeli in
+all user-facing text. When porting any element from the platform repo, rename brand
+strings to Mobeeli during the port — never carry "Mobilee"/"Carteria" into the landing.
+
+## 4) Platform-repo work queue (Fable owns this — do NOT touch overtakemg-cell/mobilee)
+
+For visibility only; Fable executes next:
+- **Brand rename:** all user-facing "Mobilee" → "Mobeeli" (nav logo text, wizard, escrow/
+  fitment pages, "Mobilee.DB Engine", "Mobilee Tempo", meta titles) and the "Carteria"
+  leak (`merchant.carteria.id/orders/INV-9018A` mock URL + comment in `platform/page.tsx`)
+  → Mobeeli. Note for the founder: the deploy DOMAIN `mobilee-demo.vercel.app`, the
+  `mobilee_demo_session` cookie and the `/logos/mobilee-logo.png` asset are
+  infrastructure-level renames needing a Vercel project/alias decision — flagged
+  separately, not silently changed.
+- Recolor `/platform` emerald/indigo → landing blue family.
+- Add the founder's **0% commission** mention.
+- **Auth-wall `/platform/analytics`** (currently PUBLIC, leaking funnel/signup telemetry).
+- Verify `NEXT_PUBLIC_FOUNDER_WHATSAPP` on the Vercel deploy (fallback is a dummy number).
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)

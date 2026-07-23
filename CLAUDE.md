@@ -38,6 +38,10 @@ The waitlist writes into the Mobeeli **platform's live** Neon Postgres table
 - **"Early Adopters"** is the spelling since 2026-07-23 (founder decision, superseding the
   earlier intentional "Adaptors"); the route is /early-adopters with a permanent redirect
   from /early-adaptors.
+- **"Mobeeli" is the only brand name** (founder ruling 2026-07-23). "Mobilee" (used
+  throughout the platform repo overtakemg-cell/mobilee) and "Carteria" (a leftover from an
+  earlier project) are both wrong — never introduce them here, and rename them to Mobeeli
+  wherever user-facing text is touched in the platform repo.
 - No hype language, no emoji, anywhere in user-facing copy.
 - Footer is exactly: `Mobeeli — Jakarta, Indonesia`.
 - **All** user-facing strings live in the EN/ID maps in `src/lib/i18n` — never hardcode
