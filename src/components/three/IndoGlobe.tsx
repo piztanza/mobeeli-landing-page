@@ -249,7 +249,10 @@ function initScene(THREE: ThreeModule, host: HTMLDivElement, refs: SceneRefs): (
   let camX = panX;
   let camZ = panZ;
   const applyCam = () => {
-    camera.position.set(camX + drift, 3.6, 2.6 + camZ);
+    // Pulled up + back (R7, founder): zoom out and tilt slightly more top-down
+    // so the corridor across Java reads (was 3.6 / 2.6). Stays inside the fog
+    // near-plane (6.5) at this distance so nothing clips.
+    camera.position.set(camX + drift, 4.3, 3.3 + camZ);
     camera.lookAt(camX + drift, 0, camZ - 0.1);
   };
   applyCam();

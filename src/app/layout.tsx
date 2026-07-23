@@ -1,5 +1,5 @@
-import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
+import { Inter, Space_Grotesk } from "next/font/google";
 import type { ReactNode } from "react";
 
 import { DEFAULT_LANG } from "@/lib/i18n";
@@ -19,17 +19,22 @@ export const metadata: Metadata = rootMetadata();
 /** theme-color #0d1522 per the change record. */
 export const viewport: Viewport = themeViewport;
 
-/** Type system (R6): unified on GeistSans — Vercel's typeface, bundled and
- *  self-hosted by the `geist` package via next/font (no runtime CDN,
- *  CLAUDE.md compliant). One premium grotesque across text and display reads
- *  cleaner than the earlier Inter/Plus-Jakarta split. `--font-geist-sans` is
- *  its CSS variable; globals.css routes body + headings through it. Plus
- *  Jakarta Sans stays available as a fallback token if a display accent is
- *  wanted back. */
+/** Type system (R7): matches the platform (mobilee-demo /platform) so the
+ *  marketing site and the product read as one brand — Space Grotesk for
+ *  display/headings (the platform's techy display face), Inter for body/UI.
+ *  Both self-hosted at build by next/font (no runtime CDN, CLAUDE.md
+ *  compliant); globals.css routes --mb-font-display / --mb-font-text through
+ *  their variables. */
+const fontInter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const fontSpaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+});
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang={DEFAULT_LANG} className={GeistSans.variable}>
+    <html lang={DEFAULT_LANG} className={`${fontInter.variable} ${fontSpaceGrotesk.variable}`}>
       <body>
         {children}
         {/* Organization + WebSite JSON-LD (CHG-piztanza-07), server-rendered so
