@@ -48,6 +48,14 @@ export default function UnifyBand() {
 
   return (
     <section className="mb-uni">
+      {/* R4: the map IS the section — full-bleed behind the copy, dissolving
+          into the next band. The overlay is pointer-inert so the scene's drag
+          interaction reaches the canvas everywhere. */}
+      <div className="mb-uni-bleed" ref={mapRef}>
+        <div className="mb-uni-scene">
+          {sceneReady ? <IndoGlobe lang={lang} isStatic={reduced} /> : null}
+        </div>
+      </div>
       <div className="mb-uni-inner">
         <div className="mb-uni-head">
           <div data-rev="0" className="mb-kicker mb-kicker--accent">
@@ -60,12 +68,7 @@ export default function UnifyBand() {
             {t("uni_p")}
           </p>
         </div>
-        <div data-rev="2" className="mb-uni-map" ref={mapRef}>
-          <div className="mb-uni-scene">
-            {sceneReady ? <IndoGlobe lang={lang} isStatic={reduced} /> : null}
-          </div>
-          <div className="mb-uni-drag">{t("uni_drag")}</div>
-        </div>
+        <div className="mb-uni-drag">{t("uni_drag")}</div>
       </div>
     </section>
   );

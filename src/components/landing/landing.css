@@ -493,6 +493,7 @@
    the real band classes (.mb-uni, .mb-cat-card — the dark CARD, not its light
    section wrapper), and baseFrequency 3 per the verified recipe. */
 .mb-hero::after,
+.mb-fit3d::after,
 .mb-uni::after,
 .mb-cat-card::after {
   content: "";
@@ -529,16 +530,25 @@
     radial-gradient(720px 420px at 82% 12%, rgba(47, 125, 246, 0.16), transparent 70%),
     radial-gradient(560px 380px at 8% 92%, rgba(18, 63, 158, 0.28), transparent 70%);
 }
+/* R4: the hero is type-focused (the 3D scene has its own band below) — a
+   single centered column reads stronger at full viewport. */
 .mb-hero-grid {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: var(--mb-container-max);
+  max-width: 880px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(460px, 100%), 1fr));
-  gap: 64px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
+}
+.mb-hero-grid .mb-hero-sub {
+  margin-left: auto;
+  margin-right: auto;
+}
+.mb-hero-ctas {
+  justify-content: center;
 }
 .mb-hero-chip {
   display: inline-flex;
@@ -641,9 +651,40 @@
   color: var(--mb-light-accent);
 }
 
-.mb-hero-visual {
+/* ---------- fitment wheel band (own stage, R4 founder direction) ---------- */
+
+.mb-fit3d {
   position: relative;
-  min-height: 440px;
+  background: var(--mb-ink);
+  background-image:
+    radial-gradient(720px 420px at 80% 10%, rgba(47, 125, 246, 0.14), transparent 70%),
+    radial-gradient(560px 380px at 12% 90%, rgba(18, 63, 158, 0.24), transparent 70%);
+  padding: var(--mb-section-y) var(--mb-container-pad);
+  overflow: hidden;
+}
+.mb-fit3d-inner {
+  position: relative;
+  z-index: 2;
+  max-width: var(--mb-container-max);
+  margin: 0 auto;
+  text-align: center;
+}
+.mb-fit3d-stage {
+  max-width: 1060px;
+  margin: 26px auto 0;
+}
+/* Docked product cards — a wrapping flex row that slightly overlaps the
+   stage's bottom edge for depth. No absolute offsets = no collisions. */
+.mb-fit3d-cards {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+  gap: 18px;
+  margin-top: -40px;
+  padding: 0 12px;
 }
 .mb-hero-scene {
   border-radius: 22px;
@@ -657,9 +698,10 @@
   height: 100%;
 }
 
-/* Floating hero cards — hidden until the scene's first loop, then staggered in. */
+/* Product cards (docked in the fitment band since R4) — hidden until the
+   scene's first loop, then staggered in. */
 .mb-herocard {
-  position: absolute;
+  position: relative;
   background: #fff;
   opacity: 0;
   transform: translateY(14px);
@@ -680,8 +722,6 @@
 }
 /* Shrink-to-fit up to 272px so the price row never wraps (CHG-piztanza-18). */
 .mb-card-part {
-  top: 28px;
-  left: -18px;
   width: auto;
   max-width: 272px;
   border-radius: 16px;
@@ -736,8 +776,7 @@
    sits clear of the projected "Authenticity — Genuine" spec label, which
    lands ~80% down the scene at desktop (CHG-piztanza-18). */
 .mb-card-fit {
-  right: -14px;
-  bottom: 24px;
+  align-self: center;
   border-radius: var(--mb-radius-pill);
   padding: 11px 17px;
   box-shadow: 0 20px 44px rgba(3, 8, 16, 0.45);
@@ -750,8 +789,6 @@
   font-weight: 700;
 }
 .mb-card-video {
-  left: 20px;
-  bottom: -34px;
   width: 238px;
   border-radius: 16px;
   padding: 10px;
@@ -770,24 +807,13 @@
   margin-top: 7px;
 }
 
-/* Below 1024px the hero cards leave the floating overlay and flow below the
-   scene (CHG-piztanza-18): no negative offsets, so they can never overlap
-   each other, the scene, the nav, or the following section. The reveal
-   transition still runs; only the ambient float bobbing is overlay-only. */
-@media (max-width: 1023.98px) {
-  .mb-hero-visual {
-    min-height: 0;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 14px;
-  }
-  .mb-hero-scene {
-    width: 100%;
-  }
-  .mb-herocard {
-    position: static;
-    animation: none;
+/* R4: the cards are permanently in-flow in the fitment band's flex row — no
+   absolute overlay exists at any viewport, so nothing can overlap
+   (supersedes the CHG-piztanza-18 phone-only static mode). Small screens just
+   let the docked row stack without the stage overlap. */
+@media (max-width: 639.98px) {
+  .mb-fit3d-cards {
+    margin-top: 18px;
   }
   .mb-card-part {
     max-width: 100%;
@@ -1131,6 +1157,7 @@
   font-weight: 800;
   color: var(--mb-primary);
   letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
   transition: color 0.3s ease;
 }
 /* Success state stays in the blue family — the design's verified semantic
@@ -1996,14 +2023,22 @@
   overflow: hidden;
 }
 .mb-uni-inner {
+  position: relative;
+  z-index: 2;
   width: 100%;
   max-width: var(--mb-container-max);
   margin: 0 auto;
+  /* The copy floats over the interactive map — never intercept its drag. */
+  pointer-events: none;
 }
 .mb-uni-head {
   text-align: center;
   max-width: 840px;
   margin: 0 auto;
+  /* Soft scrim keeps the copy readable over the bright map dots. */
+  background: radial-gradient(62% 90% at 50% 42%, rgba(13, 21, 34, 0.62), transparent 78%);
+  padding: 36px 28px;
+  border-radius: 24px;
 }
 .mb-uni-h2 {
   margin: 14px 0 0;
@@ -2022,19 +2057,17 @@
   color: var(--mb-dark-muted);
   text-wrap: pretty;
 }
-.mb-uni-map {
-  max-width: 1060px;
-  margin: 40px auto 0;
+/* R4: the archipelago scene fills the entire band (founder: the visual IS the
+   section), dissolving into the following light band at the bottom edge. */
+.mb-uni-bleed {
+  position: absolute;
+  inset: 0;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
 }
 .mb-uni-scene {
-  aspect-ratio: 1.9/1;
-}
-/* Phone: a taller ~4:3 frame keeps the archipelago readable; the scene's own
-   drag/idle-drift behavior is untouched (CHG-piztanza-18). */
-@media (max-width: 639.98px) {
-  .mb-uni-scene {
-    aspect-ratio: 4/3;
-  }
+  width: 100%;
+  height: 100%;
 }
 .mb-uni-scene > * {
   width: 100%;

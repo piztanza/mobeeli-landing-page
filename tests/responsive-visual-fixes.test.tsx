@@ -45,38 +45,25 @@ function mediaBlockFor(css: string, query: string, selector: string): string {
   return block ?? "";
 }
 
-describe("hero cards in-flow below 1024px (CHG-piztanza-18)", () => {
-  const block = mediaBlockFor(landingCss, "1023.98px", ".mb-herocard");
-
-  it("takes every hero card out of the floating overlay (position: static)", () => {
-    expect(block).toMatch(/\.mb-herocard \{[^}]*position: static;/s);
+describe("product cards docked in the fitment band (R4, supersedes CHG-piztanza-18)", () => {
+  it("cards are relative in a wrapping flex row — the absolute overlay is gone", () => {
+    expect(landingCss).toMatch(/\.mb-herocard \{[^}]*position: relative;/s);
+    expect(landingCss).toMatch(/\.mb-fit3d-cards \{[^}]*display: flex;[^}]*flex-wrap: wrap;/s);
+    expect(landingCss).toMatch(/\.mb-fit3d-stage \{[^}]*margin: 26px auto 0;/s);
   });
 
-  it("stacks the cards in flow below the full-width scene with a gap", () => {
-    expect(block).toMatch(/\.mb-hero-visual \{[^}]*display: flex;[^}]*flex-wrap: wrap;/s);
-    expect(block).toMatch(/\.mb-hero-visual \{[^}]*gap: /s);
-    expect(block).toMatch(/\.mb-hero-scene \{[^}]*width: 100%;/s);
-  });
-
-  it("stops the ambient float bobbing while in flow", () => {
-    expect(block).toMatch(/\.mb-herocard \{[^}]*animation: none;/s);
-  });
-
-  it("keeps the floating overlay at >=1024px — base card offsets untouched", () => {
-    expect(landingCss).toMatch(/\.mb-card-part \{[^}]*top: 28px;[^}]*left: -18px;/s);
-    expect(landingCss).toMatch(/\.mb-card-fit \{[^}]*right: -14px;/s);
-    expect(landingCss).toMatch(/\.mb-card-video \{[^}]*left: 20px;[^}]*bottom: -34px;/s);
-    // the old phone-only card repositioning is superseded by the in-flow block
-    for (const phoneBlock of mediaBlocks(landingCss, "559.98px")) {
-      expect(phoneBlock).not.toContain(".mb-card-part");
-    }
+  it("no card carries absolute offsets at any viewport", () => {
+    expect(landingCss).not.toMatch(/\.mb-card-part \{[^}]*(?:top|left|right|bottom): /s);
+    expect(landingCss).not.toMatch(/\.mb-card-video \{[^}]*(?:top|left|right|bottom): /s);
   });
 });
 
-describe("desktop fit pill clears the Authenticity label (CHG-piztanza-18)", () => {
-  it("sits at the scene's lower edge, below the ~80%-height projected label", () => {
-    expect(landingCss).toMatch(/\.mb-card-fit \{[^}]*bottom: 24px;/s);
-    expect(landingCss).not.toMatch(/\.mb-card-fit \{[^}]*bottom: 104px;/s);
+describe("fit pill in the docked row (R4, supersedes CHG-piztanza-18)", () => {
+  it("no longer overlays the scene — it self-centers in the card row", () => {
+    // The old overlay offset (bottom: 24px vs the projected label) is gone;
+    // the pill can never collide with the scene's labels again.
+    expect(landingCss).not.toMatch(/\.mb-card-fit \{[^}]*bottom: /s);
+    expect(landingCss).toMatch(/\.mb-card-fit \{[^}]*align-self: center;/s);
   });
 });
 
@@ -162,10 +149,12 @@ describe("phone catalog stage and unify map (CHG-piztanza-18)", () => {
     expect(landingCss).toMatch(/\.mb-sprite--air \{[^}]*left: 70%;/s);
   });
 
-  it("uses a ~4:3 map frame under 640px and keeps 1.9:1 above", () => {
-    expect(landingCss).toMatch(/\.mb-uni-scene \{[^}]*aspect-ratio: 1\.9\/1;/s);
-    const uniBlock = mediaBlockFor(landingCss, "639.98px", ".mb-uni-scene");
-    expect(uniBlock).toMatch(/\.mb-uni-scene \{[^}]*aspect-ratio: 4\/3;/s);
+  it("archipelago map is full-bleed with a bottom dissolve (R4, supersedes the framed map)", () => {
+    expect(landingCss).toMatch(/\.mb-uni-bleed \{[^}]*position: absolute;[^}]*inset: 0;/s);
+    expect(landingCss).toMatch(/\.mb-uni-bleed \{[^}]*mask-image: linear-gradient\(to bottom/s);
+    expect(landingCss).toMatch(/\.mb-uni-scene \{[^}]*height: 100%;/s);
+    // The copy overlay must never intercept the scene's drag interaction.
+    expect(landingCss).toMatch(/\.mb-uni-inner \{[^}]*pointer-events: none;/s);
   });
 });
 

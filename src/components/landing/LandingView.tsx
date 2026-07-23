@@ -8,6 +8,7 @@ import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
 import ActiveSectionProvider from "./ActiveSectionProvider";
 import AiCatalogCard from "./AiCatalogCard";
 import BuyerStrip from "./BuyerStrip";
+import FitmentSection from "./FitmentSection";
 import Footer from "./Footer";
 import Hero from "./Hero";
 import HowItWorks from "./HowItWorks";
@@ -41,6 +42,7 @@ export default function LandingView() {
           <Nav overlay />
           <main id="main-content" tabIndex={-1}>
             <Hero />
+            <FitmentSection />
             <ProblemSection />
             <UnifyBand />
             <HowItWorks />

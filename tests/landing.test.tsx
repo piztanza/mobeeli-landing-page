@@ -204,11 +204,12 @@ describe("landing page render (F-001 + F-009)", () => {
     expect(html).not.toContain(esc(t("en", "how_s2_d")));
   });
 
-  it("renders the Variant-B band order — archipelago third, catalog demo before the buyer strip", () => {
+  it("renders the R4 band order — fitment stage second, archipelago full-bleed fourth", () => {
     const bands = [
-      t("en", "hero_chip"), // hero (dark, full viewport)
+      t("en", "hero_chip"), // hero (dark, type-focused, full viewport)
+      t("en", "card_part_name"), // fitment band (3D stage + docked cards)
       t("en", "quote_main"), // the problem, slim (light)
-      t("en", "uni_h2"), // unify band / archipelago (dark, full section)
+      t("en", "uni_h2"), // unify band / archipelago (dark, full-bleed map)
       t("en", "how_h2"), // how it works, slim (light)
       t("en", "cat_h2"), // AI catalog demo (returned by founder decision)
       t("en", "buyer_line"), // buyer strip

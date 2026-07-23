@@ -59,6 +59,8 @@ const en = {
   card_part_chip: "✓ Verified fit",
   card_fit: "✓ Fits: Toyota Avanza 1.5 G 2019",
   card_video_cap: "One platform. Five links.",
+  /* Fitment band kicker (R4) — verbatim fragment of the approved hero.line2. */
+  fit3d_kicker: "Verified to fit",
   fit3d_pcd_t: "Bolt pattern · PCD",
   fit3d_pcd_v: "4 × 100",
   fit3d_bore_t: "Center bore",
@@ -362,6 +364,8 @@ const id: Record<CopyKey, string> = {
   card_part_chip: "✓ Dijamin cocok",
   card_fit: "✓ Cocok: Toyota Avanza 1.5 G 2019",
   card_video_cap: "Satu platform. Lima mata rantai.",
+  /* Fitment band kicker (R4) — verbatim fragment of the approved hero.line2. */
+  fit3d_kicker: "Dipastikan cocok",
   fit3d_pcd_t: "Pola baut · PCD",
   fit3d_pcd_v: "4 × 100",
   fit3d_bore_t: "Lubang tengah",
