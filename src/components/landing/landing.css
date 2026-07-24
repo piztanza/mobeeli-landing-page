@@ -738,7 +738,8 @@ button.mb-buyer-cta:active {
   text-align: left;
 }
 
-.mb-cat-h2 {
+/* Renamed from .mb-cat-h2 to avoid colliding with AiCatalogCard's .mb-cat-h2 (salvage). */
+.mb-ucat-h2 {
   text-align: left;
   margin-bottom: 30px;
   font-size: 28px;
@@ -768,7 +769,7 @@ button.mb-buyer-cta:active {
 
 .mb-cat-stat-l {
   font-size: 14px;
-  color: var(--mb-muted);
+  color: var(--mb-dark-muted);
   margin-top: 4px;
 }
 
@@ -838,14 +839,16 @@ button.mb-buyer-cta:active {
   }
 }
 
-.mb-cat-card {
+/* Renamed from .mb-cat-card to avoid colliding with AiCatalogCard's .mb-cat-card
+   (which is a 560px-tall section container — it was overriding these part cards). */
+.mb-ucat-card {
   position: relative;
   border-radius: 16px;
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  
+
   /* R13 Glassmorphism Recipe */
   backdrop-filter: blur(22px) saturate(1.5);
   -webkit-backdrop-filter: blur(22px) saturate(1.5);
@@ -854,7 +857,7 @@ button.mb-buyer-cta:active {
 }
 
 @media (prefers-reduced-transparency: reduce) {
-  .mb-cat-card {
+  .mb-ucat-card {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     background-color: rgba(13, 21, 34, 0.95);
@@ -862,6 +865,7 @@ button.mb-buyer-cta:active {
 }
 
 .mb-cat-card-img-wrap {
+  position: relative;
   width: 100%;
   aspect-ratio: 4/3;
   border-radius: 8px;
@@ -884,7 +888,7 @@ button.mb-buyer-cta:active {
 .mb-cat-card-brand {
   font-size: 11px;
   text-transform: uppercase;
-  color: var(--mb-muted);
+  color: var(--mb-dark-muted);
   letter-spacing: 0.5px;
 }
 
@@ -904,7 +908,7 @@ button.mb-buyer-cta:active {
 
 .mb-sim-tag {
   font-size: 10px;
-  color: var(--mb-muted);
+  color: var(--mb-dark-muted);
   font-weight: 400;
 }
 

@@ -1,47 +1,99 @@
-import fs from "node:fs";
-import path from "node:path";
-import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
 import { renderToStaticMarkup } from "react-dom/server";
-import LandingPage from "@/app/page";
+import { describe, expect, it } from "vitest";
 
-describe("R15 Catalog Port Contract", () => {
-  const filePath = path.resolve(__dirname, "../src/components/landing/FitmentSection.tsx");
-  const cssPath = path.resolve(__dirname, "../src/components/landing/landing.css");
-  
-  const content = fs.readFileSync(filePath, "utf-8");
-  const cssContent = fs.readFileSync(cssPath, "utf-8");
+import FitmentSection from "@/components/landing/FitmentSection";
+import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
+import { langs, t } from "@/lib/i18n";
 
-  it("1. Uses the blue car asset and has NO green hexes", () => {
-    // Asset check
-    expect(content).toContain("catalog-car-poster.jpg");
+/**
+ * R15 unified-catalog contract (salvaged). The raw R15 shipped green-by-deletion
+ * — it removed the contract tests for the features it replaced and added only
+ * thin source-string checks. This is the honest replacement: it pins the new
+ * catalog's structure, honesty (Simulation labels), i18n, contrast, perf
+ * (next/image), type-safety, and the class-collision fix.
+ */
 
-    // Green ban check on both FitmentSection and its CSS
-    const combined = (content + cssContent).toLowerCase();
+const src = readFileSync(
+  new URL("../src/components/landing/FitmentSection.tsx", import.meta.url),
+  "utf8",
+);
+const css = readFileSync(
+  new URL("../src/components/landing/landing.css", import.meta.url),
+  "utf8",
+);
+const html = renderToStaticMarkup(
+  <LanguageProvider>
+    <FitmentSection />
+  </LanguageProvider>,
+);
+
+describe("R15 catalog — structure", () => {
+  it("renders the catalog section with the 4 real part cards + honest sim tags", () => {
+    expect(html).toContain('id="how-it-works"');
+    for (const img of ["spark-plug.jpg", "clutch.jpg", "shock.jpg", "brake-pad.jpg"]) {
+      expect(src).toContain(img);
+    }
+    expect(html).toContain(t("en", "cat_part1_name"));
+    expect(html).toContain(t("en", "cat_sim_tag")); // "(Simulation)"
+  });
+
+  it("keeps the ambient aurora but has no 3D wheel / three-fiber import", () => {
+    expect(src).toContain("AmbientAurora");
+    expect(src).not.toContain("FitmentWheel");
+    expect(src).not.toContain("@react-three/fiber");
+  });
+});
+
+describe("R15 catalog — hardening (perf, type-safety, no green)", () => {
+  it("uses next/image, not a raw <img>, for the heavy catalog assets", () => {
+    expect(src).toContain('from "next/image"');
+    expect(src).not.toMatch(/<img\s/);
+  });
+
+  it("has no `as any` casts", () => {
+    expect(src).not.toContain("as any");
+  });
+
+  it("introduces no banned emerald/indigo hexes", () => {
+    const combined = (src + css).toLowerCase();
     expect(combined).not.toContain("#10b981");
     expect(combined).not.toContain("#34d399");
     expect(combined).not.toContain("#818cf8");
   });
+});
 
-  it("2. Contains the correct catalog part cards and YMM picker", () => {
-    // Filter Active panel exists
-    expect(content).toContain("Filter Active");
-
-    // All 4 parts are listed
-    expect(content).toContain("spark-plug.jpg");
-    expect(content).toContain("clutch.jpg");
-    expect(content).toContain("shock.jpg");
-    expect(content).toContain("brake-pad.jpg");
+describe("R15 catalog — i18n & honesty", () => {
+  it("routes the filter label + car alt through copy.ts (no hardcoded UI strings)", () => {
+    expect(src).not.toContain(">Filter Active<");
+    expect(src).not.toContain("Catalog Car Blueprint");
+    for (const lang of langs) {
+      expect(t(lang, "cat_filter_active")).toBeTruthy();
+      expect(t(lang, "cat_car_alt")).toBeTruthy();
+    }
   });
 
-  it("3. Does not import FitmentWheel or three.js", () => {
-    expect(content).not.toContain("FitmentWheel");
-    expect(content).not.toContain("@react-three/fiber");
+  it("labels every catalog number as a Simulation (honesty contract)", () => {
+    expect(t("en", "cat_sim_tag")).toBe("(Simulation)");
+    expect(t("id", "cat_sim_tag")).toBe("(Simulasi)");
+    for (const k of ["cat_unified_stat1_l", "cat_unified_stat2_l", "cat_unified_stat3_l"] as const) {
+      expect(t("en", k)).toContain("(Simulation)");
+      expect(t("id", k)).toContain("(Simulasi)");
+    }
+  });
+});
+
+describe("R15 catalog — CSS contracts (contrast + no class collision)", () => {
+  it("uses collision-free classes (was clobbered by AiCatalogCard's .mb-cat-card)", () => {
+    expect(css).toContain(".mb-ucat-card {");
+    expect(css).toContain(".mb-ucat-h2 {");
+    expect(src).toContain("mb-ucat-card");
+    expect(src).toContain("mb-ucat-h2");
   });
 
-  it("4. Correctly renders the EN locale without the Indonesian word '(Simulasi)'", () => {
-    const html = renderToStaticMarkup(<LandingPage lang="en" />);
-    // Since we are rendering the EN locale, it should use "(Simulation)" and NOT "(Simulasi)"
-    expect(html).toContain("(Simulation)");
-    expect(html).not.toContain("(Simulasi)");
+  it("keeps secondary catalog text legible on the dark surface (dark-muted, not light-band muted)", () => {
+    expect(css).toMatch(/\.mb-cat-stat-l \{[^}]*color: var\(--mb-dark-muted\);/s);
+    expect(css).toMatch(/\.mb-cat-card-brand \{[^}]*color: var\(--mb-dark-muted\);/s);
+    expect(css).toMatch(/\.mb-sim-tag \{[^}]*color: var\(--mb-dark-muted\);/s);
   });
 });
