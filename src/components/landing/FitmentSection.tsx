@@ -210,8 +210,9 @@ export default function FitmentSection() {
             <div className="mb-fit3d-stage-glow" aria-hidden />
           </div>
           <div className="mb-fit3d-col mb-fit3d-col--right">
+            {/* Result card, not a beat — the stray "03" duplicated the protection
+                strip's beat 03 (fix: second-section audit). */}
             <div className={cardClass("mb-card-fit")} style={cardDelay(1)}>
-              <div className="mb-step-num mb-step-num--sm">03</div>
               <span className="mb-dot mb-dot--lg mb-pulse mb-pulse--fit" aria-hidden />
               <span className="mb-card-fit-label">{t("card_fit")}</span>
             </div>

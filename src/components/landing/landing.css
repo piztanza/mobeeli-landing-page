@@ -775,6 +775,11 @@ button.mb-buyer-cta:active {
 .mb-fit3d-stage {
   position: relative;
   perspective: 1600px;
+  /* The 2D scanner's children are all absolutely positioned; without an explicit
+     ratio the stage collapsed to the telemetry pill (~40px). Give it a real
+     scanner frame (fix: second-section audit). */
+  aspect-ratio: 16 / 10;
+  border-radius: var(--mb-radius-card);
 }
 /* Glass bezel on the stage (R5, audit-implemented — the referenced spotlight
    class no longer existed; this is the real material treatment).
@@ -2793,6 +2798,9 @@ button.mb-buyer-cta:active {
 /* R12: Merged Fitment & Protection Strip UI */
 .mb-h2--fit3d {
   margin-bottom: 24px;
+  /* White on the dark fitment section — the base .mb-h2 ink is for the light
+     bands, so the heading was invisible (dark on dark). Fix. */
+  color: #fff;
 }
 .mb-step-badge-row {
   display: flex;
@@ -2863,9 +2871,16 @@ button.mb-buyer-cta:active {
 }
 
 .mb-fit3d .mb-card-part-name,
+.mb-fit3d .mb-card-part-price,
 .mb-fit3d .mb-card-fit-label,
 .mb-fit3d .mb-fit-protect-title {
   color: #ffffff;
+}
+/* Secondary card text: legible dark-muted on the glass instead of the light-band
+   --mb-muted that computed to ~3.5:1 (fix: second-section audit). */
+.mb-fit3d .mb-card-part-sub,
+.mb-fit3d .mb-card-video-cap {
+  color: var(--mb-dark-muted);
 }
 
 @media (prefers-reduced-transparency: reduce) {
