@@ -50,12 +50,21 @@ const en = {
      (mobeeli-site: One platform to unify Indonesia's auto industry), kept broad
      per founder direction: no market figures, no moat mechanics on the front page. */
   hero_sub_short:
-    "One platform to unify Indonesia's auto industry — brands, distributors, stores, mechanics and drivers on one verified catalog.",
+    "Brands, distributors, stores, mechanics and drivers — one verified catalog for Indonesia's auto industry.",
   hero_cta_inv: "For investors",
   hero_cta_shops: "Join Early Adopters Program",
   /* audit #24 — a11y pause control for the rotating hero headline (WCAG 2.2.2). */
   hero_pause: "Pause the rotating headline",
   hero_resume: "Resume the rotating headline",
+
+  /* R11 YMM Vehicle Picker keys */
+  ymm_picker_label: "Select vehicle fitment:",
+  ymm_year: "Year",
+  ymm_make: "Make",
+  ymm_model: "Model",
+  ymm_trim: "Trim",
+  ymm_scanning: "SCANNING VEHICLE FITMENT...",
+  ymm_verified: "VERIFIED FIT: Toyota Avanza 1.5 G",
   card_part_name: "Front brake pad set",
   card_part_sub: "Front axle · ceramic",
   card_part_price: "Rp 385.000",
@@ -380,12 +389,21 @@ const id: Record<CopyKey, string> = {
      (mobeeli-site: One platform to unify Indonesia's auto industry), kept broad
      per founder direction: no market figures, no moat mechanics on the front page. */
   hero_sub_short:
-    "Satu platform yang menyatukan industri otomotif Indonesia — merek, distributor, toko, mekanik, dan pengemudi dalam satu katalog terverifikasi.",
+    "Merek, distributor, toko, mekanik, dan pengemudi — satu katalog terverifikasi untuk industri otomotif Indonesia.",
   hero_cta_inv: "Untuk investor",
   hero_cta_shops: "Gabung Program Early Adopters",
   /* audit #24 — a11y pause control for the rotating hero headline. */
   hero_pause: "Jeda judul yang berputar",
   hero_resume: "Lanjutkan judul yang berputar",
+
+  /* R11 YMM Vehicle Picker keys */
+  ymm_picker_label: "Pilih kecocokan kendaraan:",
+  ymm_year: "Tahun",
+  ymm_make: "Merek",
+  ymm_model: "Model",
+  ymm_trim: "Varian",
+  ymm_scanning: "MEMINDAI KECOCOKAN KENDARAAN...",
+  ymm_verified: "TERVERIFIKASI COCOK: Toyota Avanza 1.5 G",
   card_part_name: "Kampas rem depan",
   card_part_sub: "As depan · keramik",
   card_part_price: "Rp 385.000",

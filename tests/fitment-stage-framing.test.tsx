@@ -12,7 +12,7 @@ describe("R5 Iteration 1 — Fitment Stage Framing (audited)", () => {
     expect(html).toContain('class="mb-fit3d-telemetry"');
     // Audit ruling: the chip is an i18n key and an HONEST label — no fake
     // real-time-telemetry claims on marketing surfaces.
-    expect(html).toContain(copy.en.fit3d_chip);
+    expect(html).toContain(copy.en.ymm_verified);
     expect(html).not.toContain("REAL-TIME");
     expect(html).toContain('class="mb-fit3d-stage-glow"');
     // The spotlight class was removed in audit round 3 — never reference it.

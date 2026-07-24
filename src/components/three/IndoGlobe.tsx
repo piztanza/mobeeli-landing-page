@@ -161,9 +161,9 @@ function initScene(THREE: ThreeModule, host: HTMLDivElement, refs: SceneRefs): (
   };
 
   const scene = new THREE.Scene();
-  // Fog pushed out (R7) to match the pulled-back camera — the newly-visible
-  // far islands across the Java corridor no longer grey out (was 6.5, 12.5).
-  scene.fog = new THREE.Fog(0x0d1522, 7.2, 13.5);
+  // Fog pushed out (R10-E) to match the pulled-back camera — the newly-visible
+  // Java corridor edges stay crisp instead of dissolving into background.
+  scene.fog = new THREE.Fog(0x0d1522, 8.0, 15.2);
   const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 60);
 
   const mkPts = (arr: number[], color: number, size: number, op: number) => {
@@ -251,10 +251,10 @@ function initScene(THREE: ThreeModule, host: HTMLDivElement, refs: SceneRefs): (
   let camX = panX;
   let camZ = panZ;
   const applyCam = () => {
-    // Pulled up + back (R7, founder): zoom out and tilt slightly more top-down
-    // so the corridor across Java reads (was 3.6 / 2.6). Stays inside the fog
-    // near-plane (6.5) at this distance so nothing clips.
-    camera.position.set(camX + drift, 4.3, 3.3 + camZ);
+    // Pulled up + back (R10-E, founder): zoom out and tilt slightly more top-down
+    // so the corridor across Java reads (was 4.3 / 3.3). Stays inside the fog
+    // near-plane (8.0) at this distance so nothing clips.
+    camera.position.set(camX + drift, 5.0, 3.9 + camZ);
     camera.lookAt(camX + drift, 0, camZ - 0.1);
   };
   applyCam();

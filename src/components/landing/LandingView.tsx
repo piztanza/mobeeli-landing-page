@@ -11,7 +11,6 @@ import BuyerStrip from "./BuyerStrip";
 import FitmentSection from "./FitmentSection";
 import Footer from "./Footer";
 import Hero from "./Hero";
-import HowItWorks from "./HowItWorks";
 import Nav from "./Nav";
 import ProblemSection from "./ProblemSection";
 import SkipLink from "./SkipLink";
@@ -45,7 +44,6 @@ export default function LandingView() {
             <FitmentSection />
             <ProblemSection />
             <UnifyBand />
-            <HowItWorks />
             <AiCatalogCard />
             <BuyerStrip />
           </main>

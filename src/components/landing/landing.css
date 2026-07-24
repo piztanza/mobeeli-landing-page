@@ -104,9 +104,9 @@
 /* Type scale stepped up ~15-20% on headlines + key copy (founder, 2026-07-23). */
 .mb-h2 {
   margin: 14px 0 0;
-  font-size: clamp(36px, 4.4vw, 58px);
-  line-height: 1.06;
-  letter-spacing: -0.022em;
+  font-size: clamp(38px, 4.8vw, 64px);
+  line-height: 1.04;
+  letter-spacing: -0.024em;
   font-weight: 600;
 }
 .mb-grid3 {
@@ -335,7 +335,7 @@
   }
 }
 
-@media (max-width: 879.98px) {
+@media (max-width: 1039.98px) {
   /* Desktop bar collapses to logo + hamburger; the sheet carries links/toggle/CTA. */
   .mb-nav-inner > .mb-nav-links,
   .mb-nav-inner > .mb-lang-toggle,
@@ -396,8 +396,8 @@
   }
 }
 
-/* Desktop nav unchanged at >=880px — sheet chrome can never leak upward. */
-@media (min-width: 880px) {
+/* Desktop nav unchanged at >=1040px — sheet chrome can never leak upward. */
+@media (min-width: 1040px) {
   .mb-nav-sheet,
   .mb-nav-backdrop,
   .mb-nav-burger {
@@ -503,6 +503,19 @@ button.mb-buyer-cta:active {
   filter: brightness(0.45) saturate(1.05);
   opacity: 0.3;
 }
+.mb-ambient-aurora {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.mb-ambient-aurora canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
 .mb-hero-bg-scrim {
   position: absolute;
   inset: 0;
@@ -560,15 +573,12 @@ button.mb-buyer-cta:active {
    reserve exactly the tallest pair's height at the current width, so rotation
    never shifts layout at any breakpoint (CHG-piztanza-18). */
 .mb-hero-h1 {
-  /* Tightened chip→H1 gap (audit #26): groups the rotating headline with the
-     chip above it; the H1→sub gap opens below to separate the block. */
   margin: 15px 0 0;
   display: grid;
-  /* min 42px — the founder's type-scale bump must not regress on phones */
-  font-size: clamp(2.625rem, 6vw, 4.5rem);
-  line-height: 1.04;
-  letter-spacing: -0.022em;
-  font-weight: 600;
+  font-size: clamp(2.75rem, 6.6vw, 5.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  font-weight: 700;
   color: #fff;
 }
 .mb-hero-h1 > span {
@@ -583,6 +593,14 @@ button.mb-buyer-cta:active {
 }
 .mb-rot-line2 {
   color: var(--mb-light-accent);
+}
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .mb-rot-line2 {
+    background-image: linear-gradient(92deg, var(--mb-light-accent), var(--mb-primary) 55%, var(--mb-light-accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 }
 /* Hero headline pause control (audit #24) — visually hidden until keyboard
    focus (like the skip link); lets keyboard users stop the rotating H1
@@ -716,6 +734,15 @@ button.mb-buyer-cta:active {
   display: flex;
   flex-direction: column;
   gap: 18px;
+  z-index: 3;
+}
+@media (min-width: 1200px) {
+  .mb-fit3d-col--left {
+    margin-right: -36px;
+  }
+  .mb-fit3d-col--right {
+    margin-left: -36px;
+  }
 }
 .mb-fit3d-col--left {
   align-items: flex-end;
@@ -1183,7 +1210,7 @@ button.mb-buyer-cta:active {
 .mb-step-t {
   margin: 18px 0 0;
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.01em;
 }
 .mb-step-d {
@@ -1948,10 +1975,9 @@ button.mb-buyer-cta:active {
 }
 .mb-cat-h2 {
   margin: 0;
-  font-size: clamp(30px, 3.6vw, 46px);
+  font-size: clamp(32px, 3.8vw, 50px);
   line-height: 1.08;
   letter-spacing: -0.025em;
-  /* 600 matches the other H2 heads; Space Grotesk caps at 700, so 800 faux-bolded (audit #3). */
   font-weight: 600;
   color: #fff;
   text-wrap: balance;
@@ -2413,9 +2439,9 @@ button.mb-buyer-cta:active {
 }
 .mb-uni-h2 {
   margin: 14px 0 0;
-  font-size: clamp(40px, 5vw, 68px);
-  line-height: 1.06;
-  letter-spacing: -0.022em;
+  font-size: clamp(42px, 5.4vw, 74px);
+  line-height: 1.04;
+  letter-spacing: -0.024em;
   font-weight: 600;
   color: #fff;
   text-wrap: balance;
@@ -2641,5 +2667,217 @@ button.mb-buyer-cta:active {
   .mb-btn-primary-dark {
     font-size: 14px;
     padding: 13px 20px;
+  }
+}
+
+/* R11: Fitment Scanner & YMM Vehicle Picker UI */
+.mb-ymm-container {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.mb-ymm-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--mb-dark-muted);
+}
+.mb-ymm-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.mb-ymm-select {
+  background: rgba(13, 21, 34, 0.8);
+  border: 1px solid var(--mb-hairline-subtle);
+  border-radius: var(--mb-radius-input);
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-family: var(--mb-font-text);
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.mb-ymm-select:focus-visible {
+  border-color: var(--mb-primary);
+  box-shadow: 0 0 0 2px rgba(47, 125, 246, 0.3);
+}
+
+/* Scanner Laser Overlay */
+.mb-scan-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+.mb-scan-laser {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--mb-primary);
+  box-shadow: 0 0 15px 4px rgba(47, 125, 246, 0.8), 0 0 30px 8px rgba(91, 155, 247, 0.4);
+  top: 0;
+  animation: laserSweep 2.3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* 2D Scanner Frame & Chips (R12 Audit) */
+.mb-scan-car-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: var(--mb-radius-card);
+}
+.mb-scan-car-img {
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.65;
+  filter: brightness(0.75) contrast(1.15);
+  transition: opacity 0.3s ease;
+}
+.mb-scan-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(47, 125, 246, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(47, 125, 246, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+.mb-scan-chips {
+  position: absolute;
+  inset: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 12px;
+  pointer-events: none;
+  z-index: 5;
+}
+.mb-scan-chip {
+  align-self: flex-start;
+  width: fit-content;
+  background: rgba(13, 21, 34, 0.85);
+  border: 1px solid var(--mb-hairline-subtle);
+  border-radius: var(--mb-radius-pill);
+  padding: 6px 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--mb-light-accent);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.9;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.mb-chip-check {
+  color: var(--mb-primary);
+  font-weight: 800;
+}
+
+/* Full-Bleed Catalog Band (R10-3) */
+.mb-cat-section--full {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* R12: Merged Fitment & Protection Strip UI */
+.mb-h2--fit3d {
+  margin-bottom: 24px;
+}
+.mb-step-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mb-step-num--stage {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 4;
+}
+.mb-step-num--sm {
+  width: 28px;
+  height: 28px;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+.mb-fit-protect {
+  margin-top: 36px;
+  padding: 24px;
+  background: rgba(13, 21, 34, 0.65);
+  border: 1px solid var(--mb-hairline-subtle);
+  border-radius: var(--mb-radius-card);
+  backdrop-filter: blur(12px);
+}
+.mb-fit-protect-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.mb-fit-protect-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+.mb-step-stack--row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.mb-step-stack--row .mb-prot-row {
+  flex: 1;
+  min-width: 220px;
+}
+
+/* ==========================================================================
+   R13: Liquid-Glass 2.0 Pass (Apple Glassmorphism 2026)
+   Scoped to #how-it-works / .mb-fit3d section panels
+   ========================================================================== */
+.mb-fit3d .mb-ymm-picker,
+.mb-fit3d .mb-card-part,
+.mb-fit3d .mb-card-fit,
+.mb-fit3d .mb-fit3d-telemetry,
+.mb-fit3d .mb-scan-chip,
+.mb-fit3d .mb-fit-protect {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(22px) saturate(1.5);
+  -webkit-backdrop-filter: blur(22px) saturate(1.5);
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.4), 0 20px 46px rgba(3, 8, 16, 0.55);
+}
+
+.mb-fit3d .mb-fit3d-stage {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.4), 0 0 35px rgba(47, 125, 246, 0.25), 0 20px 46px rgba(3, 8, 16, 0.55);
+}
+
+.mb-fit3d .mb-card-part-name,
+.mb-fit3d .mb-card-fit-label,
+.mb-fit3d .mb-fit-protect-title {
+  color: #ffffff;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .mb-fit3d .mb-ymm-picker,
+  .mb-fit3d .mb-card-part,
+  .mb-fit3d .mb-card-fit,
+  .mb-fit3d .mb-fit3d-telemetry,
+  .mb-fit3d .mb-scan-chip,
+  .mb-fit3d .mb-fit-protect {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(13, 21, 34, 0.95);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
 }

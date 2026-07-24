@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -7,6 +8,10 @@ import { useGlowCards } from "@/lib/hooks/useGlowCards";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import type { CopyKey } from "@/lib/i18n";
 import { useT } from "@/lib/i18n/LanguageProvider";
+
+const AmbientAurora = dynamic(() => import("@/components/three/AmbientAurora"), {
+  ssr: false,
+});
 
 import {
   BLOOM_DUR_MS,
@@ -240,6 +245,7 @@ export default function AiCatalogCard({ static: staticMode = false }: { static?:
   return (
     <section ref={glowRef} className="mb-cat-section">
       <div data-rev="0" className="mb-cat-card mb-glow-card">
+        <AmbientAurora intensity={0.28} />
         <div className="mb-cat-head">
           <div className="mb-file-chips">
             {/* unoptimized: these are 1–2 KB PNGs, so the optimizer saves
