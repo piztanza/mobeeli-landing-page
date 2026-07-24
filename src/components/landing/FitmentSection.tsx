@@ -1,12 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { useGlowCards } from "@/lib/hooks/useGlowCards";
-import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
-import { useTilt } from "@/lib/hooks/useTilt";
 import { useT } from "@/lib/i18n/LanguageProvider";
 
 import HeroNetworkBackground from "./HeroNetworkBackground";
@@ -15,30 +11,34 @@ const AmbientAurora = dynamic(() => import("@/components/three/AmbientAurora"), 
   ssr: false,
 });
 
-/** Timeout before the docked cards show if the scene never fires fitment-first-loop. */
-const CARDS_FALLBACK_MS = 9500;
-/** Stagger between each docked card's entrance. */
-const CARD_STAGGER_MS = 180;
-
-/**
- * Fitment band — the 3D wheel scene on its own dark stage directly under the
- * hero (the cinematic opening act), with the part card, fit pill and video
- * card docked beneath it. Cards appear after the scene's first mount loop
- * (or a fallback timeout), instantly under reduced motion.
- */
 export default function FitmentSection() {
   const t = useT();
-  const reduced = useReducedMotion();
-  const cardsGlowRef = useGlowCards<HTMLDivElement>();
-  const tiltRef = useTilt<HTMLDivElement>();
-  const [cardsShown, setCardsShown] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
   const [year, setYear] = useState("2024");
   const [make, setMake] = useState("Toyota");
   const [model, setModel] = useState("Avanza");
   const [trim, setTrim] = useState("1.5 G CVT");
   const [isScanning, setIsScanning] = useState(false);
+
+  const [counter, setCounter] = useState(0);
+  const [mounted, setMounted] = useState(false);
+  const [vin, setVin] = useState("");
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
+
+  const garage = mounted ? localStorage.getItem("mobeeli_garage") : null;
+
+  const saveGarage = (val: string) => {
+    localStorage.setItem("mobeeli_garage", val);
+    setCounter((c) => c + 1);
+  };
+
+  const clearGarage = () => {
+    localStorage.removeItem("mobeeli_garage");
+    setCounter((c) => c + 1);
+  };
 
   const handleYmmChange = (
     y: string,
@@ -53,194 +53,152 @@ export default function FitmentSection() {
     setIsScanning(true);
     setTimeout(() => {
       setIsScanning(false);
-    }, 2300);
+      saveGarage(`${m} ${mod} ${tr} ${y}`);
+    }, 1800);
   };
 
-  useEffect(() => {
-    if (reduced) return; // CSS shows the cards instantly under reduced motion
-    const show = () => setCardsShown(true);
-    const timer = setTimeout(show, CARDS_FALLBACK_MS);
-    document.addEventListener("fitment-first-loop", show, { once: true });
-    return () => {
-      clearTimeout(timer);
-      document.removeEventListener("fitment-first-loop", show);
-    };
-  }, [reduced]);
+  const handleVinSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!vin) return;
+    setIsScanning(true);
+    setYear("2019");
+    setMake("Toyota");
+    setModel("Avanza");
+    setTrim("1.5 G CVT");
+    setTimeout(() => {
+      setIsScanning(false);
+      saveGarage("Toyota Avanza 1.5 G CVT 2019");
+      setVin("");
+    }, 1800);
+  };
 
-  // Lazy muted looping playback (autoplay policies can ignore the attribute).
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = true;
-    video.play()?.catch(() => {});
-  }, []);
-
-  const shown = cardsShown || reduced;
-  const cardClass = (extra: string) =>
-    `mb-herocard mb-glow-card mb-glow-card-fill ${extra}${shown ? " is-in" : ""}`;
-  const cardDelay = (i: number) =>
-    cardsShown && !reduced ? { transitionDelay: `${i * CARD_STAGGER_MS}ms` } : undefined;
+  const parts = [
+    { key: "cat_part1_name", price: "Rp 85.000", img: "/assets/parts/spark-plug.jpg" },
+    { key: "cat_part2_name", price: "Rp 1.450.000", img: "/assets/parts/clutch.jpg" },
+    { key: "cat_part3_name", price: "Rp 850.000", img: "/assets/parts/shock.jpg" },
+    { key: "cat_part4_name", price: "Rp 450.000", img: "/assets/parts/brake-pad.jpg" },
+  ];
 
   return (
     <section id="how-it-works" className="mb-fit3d mb-section">
       <AmbientAurora intensity={0.3} />
       <HeroNetworkBackground />
       <div className="mb-fit3d-inner mb-section-inner">
-        <h2 data-rev="0" className="mb-h2 mb-h2--fit3d">
-          {t("how_h2")}
-        </h2>
-
-        <div className="mb-ymm-container">
-          <div className="mb-step-badge-row">
-            <span className="mb-step-num">01</span>
-            <label className="mb-ymm-label">{t("ymm_picker_label")}</label>
-          </div>
-          <div className="mb-ymm-picker">
-            <select
-              value={year}
-              aria-label={t("ymm_year")}
-              className="mb-ymm-select"
-              onChange={(e) => handleYmmChange(e.target.value, make, model, trim)}
-            >
-              <option value="2022">2022</option>
-              <option value="2023">2023</option>
-              <option value="2024">2024</option>
-              <option value="2025">2025</option>
-              <option value="2026">2026</option>
-            </select>
-            <select
-              value={make}
-              aria-label={t("ymm_make")}
-              className="mb-ymm-select"
-              onChange={(e) => handleYmmChange(year, e.target.value, model, trim)}
-            >
-              <option value="Toyota">Toyota</option>
-              <option value="Honda">Honda</option>
-              <option value="Mitsubishi">Mitsubishi</option>
-              <option value="Daihatsu">Daihatsu</option>
-              <option value="Hyundai">Hyundai</option>
-            </select>
-            <select
-              value={model}
-              aria-label={t("ymm_model")}
-              className="mb-ymm-select"
-              onChange={(e) => handleYmmChange(year, make, e.target.value, trim)}
-            >
-              <option value="Avanza">Avanza</option>
-              <option value="Innova Zenix">Innova Zenix</option>
-              <option value="Xpander">Xpander</option>
-              <option value="Xenia">Xenia</option>
-              <option value="Stargazer">Stargazer</option>
-            </select>
-            <select
-              value={trim}
-              aria-label={t("ymm_trim")}
-              className="mb-ymm-select"
-              onChange={(e) => handleYmmChange(year, make, model, e.target.value)}
-            >
-              <option value="1.5 G CVT">1.5 G CVT</option>
-              <option value="2.0 V HEV">2.0 V HEV</option>
-              <option value="1.5 Ultimate">1.5 Ultimate</option>
-              <option value="1.5 R CVT">1.5 R CVT</option>
-              <option value="1.5 Prime">1.5 Prime</option>
-            </select>
-          </div>
-        </div>
-
-        {/* 3 Numbered Beats: 01 (Picker/Part) -> 02 (Scanner) -> 03 (Protection Strip) */}
-        <div ref={cardsGlowRef} className="mb-fit3d-layout">
+        <div className="mb-fit3d-layout">
+          
+          {/* Left Column */}
           <div className="mb-fit3d-col mb-fit3d-col--left">
-            <div className={cardClass("mb-card-part")} style={cardDelay(0)}>
-              <div className="mb-card-part-thumb" aria-hidden />
-              <div className="mb-card-part-body">
-                <div className="mb-card-part-name">{t("card_part_name")}</div>
-                <div className="mb-card-part-sub">{t("card_part_sub")}</div>
-                <div className="mb-card-part-row">
-                  <span className="mb-card-part-price">{t("card_part_price")}</span>
-                  <span className="mb-chip-tint">{t("card_part_chip")}</span>
-                </div>
+            <h2 data-rev="0" className="mb-h2 mb-h2--fit3d mb-cat-h2">
+              {t("cat_unified_h2")}
+            </h2>
+            <div className="mb-cat-stats">
+              <div className="mb-cat-stat">
+                <span className="mb-cat-stat-v">{t("cat_unified_stat1_v")}</span>
+                <span className="mb-cat-stat-l">{t("cat_unified_stat1_l")}</span>
+              </div>
+              <div className="mb-cat-stat">
+                <span className="mb-cat-stat-v">{t("cat_unified_stat2_v")}</span>
+                <span className="mb-cat-stat-l">{t("cat_unified_stat2_l")}</span>
+              </div>
+              <div className="mb-cat-stat">
+                <span className="mb-cat-stat-v">{t("cat_unified_stat3_v")}</span>
+                <span className="mb-cat-stat-l">{t("cat_unified_stat3_l")}</span>
               </div>
             </div>
           </div>
-          <div ref={tiltRef} data-rev="1" className={`mb-fit3d-stage${isScanning ? " is-scanning" : ""}`}>
-            <div className="mb-step-num mb-step-num--stage">02</div>
 
-            {/* 2D Car Image Frame */}
-            <div className="mb-scan-car-frame" aria-hidden>
-              <Image
-                src="/veo/jakarta-hero-bg-poster.jpg"
-                alt="Avanza Fitment Scanner"
-                fill
-                sizes="(max-width: 1040px) 100vw, 560px"
-                className="mb-scan-car-img"
-              />
-              <div className="mb-scan-grid" />
-            </div>
-
-            {/* Laser Sweep Line */}
-            <div className="mb-scan-overlay" aria-hidden>
-              <div className="mb-scan-laser" />
-            </div>
-
-            {/* 4 Spec Callout Chips */}
-            <div className="mb-scan-chips">
-              <div className="mb-scan-chip">
-                <span className="mb-chip-check">✓</span>
-                <span>Bolt pattern 4×100</span>
-              </div>
-              <div className="mb-scan-chip">
-                <span className="mb-chip-check">✓</span>
-                <span>Rotor ⌀54.1mm</span>
-              </div>
-              <div className="mb-scan-chip">
-                <span className="mb-chip-check">✓</span>
-                <span>Ceramic pad · OEM</span>
-              </div>
-              <div className="mb-scan-chip">
-                <span className="mb-chip-check">✓</span>
-                <span>Authentic</span>
-              </div>
-            </div>
-
-            {/* Telemetry Pill */}
-            <div className="mb-fit3d-telemetry">
-              <span className="mb-dot mb-pulse" aria-hidden />
-              <span>{isScanning ? t("ymm_scanning") : `${t("ymm_verified")} ${year}`}</span>
-            </div>
-            <div className="mb-fit3d-stage-glow" aria-hidden />
-          </div>
+          {/* Right Column */}
           <div className="mb-fit3d-col mb-fit3d-col--right">
-            {/* Result card, not a beat — the stray "03" duplicated the protection
-                strip's beat 03 (fix: second-section audit). */}
-            <div className={cardClass("mb-card-fit")} style={cardDelay(1)}>
-              <span className="mb-dot mb-dot--lg mb-pulse mb-pulse--fit" aria-hidden />
-              <span className="mb-card-fit-label">{t("card_fit")}</span>
-            </div>
-            <div className={cardClass("mb-card-video")} style={cardDelay(2)}>
-              <video
-                ref={videoRef}
-                src="/assets/unify-graph.mp4"
-                muted
-                loop
-                playsInline
-                autoPlay
-                preload="none"
-              />
-              <div className="mb-card-video-cap">{t("card_video_cap")}</div>
-            </div>
-          </div>
-        </div>
+            
+            <div className="mb-cat-top-row">
+              <div key={counter} className="mb-ymm-container mb-cat-ymm" suppressHydrationWarning>
+                <div className="mb-step-badge-row">
+                  <label className="mb-ymm-label" style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                    Filter Active
+                  </label>
+                </div>
+                {garage && !isScanning ? (
+                  <div className="mb-garage-active">
+                    <span className="mb-garage-badge">{t("garage_chip_label")}</span>
+                    <span className="mb-garage-val">{garage}</span>
+                    <button onClick={clearGarage} className="mb-garage-clear">{t("garage_chip_clear")}</button>
+                  </div>
+                ) : (
+                  <div className="mb-picker-forms">
+                    <form onSubmit={handleVinSubmit} className="mb-vin-form">
+                      <input
+                        type="text"
+                        value={vin}
+                        onChange={e => setVin(e.target.value)}
+                        placeholder={t("garage_plate_placeholder")}
+                        className="mb-ymm-select mb-vin-input"
+                      />
+                      <button type="submit" className="mb-vin-btn">{t("garage_plate_btn")}</button>
+                    </form>
+                    <div className="mb-ymm-picker">
+                      <select value={year} aria-label={t("ymm_year")} className="mb-ymm-select" onChange={(e) => handleYmmChange(e.target.value, make, model, trim)}>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                      </select>
+                      <select value={make} aria-label={t("ymm_make")} className="mb-ymm-select" onChange={(e) => handleYmmChange(year, e.target.value, model, trim)}>
+                        <option value="Toyota">Toyota</option>
+                        <option value="Honda">Honda</option>
+                        <option value="Mitsubishi">Mitsubishi</option>
+                        <option value="Daihatsu">Daihatsu</option>
+                        <option value="Hyundai">Hyundai</option>
+                      </select>
+                      <select value={model} aria-label={t("ymm_model")} className="mb-ymm-select" onChange={(e) => handleYmmChange(year, make, e.target.value, trim)}>
+                        <option value="Avanza">Avanza</option>
+                        <option value="Innova Zenix">Innova Zenix</option>
+                        <option value="Xpander">Xpander</option>
+                        <option value="Xenia">Xenia</option>
+                        <option value="Stargazer">Stargazer</option>
+                      </select>
+                      <select value={trim} aria-label={t("ymm_trim")} className="mb-ymm-select" onChange={(e) => handleYmmChange(year, make, model, e.target.value)}>
+                        <option value="1.5 G CVT">1.5 G CVT</option>
+                        <option value="2.0 V HEV">2.0 V HEV</option>
+                        <option value="1.5 Ultimate">1.5 Ultimate</option>
+                        <option value="1.5 R CVT">1.5 R CVT</option>
+                        <option value="1.5 Prime">1.5 Prime</option>
+                      </select>
+                    </div>
+                  </div>
+                )}
+              </div>
 
-        {/* Beat 03 Compact Protection Strip */}
-        <div className="mb-fit-protect" data-rev="2">
-          <div className="mb-fit-protect-head">
-            <span className="mb-step-num">03</span>
-            <span className="mb-fit-protect-title">{t("how_s3_t")}</span>
-          </div>
-          <div className="mb-step-stack mb-step-stack--row">
-            <div className="mb-prot-row">{t("prot_r1")}</div>
-            <div className="mb-prot-row">{t("prot_r2")}</div>
-            <div className="mb-prot-row is-hl">{t("prot_r3")}</div>
+              <div className={`mb-cat-car-wrapper ${isScanning ? "is-scanning" : ""}`}>
+                <img src="/assets/fitment/catalog-car-poster.jpg" className="mb-cat-car-img" alt="Catalog Car Blueprint" />
+                <div className="mb-cat-scan-line" />
+              </div>
+            </div>
+
+            <div className="mb-cat-grid">
+              {parts.map((part, i) => (
+                <div key={i} className="mb-cat-card">
+                  <div className="mb-cat-card-img-wrap">
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                    <img src={part.img} alt={t(part.key as any)} className="mb-cat-card-img" />
+                  </div>
+                  <div className="mb-cat-card-info">
+                    <div className="mb-cat-card-brand">{t("cat_part_brand")}</div>
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                    <div className="mb-cat-card-name">{t(part.key as any)}</div>
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                    <div className="mb-cat-card-price">{part.price} <span className="mb-sim-tag">{t("cat_sim_tag" as any)}</span></div>
+                  </div>
+                  {garage && !isScanning && (
+                    <div className="mb-cat-verified">
+                      <span className="mb-cat-check">✓</span> {t("cat_part_verified")}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
           </div>
         </div>
       </div>

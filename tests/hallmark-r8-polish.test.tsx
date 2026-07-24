@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 
 import Footer from "@/components/landing/Footer";
 import HeroRotator from "@/components/landing/HeroRotator";
-import HowItWorks from "@/components/landing/HowItWorks";
+import AiCatalogCard from "@/components/landing/AiCatalogCard";
 import ProblemSection from "@/components/landing/ProblemSection";
 import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
 import { langs, t } from "@/lib/i18n";
@@ -94,30 +94,17 @@ describe("R8 · responsive & mobile", () => {
   });
 });
 
-describe("R8 · structure & fitment", () => {
-  it("rebalances the fitment flanking rails toward the heavier right column (audit #27)", () => {
-    expect(landingCss).toContain(
-      "grid-template-columns: minmax(0, 220px) minmax(0, 1fr) minmax(0, 300px)",
-    );
-  });
 
-  it("removes the dead base box-shadow while keeping the 4-layer stage shadow (audit #14)", () => {
-    expect(landingCss).not.toMatch(/\.mb-hero-scene \{[^}]*box-shadow: 0 40px 90px/s);
-    expect(landingCss).toMatch(
-      /\.mb-fit3d-stage \.mb-hero-scene \{[^}]*var\(--mb-shadow-linear-4layer\)/s,
-    );
-  });
-});
 
 describe("R8 · macrostructure & copy", () => {
   it("retires the eyebrow kicker on the front-page narrative bands (audit #1)", () => {
     const prob = render(<ProblemSection />);
-    const how = render(<HowItWorks />);
+    const how = render(<AiCatalogCard />);
     expect(prob).not.toContain("mb-kicker");
     expect(how).not.toContain("mb-kicker");
     // The H2s still lead their bands.
     expect(prob).toContain("mb-h2--prob");
-    expect(how).toContain(t("en", "how_h2"));
+    expect(how).toContain(t("en", "cat_h2"));
     // The copy keys stay defined in both languages (unused, harmless).
     for (const lang of langs) {
       expect(t(lang, "prob_kicker")).toBeTruthy();

@@ -21,8 +21,8 @@ import "./landing.css";
 /**
  * Landing page (F-001, slimmed in the redesign) — the founder-approved
  * Variant-B band stack, alternating dark/light:
- * nav (overlay) → hero (dark, full viewport) → problem slim (light) →
- * unify band (dark, full section) → how it works (light) → AI catalog demo
+ * nav (overlay) → hero (dark, full viewport) → fitment (dark, full section) →
+ * problem slim (light) → unify band (dark, full section) → AI catalog demo
  * (dark card, returned to the front page by founder decision 2026-07-23) →
  * buyer strip → footer. The data bands (proof bar, pain tiles, search
  * comparison, why-now) live on /why-mobeeli; Team and Investors keep their
