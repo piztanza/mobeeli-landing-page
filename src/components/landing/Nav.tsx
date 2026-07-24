@@ -34,8 +34,8 @@ const NAV_LINKS: readonly (readonly [href: string, key: CopyKey])[] = [
   ["/investors", "nav_inv"],
 ];
 
-/** Above this width the desktop nav shows; below it the hamburger sheet takes over (CHG-piztanza-10). */
-const NAV_DESKTOP_QUERY = "(min-width: 880px)";
+/** Above this width the desktop nav shows; below it the hamburger sheet takes over (CHG-piztanza-10, R10-F). */
+export const NAV_DESKTOP_QUERY = "(min-width: 1040px)";
 
 /** EN/ID pill toggle — rendered in the desktop bar and again inside the mobile sheet. */
 function LangToggle() {

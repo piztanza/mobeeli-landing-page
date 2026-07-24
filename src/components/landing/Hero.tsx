@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,6 +9,10 @@ import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { useT } from "@/lib/i18n/LanguageProvider";
 
 import HeroRotator from "./HeroRotator";
+
+const AmbientAurora = dynamic(() => import("@/components/three/AmbientAurora"), {
+  ssr: false,
+});
 
 /**
  * Dark hero (F-001), type-focused since the R4 restructure: chip, rotating H1
@@ -24,6 +29,7 @@ export default function Hero() {
   return (
     <header id="top" className="mb-hero">
       <div className="mb-hero-bg-media" aria-hidden>
+        <AmbientAurora intensity={0.4} />
         {!reduced ? (
           <video
             src="/veo/jakarta-hero-bg.mp4"

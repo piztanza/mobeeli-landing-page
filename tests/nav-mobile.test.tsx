@@ -69,10 +69,10 @@ describe("mobile hamburger nav (F-001, CHG-piztanza-10)", () => {
     expect(bar).toContain(">EN</button>");
   });
 
-  it("collapses at ~880px and never leaks the sheet into the desktop nav (CSS contract)", () => {
-    expect(landingCss).toContain("@media (max-width: 879.98px)");
-    const desktopGuard = landingCss.match(/@media \(min-width: 880px\) \{[^}]*\}[^}]*\}/s)?.[0];
-    expect(landingCss).toContain("@media (min-width: 880px)");
+  it("collapses at ~1040px and never leaks the sheet into the desktop nav (CSS contract)", () => {
+    expect(landingCss).toContain("@media (max-width: 1039.98px)");
+    const desktopGuard = landingCss.match(/@media \(min-width: 1040px\) \{[^}]*\}[^}]*\}/s)?.[0];
+    expect(landingCss).toContain("@media (min-width: 1040px)");
     expect(desktopGuard).toContain(".mb-nav-sheet");
     expect(desktopGuard).toContain(".mb-nav-burger");
     expect(desktopGuard).toContain("display: none !important");
