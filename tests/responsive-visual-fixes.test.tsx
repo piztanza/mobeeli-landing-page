@@ -45,39 +45,6 @@ function mediaBlockFor(css: string, query: string, selector: string): string {
   return block ?? "";
 }
 
-describe("product cards docked in the fitment band (R4, supersedes CHG-piztanza-18)", () => {
-  it("cards are relative, flanking the wheel in a grid — the absolute overlay is gone (R7)", () => {
-    expect(landingCss).toMatch(/\.mb-herocard \{[^}]*position: relative;/s);
-    expect(landingCss).toMatch(
-      /\.mb-fit3d-layout \{[^}]*display: grid;[^}]*grid-template-columns: minmax\(0, 220px\)/s,
-    );
-  });
-
-  it("no card carries absolute offsets at any viewport", () => {
-    expect(landingCss).not.toMatch(/\.mb-card-part \{[^}]*(?:top|left|right|bottom): /s);
-    expect(landingCss).not.toMatch(/\.mb-card-video \{[^}]*(?:top|left|right|bottom): /s);
-  });
-});
-
-describe("fit pill in the docked row (R4, supersedes CHG-piztanza-18)", () => {
-  it("no longer overlays the scene — it self-centers in the card row", () => {
-    // The old overlay offset (bottom: 24px vs the projected label) is gone;
-    // the pill can never collide with the scene's labels again.
-    expect(landingCss).not.toMatch(/\.mb-card-fit \{[^}]*bottom: /s);
-    expect(landingCss).toMatch(/\.mb-card-fit \{[^}]*align-self: center;/s);
-  });
-});
-
-describe("part card price row (CHG-piztanza-18)", () => {
-  it("keeps 'Rp 385.000' on one line", () => {
-    expect(landingCss).toMatch(/\.mb-card-part-price \{[^}]*white-space: nowrap;/s);
-  });
-
-  it("balances price against the Verified-fit chip and lets the card fit its content", () => {
-    expect(landingCss).toMatch(/\.mb-card-part-row \{[^}]*justify-content: space-between;/s);
-    expect(landingCss).toMatch(/\.mb-card-part \{[^}]*width: auto;[^}]*max-width: 272px;/s);
-  });
-});
 
 describe("hero H1 reserved height via pair sizers (CHG-piztanza-18)", () => {
   const html = renderToStaticMarkup(
@@ -160,11 +127,6 @@ describe("phone catalog stage and unify map (CHG-piztanza-18)", () => {
 });
 
 describe("reduced motion preserved (CHG-piztanza-18)", () => {
-  it("still shows the hero cards instantly under prefers-reduced-motion", () => {
-    expect(landingCss).toMatch(
-      /@media \(prefers-reduced-motion: reduce\) \{\s*\.mb-herocard \{[^}]*opacity: 1;[^}]*transition: none;/s,
-    );
-  });
 
   it("still disables the rotation transition under prefers-reduced-motion", () => {
     expect(landingCss).toMatch(

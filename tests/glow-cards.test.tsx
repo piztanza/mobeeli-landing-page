@@ -2,25 +2,13 @@ import { readFileSync } from "node:fs";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
-import FitmentSection from "@/components/landing/FitmentSection";
-import HowItWorks from "@/components/landing/HowItWorks";
-import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
-
+import AiCatalogCard from "@/components/landing/AiCatalogCard";
 describe("Proposal Q1 — Cursor-Tracked Glow-Border Card System", () => {
-  it("renders .mb-glow-card on HowItWorks step cards", () => {
-    const html = renderToStaticMarkup(<HowItWorks />);
-    expect(html).toContain('class="mb-step-card mb-glow-card"');
+  it("renders .mb-glow-card on AiCatalogCard", () => {
+    const html = renderToStaticMarkup(<AiCatalogCard />);
+    expect(html).toContain('mb-glow-card');
   });
 
-  it("renders .mb-glow-card and .mb-glow-card-fill on the fitment band's docked cards (R4)", () => {
-    const html = renderToStaticMarkup(
-      <LanguageProvider>
-        <FitmentSection />
-      </LanguageProvider>,
-    );
-    expect(html).toContain("mb-glow-card mb-glow-card-fill");
-    expect(html).toContain('class="mb-fit3d-layout"');
-  });
 
   it("defines CSS rules for border mask and fill variant in landing.css", () => {
     const landingCss = readFileSync(

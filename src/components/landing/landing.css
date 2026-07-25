@@ -720,233 +720,215 @@ button.mb-buyer-cta:active {
   margin: 0 auto;
   text-align: center;
 }
-/* Wheel centered; spec boxes flank it left/right (R7). */
 .mb-fit3d-layout {
   display: grid;
-  /* Rails unbalanced toward the heavier right column (audit #27): the left rail
-     holds one card, the right holds two, so equal 250/250 framed unequal weight. */
-  grid-template-columns: minmax(0, 220px) minmax(0, 1fr) minmax(0, 300px);
-  align-items: center;
-  gap: 28px;
+  grid-template-columns: 320px 1fr;
+  gap: 40px;
+  align-items: start;
   margin-top: 30px;
 }
-.mb-fit3d-col {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  z-index: 3;
-}
-@media (min-width: 1200px) {
-  .mb-fit3d-col--left {
-    margin-right: -36px;
-  }
-  .mb-fit3d-col--right {
-    margin-left: -36px;
-  }
-}
-.mb-fit3d-col--left {
-  align-items: flex-end;
-}
-.mb-fit3d-col--right {
-  align-items: flex-start;
-}
-.mb-fit3d-col .mb-herocard {
-  width: 100%;
-  max-width: 100%;
-}
-.mb-fit3d-telemetry {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(13, 21, 34, 0.7);
-  border: 1px solid var(--mb-hairline-subtle);
-  border-radius: var(--mb-radius-pill);
-  padding: 5px 12px;
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: var(--mb-light-accent);
-  margin-bottom: 14px;
-}
-/* Perspective for the scene's pointer-parallax tilt (#4). The tilt transform
-   must NOT live on the stage itself: the stage carries data-rev, and
-   useScrollReveal owns its inline transform (leaves `transform: none` after
-   reveal, which would override a stylesheet tilt forever — audit-caught). */
-.mb-fit3d-stage {
-  position: relative;
-  perspective: 1600px;
-  /* The 2D scanner's children are all absolutely positioned; without an explicit
-     ratio the stage collapsed to the telemetry pill (~40px). Give it a real
-     scanner frame (fix: second-section audit). */
-  aspect-ratio: 16 / 10;
-  border-radius: var(--mb-radius-card);
-}
-/* Glass bezel on the stage (R5, audit-implemented — the referenced spotlight
-   class no longer existed; this is the real material treatment).
-   #4 pointer-parallax (R7): useTilt writes --tilt-rx/--tilt-ry on the stage
-   (max ±9°); the custom props inherit here, where the transform is safe from
-   the scroll-reveal's inline styles. Short transition smooths the rAF writes
-   (same idiom as .mb-magnetic-cta). */
-.mb-fit3d-stage .mb-hero-scene {
-  position: relative;
-  z-index: 1;
-  border: 1px solid var(--mb-hairline-subtle);
-  box-shadow: var(--mb-shadow-linear-4layer);
-  transform: rotateX(var(--tilt-rx, 0deg)) rotateY(var(--tilt-ry, 0deg));
-  transition: transform 0.18s ease-out;
-  /* will-change set by useTilt on pointer-enter, cleared on leave (audit #28). */
-}
-@media (prefers-reduced-motion: reduce) {
-  .mb-fit3d-stage .mb-hero-scene {
-    transform: none !important;
-    transition: none !important;
-  }
-}
-.mb-fit3d-stage-glow {
-  position: absolute;
-  inset: -40px;
-  pointer-events: none;
-  background: radial-gradient(500px 300px at 50% 40%, rgba(47, 125, 246, 0.2), transparent 70%);
-  z-index: 0;
-}
-/* Below the wheel's flanking columns collapse (R7): stack wheel-then-cards. */
+
 @media (max-width: 959.98px) {
   .mb-fit3d-layout {
     grid-template-columns: 1fr;
-    gap: 20px;
-    justify-items: center;
   }
-  .mb-fit3d-stage {
-    order: -1;
-    width: 100%;
-  }
-  .mb-fit3d-col {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+}
+
+.mb-fit3d-col--left {
+  text-align: left;
+}
+
+/* Renamed from .mb-cat-h2 to avoid colliding with AiCatalogCard's .mb-cat-h2 (salvage). */
+.mb-ucat-h2 {
+  text-align: left;
+  margin-bottom: 30px;
+  font-size: 28px;
+  color: #fff;
+}
+
+.mb-cat-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mb-cat-stat {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mb-cat-stat-v {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--mb-light-accent);
+}
+
+.mb-cat-stat-l {
+  font-size: 14px;
+  color: var(--mb-dark-muted);
+  margin-top: 4px;
+}
+
+.mb-cat-top-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+@media (max-width: 639.98px) {
+  .mb-cat-top-row {
+    flex-direction: column;
     align-items: stretch;
   }
 }
-.mb-hero-scene {
-  border-radius: 22px;
-  overflow: hidden;
-  /* box-shadow removed (audit #14): the only mount is inside .mb-fit3d-stage,
-     whose more-specific rule sets the 4-layer shadow — this value never painted. */
-  aspect-ratio: 16/11;
-  background: radial-gradient(120% 90% at 38% 28%, #16263f, #0a1322 75%);
-}
-.mb-hero-scene > * {
-  width: 100%;
-  height: 100%;
+
+.mb-cat-ymm {
+  flex: 1;
 }
 
-/* Product cards (docked in the fitment band since R4) — hidden until the
-   scene's first loop, then staggered in. */
-.mb-herocard {
+.mb-cat-car-wrapper {
   position: relative;
-  background: #fff;
-  opacity: 0;
-  transform: translateY(14px);
-  transition:
-    opacity 0.7s var(--mb-ease-standard),
-    transform 0.7s var(--mb-ease-standard);
+  width: 280px;
+  height: 140px;
+  border-radius: 12px;
+  background: radial-gradient(circle at center, rgba(47, 125, 246, 0.2), transparent 70%);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
 }
-.mb-herocard.is-in {
-  opacity: 1;
-  transform: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  .mb-herocard {
-    opacity: 1;
-    transform: none;
-    transition: none;
+@media (max-width: 639.98px) {
+  .mb-cat-car-wrapper {
+    width: 100%;
   }
 }
-/* Shrink-to-fit up to 272px so the price row never wraps (CHG-piztanza-18). */
-.mb-card-part {
-  width: auto;
-  max-width: 272px;
+
+.mb-cat-car-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: screen;
+}
+
+.mb-cat-scan-line {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(47, 125, 246, 0.5), transparent);
+  animation: mb-cat-scan 1.5s infinite linear;
+}
+
+@keyframes mb-cat-scan {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.mb-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 600px) {
+  .mb-cat-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Renamed from .mb-cat-card to avoid colliding with AiCatalogCard's .mb-cat-card
+   (which is a 560px-tall section container — it was overriding these part cards). */
+.mb-ucat-card {
+  position: relative;
   border-radius: 16px;
-  padding: 13px;
-  box-shadow: 0 24px 54px rgba(3, 8, 16, 0.45);
+  padding: 16px;
   display: flex;
+  flex-direction: column;
   gap: 12px;
-  align-items: center;
+
+  /* R13 Glassmorphism Recipe */
+  backdrop-filter: blur(22px) saturate(1.5);
+  -webkit-backdrop-filter: blur(22px) saturate(1.5);
+  background-color: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.2), 0 10px 30px rgba(0, 0, 0, 0.3);
 }
-.mb-card-part-thumb {
-  width: 48px;
-  height: 48px;
-  border-radius: 10px;
-  flex: none;
-  background: repeating-linear-gradient(45deg, #eef1f6 0 7px, #e0e6f0 7px 14px);
+
+@media (prefers-reduced-transparency: reduce) {
+  .mb-ucat-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background-color: rgba(13, 21, 34, 0.95);
+  }
 }
-.mb-card-part-body {
-  min-width: 0;
+
+.mb-cat-card-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
 }
-.mb-card-part-name {
-  font-size: 13.5px;
-  font-weight: 700;
+
+.mb-cat-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
-.mb-card-part-sub {
-  font-size: 11.5px;
-  color: var(--mb-muted);
-  margin-top: 1px;
-}
-.mb-card-part-row {
+
+.mb-cat-card-info {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+  flex-direction: column;
+  text-align: left;
+}
+
+.mb-cat-card-brand {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--mb-dark-muted);
+  letter-spacing: 0.5px;
+}
+
+.mb-cat-card-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 2px;
+}
+
+.mb-cat-card-price {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--mb-light-accent);
   margin-top: 6px;
 }
-.mb-card-part-price {
-  font-size: 12.5px;
-  font-weight: 800;
-  /* "Rp 385.000" stays one line at every width (CHG-piztanza-18). */
-  white-space: nowrap;
+
+.mb-sim-tag {
+  font-size: 10px;
+  color: var(--mb-dark-muted);
+  font-weight: 400;
 }
-.mb-chip-tint {
-  background: var(--mb-tint);
-  color: var(--mb-deep-blue-hover);
-  font-size: 10.5px;
-  font-weight: 800;
-  padding: 3px 8px;
-  border-radius: var(--mb-radius-pill);
-  white-space: nowrap;
-}
-/* bottom 24px (design: 104px) straddles the scene's lower edge so the pill
-   sits clear of the projected "Authenticity — Genuine" spec label, which
-   lands ~80% down the scene at desktop (CHG-piztanza-18). */
-.mb-card-fit {
-  align-self: center;
-  border-radius: var(--mb-radius-pill);
-  padding: 11px 17px;
-  box-shadow: 0 20px 44px rgba(3, 8, 16, 0.45);
-  display: flex;
+
+.mb-cat-verified {
+  margin-top: 2px;
+  display: inline-flex;
   align-items: center;
-  gap: 9px;
-}
-.mb-card-fit-label {
-  font-size: 13px;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: rgba(47, 125, 246, 0.15);
+  border: 1px solid rgba(47, 125, 246, 0.3);
+  color: var(--mb-light-accent);
+  font-size: 12px;
   font-weight: 700;
+  width: fit-content;
 }
-.mb-card-video {
-  width: 238px;
-  border-radius: 16px;
-  padding: 10px;
-  box-shadow: 0 26px 60px rgba(3, 8, 16, 0.5);
-}
-.mb-card-video video {
-  width: 100%;
-  border-radius: 10px;
-  display: block;
-  background: #f4f6fa;
-}
-.mb-card-video-cap {
-  font-size: 11.5px;
-  font-weight: 600;
-  color: var(--mb-muted);
-  margin-top: 7px;
+
+.mb-cat-check {
+  font-size: 14px;
 }
 
 /* R4/R7: the cards are permanently in-flow (grid columns flanking the wheel) —
@@ -1119,16 +1101,7 @@ button.mb-buyer-cta:active {
   color: var(--mb-light-accent);
 }
 
-/* ---------- how it works ---------- */
 
-.mb-how {
-  background: var(--mb-surface);
-  border-top: 1px solid var(--mb-border);
-  border-bottom: 1px solid var(--mb-border);
-}
-.mb-h2--how {
-  max-width: 700px;
-}
 /* Q1: Cursor-tracked glow-border card system (linear.app style) */
 .mb-glow-card {
   position: relative;
@@ -1194,12 +1167,7 @@ button.mb-buyer-cta:active {
   }
 }
 
-.mb-step-card {
-  border: 1px solid var(--mb-border);
-  border-radius: var(--mb-radius-card);
-  padding: 30px;
-  background: var(--mb-bg);
-}
+
 .mb-step-num {
   width: 40px;
   height: 40px;
@@ -1212,159 +1180,12 @@ button.mb-buyer-cta:active {
   align-items: center;
   justify-content: center;
 }
-.mb-step-t {
-  margin: 18px 0 0;
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-.mb-step-d {
-  margin: 8px 0 0;
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--mb-muted);
-}
+
 .mb-step-stack {
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-top: 20px;
-}
-/* Step 2 Funnel Simulator */
-.mb-funnel-sim {
-  /* Q2 material system: elevated dark panel with the 4-layer shadow. */
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%),
-    var(--mb-ink-dp2);
-  border: 1px solid rgba(47, 125, 246, 0.2);
-  border-radius: 12px;
-  padding: 14px;
-  margin-top: 20px;
-  box-shadow: var(--mb-shadow-linear-4layer);
-}
-.mb-funnel-input {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(47, 125, 246, 0.3);
-  border-radius: 8px;
-  padding: 8px 10px;
-  font-size: 13px;
-  min-height: 42px;
-}
-.mb-funnel-chip {
-  background: rgba(47, 125, 246, 0.15);
-  color: var(--mb-light-accent);
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-weight: 700;
-  font-size: 12px;
-  border: 1px solid rgba(91, 155, 247, 0.3);
-  /* Enumerated properties only (audit #21) — no wildcard transition, so just the
-     props that flip on .is-active animate. */
-  transition:
-    background-color 0.25s var(--mb-ease-standard),
-    color 0.25s var(--mb-ease-standard),
-    border-color 0.25s var(--mb-ease-standard);
-}
-.mb-funnel-chip.is-active {
-  background: var(--mb-primary);
-  color: #fff;
-  border-color: var(--mb-primary);
-}
-.mb-funnel-cursor {
-  width: 6px;
-  height: 14px;
-  background: var(--mb-primary);
-  border-radius: 1px;
-  animation: mbPulse 1s infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .mb-funnel-cursor {
-    animation: none;
-  }
-}
-.mb-funnel-results {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-.mb-funnel-count {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.mb-funnel-num {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--mb-primary);
-  letter-spacing: -0.02em;
-  font-variant-numeric: tabular-nums;
-  transition: color 0.3s ease;
-}
-/* Success state stays in the blue family — the design's verified semantic
-   (.mb-fit-mark, .is-check) is deep-blue/light-accent, never green. */
-.mb-funnel-num.is-exact {
-  color: var(--mb-light-accent);
-}
-.mb-funnel-unit {
-  font-size: 12.5px;
-  color: var(--mb-dark-muted);
-}
-.mb-funnel-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: rgba(47, 125, 246, 0.18);
-  color: var(--mb-light-accent);
-  border: 1px solid rgba(91, 155, 247, 0.45);
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-}
-.mb-ymm-pill {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--mb-surface);
-  border: 1px solid #dde4f0;
-  border-radius: var(--mb-radius-pill);
-  padding: 8px 16px;
-  font-size: 13px;
-}
-.mb-ymm-pill--1 {
-  margin-left: 14px;
-}
-.mb-ymm-pill--2 {
-  margin-left: 28px;
-}
-.mb-ymm-pill--3 {
-  margin-left: 42px;
-}
-.mb-ymm-pill.is-active {
-  background: var(--mb-tint);
-  border-color: #a9c6f6;
-}
-.mb-ymm-k {
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  font-size: 10.5px;
-  text-transform: uppercase;
-  color: var(--mb-muted);
-}
-.mb-ymm-v {
-  font-weight: 700;
-}
-.mb-ymm-pill.is-active .mb-ymm-k,
-.mb-ymm-pill.is-active .mb-ymm-v {
-  color: var(--mb-deep-blue-hover);
 }
 .mb-prot-row {
   background: var(--mb-surface);
@@ -2117,92 +1938,8 @@ button.mb-buyer-cta:active {
   justify-content: space-between;
   gap: 10px;
 }
-.mb-funnel-badge span {
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-}
 
-/* Port #3: GarageOS Laser Scanner in HowItWorks Step 3 card */
-.mb-scanner-box {
-  margin-top: 18px;
-  background: var(--mb-ink-dp1);
-  border: 1px solid var(--mb-hairline-subtle);
-  border-radius: var(--mb-radius-input);
-  padding: 12px;
-  overflow: hidden;
-}
-.mb-scanner-stage {
-  position: relative;
-  height: 64px;
-  background: rgba(13, 21, 34, 0.9);
-  border-radius: 8px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.mb-scanner-laser {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent 0%, var(--mb-light-accent) 50%, transparent 100%);
-  box-shadow: 0 0 12px var(--mb-primary), 0 0 24px var(--mb-light-accent);
-  animation: laserSweep 2.8s ease-in-out infinite alternate;
-  z-index: 2;
-}
-@keyframes laserSweep {
-  0% { transform: translateY(0px); opacity: 0.6; }
-  100% { transform: translateY(62px); opacity: 1; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .mb-scanner-laser {
-    animation: none !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-  }
-}
-.mb-scanner-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(47, 125, 246, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(47, 125, 246, 0.08) 1px, transparent 1px);
-  background-size: 12px 12px;
-  z-index: 0;
-}
-.mb-scanner-text {
-  position: relative;
-  z-index: 1;
-  font-size: 10.5px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  color: var(--mb-light-accent);
-  text-transform: uppercase;
-}
-.mb-verified-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-  font-size: 11.5px;
-  font-weight: 700;
-  color: var(--mb-light-accent);
-}
-.mb-verified-icon {
-  display: inline-grid;
-  place-items: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: rgba(47, 125, 246, 0.25);
-  border: 1px solid var(--mb-light-accent);
-  color: var(--mb-light-accent);
-  font-size: 10px;
-  font-weight: 800;
-}
+
 .mb-team-name {
   font-size: 18px;
   font-weight: 800;
@@ -2711,6 +2448,68 @@ button.mb-buyer-cta:active {
   box-shadow: 0 0 0 2px rgba(47, 125, 246, 0.3);
 }
 
+.mb-picker-forms {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.mb-vin-form {
+  display: flex;
+  gap: 8px;
+}
+.mb-vin-input {
+  width: 220px;
+}
+.mb-vin-btn {
+  background: var(--mb-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--mb-radius-input);
+  padding: 0 16px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.mb-vin-btn:hover {
+  background: var(--mb-deep-blue);
+}
+.mb-garage-active {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(47, 125, 246, 0.1);
+  border: 1px solid rgba(47, 125, 246, 0.3);
+  padding: 8px 16px;
+  border-radius: var(--mb-radius-pill);
+}
+.mb-garage-badge {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--mb-light-accent);
+  text-transform: uppercase;
+}
+.mb-garage-val {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+}
+.mb-garage-clear {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--mb-dark-muted);
+  border-radius: var(--mb-radius-pill);
+  padding: 4px 10px;
+  font-size: 11px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+.mb-garage-clear:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
 /* Scanner Laser Overlay */
 .mb-scan-overlay {
   position: absolute;
@@ -2852,11 +2651,8 @@ button.mb-buyer-cta:active {
    R13: Liquid-Glass 2.0 Pass (Apple Glassmorphism 2026)
    Scoped to #how-it-works / .mb-fit3d section panels
    ========================================================================== */
-.mb-fit3d .mb-ymm-picker,
-.mb-fit3d .mb-card-part,
-.mb-fit3d .mb-card-fit,
-.mb-fit3d .mb-fit3d-telemetry,
-.mb-fit3d .mb-scan-chip,
+.mb-fit3d .mb-cat-ymm,
+.mb-fit3d .mb-cat-card,
 .mb-fit3d .mb-fit-protect {
   background: linear-gradient(150deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -2884,11 +2680,8 @@ button.mb-buyer-cta:active {
 }
 
 @media (prefers-reduced-transparency: reduce) {
-  .mb-fit3d .mb-ymm-picker,
-  .mb-fit3d .mb-card-part,
-  .mb-fit3d .mb-card-fit,
-  .mb-fit3d .mb-fit3d-telemetry,
-  .mb-fit3d .mb-scan-chip,
+  .mb-fit3d .mb-cat-ymm,
+  .mb-fit3d .mb-cat-card,
   .mb-fit3d .mb-fit-protect {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;

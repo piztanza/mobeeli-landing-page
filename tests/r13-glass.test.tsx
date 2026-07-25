@@ -18,17 +18,13 @@ describe("Proposal R13 — Liquid-Glass 2.0 (Apple Glassmorphism 2026)", () => {
   });
 
   it("scopes Liquid-Glass 2.0 rules to the fitment section panels", () => {
-    const panels = [
-      ".mb-fit3d .mb-ymm-picker",
-      ".mb-fit3d .mb-card-part",
-      ".mb-fit3d .mb-card-fit",
-      ".mb-fit3d .mb-fit3d-telemetry",
-      ".mb-fit3d .mb-scan-chip",
+    const glassClasses = [
+      ".mb-fit3d .mb-cat-card",
+      ".mb-fit3d .mb-cat-ymm",
       ".mb-fit3d .mb-fit-protect",
-      ".mb-fit3d .mb-fit3d-stage",
     ];
 
-    for (const panel of panels) {
+    for (const panel of glassClasses) {
       expect(landingCss).toContain(panel);
     }
   });

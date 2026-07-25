@@ -106,17 +106,6 @@ describe("responsive audit CSS contracts (F-001, CHG-piztanza-10)", () => {
     expect(phone).toMatch(/\.mb-sprite--air \{[^}]*width: 28%;/s);
   });
 
-  it("product cards are permanently in-flow — no absolute overlay at any viewport (R4)", () => {
-    // R4 supersedes CHG-piztanza-18: the cards live in the fitment band's
-    // flex row, so the base card rule must never be absolute again.
-    expect(landingCss).toMatch(/\.mb-herocard \{[^}]*position: relative;/s);
-    expect(landingCss).not.toMatch(/\.mb-herocard \{[^}]*position: absolute;/s);
-    // R7: cards live in the grid columns flanking the wheel (no absolute overlay).
-    expect(landingCss).toMatch(/\.mb-fit3d-layout \{[^}]*display: grid;/s);
-    // no negative horizontal offsets survive in the phone overrides (margins excluded)
-    const phone = landingCss.slice(landingCss.indexOf("---------- responsive audit"));
-    expect(phone).not.toMatch(/(?:^|[\s{;])(?:left|right): -\d/m);
-  });
 
   it("gives wizard inputs >=16px text and 44px touch targets (CSS contract)", () => {
     expect(joinCss).toMatch(/\.mb-jw-input \{[^}]*font-size: 16px;/s);

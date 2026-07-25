@@ -48,27 +48,13 @@ const LANDING_KEYS = [
   "quote_main",
   "quote_en",
   "quote_by",
-  "how_kicker",
-  "how_h2",
-  "how_s1_t",
-  "how_s1_d",
-  "ymm_y",
-  "ymm_mk",
-  "ymm_md",
-  "ymm_tr",
-  "how_s2_t",
-  "how_s2_d",
-  "how_s2_d_short",
-  "how_s2_fnl_q1",
-  "how_s2_fnl_q2",
-  "how_s2_fnl_q3",
-  "how_s2_fnl_c1",
-  "how_s2_fnl_c2",
-  "how_s2_fnl_c3",
-  "how_s2_fnl_badge",
-  "how_s2_fnl_unit",
-  "how_s3_t",
-  "how_s3_d",
+  "cat_unified_h2",
+  "cat_unified_stat1_v",
+  "cat_unified_stat1_l",
+  "cat_unified_stat2_v",
+  "cat_unified_stat2_l",
+  "cat_unified_stat3_v",
+  "cat_unified_stat3_l",
   "prot_r1",
   "prot_r2",
   "prot_r3",
@@ -146,7 +132,7 @@ describe("landing i18n completeness (F-001)", () => {
     expect(t("id", "prob_t3_v")).toBe("16,75–19,66%");
     expect(t("en", "card_part_chip")).toBe("✓ Verified fit");
     expect(t("id", "card_part_chip")).toBe("✓ Dipastikan cocok");
-    expect(t("en", "cat_pill")).toBe("✓ One catalog · 120M+ mappings");
+    expect(t("en", "cat_pill")).toBe("✓ One catalog · 120M+ mappings (Simulation)");
     expect(t("id", "why_p")).toContain("Mei 2026");
     expect(t("en", "early_kicker")).toBe("Early Adopters Program");
     expect(t("id", "uni_h2")).toBe("Dari Sabang sampai Merauke, satu katalog.");
@@ -158,7 +144,6 @@ describe("landing i18n completeness (F-001)", () => {
     // Founder direction: no market sizes or moat counts on the front page.
     for (const lang of langs) {
       expect(t(lang, "hero_sub_short")).not.toMatch(/\d/);
-      expect(t(lang, "how_s2_d_short")).not.toMatch(/\d/);
     }
   });
 });
@@ -198,13 +183,12 @@ describe("landing page render (F-001 + F-009)", () => {
     // The long stat-bearing hero sub is replaced by the broad deck thesis.
     expect(html).not.toContain(esc(t("en", "hero_sub")));
     expect(html).toContain(esc(t("en", "hero_sub_short")));
-    expect(html).not.toContain(esc(t("en", "how_s2_d")));
   });
 
   it("renders the R12 band order — fitment scanner with 3-beat how-it-works second, archipelago fourth", () => {
     const bands = [
       t("en", "hero_chip"), // hero (dark, type-focused, full viewport)
-      t("en", "how_h2"), // fitment scanner band (3-beat how-it-works + 3D stage)
+      t("en", "cat_unified_h2"), // fitment scanner band (3-beat how-it-works + 3D stage) -> R15 Catalog Port
       t("en", "quote_main"), // the problem, slim (light)
       t("en", "uni_h2"), // unify band / archipelago (dark, full-bleed map)
       t("en", "cat_h2"), // AI catalog demo (returned by founder decision)
@@ -271,15 +255,5 @@ describe("landing page render (F-001 + F-009)", () => {
     expect(html).toContain("mobeeli-logo-white.png");
     const footer = html.slice(html.indexOf('class="mb-footer"'));
     expect(footer).toContain("mobeeli-logo-white.png");
-  });
-
-  it("renders the floating hero cards over the scene container", () => {
-    expect(html).toContain(t("en", "card_part_name"));
-    expect(html).toContain(t("en", "card_fit"));
-    const video = html.match(/<video[^>]*unify-graph\.mp4[^>]*>/)?.[0] ?? "";
-    expect(video).toContain("unify-graph.mp4");
-    expect(video).toContain("muted");
-    expect(video).toContain("loop");
-    expect(video.toLowerCase()).toContain("playsinline");
   });
 });

@@ -35,7 +35,5 @@ describe("Proposal Q2 — Dark-Band Material System", () => {
     expect(landingCss).toContain("mix-blend-mode: overlay;");
     // Grain overlays are absolute — every host must be its positioning context.
     expect(landingCss).toMatch(/\.mb-uni \{[^}]*position: relative;/s);
-    // The 4-layer shadow has a real consumer: the funnel simulator panel.
-    expect(landingCss).toMatch(/\.mb-funnel-sim \{[^}]*var\(--mb-shadow-linear-4layer\)/s);
   });
 });
