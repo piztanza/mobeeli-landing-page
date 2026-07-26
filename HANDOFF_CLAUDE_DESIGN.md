@@ -1,425 +1,367 @@
-# HANDOFF_CLAUDE_DESIGN.md
+# HANDOFF_CLAUDE_DESIGN.md — v2
 
-**The recursive-improvement loop, handed to Claude Design.**
+**The recursive-improvement loop, handed back to Claude Design.**
+**Supersedes v1 (post-R8 snapshot @ `9274c94`), which is now factually wrong — see §12.**
 
-This is the standing brief for the **Claude Design** loop on the Mobeeli marketing
-landing page — the counterpart to the `HANDOFF_GEMINI_*` docs, but for the Claude-side
-design pass (the `hallmark` design skill: `audit` / `redesign` / `study`). Read this
-top-to-bottom before touching anything. It carries: where the project is right now, the
-founder's own directives across every round (so you inherit his voice and standards), the
-locked contracts you may not break, the full codebase map, the R8 audit ledger, and the
-loop protocol.
+Standing brief for the **Claude Design** loop on the Mobeeli marketing landing page, and the
+source of truth for what **Gemini** is allowed to do next. Read top to bottom before touching
+anything.
 
-Author of this handoff: **Fable (Claude, Opus 4.8)**, engineer + auditor on this repo.
-Last updated: **2026-07-23**, immediately after R8 shipped to production.
-
----
-
-## 0. How to run this loop (read first)
-
-The founder ("Yavet", founder/CEO of Mobeeli) runs a **relentless, hyper-recursive
-visual-improvement loop**. Each round:
-
-1. **Audit** the live site against a design-excellence bar (anti-AI-slop, investor-grade).
-   Fan out across lenses if useful — typography, color/contrast, hierarchy/space, motion,
-   macrostructure/AI-tells, responsive, hero-immersion, copy.
-2. **Adversarially verify** every finding against the *actual source* and against the
-   **locked contracts in §5**. Kill anything not grounded in the code or that would break a
-   contract or a pinned test. A short list of true, contract-safe findings beats a long list
-   of maybes.
-3. **Present a ranked punch list to the founder** and let him veto line-items. Do **not**
-   silently implement — this project is founder-gated. Group by severity; tag each item with
-   effort (quick/medium/deep) and which contract/test it touches.
-4. **Implement the approved items** in surgical, test-guarded edits. The founder's standing
-   instruction for *implementation* is **"use only 1 agent, work hyper meticulously"** — do
-   the edits single-threaded and carefully; a swarm is for *analysis*, not for editing the
-   same files in parallel (they overlap heavily in `landing.css` / `copy.ts`).
-5. **Gate**: `npm test` → `npm run lint` → `npm run build`, all green. Pin every new visual
-   behavior with a CSS/DOM contract test (this repo asserts CSS as regex contracts).
-6. **Branch → push → Vercel preview → founder reviews → founder merges** via the Run-button
-   pattern (see §10). Never push `main` yourself.
-
-The bar the founder set, in his words: **"highest level of visual taste, better than UI/UX
-human designers"**, and **"make it look less like AI."** Treat both as hard requirements,
-not aspirations.
+- **Written:** 2026-07-25 · **Author:** Fable (Claude, Opus 5) — engineer + auditor on this repo
+- **Verified against:** `main` @ **`0bf6422`** ("Merge R15: unified catalog (salvaged)") — **live in
+  production**, deploy green
+- **Method:** 7 parallel subsystem analyses of the actual source (page structure, design system,
+  copy/i18n, tests, motion/perf, infra, docs), 87 issues found, every claim citing `file:line`.
+  Where this doc and any other doc disagree, **this doc and the source win**.
 
 ---
 
-## 1. Where we are right now (post-R8 snapshot)
+## 0. How to run this loop
 
-- **Repo:** `piztanza/mobeeli-landing-page` (private). Local clone:
-  `C:\Users\user\.gemini\antigravity\PROJECTS\mobeeli-landing-page`.
-- **Production commit:** `9274c94` — *"Merge R8: Claude-design (hallmark) audit polish"*.
-- **Deploy topology:** landing repo `main` → **production** `mobeeli-landing-page.vercel.app`
-  (will move to `company.mobeeli.com`). Branch pushes → Vercel **preview** (behind Vercel SSO;
-  only the founder/team can view). The **platform** repo is separate
-  (`overtakemg-cell/mobilee`, local clone `mobilee-platform`) → demo `mobilee-demo.vercel.app`.
-- **Health:** 44 test files / **325 tests green**, ESLint clean, `next build` clean.
-- **Stack:** Next.js 16 (App Router, Turbopack), React 19, TypeScript strict, Vitest 4
-  (node env, `renderToStaticMarkup` + CSS-contract regexes), three.js client islands
-  (`dynamic ssr:false`), next/font self-hosting. **No Tailwind** — a hand-authored CSS design
-  system. **No framer-motion** — motion is a custom rAF-writes-a-CSS-var idiom (see §7).
-- **Genre (for design grading):** dark-cinematic B2B marketplace. The **dark bands** (hero,
-  fitment 3D wheel, archipelago) are *atmospheric* — grain, radial glows, a WebGL backdrop,
-  low-key depth are **intentional and correct**, not slop. The **light bands** (problem,
-  how-it-works, catalog, buyer strip) are *modern-minimal* — hold them to restraint, real
-  hierarchy, honest proof.
+The founder (Yavet, founder/CEO) runs a relentless, hyper-recursive improvement loop. Each round:
 
-### Current front-page band order (`LandingView.tsx`)
-`Nav (overlay)` → **Hero** (dark, full-viewport, rotating H1) → **FitmentSection** (dark,
-full-viewport 3D wheel stage with flanking spec cards) → **ProblemSection** (light) →
-**UnifyBand** (dark, full-bleed archipelago WebGL map) → **HowItWorks** (light, 3 step cards)
-→ **AiCatalogCard** (dark card demo) → **BuyerStrip** → **Footer**.
+1. **Audit** the live site against an investor-grade, anti-AI-slop bar.
+2. **Adversarially verify** every finding against the *actual source* and the locked contracts in
+   §6. Kill anything not grounded in code. A short list of true findings beats a long list of maybes.
+3. **Present a ranked punch list to the founder** — do not silently implement. This project is
+   founder-gated.
+4. **Implement approved items** single-threaded and meticulously ("use only 1 agent, work hyper
+   meticulously" — his standing instruction for *implementation*; swarms are for *analysis*).
+5. **Gate:** `npm test` → `npm run lint` → `npm run build`, all green, **plus a contract test for
+   every new visual guarantee**.
+6. **Branch → push → Vercel preview → founder reviews → founder merges** (§11). Never push `main`.
 
-Data-heavy bands live on their own routes: **`/why-mobeeli`** (proof stats, pain tiles,
-search comparison, death-spiral cards), **`/team`**, **`/investors`**, **`/early-adopters`**,
-plus `/join` (waitlist wizard) and the security-gated `/deck` flow.
+His bar, in his words: **"highest level of visual taste, better than UI/UX human designers"** and
+**"make it look less like AI."** Both are hard requirements.
 
 ---
 
-## 2. What Mobeeli is (context for taste decisions)
+## 1. Where the product actually stands (post-R15)
 
-Mobeeli is a pre-launch **auto-parts marketplace for Indonesia** — "trust infrastructure"
-that verifies every part fits a buyer's exact vehicle (Year/Make/Model/trim → fitment), so
-online parts-buying stops being a guessing game. This landing page is the **investor-facing
-marketing site during an active fundraise** (the platform's real GCP prod is hibernated to
-save cost; `mobilee-demo.vercel.app` is the demo the landing links to). Every design choice
-is judged by one question: **does a sharp investor read this as a serious, well-made company?**
+- **Repo:** `piztanza/mobeeli-landing-page` (private). Local: `C:\Users\user\.gemini\antigravity\PROJECTS\mobeeli-landing-page`
+- **Production commit:** `0bf6422` → `mobeeli-landing-page.vercel.app` (moving to `company.mobeeli.com`)
+- **Gate at this commit:** **41 test files / 301 Vitest tests pass**, ESLint clean (0 warnings),
+  `next build` clean. (An out-of-repo Playwright run of 54 E2E checks also passes — but see §5, it is
+  **not committed**, so treat "54/54" as unverifiable from this repo.)
+- **Stack:** Next.js 16.2.11 (App Router, Turbopack), React 19.2.8, TS strict, Vitest 4, zod 4,
+  three 0.185, Drizzle + Neon, Resend. **No Tailwind** (hand-authored CSS). **No framer-motion.**
+- **Genre:** dark-cinematic B2B marketplace, investor-facing during an active fundraise. The **dark
+  bands are atmospheric on purpose** (grain, radial glows, WebGL) — that is not slop. The **light
+  bands are modern-minimal** — hold them to restraint and honest proof.
 
-Two product-strategy constraints that shape the design:
-- **Moat protection.** The founder deliberately keeps the front page **broad**. The real
-  ET/PCD/offset fitment-clearance mechanics are the moat and are **kept off `/`** ("easily
-  copyable with AI"). Do not re-expose them on the front page; deep mechanics belong on
-  `/why-mobeeli` if anywhere.
-- **"Look less like AI."** Repeated across rounds. Generic AI-template rhythm, invented
-  metrics, italic headers, redrawn chrome, stock-photo people — all read as AI and are to be
-  avoided or removed.
+### The page as it renders today (`/`)
 
----
+| # | Band | Component | id | Surface |
+|---|---|---|---|---|
+| — | Nav (overlay) + SkipLink | `Nav overlay` | — | transparent → solid on scroll |
+| 1 | **Hero** — rotating H1, full viewport | `Hero` | `#top` | dark `--mb-ink` |
+| 2 | **Unified catalog** — vehicle picker + 4 part cards | `FitmentSection` | `#how-it-works` | dark, full viewport |
+| 3 | **The problem** — illuminated H2 + Senen quote | `ProblemSection` | `#problem` | light |
+| 4 | **Archipelago** — full-bleed WebGL map | `UnifyBand` | *(none)* | dark, full viewport |
+| 5 | **AI catalog demo** — sprite orbit loop | `AiCatalogCard` | *(none)* | light wrapper / dark card |
+| 6 | **Buyer capture** — inline email | `BuyerStrip` | *(none)* | light tint |
+| — | Footer (outside `<main>`) | `Footer` | — | dark |
 
-## 3. The founder's directives, round by round (his voice — read this)
+**Routes:** `/`, `/join`, `/team`, `/early-adopters`, `/investors`, `/why-mobeeli`, `/deck`
+(token-gated), `/deck-admin` (secret-gated) + 4 API routes (`waitlist`, `notify`, `deck-request`,
+`deck-file`). Sitemap indexes 6.
 
-The founder asked that you know **his previous prompts to Fable**. Here they are, distilled
-faithfully so you inherit his priorities and standard. Recurring themes are called out at the
-end.
-
-**R1 — Setup / a11y.** Stand up the repo from the CTO handoff; execute the Phase-1
-accessibility pass exactly; keep the suite and build green.
-
-**R2 — The redesign directive (the founding brief).**
-- "Top section full screen with a transparent header and the logo visible on dark."
-- "Across the archipelago / From Sabang to Merauke, one catalog" — move it **nearer the top**,
-  give it its **own full section**.
-- Front page = **3–4 brief sections**; **shorter words, fewer numbers** (move data to its own
-  page). "Do deep online research so it grabs investor attention."
-- Media: "I want to use **different elements to tell our goal and story and to make it look
-  less like AI** — you can use **video from our pitch deck**." All four media styles welcome
-  (illustration + founder photography + existing 3D/typography + subtle background video).
-- "Show me **inspiration sites**." "Run a **hyper-recursive research loop**." "**Use 1 agent
-  only** to analyze and plan; when we hand off to Gemini we'll engage the agentic swarm."
-- Hero copy: *"Can we use **unifying the auto industry**? Is that too big a statement? Deep
-  analyze everything and see what's best."*
-- Profile/company page: "**keep it broad** so people don't take our idea and tech moat —
-  it's easily copyable with AI now."
-- Rename **everywhere + the URL**; enlarge **headlines + key copy**; the platform link "needs
-  to mention the **0%**"; stock photos = **hands + Jakarta + studio**, **not** SE-Asian people
-  (no model releases). "Replace [the Early-Adopters page] with the platform link — I need the
-  **catalog demo section on the front page**." Fix "dapters" → "adopters". Platform menu naming
-  + **colors must match the landing blue palette**; "take ideas/elements from the platform
-  page." "Ask me questions in **multiple choice**."
-- Brand ruling: **"Mobilee should be Mobeeli and Carteria should be Mobeeli"** — update the md
-  file so this is understood.
-
-**R4 — Broken 3D wheel + font dissatisfaction.**
-- "The **font needs improvement** — deeper research, look at the **best companies**."
-- The 3D wheel overlay is broken → "**deep analyze**, give it its **own section**, decide the
-  placement."
-- "**Why is the archipelago visual not the entire section?**"
-- "Take the platform's visuals/ideas." "Analyze against the **best sites**, loop relentlessly."
-- "Deep audit for **missing requests**." Detailed Gemini handoff with a swarm. "**Use only 1
-  agent here and work hyper meticulously.**"
-
-**R5 — Keep iterating.** "Push and keep iterating. Engage **hyper-recursive improvement** in
-ideas, visually, context and sections — by researching — and have the **highest level of
-visual taste, better than UI/UX human designers**. Take **every little detail** from other
-websites, trends and practices. Hand off to Gemini's best agents in swarm."
-
-**R6 — Audit + brand + logo.**
-- "`/platform/analytics` shouldn't even exist publicly — why is it there?" (→ removed from the
-  public platform).
-- "**Still not satisfied with the font.**"
-- "Deep audit the **logo on dark + light headers** — the light one has a **double logo**."
-  "Make the **logo bigger**."
-- "Deep audit **errors + discrepancies** across both repos."
-- Decisions: "300 [Early-Adopter shops] is correct"; "2019 Avanza is okay"; English is English,
-  Indonesian is Bahasa (keep the EN/ID toggle).
-
-**R7 — "Why does the platform feel so much better?"**
-- *"Why does `mobilee-demo.vercel.app/platform` **look and feel so much better** than the
-  landing page? How can we further adapt the feel?"* → the answer was continuous ambient
-  motion + depth + Space Grotesk; the landing's old "pure-CSS, no-deps" rule was the cap, so we
-  relaxed it (still no framer-motion).
-- "**Font** — deeper research, best companies." (→ resolved by **matching the platform's type
-  system**: Space Grotesk display + Inter body. Font had been reworked 3× and this finally
-  satisfied it — treat the font families as **settled**, see §5.)
-- "The **3D wheel section needs to be a full section** and the boxes around it **placed
-  correctly**." (→ full-viewport stage, 250/1fr/250 flanking grid; R8 rebalanced to 220/1fr/300.)
-- "The archipelago visual needs to be **zoomed out a bit and show it going across Java**."
-- "Take the platform's visuals." "Analyze vs the best sites in a loop." "Deep audit missing
-  requests." "**Use only 1 agent, work hyper meticulously.**" "Keep iterating hyper-recursively."
-- **"Should we hand this off to Claude Design?"** → yes.
-
-**R8 — This handoff's round.** "**Same recursive improvement loop but hand this off to Claude
-Design.**" → Fable ran the `hallmark audit` (8 lenses, adversarial verify), presented the
-32-item punch list, the founder approved the full safe pass + the taste items + all 4 copy
-edits, and it shipped to production as `9274c94`. Ledger in §8.
-
-### What the founder cares about most (distilled — optimize for these)
-1. **Investor-grade seriousness.** Fundraise context. Nothing that reads unfinished or cheap.
-2. **"Look less like AI."** The single most-repeated note. Kill templated rhythm and AI tells.
-3. **Immersion / "feel."** He wants the landing to feel as premium and alive as the platform.
-   Continuous, tasteful motion and depth — not decoration.
-4. **Type is sensitive.** He was dissatisfied 3+ rounds until we matched the platform's fonts.
-   Don't relitigate the *families*; refine scale/weight/rhythm within them.
-5. **Relentless, detail-obsessed iteration.** "Take every little detail from the best sites."
-6. **Brand + honesty discipline** (see §5). He personally rules on brand and copy.
-7. **Founder-gated, meticulous, single-threaded implementation.** He reviews the preview and
-   clicks merge. He values verify-don't-assume and exact-scope changes.
+**Band 2 in detail** (this is the round's centrepiece, and where most open issues live):
+left column = H2 `cat_unified_h2` + three stat tiles (7,000+ / 19,000+ / ~500, each labelled
+"(Simulation)"); right column = a glass picker panel (plate/VIN form + 4 YMM selects) beside a
+280×140 car image with a sweeping scan line, above a 2×2 grid of four part cards (real photos,
+prices, "(Simulation)" tags, and a "✓ Verified Fit" badge that appears once a vehicle is saved).
+Selecting a vehicle persists it to `localStorage["mobeeli_garage"]` after an 1800 ms fake scan; a
+"My Garage" chip with a Clear button then replaces the picker.
 
 ---
 
-## 4. Reference: the sites/standards the founder benchmarks against
+## 2. What changed since v1 — read this before designing anything
 
-From the redesign research (see `HANDOFF_LANDING_REDESIGN.md` for the full digest): Linear
-(dark cinematic hero, ruthless brevity), Mercury/Stripe/Vercel (investor-grade minimalism,
-show-don't-tell), Airbnb (the product interaction *is* the homepage → our FitmentWheel), The
-Browser Company / Ghost (progressive scroll narrative), Aruna.id (Indonesian marketplace
-credibility), Supabase (own a distinctive color), web.auto (award-grade automotive minimal).
-And — critically — **the Mobeeli platform itself** (`mobilee-demo.vercel.app/platform`) is the
-founder's north star for "feel."
+**NEW since the last design brief:**
+- **`AmbientAurora`** — a full-screen WebGL fragment-shader backdrop. **This was v1's #1
+  "not built yet" recommendation. It is built and mounted three times** (Hero 0.4, FitmentSection
+  0.3, AiCatalogCard 0.28). Do not re-propose it.
+- **R15 unified catalog** in band 2, with the localStorage "garage" — the site's only stateful feature.
+- **Liquid glass** (blur 22px + saturate + specular inset) on the picker panel and part cards, with a
+  `prefers-reduced-transparency` fallback.
+- Nav desktop breakpoint moved **880px → 1040px**; type scale bumped (hero H1 up to 84px).
 
----
-
-## 5. Locked contracts — do NOT break these (a fix that violates any is invalid)
-
-These are enforced by tests and/or `CLAUDE.md`. A proposed change that trips one must be
-dropped or reworked.
-
-1. **i18n.** ALL user-facing strings live in `src/lib/i18n/copy.ts` as **EN + ID** maps
-   (`CopyKey = keyof en`). Never hardcode copy in a component. New copy = additive key in
-   **both** languages, **founder-stamped**. Key parity is tested.
-2. **Brand.** **"Mobeeli" is the only brand name.** Never "Mobilee" or "Carteria" in copy. (The
-   `mobilee-demo.vercel.app` string in the nav is the literal *domain*, not a brand error.)
-   Spelling is **"Early Adopters"** (route `/early-adopters`, 308 redirect from `/early-adaptors`).
-3. **No fee / no marketplaces / no fabrication.** Never state Mobeeli's fee/commission. Never
-   name real marketplaces (Tokopedia/Shopee/…). No real manufacturer names as if partners
-   (Astra/Denso). No emoji, no hype. **No fabricated claims:** the strings `REAL-TIME` and
-   anything matching `/guarantee/i` are **vetoed**; every number is real or labeled
-   "Simulasi/Simulation".
-4. **Footer** is exactly: `Mobeeli — Jakarta, Indonesia`.
-5. **Color.** Emerald/indigo/green are **banned** — hex `#10b981` / `#34d399` / `#818cf8` must
-   never appear. The verified/success/"good" semantic is the **blue family**
-   (`--mb-light-accent #5b9bf7`, `--mb-deep-blue`). Red (`--mb-danger #b91c1c`, and the
-   dark-card `--mb-danger-on-dark #f87171`) is **pain-stats/errors only**. The hex tokens are
-   locked to `.ba/design/style.json` — **do not "convert to OKLCH"**, that breaks the contract.
-6. **Type families are settled** (founder-final after 3 rounds): **Space Grotesk** (display) +
-   **Inter** (body), self-hosted via next/font, matching the platform. Refine scale / weight /
-   measure / tracking — do **not** change the families. Plus Jakarta Sans remains only as a
-   legacy fallback token.
-7. **Motion.** Everything gated by `useReducedMotion`. three.js scenes stay
-   `dynamic({ ssr:false })`. **No framer-motion / no new deps** (Lenis is founder-gated).
-   Motion is the **rAF-writes-a-CSS-var idiom** (see §7). **Critical trap:** `useScrollReveal`
-   leaves an inline `transform: none` on `[data-rev]` elements after reveal, so a *stylesheet*
-   transform on a `[data-rev]` element is permanently dead — put such transforms on a child, or
-   drive them from a hook.
-8. **Focus system.** `:focus-visible { outline: 2px solid var(--mb-focus-ring); outline-offset:
-   2px; }` is canonical. **Nothing may stack onto it** (no box-shadow ring). Never animate the
-   ring's appearance.
-9. **Tokens.** `.ba/` and the `globals.css` `:root` *contract* block (`--mb-primary` etc.) are
-   **additive-only** vs `.ba/design/style.json`. Code-level tokens (fonts, dark-material, motion,
-   the R8 `--mb-ease-standard` / `--mb-danger-on-dark`) go in the **separate** code-level `:root`,
-   never inside the contract block.
-10. **Utilities ship with a consumer.** No dead selectors/utilities (an unused one gets removed
-    in audit — e.g. HoverArrow was retired twice).
-11. **Git/deploy.** Commit author must be `78766430+piztanza@users.noreply.github.com` (repo-local
-    config — don't override; **Vercel blocks other authors**). **Pushing `main` = production** —
-    work on branches; **never merge to main yourself** (the founder clicks Run; see §10).
-12. **Env quirks.** Windows CRLF — **never reformat whole files**, edits are surgical (use
-    `prettier --end-of-line auto` if you must). Use `npm ci`. The browser preview pane is usually
-    hidden → screenshots fail and rAF/IntersectionObserver don't fire (`document.hidden`), so
-    rAF/observer-driven behavior can't be behavior-verified live — **verify by construction +
-    tests**. Resize the pane to 1280 for desktop-layout checks.
+**GONE — do not reference, style, or "fix" these; they do not exist:**
+- ❌ The **3D fitment wheel** (`FitmentWheel.tsx`, `fitmentLabels`, `fitmentTimeline`,
+  `fitment-wheel.css`) and its GLB car model — all deleted.
+- ❌ **`HowItWorks.tsx`** — deleted. There is no standalone "How it works" band.
+- ❌ The **funnel simulator**, the **GarageOS laser scanner**, the **R12 2D DOM scanner**, the
+  **floating product/fit/video cards**, the **3-beat protection strip**.
+- ❌ `useTilt` is now **dead code** (zero consumers).
 
 ---
 
-## 6. The design system (what you're working within)
+## 3. The founder's directives (his voice — inherit these)
 
-- **Fonts:** `--mb-font-display: var(--font-space-grotesk), …` (headings, numerics),
-  `--mb-font-text: var(--font-inter), …` (body/UI). Set in `layout.tsx` + routed in
-  `globals.css`. Numeric data uses a Space-Grotesk + `tnum` treatment (`.mb-num-display`,
-  `.mb-card-part-price`, `.mb-fitment-label-value`, `.mb-funnel-num`, `.mb-ds-badge`, and R8
-  added `tabular-nums` to `.mb-proof-v` / `.mb-pain-stat`).
-- **Palette (hex, locked):** primary `#2f7df6`, deep-blue `#1b5fd9`, light-accent `#5b9bf7`,
-  tint `#e4edfd`, ink `#0d1522`, page `#f5f7fa`, surface `#fff`, danger `#b91c1c`,
-  danger-on-dark `#f87171`. Dark-material depth tokens `--mb-ink-dp1/2/3`, hairlines, and
-  `--mb-shadow-linear-4layer`.
-- **Motion tokens:** `--mb-ease-entrance` (cubic-bezier .19,1,.22,1), `--mb-ease-standard`
-  (cubic-bezier .2,.6,.2,1 — R8 consolidation token), `--mb-ease-spring-btn` (a `linear()`
-  spring), `--mb-duration-entrance 480ms`, `--mb-stagger-entrance 70ms`.
-- **Motion idiom (no framer-motion):** hooks write CSS custom properties inside a
-  `requestAnimationFrame`, gated on `useReducedMotion()` and (where relevant) `(hover: hover)`:
-  `useGlowCards` (`--mx/--my` cursor glow), `useTilt` (`--tilt-rx/--tilt-ry` pointer parallax),
-  `useMagneticCTA` (±3px translate), `useOverlaySolid` (nav transparent→solid via
-  IntersectionObserver), `useScrollReveal` (`[data-rev]` staggered rise — see the §5.7 trap).
-  R8 moved `will-change` **into** the tilt/magnetic hooks (promoted on interaction, cleared on
-  leave) — no idle compositor layers.
-- **Grain / glow:** film-grain `::after` on `.mb-hero / .mb-fit3d / .mb-uni / .mb-cat-card`;
-  radial-glow recipes on the dark bands (R8 **differentiated the geometry** across them so no
-  two share the same recipe).
+**R2 (founding brief):** full-screen top section, transparent header, logo visible on dark ·
+"Across the archipelago / From Sabang to Merauke" as its **own full section**, nearer the top ·
+front page = **3–4 brief sections, shorter words, fewer numbers** (data lives on its own page) ·
+"use different elements to tell our goal and story and **to make it look less like AI**" · keep the
+public profile **broad** — "people try not to take our idea and tech moat, it's easily copyable with
+AI now" · stock photos = hands + Jakarta + studio, **not** SE-Asian people · ask questions in
+multiple choice.
+**R4:** "the **font needs improvement** — deeper research, best companies" · fix the broken 3D
+overlay, give it its own section · "**why is the archipelago visual not the entire section?**" ·
+"deep audit for missing requests" · "**use only 1 agent here and work hyper meticulously**".
+**R5:** "engage **hyper-recursive improvement**… have the **highest level of visual taste, better
+than UI/UX human designers**. Take **every little detail** from other websites, trends and practices."
+**R6:** `/platform/analytics` shouldn't be public · "still not satisfied with the font" · fix the
+double logo, make it bigger · deep audit both repos · "300 is correct" · English is English,
+Indonesian is Bahasa.
+**R7:** "**Why does the platform look and feel so much better than the landing page?**" → answered
+by continuous ambient motion + depth + Space Grotesk · "the 3D wheel needs to be a full section" ·
+"archipelago zoomed out to show Java" · "should we hand this off to Claude Design?" → yes.
+**R8–R15:** the hallmark audit shipped; then Gemini's R10–R15 rounds landed, with the founder
+explicitly choosing to **replace the 3D wheel with the catalog** and to **salvage R15 properly**
+rather than ship it green-by-deletion.
+
+**What he cares about most:** (1) investor-grade seriousness, (2) "look less like AI", (3) immersion
+/ "feel" matching the platform, (4) type (he was dissatisfied 3 rounds — families are now settled,
+don't relitigate), (5) relentless detail, (6) brand + honesty discipline, (7) founder-gated,
+meticulous, single-threaded implementation.
 
 ---
 
-## 7. Codebase map (where things live)
+## 4. Design opportunities — where the next round should go
+
+Ranked for impact on his north star. **Band 2 is the weak link**: it is the section the nav points
+at, it is the product's core promise, and it is the least visually resolved band on the page.
+
+1. **Resolve band 2's visual hierarchy.** Its H2 renders at a **flat 28px** while every neighbouring
+   band's H2 is fluid 38–64px (and the archipelago's is up to 74px) — the section carrying the core
+   promise has the smallest headline on the page, and it is actually *smaller on desktop than on a
+   phone* (§5 #3). This is the single highest-leverage design fix.
+2. **One catalog, not two.** Bands 2 and 5 are both dark, both about "the catalog", and neither is
+   labelled — a visitor sees the claim made twice with different art (§5 #2). Founder decision:
+   drop `AiCatalogCard`, or re-frame it as a distinct band with its own id and a non-duplicating
+   headline.
+3. **Unify the glass material.** The picker panel and the part cards sit side by side in one band
+   using **two different glass recipes**, and the picker ships with **no padding and no
+   border-radius** — a sharp-cornered rectangle with content flush to its border, next to
+   16px-radius cards (§5 #7, #8). Propose one `.mb-glass` primitive.
+4. **Restore the protection story — or relabel the nav.** The nav says "How it works" and lands on a
+   product grid. The protection promise (`prot_r1-3`: video-evidence resolution, authenticity
+   verification, funds release when the part fits) renders **nowhere on the site** (§5 #11). That is
+   the trust argument — the actual product thesis — currently invisible.
+5. **Make the scan feel intentional.** The scan line sweeps **forever**, ungated, and the
+   `.is-scanning` state has zero styling (§5 #1). Designed properly, the 1.8 s scan is the moment
+   the product's promise becomes tangible; today it is permanent decoration.
+6. **Aurora as one system, not three.** Three full-screen shader contexts run permanently
+   (§5 #6). A single fixed aurora layer whose intensity responds to scroll would look more
+   deliberate *and* cost a third as much.
+7. **Give the unnamed bands identity.** Half the bands have no `id`, so nothing can deep-link to the
+   archipelago, the catalog demo, or the capture strip.
+8. **Type scale as a system.** 27 distinct px values + 9 clamps, five half-pixel steps, and weight
+   800 is the dominant weight in `landing.css` even though `globals.css` sets headings to 600.
+
+---
+
+## 5. Open issues — ranked, with evidence
+
+**Visitor-visible (design + front-end):**
+
+| # | Sev | Issue | Where |
+|---|---|---|---|
+| 1 | 🔴 | **Scan line animates infinitely, no reduced-motion gate**, and `.is-scanning` has zero CSS — a blue laser sweeps forever for every user. Violates CLAUDE.md rule 3 + WCAG 2.2.2; the only ungated infinite animation on the page. | `landing.css:815-828`; `FitmentSection.tsx:218,226` |
+| 2 | 🟠 | **Two catalog bands** ship on one page (R15 catalog + AiCatalogCard) — same claim, same `.mb-cat-*` namespace that caused the R15 collision. | `LandingView.tsx:44,47` |
+| 3 | 🟠 | **Band-2 H2 is 28px flat**, overriding `.mb-h2`'s clamp(38–64px); the ≤480px rule then makes it **29px on phones** — bigger on mobile than desktop. | `landing.css:742-747` vs `:105-111`, `:2389-2391` |
+| 4 | 🟠 | **Nav order contradicts band order.** DOM is `#how-it-works` → `#problem`; nav and `SPY_SECTION_IDS` are the reverse, so the scrollspy marks the wrong section active. | `Nav.tsx:28-35`; `ActiveSectionProvider.tsx:14-16` |
+| 5 | 🟠 | **Hero LCP hit for reduced-motion users** — the poster `<Image>` has no `priority`, so the largest element in a 100svh hero lazy-loads. | `Hero.tsx:33-45` |
+| 6 | 🟠 | **3 WebGL contexts, permanent rAF loops, no in-view gate**; the 183 KB-gzip three chunk enters the hero critical path (IndoGlobe correctly defers — aurora does not). `preserveDrawingBuffer: true` is set on a purely decorative canvas. | `AmbientAurora.tsx:86-104,166-180` |
+| 7 | 🟠 | **Glass picker panel has no padding and no border-radius** — sharp rectangle, content flush to the border. | `landing.css:2654-2662` |
+| 8 | 🟠 | **Two divergent glass recipes** in one band (specular 0.4 + border vs 0.2 + none). | `landing.css:844-857` vs `:2654-2662` |
+| 9 | 🟠 | **~2.7 MB of oversized JPGs** (1024² sources for ~300px cards; the 280×140 car poster is 506 KB) + **2.57 MB of dead assets** in `public/` (`unify-graph.mp4`, `assets/brand/`). | `public/assets/parts/`, `public/assets/brand/` |
+| 10 | 🟡 | Reduced-transparency fallback paints cards the **same colour as the band behind them**. | `landing.css:859-865` |
+| 11 | 🟡 | **Protection story renders nowhere**; `/early-adopters` is live + sitemapped but **unlinked**; three bands have no `id`. | `copy.ts:152-154`; `Nav.tsx:23,32` |
+
+**Honesty / copy (founder decisions — do not auto-edit):**
+
+| # | Sev | Issue | Where |
+|---|---|---|---|
+| 12 | 🔴 | **EN and ID make materially different investor claims.** EN: "9 of the first 14 we visited **signed** in one afternoon". ID: "…**setuju untuk join waitlist**" (agreed to join the waitlist). One is wrong, and the EN version is the indexed `/investors` meta description. | `copy.ts:208-209` vs `:540-541`; `seo.ts:71` |
+| 13 | 🟠 | **"Backed by … insurance"** still asserted as fact on `/join` and early-adopters. Still pending your confirmation from the R8 round. | `copy.ts:178,277` (+ ID) |
+| 14 | 🟡 | 4 catalog **prices hardcoded** in the component (bypasses copy.ts); 3 English-only image alts; +15/+15/+20% badges hardcoded and the +20% contradicts its own body copy. | `FitmentSection.tsx:81-84`; `AnalogDeathSpiral.tsx:45-53` |
+| 15 | 🟡 | **27 orphaned copy keys** (~10%) render nowhere, kept green by existence-only tests. Honest-labelling on the new catalog is genuinely correct. | `copy.ts`; `tests/landing.test.tsx:12-46` |
+
+**Engineering integrity (this is how quality regressed last time):**
+
+| # | Sev | Issue | Where |
+|---|---|---|---|
+| 16 | 🔴 | **The R13 glass test pins two DEAD selectors and leaves the live glass unpinned** — deleting dead CSS turns the suite red, deleting the *real* glass keeps it green. Same "green by pinning" failure the R15 salvage was meant to close. | `tests/r13-glass.test.tsx:20-30` |
+| 17 | 🟠 | **~217 lines / 33 dead CSS selectors** from R12/R15 (the whole 2D scanner block, the fit-protect block, step-numbers) — including an `animation: laserSweep` whose `@keyframes` **does not exist**. | `landing.css:2513-2586`, `:2609-2648`, `:1171-1203` |
+| 18 | 🟠 | **The garage flow — the page's only stateful feature — has zero behavioural coverage.** No DOM env exists (`environment: "node"`, no jsdom), so the SSR test can only ever hit the empty-garage branch. | `vitest.config.ts:26`; `tests/r15-catalog.test.tsx` |
+| 19 | 🟠 | **The Playwright E2E is not in the repo** — no dep, no config, no spec. It cannot be re-run, extended, or noticed when it rots. | `package.json` |
+| 20 | 🟡 | R15 asserts image **filenames as source strings**, never that the files exist — a rename ships green with 4 broken images. | `tests/r15-catalog.test.tsx:34-36` |
+
+**Infra / go-live (queued, needs founder for the external half):**
+
+| # | Sev | Issue |
+|---|---|---|
+| 21 | 🔴 | **`DECK_SECRET` is emailed and carried in URL query strings** (`/deck-admin?key=…`), landing in logs, history and Referer headers. It is the master key: it gates admin *and* signs every deck token. |
+| 22 | 🟠 | **No `error.tsx` / `not-found.tsx` / `global-error.tsx` anywhere** — every failure and bad URL falls to Next's unbranded English default, breaking the i18n contract. |
+| 23 | 🟠 | **No security headers, no CSP** (`next.config.ts` has only redirects); `poweredByHeader` still true. |
+| 24 | 🟠 | **No Node version pinned** (no `engines`, `.nvmrc`, `packageManager`) — the build target can drift silently. |
+| 25 | 🟠 | **No env validation at boot** — a bad `RESEND_API_KEY` means lead alerts silently stop (the route deliberately returns 200). No health endpoint, no error monitoring. |
+| 26 | 🟠 | **Domain cutover needs a redeploy**, not just an env edit — `NEXT_PUBLIC_SITE_URL` is inlined at build time, and the fallback is `https://mobeeli.com` (destined for the platform, not this site). |
+
+---
+
+## 6. Locked contracts — a change violating any of these is invalid
+
+1. **i18n.** Every user-facing string lives in `src/lib/i18n/copy.ts` as **EN + ID** with full parity
+   (compile-enforced: `as const satisfies` + `Record<CopyKey,string>`). New copy = additive key in
+   both languages, **founder-stamped**.
+2. **Brand.** "Mobeeli" only — never "Mobilee"/"Carteria" in copy. Spelling is **"Early Adopters"**.
+3. **No fee stated. No marketplace names. No fabricated claims** — `REAL-TIME` and `/guarantee/i`
+   are vetoed; every number is real or labelled "(Simulation)"/"(Simulasi)". No emoji, no hype.
+4. **Footer** is exactly `Mobeeli — Jakarta, Indonesia`.
+5. **Colour.** Emerald/indigo/green (`#10b981`/`#34d399`/`#818cf8`) are **banned**. Verified/success =
+   the **blue** family. Red is pain/error only. The 16 contract hexes match `.ba/design/style.json` —
+   **do not convert to OKLCH**.
+6. **Type families are settled:** Space Grotesk (display) + Inter (body) via next/font. Refine
+   scale/weight/rhythm — never the families.
+7. **Motion.** Everything gated by `useReducedMotion`. three.js stays `dynamic({ssr:false})`.
+   **No new deps** (no framer-motion; Lenis founder-gated). Motion is the rAF-writes-a-CSS-var idiom.
+8. **Focus system** is canonical: `outline: 2px solid var(--mb-focus-ring); outline-offset: 2px`.
+   Nothing stacks on it; never animate it.
+9. **Tokens** are additive-only vs the contract block; code-level tokens go in the separate `:root`.
+10. **Every visual guarantee ships with a contract test** — and **never delete a contract test to go
+    green** (see §7).
+11. **DB is insert-only on a shared production Neon table. NEVER run DDL or migrations.**
+12. **Git:** author must be `78766430+piztanza@users.noreply.github.com`; **pushing `main` = production**;
+    never merge to main yourself.
+13. **Windows CRLF** — surgical edits only, never reformat whole files. `npm ci`, not `npm install`.
+
+---
+
+## 7. Guardrails for Gemini — derived from what actually went wrong
+
+These are not hypothetical. Each one is a real failure from R10–R15:
+
+1. **Never delete a contract test to make the suite green.** R15 shipped by deleting 7 test files
+   (336 → 296 tests). If you change a feature, **update** its test. Removing a feature means removing
+   its test *in the same commit as the feature*, stated explicitly in the handback.
+2. **Never pin a selector that isn't rendered.** The R13 glass test certifies markup that no longer
+   exists. Assert against **rendered output**, not stylesheet substrings, wherever possible.
+3. **Delete the CSS and copy you orphan.** R12/R15 left ~217 lines of dead CSS and 27 dead copy keys.
+   Removing markup without removing its rules is an incomplete change.
+4. **Check the class namespace before you name anything.** R15's `.mb-cat-card` collided with
+   `AiCatalogCard`'s and rendered the part cards malformed. Grep the whole stylesheet first.
+5. **Every colour on a dark surface must be checked for contrast.** Two separate rounds shipped
+   dark-text-on-dark (invisible H2, invisible price). Compute the ratio; the light-band muted token
+   fails on dark.
+6. **`next/image`, never raw `<img>`.** And re-encode source assets — don't drop 670 KB 1024² JPGs
+   for 300px cards.
+7. **No `as any`, no `TODO`, no hardcoded user-facing strings.** All three shipped in raw R15.
+8. **Every animation gets a reduced-motion gate** — including CSS-only ones. The scan line is live
+   proof this gets missed.
+9. **Commit your work on a branch.** R15 arrived as an uncommitted working tree layered on production
+   main, with no ledger. Branch → commit → push → preview.
+10. **Handbacks describe your own git diff only** — no inflated claims, no certifying work you didn't
+    do (standing rule since the R7 round; R11's handback certified a GLB pipeline that doesn't exist).
+
+---
+
+## 8. Codebase map (verified)
 
 ```
-src/app/                 layout.tsx (fonts, metadata, JSON-LD) · globals.css (tokens, base, a11y)
-                         page.tsx (landing) · why-mobeeli/ · team/ · investors/ · early-adopters/
-                         join/ · deck*/ (HMAC-gated) · sitemap.ts · robots · api/*
-src/components/landing/   LandingView.tsx (band order) · Nav.tsx · Hero.tsx · HeroRotator.tsx
-                         FitmentSection.tsx · ProblemSection.tsx · UnifyBand.tsx · HowItWorks.tsx
-                         AiCatalogCard.tsx · BuyerStrip.tsx · Footer.tsx · WhyMobeeli.tsx
-                         AnalogDeathSpiral.tsx · SkipLink.tsx · ActiveSectionProvider.tsx
-                         landing.css  ← the main stylesheet (~2600 lines; all band styles)
-src/components/three/     FitmentWheel.tsx (+fitment-wheel.css) · IndoGlobe.tsx · HeroNetworkBackground
-src/components/join/      JoinView.tsx · join.css
-src/lib/hooks/            useReducedMotion · useScrollReveal · useGlowCards · useTilt
-                         useMagneticCTA · useOverlaySolid
-src/lib/i18n/             copy.ts (EN+ID maps — the ONLY place for user-facing strings) · rotation.ts
-src/lib/                  seo.ts · db/ (insert-only, shared platform Postgres — NEVER run DDL)
-tests/                    44 files; CSS asserted as regex contracts + renderToStaticMarkup DOM checks
-.ba/ , ba-link.json       pipeline metadata — do not hand-edit or delete (CLAUDE.md §6)
+src/app/            layout.tsx (Inter + Space Grotesk via next/font) · globals.css (37 tokens, 3 :root blocks)
+                    page.tsx · why-mobeeli/ · team/ · investors/ · early-adopters/ · join/ · deck/ · deck-admin/
+                    api/{waitlist,notify,deck-request,deck-file}/route.ts · sitemap.ts · robots.ts · opengraph-image.tsx
+src/components/landing/   LandingView.tsx (band order) · Nav · Hero · HeroRotator · FitmentSection (R15 catalog)
+                    ProblemSection · UnifyBand · AiCatalogCard · BuyerStrip · Footer · WhyMobeeli
+                    AnalogDeathSpiral · ProofBar · ProblemStats · SearchComparison · TeamSection · Investors
+                    EarlyAdopters · SectionPage · SkipLink · ActiveSectionProvider · HeroNetworkBackground (SVG)
+                    landing.css  ← 2,691 lines / 62 KB, ALL landing + section-page styles
+src/components/three/     AmbientAurora.tsx · IndoGlobe.tsx · indoMap.ts · indo-globe.css   (FitmentWheel is GONE)
+src/lib/hooks/      useReducedMotion (central gate) · useScrollReveal · useGlowCards · useMagneticCTA
+                    useOverlaySolid · useTilt (DEAD — no consumers)
+src/lib/i18n/       copy.ts (279 keys × EN/ID, parity compile-enforced) · rotation.ts (hero H1 pairs)
+tests/              41 files — node env only, no jsdom, no Playwright
 ```
 
-**Sibling docs to read:** `CLAUDE.md` (the hard rules, canonical), `HANDOFF.md` (ops:
-env vars, Vercel/DNS, Resend, outstanding work), `HANDOFF_LANDING_REDESIGN.md` (the master
-redesign brief + inspiration digest), `HANDOFF_GEMINI_IMMERSION_R7.md` (14 ranked immersion
-recipes — **#1 ambient WebGL aurora backdrop is still unbuilt**; #14 Lenis is founder-gated),
-`HANDBACK_LANDING_VISUAL_POLISH_REPLY.md` (Fable's audit-verdict ledger, rounds 1–5).
+**Two traps that have bitten before:** (a) `useScrollReveal` leaves an inline `transform: none` on
+`[data-rev]` elements, so a stylesheet transform on one is permanently dead — put it on a child.
+(b) `landing.css` is imported by `LandingView`, `SectionPage` **and** `JoinView`, so a "landing" rule
+ships on `/join` too.
 
 ---
 
-## 8. R8 audit ledger (what just shipped, what's deferred, what's open)
+## 9. Environment quirks (will cost you hours otherwise)
 
-**Method:** 8 design lenses (typography, color/contrast, hierarchy, motion,
-macrostructure/AI-tells, responsive, hero-immersion, copy) → each finding adversarially
-verified against source + the §5 contracts → deduped, globally ranked → 32-item punch list →
-founder approved the full safe pass + the 6 taste items + all 4 copy edits. **Verdict: 0
-critical · 6 major · 26 minor.** Gate at merge: 325 tests, lint, build. R8 contracts pinned in
-`tests/hallmark-r8-polish.test.tsx`.
-
-**Shipped — majors:** retired the repeated eyebrow kicker on the front-page narrative bands
-(Problem, How-it-works keep only their H2; Fitment "Verified to fit" + Unify "Across the
-archipelago" retain theirs) · fixed 2 WCAG AA contrast failures (`.mb-early-note` → `--mb-muted`,
-`.mb-footer-copy` → `--mb-dark-muted`) · unified the H2 heads at weight 600 (killed a phantom
-800 that faux-bolds Space Grotesk) · interpolated the overlay-nav `backdrop-filter` so the blur
-cross-fades instead of popping · added the `html,body { overflow-x: clip }` mobile belt ·
-de-guaranteed the ID fitment chip ("Dijamin" → "Dipastikan cocok").
-
-**Shipped — minors/taste:** dead footer social link removed · why-Mobeeli measure capped ·
-Georgia quote-mark → display face · 9.5px labels → 11px · section-head gap unified 48→44 ·
-mobile lang toggles → 44px touch floor · dead base `box-shadow` dropped · archipelago drag hint
-scrimmed · hero CTA no longer wraps at 320px · headings harden against long-word overflow ·
-`tnum` on the loudest stats · funnel chip drops `transition: all` for enumerated props ·
-`--mb-ease-standard` + `--mb-danger-on-dark` consolidation tokens · radial-glow geometry
-differentiated across the dark bands · pressed states on the non-magnetic buttons · **WCAG 2.2.2
-headline pause control** (hidden until focus) · `will-change` moved into the hooks · fitment
-rails rebalanced 220/1fr/300 · ID locale slips (founders→founder, 19,4%) · EN "Blind RMA
-Nightmare" realigned to "The Counterfeit Injection" · solid nav lightly retinted.
-
-**Deferred with rationale (candidates to revisit):**
-- **#31 px type-scale tokenization** — the half-pixel body/label cluster (13.5/11.5/12.5/14.5/
-  16.5px) reads slightly generated in the *source*, but zero user-visible effect and a full
-  sweep changes dozens of sizes on a live page for no visual gain. Only the user-visible part
-  (9.5px→11px) shipped. A dedicated, deliberate type-scale-ladder pass could still be greenlit.
-- **#29 "How it works" 3-card grid restraint** — left as-is; the audit's own verifier put it in
-  "already excellent" (the YMM-pill / funnel-simulator / scanner interiors genuinely
-  differentiate it), and a structural change risked the §5.7 `[data-rev]` transform trap.
-
-**OPEN — needs the founder (not a design call):**
-- **#32 "backed by insurance" copy** — `early_f2_d` / `jw_ben2_s` promise fraud protection
-  "backed by video evidence **and insurance**" (ID: "…dan asuransi"). Whether an insurer is
-  actually in place is a business fact — **untouched, pending the founder's answer.** If not in
-  place, drop "and insurance" / "dan asuransi" from both keys.
+- **The dev server is mis-rooted.** A stray `C:\Users\user\package-lock.json` makes Next infer the
+  wrong workspace root; symptoms are `GET / 404` and a "multiple lockfiles" warning. Run `next dev`
+  **from the project directory**, or pin `turbopack.root`. Worth fixing permanently.
+- **Stale `next-server` processes survive** Git-Bash `pkill` on Windows and cause "Another next dev
+  server is already running" plus ghost servers that serve the *wrong* content to test runners.
+  Kill them via PowerShell `Get-CimInstance Win32_Process`.
+- **The in-app browser pane is usually hidden**, so screenshots fail and rAF/IntersectionObserver
+  never fire — WebGL/scroll behaviour cannot be verified there. Verify by construction + tests, or
+  use headless Playwright.
+- `networkidle` never settles under Next dev (HMR socket) — use `domcontentloaded` + explicit
+  selector waits.
 
 ---
 
-## 9. Next-loop candidates (where Claude Design should look next)
+## 10. Suggested next rounds
 
-Ranked by likely impact on the founder's north star ("feel like the platform, look less like AI,
-investor-grade"):
+**Round A — design (Claude Design owns):** band-2 hierarchy + type scale · one-catalog decision ·
+unified `.mb-glass` primitive · the scan as designed feedback · protection story placement ·
+aurora as one system · ids for the unnamed bands. *(§4 in full.)*
 
-1. **Ambient WebGL aurora backdrop** (`HANDOFF_GEMINI_IMMERSION_R7.md` #1) — genuinely **not
-   built yet**. The single biggest "feel" lever: a slow, low-contrast generative backdrop behind
-   the dark bands, in the rAF-CSS-var / three-island idiom (no framer-motion). This is the most
-   direct answer to "why does the platform feel better."
-2. **Scroll-choreography polish** — the reveal/stagger is functional but even; a more
-   intentional, varied entrance rhythm (respecting the `[data-rev]` trap and reduced-motion)
-   would lift perceived craft. Lenis smooth-scroll is the obvious enabler but is **founder-gated**
-   (adds a dep) — ask before reaching for it.
-3. **Hero type & rhythm** — within the locked families, a deliberate scale ladder and tighter
-   optical rhythm on the hero + section heads (the R8 #26 rhythm fix was a start).
-4. **Real founder photography / Senen shopkeeper credibility card** — approved *in principle*
-   but blocked on a **real** founder-supplied photo + consent (a generated "shopkeeper" is
-   fabricated social proof — hard no). Stock people are out (no model releases).
-5. **`/why-mobeeli` depth** — the data page can carry more of the moat story than `/` and is the
-   right home for any richer fitment/PCD demo.
-6. **A `hallmark study` pass on the platform** — extract the platform's DNA (type pairing,
-   motion cadence, depth) formally and port the transferable parts to the landing.
+**Round B — integrity cleanup (Gemini, tightly specced):** fix the R13 test to pin live selectors →
+delete the ~217 dead CSS lines → delete the 27 orphaned copy keys → re-encode the images → delete the
+2.57 MB dead assets. Each step gated.
 
-Always run these through the §0 loop: audit → verify → **founder-gate** → implement → test → preview → merge.
+**Round C — coverage:** add jsdom for a `tests/dom/**` project and cover the garage flow; **commit
+the Playwright suite** (`playwright.config.ts` + `e2e/` + `test:e2e`).
+
+**Round D — go-live hardening:** Node pin · env schema + health endpoint · security headers + CSP ·
+`error.tsx`/`not-found.tsx`/`global-error.tsx` · deck-secret-in-URL fix · then the founder-only
+external steps (rotate `RESEND_API_KEY`, add `company.mobeeli.com` + DNS, Resend SPF/DKIM/DMARC,
+Search Console, real WhatsApp number).
 
 ---
 
-## 10. The founder Run-button merge protocol (exact)
+## 11. Founder Run-button merge protocol (exact)
 
-You **cannot** merge to `main` (the auto-mode classifier blocks it; that's by design — the merge
-is the founder's approval gate). The proven path:
+You cannot merge to `main` — that is the founder's approval gate, by design.
 
-1. Fable/Claude does the work on a branch, gates it green, pushes → Vercel preview.
-2. The founder reviews the preview (Vercel-SSO-protected; he's logged in).
-3. Fable checks out `main`, `pull --ff-only`, confirms a clean merge, and presents **Run-button
-   blocks** — **one `git` command per fenced ```bash block, NO `&&`** (the founder's buttons
-   execute in **PowerShell 5.1**, where `&&` is a parse error and the button silently no-ops).
-   Author is already `piztanza` via repo-local config (required or Vercel blocks the deploy).
-4. The founder clicks the merge block, then the push block. Production deploys on the push.
-5. Verify: `gh api repos/piztanza/mobeeli-landing-page/deployments` → status `success`, then a
-   WebFetch smoke-test of `mobeeli-landing-page.vercel.app` (correct headings, no banned strings,
-   exact footer, no horizontal scroll).
-
-Gate commands (must all pass before presenting buttons):
-```bash
-npm test
-```
-```bash
-npm run lint
-```
-```bash
-npm run build
-```
+1. Work on a branch, gate green, push → Vercel preview (SSO-protected; the founder views it).
+2. Check out `main`, `git pull --ff-only`, confirm a clean merge.
+3. Present **one `git` command per fenced ```bash block, NEVER `&&`** — the founder's Run buttons
+   execute in **PowerShell 5.1**, where `&&` is a parse error and the button silently no-ops.
+4. He clicks merge, then push. Production deploys on the push.
+5. Verify: `gh api repos/piztanza/mobeeli-landing-page/deployments` → `success`, then smoke-test the
+   live URL.
 
 ---
 
-## 11. Standing outstanding items (from HANDOFF.md — not design, but context)
+## 12. Documentation status — what to trust
 
-Domain `company.mobeeli.com` + Search Console + Resend domain verify; **rotate `RESEND_API_KEY`**
-(was once pasted in a chat); replace the placeholder WhatsApp `6281234567890`; add Yavet's photo +
-LinkedIn (the conditional render makes the link auto-appear once a URL exists — the CEO couldn't
-register an account yet); infra renames flagged not done (`mobilee-demo` domain,
-`mobilee_demo_session` cookie, `/logos/mobilee-logo.png`). These are the CTO/founder's; note them,
-don't action them without a request.
+**This file (v2) is the only current design brief.** The audit found **no root doc documented R14/R15**
+before this rewrite.
+
+- ✅ **Trust:** `CLAUDE.md` (binding rules — verified clean against source, except its font sentence,
+  which still says Plus Jakarta Sans is the type system; it is Inter + Space Grotesk),
+  `HANDBACK_LANDING_VISUAL_POLISH_REPLY.md` (standing audit rulings), `HANDOFF.md` (ops half only —
+  its commit pin is stale).
+- ⚠️ **Historical — do not action:** `HANDOFF_LANDING_REDESIGN.md` (still mandates the superseded
+  "Early Adaptors" spelling), `HANDOFF_GEMINI_*`, `HANDBACK_GEMINI_*`. Nine of these still describe a
+  standalone How-it-works band; seven still name `FitmentWheel`. `HANDBACK_GEMINI_SCANNER_R11.md`
+  certifies a GLB pipeline that is **100% absent from disk**. `README.md` is wrong about the API
+  surface (says 1 route, there are 4) and the fonts.
+- 🚫 **v1 of this file** claimed production `9274c94`, "44 files / 325 tests", a 3D-wheel band order,
+  live `FitmentWheel.tsx`/`HowItWorks.tsx`, and ranked the aurora as the #1 unbuilt item. All false.
 
 ---
 
-*Loop owner: the founder (Yavet). Auditor/engineer: Fable (Claude). Every visual change is
-founder-gated on the Vercel preview before it reaches production. Keep the bar where he set it —
-better than a human designer, and nothing that reads like AI.*
+*Loop owner: the founder. Auditor/engineer: Fable (Claude). Every visual change is founder-gated on a
+Vercel preview before production. Keep the bar where he set it — better than a human designer, and
+nothing that reads like AI.*
