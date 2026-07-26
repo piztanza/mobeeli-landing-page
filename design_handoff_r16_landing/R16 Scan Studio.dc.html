@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#090c0f; -webkit-font-smoothing:antialiased; }
+  a { color:#6fa5f7; text-decoration:none; border-bottom:1px solid rgba(111,165,247,.32); }
+  a:hover { color:#9dc2fa; }
+  ::selection { background:rgba(77,143,245,.3); }
+
+  /* ── shared 5s demo cycle: 1.8s of action, 3.2s at rest ── */
+  /* A · measured readout */
+  @keyframes sLine   { 0%{transform:translateY(0);opacity:0} 4%{transform:translateY(0);opacity:1} 26%{transform:translateY(169px);opacity:1} 31%{transform:translateY(169px);opacity:0} 100%{transform:translateY(169px);opacity:0} }
+  @keyframes sLeader { 0%{transform:scaleX(0);opacity:0} 2%{opacity:1} 7%{transform:scaleX(1)} 64%{transform:scaleX(1);opacity:1} 72%{opacity:0} 100%{transform:scaleX(1);opacity:0} }
+  @keyframes sVal    { 0%{opacity:0;transform:translateX(-5px)} 6%{opacity:1;transform:none} 64%{opacity:1;transform:none} 72%{opacity:0} 100%{opacity:0} }
+  @keyframes sDot    { 0%{transform:scale(0);opacity:0} 4%{transform:scale(1);opacity:1} 64%{opacity:1} 72%{opacity:0} 100%{opacity:0;transform:scale(1)} }
+  @keyframes sLock   { 0%,24%{opacity:0} 32%{opacity:1} 88%{opacity:1} 96%{opacity:0} 100%{opacity:0} }
+  /* B · focus pull */
+  @keyframes sFocus  { 0%,4%{filter:blur(8px) saturate(.35) brightness(.8)} 27%{filter:blur(0) saturate(1) brightness(1)} 92%{filter:blur(0) saturate(1) brightness(1)} 100%{filter:blur(8px) saturate(.35) brightness(.8)} }
+  @keyframes sVague  { 0%,6%{opacity:1} 16%{opacity:0} 92%{opacity:0} 100%{opacity:1} }
+  @keyframes sExact  { 0%,14%{opacity:0;letter-spacing:.24em} 30%{opacity:1;letter-spacing:.1em} 92%{opacity:1;letter-spacing:.1em} 100%{opacity:0;letter-spacing:.24em} }
+  /* C · the corpus collapses */
+  @keyframes sBefore { 0%,8%{opacity:1} 26%{opacity:0} 92%{opacity:0} 100%{opacity:1} }
+  @keyframes sAfter  { 0%,14%{opacity:0;transform:translateY(6px)} 30%{opacity:1;transform:none} 92%{opacity:1;transform:none} 100%{opacity:0;transform:translateY(6px)} }
+  @keyframes sWipe   { 0%{transform:translateX(-100%);opacity:0} 6%{opacity:1} 26%{transform:translateX(100%);opacity:1} 30%{opacity:0} 100%{transform:translateX(100%);opacity:0} }
+  /* D · registration lock */
+  @keyframes sBrTL   { 0%,4%{transform:translate(-16px,-16px);opacity:0} 8%{opacity:1} 26%{transform:none} 90%{transform:none;opacity:1} 100%{transform:translate(-16px,-16px);opacity:0} }
+  @keyframes sBrBR   { 0%,4%{transform:translate(16px,16px);opacity:0} 8%{opacity:1} 26%{transform:none} 90%{transform:none;opacity:1} 100%{transform:translate(16px,16px);opacity:0} }
+  @keyframes sSnap   { 0%,24%{opacity:0;transform:scale(1.06)} 30%{opacity:1;transform:scale(1)} 90%{opacity:1;transform:scale(1)} 100%{opacity:0;transform:scale(1.06)} }
+
+  @media (prefers-reduced-motion: reduce) { [data-anim]{animation:none !important} }
+</style>
+</helmet>
+
+<div style="background:#090c0f;color:#e8ecef;font-family:Inter,system-ui,sans-serif;padding:0 0 140px">
+
+<div style="max-width:1560px;margin:0 auto;padding:72px 56px 0">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
+    <span style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#4d8ff5">Round 16</span>
+    <span style="width:22px;height:1px;background:rgba(255,255,255,.22)"></span>
+    <span style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#8c979e">Scan studio · four live directions</span>
+  </div>
+  <h1 style="font-family:'Space Grotesk',sans-serif;font-size:52px;line-height:1.03;font-weight:600;letter-spacing:-.025em;margin:0;max-width:19ch;text-wrap:pretty">Keeping the scan, but making it mean something</h1>
+  <p style="font-size:17px;line-height:1.62;color:#b6bec4;max-width:72ch;margin:26px 0 0;text-wrap:pretty">All four run live on a 5-second demo cycle: <strong style="color:#e8ecef;font-weight:600">1.8s of action, then 3.2s at rest</strong>, so you can see both the motion and the state it leaves behind. In the page it fires once per lookup and never idles. Every one is reduced-motion gated to its settled state.</p>
+
+  <div style="border-left:2px solid #4d8ff5;padding:6px 0 6px 22px;margin:32px 0 0;max-width:72ch">
+    <p style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-size:19px;line-height:1.45;font-weight:600;letter-spacing:-.01em;color:#e8ecef">The craft note that matters most</p>
+    <p style="margin:0;font-size:16px;line-height:1.62;color:#c3cace;text-wrap:pretty">My first pass had the line decelerate across the whole traverse. That's wrong. A measuring instrument moves at <em style="font-style:normal;color:#e8ecef">constant velocity</em> — deceleration reads as “coming to rest”, which is right at the end and dishonest in the middle. So the pass is now three phases with three easings: <strong style="color:#e8ecef;font-weight:600">acquire</strong> 220ms (the line arrives and registers), <strong style="color:#e8ecef;font-weight:600">traverse</strong> 1,100ms near-linear (steady, unhurried — this is the part that reads as measuring), <strong style="color:#e8ecef;font-weight:600">settle</strong> 480ms (the <em style="font-style:normal;color:#e8ecef">values</em> decelerate in, not the line). 1,800ms total, which is the timeout the component already uses — so this is a CSS change, not a logic change.</p>
+  </div>
+</div>
+
+<!-- ═══ A ═══ -->
+<section id="4a" style="max-width:1560px;margin:0 auto;padding:0 56px;scroll-margin-top:16px">
+  <div style="border-top:1px solid rgba(255,255,255,.14);margin-top:64px;padding:28px 0 0">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px;flex-wrap:wrap">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:#2f7df6;color:#fff;border-radius:5px">4a</span>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:600;letter-spacing:-.018em;margin:0;color:#e8ecef">The measured readout</h2>
+      <span style="font-size:13px;color:#8c979e">· my recommendation</span>
+    </div>
+    <p style="margin:0 0 28px;font-size:15.5px;line-height:1.62;color:#8c979e;max-width:80ch">The line doesn't just pass over the car — it <em style="font-style:normal;color:#c3cace">takes measurements</em>, and leaves each one pinned to the point it measured.</p>
+  </div>
+  <div style="display:flex;gap:36px;flex-wrap:wrap;align-items:flex-start">
+    <div style="flex:0 0 auto;background:#0d1522;background-image:radial-gradient(500px 340px at 22% 6%,rgba(47,125,246,.13),transparent 72%);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:44px">
+      <div style="position:relative;width:440px;height:170px;background:#080d14;border:1px solid rgba(255,255,255,.1);overflow:hidden">
+        <img src="assets/fitment/catalog-car-poster.jpg" alt="Vehicle blueprint" style="width:100%;height:100%;object-fit:cover;mix-blend-mode:screen;opacity:.8">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(47,125,246,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(47,125,246,.06) 1px,transparent 1px);background-size:20px 20px"></div>
+
+        <div data-anim style="position:absolute;left:42px;top:44px;width:5px;height:5px;border-radius:50%;background:#5b9bf7;box-shadow:0 0 8px 2px rgba(47,125,246,.8);animation:sDot 5s linear .5s infinite"></div>
+        <div data-anim style="position:absolute;left:47px;top:46px;height:1px;width:120px;background:rgba(91,155,247,.5);transform-origin:left center;animation:sLeader 5s cubic-bezier(.2,.7,.2,1) .5s infinite"></div>
+        <div data-anim style="position:absolute;left:170px;top:37px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;color:#9dc2fa;animation:sVal 5s cubic-bezier(.2,.7,.2,1) .5s infinite">PCD 4 × 100</div>
+
+        <div data-anim style="position:absolute;left:298px;top:89px;width:5px;height:5px;border-radius:50%;background:#5b9bf7;box-shadow:0 0 8px 2px rgba(47,125,246,.8);animation:sDot 5s linear .8s infinite"></div>
+        <div data-anim style="position:absolute;left:200px;top:91px;height:1px;width:98px;background:rgba(91,155,247,.5);transform-origin:right center;animation:sLeader 5s cubic-bezier(.2,.7,.2,1) .8s infinite"></div>
+        <div data-anim style="position:absolute;left:104px;top:82px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;color:#9dc2fa;animation:sVal 5s cubic-bezier(.2,.7,.2,1) .8s infinite">⌀ 54.1 mm</div>
+
+        <div data-anim style="position:absolute;left:62px;top:124px;width:5px;height:5px;border-radius:50%;background:#5b9bf7;box-shadow:0 0 8px 2px rgba(47,125,246,.8);animation:sDot 5s linear 1.08s infinite"></div>
+        <div data-anim style="position:absolute;left:67px;top:126px;height:1px;width:96px;background:rgba(91,155,247,.5);transform-origin:left center;animation:sLeader 5s cubic-bezier(.2,.7,.2,1) 1.08s infinite"></div>
+        <div data-anim style="position:absolute;left:166px;top:117px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;color:#9dc2fa;animation:sVal 5s cubic-bezier(.2,.7,.2,1) 1.08s infinite">offset ET 45</div>
+
+        <div data-anim style="position:absolute;left:0;right:0;top:0;height:1px;background:#7cb0f9;box-shadow:0 0 14px 3px rgba(47,125,246,.65);animation:sLine 5s linear infinite"></div>
+        <div data-anim style="position:absolute;left:12px;bottom:11px;display:flex;align-items:center;gap:8px;animation:sLock 5s cubic-bezier(.2,.7,.2,1) infinite">
+          <span style="width:6px;height:6px;border-radius:50%;background:#5b9bf7"></span>
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#c7cfdd">2019 Avanza 1.5 G · 2NR-VE</span>
+        </div>
+      </div>
+    </div>
+    <div style="flex:1 1 380px;min-width:340px;display:flex;flex-direction:column;gap:18px">
+      <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">Three dimensions land as the line crosses them, each on a leader line to the point it came from. The output is a small engineering drawing, not chips floating over a photo.</p>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">Why this one: it's the only version where the motion <em style="font-style:normal;color:#e8ecef">carries information</em>. And the values aren't invented — <code style="font-family:ui-monospace,Menlo,monospace;font-size:14px;color:#9dc2fa">fit3d_pcd_v</code> (4 × 100) and <code style="font-family:ui-monospace,Menlo,monospace;font-size:14px;color:#9dc2fa">fit3d_bore_v</code> (⌀ 54.1 mm) are already stamped strings sitting unused in <code style="font-family:ui-monospace,Menlo,monospace;font-size:14px;color:#9dc2fa">copy.ts</code>. Offset would be the one new string.</p>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">It also quietly makes the moat argument the deck makes — fitment <em style="font-style:normal;color:#e8ecef">derived from real geometry, never typed in</em>. A visitor sees bolt pattern and bore being read off a vehicle, which is a different claim from “we have a big database”, and a much harder one to fake.</p>
+      <div style="background:#0c1013;border:1px solid rgba(255,255,255,.09);border-radius:4px;padding:16px 20px">
+        <p style="margin:0;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.8;color:#8c979e">acquire  220ms  cubic-bezier(.2,.7,.2,1)<br>traverse 1100ms cubic-bezier(.32,0,.68,1)  ← near-linear<br>settle   480ms  cubic-bezier(.2,.7,.2,1)<br>reduced-motion → values present, no traverse</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ B ═══ -->
+<section id="4b" style="max-width:1560px;margin:0 auto;padding:0 56px;scroll-margin-top:16px">
+  <div style="border-top:1px solid rgba(255,255,255,.09);margin-top:72px;padding:28px 0 0">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px;flex-wrap:wrap">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:rgba(255,255,255,.1);color:#e8ecef;border-radius:5px">4b</span>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:600;letter-spacing:-.018em;margin:0;color:#e8ecef">The focus pull</h2>
+    </div>
+    <p style="margin:0 0 28px;font-size:15.5px;line-height:1.62;color:#8c979e;max-width:80ch">No laser at all. The car resolves from vague to exact — optical, not sci-fi.</p>
+  </div>
+  <div style="display:flex;gap:36px;flex-wrap:wrap;align-items:flex-start">
+    <div style="flex:0 0 auto;background:#0d1522;background-image:radial-gradient(500px 340px at 22% 6%,rgba(47,125,246,.13),transparent 72%);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:44px">
+      <div style="position:relative;width:440px;height:170px;background:#080d14;border:1px solid rgba(255,255,255,.1);overflow:hidden">
+        <img data-anim src="assets/fitment/catalog-car-poster.jpg" alt="Vehicle blueprint" style="width:100%;height:100%;object-fit:cover;mix-blend-mode:screen;animation:sFocus 5s cubic-bezier(.2,.7,.2,1) infinite">
+        <div style="position:absolute;left:0;right:0;bottom:0;height:56px;background:linear-gradient(transparent,rgba(8,13,20,.9))"></div>
+        <div data-anim style="position:absolute;left:14px;bottom:14px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#5f6c7e;animation:sVague 5s cubic-bezier(.2,.7,.2,1) infinite">A Toyota, probably</div>
+        <div data-anim style="position:absolute;left:14px;bottom:14px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#c7cfdd;white-space:nowrap;animation:sExact 5s cubic-bezier(.2,.7,.2,1) infinite">2019 Avanza 1.5 G · 2NR-VE</div>
+      </div>
+    </div>
+    <div style="flex:1 1 380px;min-width:340px;display:flex;flex-direction:column;gap:18px">
+      <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">The image starts soft and desaturated with a vague label, and comes into focus as the exact vehicle resolves underneath. The whole idea of the product in one gesture: <em style="font-style:normal;color:#e8ecef">roughly your car → your car</em>.</p>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">Most restrained of the four, and the least like anything else in the category — nobody in auto parts is doing optics. Cheap too: two properties, no extra markup.</p>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:#8c979e;text-wrap:pretty">Against it: a blurred hero image is a risk on a page where the founder brief asks for precision, and an animated <code style="font-family:ui-monospace,Menlo,monospace;font-size:14px">filter: blur()</code> on a large element is the most expensive thing in this file to composite. Would want measuring on a mid-range Android before it ships.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ C ═══ -->
+<section id="4c" style="max-width:1560px;margin:0 auto;padding:0 56px;scroll-margin-top:16px">
+  <div style="border-top:1px solid rgba(255,255,255,.09);margin-top:72px;padding:28px 0 0">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px;flex-wrap:wrap">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:rgba(255,255,255,.1);color:#e8ecef;border-radius:5px">4c</span>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:600;letter-spacing:-.018em;margin:0;color:#e8ecef">The corpus collapses</h2>
+      <span style="font-size:13px;color:#8c979e">· most conceptually unified</span>
+    </div>
+    <p style="margin:0 0 28px;font-size:15.5px;line-height:1.62;color:#8c979e;max-width:80ch">Don't scan the car. Scan the <em style="font-style:normal;color:#c3cace">catalogue</em> — and make the scan and the 217 → 4 the same gesture instead of two separate moments.</p>
+  </div>
+  <div style="display:flex;gap:36px;flex-wrap:wrap;align-items:flex-start">
+    <div style="flex:0 0 auto;background:#0d1522;background-image:radial-gradient(500px 340px at 22% 6%,rgba(47,125,246,.13),transparent 72%);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:44px">
+      <div style="position:relative;width:440px;height:170px;background:#080d14;border:1px solid rgba(255,255,255,.1);overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:22px;padding:0 22px">
+        <div style="position:relative;height:44px">
+          <div data-anim style="position:absolute;inset:0;display:flex;align-items:center;gap:5px;animation:sBefore 5s cubic-bezier(.2,.7,.2,1) infinite">
+            <sc-for list="{{ ticksAll }}" as="t" hint-placeholder-count="26">
+              <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.16)"></span>
+            </sc-for>
+          </div>
+          <div data-anim style="position:absolute;inset:0;display:flex;align-items:center;gap:5px;animation:sAfter 5s cubic-bezier(.2,.7,.2,1) infinite">
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:#5b9bf7;box-shadow:0 0 10px rgba(47,125,246,.7)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:#5b9bf7;box-shadow:0 0 10px rgba(47,125,246,.7)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:#5b9bf7;box-shadow:0 0 10px rgba(47,125,246,.7)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:#5b9bf7;box-shadow:0 0 10px rgba(47,125,246,.7)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+            <span style="width:7px;height:26px;border-radius:1px;background:rgba(255,255,255,.05)"></span>
+          </div>
+          <div data-anim style="position:absolute;top:-9px;bottom:-9px;left:0;width:2px;background:#7cb0f9;box-shadow:0 0 14px 3px rgba(47,125,246,.65);animation:sWipe 5s cubic-bezier(.32,0,.68,1) infinite"></div>
+        </div>
+        <div style="position:relative;height:40px">
+          <div data-anim style="position:absolute;left:0;bottom:0;display:flex;align-items:baseline;gap:9px;font-family:'Space Grotesk',sans-serif;font-variant-numeric:tabular-nums;animation:sBefore 5s cubic-bezier(.2,.7,.2,1) infinite">
+            <span style="font-size:32px;font-weight:600;color:#5f6c7e">217</span>
+            <span style="font-size:12px;font-family:Inter,sans-serif;color:#5f6c7e">listings for “brake pad”</span>
+          </div>
+          <div data-anim style="position:absolute;left:0;bottom:0;display:flex;align-items:baseline;gap:9px;font-family:'Space Grotesk',sans-serif;font-variant-numeric:tabular-nums;animation:sAfter 5s cubic-bezier(.2,.7,.2,1) infinite">
+            <span style="font-size:32px;font-weight:600;color:#fff">4</span>
+            <span style="font-size:12px;font-family:Inter,sans-serif;color:#9dc2fa;white-space:nowrap">that fit a 2019 Avanza 1.5 G</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="flex:1 1 380px;min-width:340px;display:flex;flex-direction:column;gap:18px">
+      <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">Every candidate listing is a tick. The filter passes through them once; twenty go dark, four light up, and the count resolves underneath. The scan <em style="font-style:normal;color:#e8ecef">is</em> the filter, so the band has one climax instead of two.</p>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">This is the strongest idea of the four and the biggest change — it means band 2 loses the car image entirely. Which may be a feature: a car photo is the most generic asset on the page, and the ticks are unmistakably <em style="font-style:normal;color:#e8ecef">data</em>.</p>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:#8c979e;text-wrap:pretty">Against it: it's abstract. It needs the caption to land, and it gives up the one moment where a visitor sees their own vehicle. Also the largest build of the four.</p>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty"><strong style="color:#e8ecef;font-weight:600">Worth knowing:</strong> <a href="#4a">4a</a> and <a href="#4c">4c</a> compose. Measure the car, then collapse the corpus — 3.4s total across two beats. That's the version I'd build if you want the band to have a real sequence.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ D ═══ -->
+<section id="4d" style="max-width:1560px;margin:0 auto;padding:0 56px;scroll-margin-top:16px">
+  <div style="border-top:1px solid rgba(255,255,255,.09);margin-top:72px;padding:28px 0 0">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px;flex-wrap:wrap">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:rgba(255,255,255,.1);color:#e8ecef;border-radius:5px">4d</span>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:600;letter-spacing:-.018em;margin:0;color:#e8ecef">The registration lock</h2>
+    </div>
+    <p style="margin:0 0 28px;font-size:15.5px;line-height:1.62;color:#8c979e;max-width:80ch">Camera metering, not scanning. Brackets converge, snap, confirm.</p>
+  </div>
+  <div style="display:flex;gap:36px;flex-wrap:wrap;align-items:flex-start">
+    <div style="flex:0 0 auto;background:#0d1522;background-image:radial-gradient(500px 340px at 22% 6%,rgba(47,125,246,.13),transparent 72%);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:44px">
+      <div style="position:relative;width:440px;height:170px;background:#080d14;border:1px solid rgba(255,255,255,.1);overflow:hidden">
+        <img src="assets/fitment/catalog-car-poster.jpg" alt="Vehicle blueprint" style="width:100%;height:100%;object-fit:cover;mix-blend-mode:screen;opacity:.8">
+        <div data-anim style="position:absolute;left:26px;top:26px;width:26px;height:26px;border-left:2px solid #5b9bf7;border-top:2px solid #5b9bf7;animation:sBrTL 5s cubic-bezier(.16,.9,.2,1) infinite"></div>
+        <div data-anim style="position:absolute;right:26px;top:26px;width:26px;height:26px;border-right:2px solid #5b9bf7;border-top:2px solid #5b9bf7;animation:sBrBR 5s cubic-bezier(.16,.9,.2,1) infinite"></div>
+        <div data-anim style="position:absolute;left:26px;bottom:26px;width:26px;height:26px;border-left:2px solid #5b9bf7;border-bottom:2px solid #5b9bf7;animation:sBrBR 5s cubic-bezier(.16,.9,.2,1) infinite"></div>
+        <div data-anim style="position:absolute;right:26px;bottom:26px;width:26px;height:26px;border-right:2px solid #5b9bf7;border-bottom:2px solid #5b9bf7;animation:sBrTL 5s cubic-bezier(.16,.9,.2,1) infinite"></div>
+        <div data-anim style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;background:rgba(8,13,20,.86);border:1px solid rgba(47,125,246,.4);border-radius:2px;padding:7px 13px;animation:sSnap 5s cubic-bezier(.16,.9,.2,1) infinite">
+          <span style="color:#5b9bf7;font-size:12px;font-weight:800">✓</span>
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#c7cfdd;white-space:nowrap">2019 Avanza 1.5 G · 2NR-VE</span>
+        </div>
+      </div>
+    </div>
+    <div style="flex:1 1 380px;min-width:340px;display:flex;flex-direction:column;gap:18px">
+      <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">Four corner brackets fly in and lock, then the confirmation snaps to centre. Fast, unfussy, familiar from every camera anyone has used — and it reads as <em style="font-style:normal;color:#e8ecef">identified</em> rather than <em style="font-style:normal;color:#e8ecef">scanned</em>.</p>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">Cheapest to build and the safest on performance — four borders and a transform. It also gives you a brand asset: those brackets are the same registration marks I'd use in the identity work, so the motion and the logo would share a vocabulary.</p>
+      <p style="margin:0;font-size:16px;line-height:1.65;color:#8c979e;text-wrap:pretty">Against it: it's the most familiar of the four, so it's the least memorable. It confirms without ever showing you the work.</p>
+    </div>
+  </div>
+</section>
+
+<div style="max-width:1560px;margin:0 auto;padding:0 56px">
+  <div style="border-top:1px solid rgba(255,255,255,.14);margin-top:72px;padding:32px 0 0;max-width:76ch">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:600;letter-spacing:-.018em;margin:0 0 18px;color:#e8ecef">What I'd do</h2>
+    <p style="margin:0 0 16px;font-size:16.5px;line-height:1.65;color:#c3cace;text-wrap:pretty">Build <a href="#4a">4a</a>. It's the only one where the motion delivers information rather than atmosphere, it reuses two already-stamped copy strings, and it makes the geometry argument visible — which is the part of the moat you can show without disclosing scale.</p>
+    <p style="margin:0 0 16px;font-size:16.5px;line-height:1.65;color:#c3cace;text-wrap:pretty">Then, if band 2 earns a second beat, add <a href="#4c">4c</a> after it. Measure the car, collapse the corpus. Two beats, 3.4s, one idea.</p>
+    <p style="margin:0;font-size:15.5px;line-height:1.65;color:#8c979e;text-wrap:pretty">All four hold the same three rules: fires on a lookup and never idles · 1,800ms so no component logic changes · reduced motion goes straight to the settled state, which closes §5 #1 and the WCAG 2.2.2 failure regardless of which you pick.</p>
+    <p style="margin:26px 0 0;font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.5)">Try next: “build <a href="#4a">4a</a>” · “<a href="#4a">4a</a> then <a href="#4c">4c</a> as two beats” · “<a href="#4a">4a</a> but slower” · “try <a href="#4c">4c</a> without the car anywhere in band 2”</p>
+  </div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return { ticksAll: Array.from({ length: 26 }, (_, i) => i) };
+  }
+}
+</script>
+</body>
+</html>

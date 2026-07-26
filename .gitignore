@@ -28,3 +28,6 @@ out/
 dist/
 coverage/
 *.log
+
+# R16 design bundle: prototypes + README are tracked; assets/ duplicate public/assets
+design_handoff_r16_landing/assets/

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Space+Grotesk:wght@700&family=Sora:wght@700;800&family=Outfit:wght@700;800&family=Manrope:wght@700;800&family=Archivo:wght@700;800&family=Unbounded:wght@700;800&family=Gabarito:wght@700;800&family=Syne:wght@700;800&family=Bricolage+Grotesque:wght@700;800&family=Poppins:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#090c0f; color:#e8ecef; -webkit-font-smoothing:antialiased; }
+  a { color:#9dc2fa; text-decoration:none; }
+  a:hover { color:#c9dcfc; }
+  ::selection { background:rgba(47,125,246,.3); }
+</style>
+</helmet>
+
+<div style="font-family:Inter,system-ui,sans-serif;background:#090c0f;min-height:100vh">
+
+<section id="t6" style="padding:52px 48px 56px;max-width:1180px;margin:0 auto">
+
+  <div style="display:flex;align-items:baseline;gap:10px;margin:0 0 26px">
+    <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;padding:3px 7px;background:#e8ecef;color:#090c0f;border-radius:4px">6</span>
+    <span style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#e8ecef">Wordmark type — ten candidates</span>
+  </div>
+
+  <h2 style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:600;letter-spacing:-.02em;margin:0 0 16px;color:#e8ecef;max-width:24ch">Pick the letterforms, then I'll tune the lockup</h2>
+  <p style="margin:0 0 12px;font-size:16px;line-height:1.62;color:#c3cace;max-width:74ch;text-wrap:pretty">Each row shows the same two things: the name large enough to judge the letterforms, and the actual nav lockup at real size — 42px mark, 32px word — because that is where the decision gets made. Same size and tracking on every row, so what you see is the typeface and not my tuning.</p>
+  <p style="margin:0 0 34px;font-size:15px;line-height:1.6;color:#8c979e;max-width:74ch;text-wrap:pretty">Watch three things: the <strong style="color:#c3cace;font-weight:600">double-e</strong> (how open the apertures are decides whether it reads at small size), the <strong style="color:#c3cace;font-weight:600">l-i pair</strong> (two bare stems side by side — some fonts make this a picket fence), and how the <strong style="color:#c3cace;font-weight:600">round o and b</strong> sit against the mark's geometry.</p>
+
+  <!-- reference -->
+  <div style="border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:22px 26px;margin-bottom:36px;background:rgba(255,255,255,.02)">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;margin-bottom:16px">Currently on the page — Poppins 700</div>
+    <div style="display:flex;align-items:center;gap:11px">
+      <img src="assets/mobeeli-mark.png" alt="" style="height:42px;width:auto;display:block">
+      <span style="font-family:Poppins,sans-serif;font-size:32px;font-weight:700;letter-spacing:-.028em;color:#fff;line-height:1">mobeeli</span>
+    </div>
+    <p style="margin:14px 0 0;font-size:14px;line-height:1.6;color:#8c979e;max-width:72ch">Perfectly circular o, wide, friendly. The critique from <a href="#5a">5a</a> stands: it is the default geometric of the last decade, and it says nothing about precision.</p>
+  </div>
+
+  <sc-for list="{{ fonts }}" as="f" hint-placeholder-count="10">
+    <div id="{{ f.id }}" style="display:grid;grid-template-columns:210px 1fr;gap:36px;padding:30px 0;border-top:1px solid rgba(255,255,255,.09);scroll-margin-top:16px">
+
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:baseline;gap:9px">
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:rgba(255,255,255,.1);color:#e8ecef;border-radius:5px">{{ f.id }}</span>
+          <span style="font-size:13.5px;font-weight:600;color:#e8ecef">{{ f.name }}</span>
+        </div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.06em;color:#8c979e">{{ f.cls }}</div>
+        <p style="margin:6px 0 0;font-size:13.5px;line-height:1.6;color:#8c979e;text-wrap:pretty">{{ f.note }}</p>
+        <div style="margin-top:4px;font-size:12.5px;line-height:1.55;color:#6f7a82;text-wrap:pretty">{{ f.risk }}</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:22px;min-width:0">
+        <div style="font-family:{{ f.stack }};font-size:76px;font-weight:var(--mb-w,700);letter-spacing:var(--mb-track,-.028em);color:#fff;line-height:1;white-space:nowrap">mobeeli</div>
+        <div style="display:flex;align-items:center;gap:36px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:11px;background:#0d1522;border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:12px 20px">
+            <img src="assets/mobeeli-mark.png" alt="" style="height:42px;width:auto;display:block">
+            <span style="font-family:{{ f.stack }};font-size:32px;font-weight:var(--mb-w,700);letter-spacing:var(--mb-track,-.028em);color:#fff;line-height:1">mobeeli</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:9px;background:#0d1522;border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:12px 18px">
+            <img src="assets/mobeeli-mark.png" alt="" style="height:22px;width:auto;display:block">
+            <span style="font-family:{{ f.stack }};font-size:17px;font-weight:var(--mb-w,700);letter-spacing:var(--mb-track,-.028em);color:#fff;line-height:1">mobeeli</span>
+            <span style="font-family:'Space Grotesk',sans-serif;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#6f7a82;margin-left:6px">favicon scale</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-for>
+
+  <div style="display:grid;grid-template-columns:210px 1fr;gap:36px;border-top:1px solid rgba(255,255,255,.09);padding:30px 0 0;margin-top:8px">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;line-height:1.5;padding-top:3px">If you<br>want one</div>
+    <div>
+      <p style="margin:0 0 15px;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty"><a href="#6a">6a</a>, and not for aesthetic reasons. Plus Jakarta Sans is already the typeface every other word on your site is set in — it is loaded, self-hosted and in the repo. Choosing it means the wordmark is the company's own voice at display size rather than a second font bolted on, and it comes with a story that is true: it was drawn by an Indonesian foundry for Jakarta.</p>
+      <p style="margin:0 0 15px;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">If that feels too quiet, <a href="#6c">6c</a> is the precision play — squared-off, instrument-like, closest in spirit to the scan readout. And <a href="#6g">6g</a> is the one that will be remembered, at the cost of being harder to live with everywhere else.</p>
+      <p style="margin:0;font-size:15px;line-height:1.6;color:#8c979e;max-width:70ch;text-wrap:pretty">Whichever you pick, the tracking and the mark-to-word ratio get tuned to that specific face afterwards — the numbers here are deliberately uniform so the comparison is fair, not because they are right for any one of them.</p>
+    </div>
+  </div>
+
+  <p style="margin:30px 0 0;font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.5)">Try next: “put <a href="#6a">6a</a> on the landing page” · “<a href="#6c">6c</a>, tighter” · “show me <a href="#6a">6a</a> and <a href="#6c">6c</a> side by side at nav size only”</p>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;tracking&quot;: {
+    &quot;editor&quot;: &quot;range&quot;,
+    &quot;min&quot;: -60,
+    &quot;max&quot;: 10,
+    &quot;step&quot;: 2,
+    &quot;default&quot;: -28,
+    &quot;unit&quot;: &quot;/1000 em&quot;,
+    &quot;tsType&quot;: &quot;number&quot;,
+    &quot;section&quot;: &quot;Compare&quot;
+  },
+  &quot;weight&quot;: {
+    &quot;editor&quot;: &quot;enum&quot;,
+    &quot;options&quot;: [700, 800],
+    &quot;default&quot;: 700,
+    &quot;tsType&quot;: &quot;number&quot;,
+    &quot;section&quot;: &quot;Compare&quot;
+  }
+}">
+class Component extends DCLogic {
+  componentDidMount() { this.sync(); }
+  componentDidUpdate() { this.sync(); }
+  sync() {
+    const r = document.documentElement.style;
+    r.setProperty("--mb-track", (this.props.tracking ?? -28) / 1000 + "em");
+    r.setProperty("--mb-w", String(this.props.weight ?? 700));
+  }
+  renderVals() {
+    return {
+      fonts: [
+        { id: "6a", name: "Plus Jakarta Sans", stack: "'Plus Jakarta Sans',sans-serif", cls: "HUMANIST GEOMETRIC",
+          note: "Your own body font, at display weight. Slightly narrow, open apertures, a subtle angle on the e that keeps it from feeling mechanical.",
+          risk: "Drawn by Tokotype for Jakarta's city identity — the only candidate with an Indonesian provenance." },
+        { id: "6b", name: "Space Grotesk", stack: "'Space Grotesk',sans-serif", cls: "TECHNICAL GROTESQUE",
+          note: "Already on your page, setting every spec and measurement. Cut terminals, tight curves, an engineered feel.",
+          risk: "Caps at 700 — no heavier weight available. Using it for the name too may flatten the data/brand distinction." },
+        { id: "6c", name: "Sora", stack: "Sora,sans-serif", cls: "SQUARED GEOMETRIC",
+          note: "Flat-sided bowls and near-square counters. Reads as instrumentation without tipping into sci-fi.",
+          risk: "The l and i sit very close — needs the tracking opened slightly at small size." },
+        { id: "6d", name: "Outfit", stack: "Outfit,sans-serif", cls: "PURE GEOMETRIC",
+          note: "What Poppins would be if it were disciplined: same circular logic, tighter fit, less bounce.",
+          risk: "Safe. Also the least distinguishable from a hundred other startup wordmarks." },
+        { id: "6e", name: "Manrope", stack: "Manrope,sans-serif", cls: "SEMI-GEOMETRIC",
+          note: "Quietly unusual — flared stems, slightly squared o. Modern without announcing it.",
+          risk: "Its personality lives in details that vanish below about 20px." },
+        { id: "6f", name: "Archivo", stack: "Archivo,sans-serif", cls: "INDUSTRIAL GROTESQUE",
+          note: "Sturdy, American-signage lineage. Feels like a parts catalogue in the good sense — utilitarian, built to be read on a shop wall.",
+          risk: "Reads more heavy-industry than software. Consider whether that helps or dates you." },
+        { id: "6g", name: "Unbounded", stack: "Unbounded,sans-serif", cls: "WIDE DISPLAY",
+          note: "Wide, confident, unmistakable. The highest-recall option here by a distance.",
+          risk: "Very wide — the lockup grows about 30% and the nav breakpoint moves with it. Display only; never body." },
+        { id: "6h", name: "Gabarito", stack: "Gabarito,sans-serif", cls: "WARM GEOMETRIC DISPLAY",
+          note: "Geometric bones with a slightly drawn quality. Approachable without being cute.",
+          risk: "Newer and less proven; fewer weights in the wild if you later need a full family." },
+        { id: "6i", name: "Syne", stack: "Syne,sans-serif", cls: "CONTEMPORARY ART-TECH",
+          note: "Unconventional proportions, high contrast between round and straight. The most designed-looking option.",
+          risk: "Strong opinion. Great on a poster, harder to defend on an invoice or a dashboard header." },
+        { id: "6j", name: "Bricolage Grotesque", stack: "'Bricolage Grotesque',sans-serif", cls: "EDITORIAL GROTESQUE",
+          note: "Deliberately slightly irregular — the warmth comes from small asymmetries rather than roundness.",
+          risk: "The irregularity is the point; if it reads as an error to you at a glance, it will to others." },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>
