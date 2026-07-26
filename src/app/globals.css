@@ -80,6 +80,7 @@
    IS Plus Jakarta Sans, which ships tabular figures upstream.) */
 .mb-num-display,
 .mb-card-part-price,
+.mb-cat-card-spec,
 .mb-fitment-label-value,
 .mb-ds-badge {
   font-family: var(--mb-font-display);

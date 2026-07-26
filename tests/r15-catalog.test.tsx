@@ -35,7 +35,18 @@ describe("R15 catalog — structure", () => {
       expect(src).toContain(img);
     }
     expect(html).toContain(t("en", "cat_part1_name"));
-    expect(html).toContain(t("en", "cat_sim_tag")); // "(Simulation)"
+  });
+
+  // R16 ruling 2b: cards carry a fitment SPEC, not a simulated price. There is
+  // no fabricated figure left on this surface to label, so the Simulation tag
+  // is not rendered here any more.
+  it("shows fitment specs instead of simulated prices", () => {
+    for (const k of ["cat_part1_spec", "cat_part2_spec", "cat_part3_spec", "cat_part4_spec"] as const) {
+      expect(html, k).toContain(t("en", k));
+      for (const lang of langs) expect(t(lang, k), `${lang}.${k}`).toBeTruthy();
+    }
+    expect(html).not.toContain("Rp ");
+    expect(html).not.toContain(t("en", "cat_sim_tag"));
   });
 
   it("keeps the ambient aurora but has no 3D wheel / three-fiber import", () => {

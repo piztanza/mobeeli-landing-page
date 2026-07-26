@@ -83,13 +83,14 @@ export default function FitmentSection() {
     }, SCAN_DURATION_MS);
   };
 
-  // `as const` keeps each `key` a literal CopyKey, so t(part.key) is type-safe
+  // R16 ruling 2b: cards carry a FITMENT SPEC, not a simulated price. `as const`
+  // keeps each key a literal CopyKey, so t(part.key) / t(part.spec) typecheck
   // without an unsafe cast.
   const parts = [
-    { key: "cat_part1_name", price: "Rp 85.000", img: "/assets/parts/spark-plug.jpg" },
-    { key: "cat_part2_name", price: "Rp 1.450.000", img: "/assets/parts/clutch.jpg" },
-    { key: "cat_part3_name", price: "Rp 850.000", img: "/assets/parts/shock.jpg" },
-    { key: "cat_part4_name", price: "Rp 450.000", img: "/assets/parts/brake-pad.jpg" },
+    { key: "cat_part1_name", spec: "cat_part1_spec", img: "/assets/parts/spark-plug.jpg" },
+    { key: "cat_part2_name", spec: "cat_part2_spec", img: "/assets/parts/clutch.jpg" },
+    { key: "cat_part3_name", spec: "cat_part3_spec", img: "/assets/parts/shock.jpg" },
+    { key: "cat_part4_name", spec: "cat_part4_spec", img: "/assets/parts/brake-pad.jpg" },
   ] as const;
 
   return (
@@ -244,9 +245,7 @@ export default function FitmentSection() {
                   <div className="mb-cat-card-info">
                     <div className="mb-cat-card-brand">{t("cat_part_brand")}</div>
                     <div className="mb-cat-card-name">{t(part.key)}</div>
-                    <div className="mb-cat-card-price">
-                      {part.price} <span className="mb-sim-tag">{t("cat_sim_tag")}</span>
-                    </div>
+                    <div className="mb-cat-card-spec">{t(part.spec)}</div>
                   </div>
                   {garage && !isScanning && (
                     <div className="mb-cat-verified">

@@ -37,6 +37,8 @@ const en = {
   nav_early: "Early Adopters",
   nav_team: "Team",
   nav_inv: "Investors",
+  /* R16 ruling 1c: protection became its own band, so it needs an anchor. */
+  nav_protect: "Protection",
   nav_cta: "Join Waitlist",
   /* Mobile hamburger nav a11y labels (CHG-piztanza-10) — not part of the design TXT map. */
   nav_menu_open: "Open menu",
@@ -113,6 +115,13 @@ const en = {
   cat_part3_name: "Gas Shock Absorber",
   cat_part4_name: "Standard Grade Pads",
   cat_sim_tag: "(Simulation)",
+  /* R16 ruling 2b: the cards show FITMENT SPECS, not simulated prices — the page
+     may show that fitment is resolved, not invent commercial figures.
+     DRAFT WORDING — founder to confirm EN and ID before this is treated as final. */
+  cat_part1_spec: "2NR-VE · 4 per set",
+  cat_part2_spec: "manual · ⌀ 200 mm",
+  cat_part3_spec: "rear · gas-filled · ET 45",
+  cat_part4_spec: "front axle · ceramic · 2NR-VE",
   cat_part_brand: "OEM Equivalent",
   cat_part_verified: "Verified Fit",
   cat_filter_active: "Filter Active",
@@ -143,9 +152,9 @@ const en = {
   why_ds_scan_bad: "Warning: fake detected",
   why_ds_cod_l: "100% cash buffer required",
   why_ds_cod_lock: "Capital locked",
-  prot_r1: "✓ Video-evidence resolution",
-  prot_r2: "✓ Authenticity verification",
-  prot_r3: "✓ Funds release when the part fits",
+  prot_r1: "Video-evidence resolution",
+  prot_r2: "Authenticity verification",
+  prot_r3: "Funds release when the part fits",
   cmp_h: "The same search, two outcomes.",
   cmp_bad_t: "On a generalist marketplace",
   cmp_bad_1: "Search “brake pad Honda Brio 2018” — 500 listings, none that know your car.",
@@ -362,6 +371,8 @@ const id: Record<CopyKey, string> = {
   nav_early: "Early Adopters",
   nav_team: "Tim",
   nav_inv: "Investor",
+  /* R16 ruling 1c: protection became its own band, so it needs an anchor. */
+  nav_protect: "Perlindungan",
   nav_cta: "Join Waitlist",
   /* Mobile hamburger nav a11y labels (CHG-piztanza-10) — not part of the design TXT map. */
   nav_menu_open: "Buka menu",
@@ -438,6 +449,14 @@ const id: Record<CopyKey, string> = {
   cat_part3_name: "Shockbreaker Gas",
   cat_part4_name: "Kampas Rem Setara OEM",
   cat_sim_tag: "(Simulasi)",
+  /* R16 ruling 2b — fitment specs, not simulated prices. Wording follows the
+     existing ID precedents in this file: card_part_sub is "As depan · keramik"
+     and fit3d_bore_v uses the comma decimal ("⌀ 54,1 mm").
+     DRAFT WORDING — founder to confirm before this is treated as final. */
+  cat_part1_spec: "2NR-VE · isi 4",
+  cat_part2_spec: "manual · ⌀ 200 mm",
+  cat_part3_spec: "belakang · gas · ET 45",
+  cat_part4_spec: "As depan · keramik · 2NR-VE",
   cat_part_brand: "Setara OEM",
   cat_part_verified: "Terverifikasi Cocok",
   cat_filter_active: "Filter Aktif",
@@ -468,9 +487,9 @@ const id: Record<CopyKey, string> = {
   why_ds_scan_bad: "Peringatan: palsu terdeteksi",
   why_ds_cod_l: "Butuh buffer tunai 100%",
   why_ds_cod_lock: "Modal terkunci",
-  prot_r1: "✓ Penyelesaian sengketa dengan bukti video",
-  prot_r2: "✓ Verifikasi barang asli",
-  prot_r3: "✓ Dana cair setelah barang cocok",
+  prot_r1: "Penyelesaian sengketa dengan bukti video",
+  prot_r2: "Verifikasi barang asli",
+  prot_r3: "Dana cair setelah barang cocok",
   cmp_h: "Pencarian sama, hasilnya beda jauh.",
   cmp_bad_t: "Di marketplace biasa",
   cmp_bad_1: "Ketik “kampas rem Brio 2018” — muncul 500 listing, tak ada yang paham mobil Anda.",

@@ -47,7 +47,7 @@ export default function UnifyBand() {
   }, [sceneReady]);
 
   return (
-    <section className="mb-uni">
+    <section id="coverage" className="mb-uni">
       {/* R4: the map IS the section — full-bleed behind the copy, dissolving
           into the next band. The overlay is pointer-inert so the scene's drag
           interaction reaches the canvas everywhere. */}

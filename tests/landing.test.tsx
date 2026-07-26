@@ -179,14 +179,14 @@ describe("landing page render (F-001 + F-009)", () => {
     expect(html).toContain(esc(t("en", "hero_sub_short")));
   });
 
-  it("renders the R12 band order — fitment scanner with 3-beat how-it-works second, archipelago fourth", () => {
+  it("renders the R16 band order — catalog second, protection fifth", () => {
     const bands = [
-      t("en", "hero_chip"), // hero (dark, type-focused, full viewport)
-      t("en", "cat_unified_h2"), // fitment scanner band (3-beat how-it-works + 3D stage) -> R15 Catalog Port
-      t("en", "quote_main"), // the problem, slim (light)
-      t("en", "uni_h2"), // unify band / archipelago (dark, full-bleed map)
-      t("en", "cat_h2"), // AI catalog demo (returned by founder decision)
-      t("en", "buyer_line"), // buyer strip
+      t("en", "hero_chip"), // hero (dark, full viewport)
+      t("en", "cat_unified_h2"), // unified catalog (dark, id="how-it-works")
+      t("en", "quote_main"), // the problem, slim (light, id="problem")
+      t("en", "uni_h2"), // coverage / archipelago (dark, id="coverage")
+      t("en", "how_s3_t"), // protection (light, id="protection") — R16 ruling 1c
+      t("en", "buyer_line"), // buyer strip (id="waitlist")
       t("en", "foot_tag"), // footer
     ];
     let cursor = -1;
@@ -195,6 +195,14 @@ describe("landing page render (F-001 + F-009)", () => {
       expect(at, `band copy "${band}"`).toBeGreaterThan(cursor);
       cursor = at;
     }
+  });
+
+  it("gives every band an id, and drops the second competing catalog (R16 ruling 1a)", () => {
+    for (const id of ["how-it-works", "problem", "coverage", "protection", "waitlist"]) {
+      expect(html, `id="${id}"`).toContain(`id="${id}"`);
+    }
+    // AiCatalogCard is unmounted from `/` — its headline must not appear.
+    expect(html).not.toContain(esc(t("en", "cat_h2")));
   });
 
   it("wires the nav waitlist CTA to /join and the hero shop CTA to platform registration", () => {
@@ -207,7 +215,7 @@ describe("landing page render (F-001 + F-009)", () => {
     for (const href of [
       "/#problem",
       "/#how-it-works",
-      "/why-mobeeli",
+      "/#protection",
       "https://mobilee-demo.vercel.app/platform",
       "/team",
       "/investors",
