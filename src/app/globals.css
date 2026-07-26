@@ -81,6 +81,8 @@
 .mb-num-display,
 .mb-card-part-price,
 .mb-cat-card-spec,
+.mb-cat-scan-val,
+.mb-cat-scan-lock-t,
 .mb-fitment-label-value,
 .mb-ds-badge {
   font-family: var(--mb-font-display);

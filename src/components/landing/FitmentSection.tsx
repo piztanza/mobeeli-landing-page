@@ -13,10 +13,12 @@ const AmbientAurora = dynamic(() => import("@/components/three/AmbientAurora"), 
 });
 
 /**
- * How long a scan runs, in ms. The CSS sweep
- * (`.mb-cat-car-wrapper.is-scanning .mb-cat-scan-line`) is authored to the same
- * number — a contract test asserts the two agree, so they can't drift apart
- * again (they were 1800ms vs 1.5s, which cut the sweep off mid-pass).
+ * How long a scan runs, in ms. The whole CSS choreography
+ * (`.mb-cat-car-wrapper.is-scanning …` in landing.css) is authored to this
+ * number: the line's acquire/traverse/settle phases are percentages of it, and
+ * every callout delay is an absolute position inside it. A contract test asserts
+ * the two sides agree, so they can't drift apart again (they were 1800ms vs
+ * 1.5s, which cut the pass off mid-travel).
  */
 export const SCAN_DURATION_MS = 1800;
 
@@ -226,6 +228,37 @@ export default function FitmentSection() {
                   sizes="280px"
                   className="mb-cat-car-img"
                 />
+                <div className="mb-cat-car-grid" />
+                {/* R16 §8 (ruling 4a) — the measured readout. The whole layer is
+                    aria-hidden: these labels live in the DOM permanently at
+                    opacity 0, so exposing them would have a screen reader
+                    announce three measurements and a vehicle lock at all times,
+                    including at rest. The authoritative result stays in the
+                    accessible tree — the garage chip above and the per-card
+                    "Verified Fit" badge below. Positions and delays are pure
+                    CSS (landing.css), never JS, so nothing can desync from the
+                    .is-scanning class. */}
+                <div className="mb-cat-scan-readout" aria-hidden>
+                  <div className="mb-cat-scan-callout mb-cat-scan-callout--1">
+                    <span className="mb-cat-scan-dot" />
+                    <span className="mb-cat-scan-leader" />
+                    <span className="mb-cat-scan-val">{t("cat_scan_pcd")}</span>
+                  </div>
+                  <div className="mb-cat-scan-callout mb-cat-scan-callout--2">
+                    <span className="mb-cat-scan-dot" />
+                    <span className="mb-cat-scan-leader" />
+                    <span className="mb-cat-scan-val">{t("fit3d_bore_v")}</span>
+                  </div>
+                  <div className="mb-cat-scan-callout mb-cat-scan-callout--3">
+                    <span className="mb-cat-scan-dot" />
+                    <span className="mb-cat-scan-leader" />
+                    <span className="mb-cat-scan-val">{t("cat_scan_offset")}</span>
+                  </div>
+                  <div className="mb-cat-scan-lock">
+                    <span className="mb-cat-scan-lock-dot" />
+                    <span className="mb-cat-scan-lock-t">{t("cat_scan_lock")}</span>
+                  </div>
+                </div>
                 <div className="mb-cat-scan-line" />
               </div>
             </div>
