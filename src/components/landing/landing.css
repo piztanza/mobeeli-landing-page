@@ -106,8 +106,10 @@
   margin: 14px 0 0;
   font-size: clamp(38px, 4.8vw, 64px);
   line-height: 1.04;
-  letter-spacing: -0.024em;
-  font-weight: 600;
+  /* R16 (7a): tracking retuned from -0.024em — Plus Jakarta Sans at 800 sets
+     tighter than the Space Grotesk it replaces. */
+  letter-spacing: -0.022em;
+  font-weight: 800;
 }
 .mb-grid3 {
   display: grid;
@@ -577,8 +579,9 @@ button.mb-buyer-cta:active {
   display: grid;
   font-size: clamp(2.75rem, 6.6vw, 5.25rem);
   line-height: 1.02;
-  letter-spacing: -0.025em;
-  font-weight: 700;
+  /* R16 (7a): retuned for Plus Jakarta Sans 800. */
+  letter-spacing: -0.022em;
+  font-weight: 800;
   color: #fff;
 }
 .mb-hero-h1 > span {
@@ -739,39 +742,17 @@ button.mb-buyer-cta:active {
 }
 
 /* Renamed from .mb-cat-h2 to avoid colliding with AiCatalogCard's .mb-cat-h2 (salvage). */
+/* R16: the `font-size: 28px` here overrode .mb-h2's clamp(38px, 4.8vw, 64px),
+   so band 2's heading rendered SMALLER on desktop than on a phone and the page
+   hierarchy collapsed. Size now comes from .mb-h2; this rule only positions. */
 .mb-ucat-h2 {
   text-align: left;
   margin-bottom: 30px;
-  font-size: 28px;
   color: #fff;
 }
 
-.mb-cat-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.mb-cat-stat {
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.mb-cat-stat-v {
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--mb-light-accent);
-}
-
-.mb-cat-stat-l {
-  font-size: 14px;
-  color: var(--mb-dark-muted);
-  margin-top: 4px;
-}
+/* R16 ruling 2b: the four rules that styled the simulated catalogue-size tiles
+   were removed here along with the tiles themselves. */
 
 .mb-cat-top-row {
   display: flex;
@@ -812,6 +793,10 @@ button.mb-buyer-cta:active {
   mix-blend-mode: screen;
 }
 
+/* R16 Bug A: the sweep now runs ONLY while a scan is in flight. It previously
+   carried `animation: mb-cat-scan 1.5s infinite linear` unconditionally, so what
+   read as a "scan" was permanent idle motion — and the .is-scanning class the
+   component sets styled nothing at all (zero occurrences in this file). */
 .mb-cat-scan-line {
   position: absolute;
   top: 0;
@@ -819,12 +804,28 @@ button.mb-buyer-cta:active {
   width: 100%;
   height: 100%;
   background: linear-gradient(to right, transparent, rgba(47, 125, 246, 0.5), transparent);
-  animation: mb-cat-scan 1.5s infinite linear;
+  opacity: 0;
+}
+/* One pass, 1800ms — matches SCAN_DURATION_MS in FitmentSection.tsx. The old
+   1.5s vs 1800ms mismatch cut the sweep off mid-pass (R16 diagnosis #5). */
+.mb-cat-car-wrapper.is-scanning .mb-cat-scan-line {
+  opacity: 1;
+  animation: mb-cat-scan 1800ms linear 1 forwards;
 }
 
 @keyframes mb-cat-scan {
   0% { left: -100%; }
   100% { left: 100%; }
+}
+
+/* R16 Bug B: the infinite sweep had no reduced-motion gate at all, so it ran for
+   users who explicitly asked for no motion. The scan result still lands (the
+   component's state change is unaffected) — only the travel is suppressed. */
+@media (prefers-reduced-motion: reduce) {
+  .mb-cat-car-wrapper.is-scanning .mb-cat-scan-line {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 .mb-cat-grid {
@@ -841,27 +842,15 @@ button.mb-buyer-cta:active {
 
 /* Renamed from .mb-cat-card to avoid colliding with AiCatalogCard's .mb-cat-card
    (which is a 560px-tall section container — it was overriding these part cards). */
+/* Layout only — the translucent surface now comes from .mb-glass (R16), which
+   the card also carries. Its own glass declarations were removed so there is a
+   single recipe to change. */
 .mb-ucat-card {
   position: relative;
-  border-radius: 16px;
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-
-  /* R13 Glassmorphism Recipe */
-  backdrop-filter: blur(22px) saturate(1.5);
-  -webkit-backdrop-filter: blur(22px) saturate(1.5);
-  background-color: rgba(255, 255, 255, 0.06);
-  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.2), 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  .mb-ucat-card {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background-color: rgba(13, 21, 34, 0.95);
-  }
 }
 
 .mb-cat-card-img-wrap {
@@ -1803,8 +1792,9 @@ button.mb-buyer-cta:active {
   margin: 0;
   font-size: clamp(32px, 3.8vw, 50px);
   line-height: 1.08;
-  letter-spacing: -0.025em;
-  font-weight: 600;
+  /* R16 (7a): weight + tracking retuned for Plus Jakarta Sans. */
+  letter-spacing: -0.022em;
+  font-weight: 800;
   color: #fff;
   text-wrap: balance;
 }
@@ -1997,9 +1987,10 @@ button.mb-buyer-cta:active {
   margin: 14px 0 0;
   font-size: clamp(30px, 3.6vw, 46px);
   line-height: 1.1;
-  letter-spacing: -0.025em;
-  /* 600 matches the other H2 heads (audit #3). */
-  font-weight: 600;
+  /* R16 (7a): 800 matches the other H2 heads — a real PJS axis instance, unlike
+     the Space Grotesk 800 that faux-bolded and forced 600 in R8 (audit #3). */
+  letter-spacing: -0.022em;
+  font-weight: 800;
   color: #fff;
   text-wrap: balance;
 }
@@ -2183,8 +2174,9 @@ button.mb-buyer-cta:active {
   margin: 14px 0 0;
   font-size: clamp(42px, 5.4vw, 74px);
   line-height: 1.04;
-  letter-spacing: -0.024em;
-  font-weight: 600;
+  /* R16 (7a): retuned for Plus Jakarta Sans 800. */
+  letter-spacing: -0.022em;
+  font-weight: 800;
   color: #fff;
   text-wrap: balance;
 }
@@ -2651,41 +2643,43 @@ button.mb-buyer-cta:active {
    R13: Liquid-Glass 2.0 Pass (Apple Glassmorphism 2026)
    Scoped to #how-it-works / .mb-fit3d section panels
    ========================================================================== */
-.mb-fit3d .mb-cat-ymm,
-.mb-fit3d .mb-cat-card,
-.mb-fit3d .mb-fit-protect {
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+/* R16: ONE glass recipe for every translucent panel on a dark band. Do not add
+   a fourth — extend this.
+
+   It replaces the three divergent recipes that had accumulated. The block that
+   stood here targeted `.mb-fit3d .mb-cat-card`, `.mb-fit-protect`, and
+   `.mb-fit3d-stage` — all three classes stopped existing in this section (the
+   first was renamed to .mb-ucat-card, the others were removed with the 2D
+   scanner), so those rules had been matching NOTHING. The part cards' current
+   look comes from .mb-ucat-card; expect them to change when this lands. Six
+   colour rules for the pre-R15 part card went with it, dead for the same reason.
+
+   Deliberate deltas from the old recipe: the inset highlight drops from
+   `1px 1px 0 rgba(255,255,255,.4)` to `0 1px 0 rgba(255,255,255,.22)` (0.4 read
+   as a hard white edge down the left, not a light source), and the border
+   softens .14 -> .12. */
+.mb-glass {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.075) 0%, rgba(255, 255, 255, 0.025) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--mb-radius-card);
+  /* Unprefixed ONLY — do not hand-write -webkit-backdrop-filter here. When both
+     forms are in the source, the CSS transform collapses them and keeps just the
+     -webkit- one, which Chromium does not support (CSS.supports reports false),
+     so the blur silently never renders. Declaring only the standard property
+     lets the build emit both. This is why the R13 glass never actually applied. */
   backdrop-filter: blur(22px) saturate(1.5);
-  -webkit-backdrop-filter: blur(22px) saturate(1.5);
-  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.4), 0 20px 46px rgba(3, 8, 16, 0.55);
-}
-
-.mb-fit3d .mb-fit3d-stage {
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.4), 0 0 35px rgba(47, 125, 246, 0.25), 0 20px 46px rgba(3, 8, 16, 0.55);
-}
-
-.mb-fit3d .mb-card-part-name,
-.mb-fit3d .mb-card-part-price,
-.mb-fit3d .mb-card-fit-label,
-.mb-fit3d .mb-fit-protect-title {
-  color: #ffffff;
-}
-/* Secondary card text: legible dark-muted on the glass instead of the light-band
-   --mb-muted that computed to ~3.5:1 (fix: second-section audit). */
-.mb-fit3d .mb-card-part-sub,
-.mb-fit3d .mb-card-video-cap {
-  color: var(--mb-dark-muted);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 20px 46px rgba(3, 8, 16, 0.5);
 }
 
 @media (prefers-reduced-transparency: reduce) {
-  .mb-fit3d .mb-cat-ymm,
-  .mb-fit3d .mb-cat-card,
-  .mb-fit3d .mb-fit-protect {
+  .mb-glass {
     backdrop-filter: none;
-    -webkit-backdrop-filter: none;
     background: rgba(13, 21, 34, 0.95);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
 }
+
+/* (The R13 reduced-transparency fallback that stood here is superseded — the
+   .mb-glass rule above carries it, for every panel, in one place.) */

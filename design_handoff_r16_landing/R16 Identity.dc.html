@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#090c0f; -webkit-font-smoothing:antialiased; }
+  a { color:#6fa5f7; text-decoration:none; border-bottom:1px solid rgba(111,165,247,.32); }
+  a:hover { color:#9dc2fa; }
+  ::selection { background:rgba(77,143,245,.3); }
+</style>
+</helmet>
+
+<div style="background:#090c0f;color:#e8ecef;font-family:Inter,system-ui,sans-serif;padding:0 0 140px">
+
+<div style="max-width:1560px;margin:0 auto;padding:72px 56px 0">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
+    <span style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#4d8ff5">Round 16</span>
+    <span style="width:22px;height:1px;background:rgba(255,255,255,.22)"></span>
+    <span style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#8c979e">Identity · four directions, researched</span>
+  </div>
+  <h1 style="font-family:'Space Grotesk',sans-serif;font-size:52px;line-height:1.03;font-weight:600;letter-spacing:-.025em;margin:0;max-width:17ch;text-wrap:pretty">The logo is the one thing on the page that never scales</h1>
+  <p style="font-size:17px;line-height:1.62;color:#b6bec4;max-width:72ch;margin:26px 0 0;text-wrap:pretty">Every direction below is shown at the four sizes a logo actually has to work at, on both grounds, next to the current mark. Nothing here is a sketch — these are built from the same two typefaces the site is already locked to, so whatever you pick is deployable, not a brief for someone else.</p>
+</div>
+
+<!-- ═══ DIAGNOSIS ═══ -->
+<div style="max-width:1560px;margin:0 auto;padding:0 56px">
+  <div style="border-top:1px solid rgba(255,255,255,.14);margin-top:64px;padding:28px 0 0">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:600;letter-spacing:-.02em;margin:0 0 10px;color:#e8ecef">What's wrong with the one you have</h2>
+    <p style="margin:0 0 32px;font-size:16px;line-height:1.6;color:#8c979e;max-width:74ch">Not a matter of taste. Six of these are structural, and the first one is the whole problem.</p>
+  </div>
+
+  <div style="display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start;margin-bottom:36px">
+    <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:14px">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#8c979e">The tier test — on white</span>
+      <div style="background:#fff;border-radius:4px;padding:32px;display:flex;align-items:flex-end;gap:36px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px"><img src="assets/mobeeli-logo-blue.png" alt="Mobeeli, current logo at 64px" style="height:64px;width:auto;display:block"><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#8c979e">64</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px"><img src="assets/mobeeli-logo-blue.png" alt="Mobeeli, current logo at 32px" style="height:32px;width:auto;display:block"><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#8c979e">32</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px"><img src="assets/mobeeli-logo-blue.png" alt="Mobeeli, current logo at 16px" style="height:16px;width:auto;display:block"><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#8c979e">16</span></div>
+      </div>
+      <div style="background:#0d1522;border-radius:4px;padding:32px;display:flex;align-items:flex-end;gap:36px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px"><img src="assets/mobeeli-logo-white.png" alt="Mobeeli, current logo reversed at 64px" style="height:64px;width:auto;display:block"><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#8c979e">64</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px"><img src="assets/mobeeli-logo-white.png" alt="Mobeeli, current logo reversed at 32px" style="height:32px;width:auto;display:block"><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#8c979e">32</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px"><img src="assets/mobeeli-logo-white.png" alt="Mobeeli, current logo reversed at 16px" style="height:16px;width:auto;display:block"><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#8c979e">16</span></div>
+      </div>
+      <p style="margin:0;max-width:460px;font-size:13px;line-height:1.6;color:#8c979e">The industry standard is four tiers — a 16px favicon, a simplified 32px mark, a primary mark at 64px, and the full lockup. There is one file. By 32px the grille, headlights and bumper have merged into a smudge and “.com” is unreadable; at 16px the whole thing is a blue blur.</p>
+    </div>
+
+    <div style="flex:1 1 460px;min-width:420px;display:flex;flex-direction:column;gap:0">
+      <sc-for list="{{ problems }}" as="p" hint-placeholder-count="7">
+        <div style="display:grid;grid-template-columns:30px 1fr;gap:16px;padding:15px 0;border-top:1px solid rgba(255,255,255,.08)">
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:#4d8ff5;font-variant-numeric:tabular-nums;padding-top:3px">{{ p.n }}</span>
+          <div>
+            <div style="font-size:15.5px;line-height:1.5;font-weight:600;color:#e8ecef">{{ p.t }}</div>
+            <div style="font-size:14.5px;line-height:1.6;color:#8c979e;margin-top:4px">{{ p.d }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="border-left:2px solid #4d8ff5;padding:6px 0 6px 22px;margin:0 0 12px;max-width:72ch">
+    <p style="margin:0;font-size:17px;line-height:1.55;color:#e8ecef;font-family:'Space Grotesk',sans-serif;font-weight:500;letter-spacing:-.01em">“If your mark isn't legible at the size of a postage stamp, it isn't a brand asset; it's a liability.”</p>
+    <p style="margin:10px 0 0;font-size:13.5px;color:#8c979e">Inkbot Design, <em style="font-style:normal">Responsive Logo Design: 2026 Mobile-First Strategy Guide</em> — April 2026</p>
+  </div>
+</div>
+
+<!-- ═══ RESEARCH ═══ -->
+<div style="max-width:1560px;margin:0 auto;padding:0 56px">
+  <div style="border-top:1px solid rgba(255,255,255,.09);margin-top:56px;padding:28px 0 0">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:600;letter-spacing:-.02em;margin:0 0 10px;color:#e8ecef">What the field is actually doing in 2026</h2>
+    <p style="margin:0 0 32px;font-size:16px;line-height:1.6;color:#8c979e;max-width:74ch">Four findings that shaped the directions below. Sources at the foot.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:4px;margin-bottom:20px">
+    <sc-for list="{{ findings }}" as="f" hint-placeholder-count="4">
+      <div style="background:#0c1013;padding:26px 26px 28px;display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#4d8ff5">{{ f.tag }}</span>
+        <p style="margin:0;font-size:15.5px;line-height:1.6;color:#c3cace">{{ f.body }}</p>
+        <p style="margin:auto 0 0;font-size:13px;line-height:1.5;color:#6b7479">{{ f.src }}</p>
+      </div>
+    </sc-for>
+  </div>
+  <p style="margin:0 0 8px;font-size:15.5px;line-height:1.62;color:#c3cace;max-width:76ch;text-wrap:pretty">The one that decided things: the trend reports agree that depth and gradient are back, but the useful version of that finding is narrower than it looks. A gradient earns its place when it is <em style="font-style:normal;color:#e8ecef">chromatically specific</em> — many precise stops, grain, defined behaviour in motion, impossible to reproduce by accident. A two-stop blue with a visible seam is the opposite of that, and LogoLounge's own warning is not to slap a gradient on something and call it strategy. So: flat, one brand blue, and let the <em style="font-style:normal;color:#e8ecef">page</em> carry the atmosphere.</p>
+</div>
+
+<!-- ═══ TURN 5 ═══ -->
+<section id="t5" style="max-width:1560px;margin:0 auto;padding:0 56px">
+  <div style="border-top:1px solid rgba(255,255,255,.14);margin-top:56px;padding:28px 0 0">
+    <div style="display:flex;align-items:baseline;gap:10px;margin:0 0 10px">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;padding:3px 7px;background:#e8ecef;color:#090c0f;border-radius:4px">5</span>
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#e8ecef">Four directions</span>
+    </div>
+    <p style="margin:0 0 40px;font-size:16px;line-height:1.6;color:#8c979e;max-width:76ch">All four drop “.com”, go flat, and are set in Space Grotesk — the family the site is already locked to — so the logo and the headline finally share DNA. Each shows the lockup, the 32px mark, and the 16px favicon.</p>
+  </div>
+
+  <!-- 5a -->
+  <div id="5a" style="margin-bottom:56px;scroll-margin-top:16px">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:#2f7df6;color:#fff;border-radius:5px">5a</span>
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:600;letter-spacing:-.018em;margin:0;color:#e8ecef">Wordmark, one letter carries the accent</h3>
+      <span style="font-size:13px;color:#8c979e">· my recommendation</span>
+    </div>
+    <div style="display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start">
+      <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:14px">
+        <div style="background:#fff;border-radius:4px;padding:40px 44px;display:flex;flex-direction:column;gap:32px">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:56px;font-weight:600;letter-spacing:-.035em;color:#0d1522;line-height:1">mob<span style="color:#2f7df6">e</span>eli</div>
+          <div style="display:flex;align-items:flex-end;gap:32px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:9px"><div style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:600;letter-spacing:-.035em;color:#0d1522;line-height:1">mob<span style="color:#2f7df6">e</span>eli</div><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#8c979e">32</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:9px"><div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:-.03em;color:#0d1522;line-height:1">mob<span style="color:#2f7df6">e</span>eli</div><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#8c979e">16</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:9px"><div style="width:32px;height:32px;border-radius:7px;background:#2f7df6;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:600;color:#fff;letter-spacing:-.06em;line-height:1">ee</div><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#8c979e">icon 32</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:9px"><div style="width:16px;height:16px;border-radius:4px;background:#2f7df6;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;color:#fff;letter-spacing:-.07em;line-height:1">ee</div><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#8c979e">16</span></div>
+          </div>
+        </div>
+        <div style="background:#0d1522;border-radius:4px;padding:40px 44px;display:flex;flex-direction:column;gap:32px">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:56px;font-weight:600;letter-spacing:-.035em;color:#fff;line-height:1">mob<span style="color:#5b9bf7">e</span>eli</div>
+          <div style="display:flex;align-items:flex-end;gap:32px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:9px"><div style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:600;letter-spacing:-.035em;color:#fff;line-height:1">mob<span style="color:#5b9bf7">e</span>eli</div><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#6b7479">32</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:9px"><div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:-.03em;color:#fff;line-height:1">mob<span style="color:#5b9bf7">e</span>eli</div><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#6b7479">16</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:9px"><div style="width:32px;height:32px;border-radius:7px;background:#2f7df6;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:600;color:#fff;letter-spacing:-.06em;line-height:1">ee</div><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#6b7479">icon 32</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:9px"><div style="width:16px;height:16px;border-radius:4px;background:#2f7df6;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;color:#fff;letter-spacing:-.07em;line-height:1">ee</div><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#6b7479">16</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1 1 380px;min-width:340px;display:flex;flex-direction:column;gap:16px">
+        <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">No pictorial mark at all. This is where the field has landed — icons secondary, the wordmark central, personality carried by the letterforms themselves.</p>
+        <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">The one engineered detail: of the two adjacent <em style="font-style:normal;color:#e8ecef">e</em>s, the first takes the brand blue. Two identical letterforms sitting side by side, one picked out — that is, without labouring it, what fitment looks like: the pair that matches. It's the disciplined version of the “one disrupted letter” trend, and it costs nothing structurally.</p>
+        <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">The favicon is <strong style="color:#e8ecef;font-weight:600">ee</strong>, not m. An <em style="font-style:normal;color:#e8ecef">m</em> in a blue square belongs to a hundred companies; nobody else's tab has “ee” in it. That's a real 16px asset — high contrast, two counters, reads at a glance.</p>
+        <p style="margin:0;font-size:16px;line-height:1.65;color:#8c979e;text-wrap:pretty">Against it: it gives up a symbol, and symbols are what get printed on a shop's window sticker in Senen. If physical presence matters in year one, <a href="#5b">5b</a> or <a href="#5c">5c</a> serve you better.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5b -->
+  <div id="5b" style="margin-bottom:56px;scroll-margin-top:16px">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:rgba(255,255,255,.1);color:#e8ecef;border-radius:5px">5b</span>
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:600;letter-spacing:-.018em;margin:0;color:#e8ecef">The keyed M</h3>
+    </div>
+    <div style="display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start">
+      <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:14px">
+        <div style="background:#fff;border-radius:4px;padding:40px 44px;display:flex;flex-direction:column;gap:32px">
+          <div style="display:flex;align-items:center;gap:16px">
+            <div style="position:relative;width:56px;height:56px;border-radius:11px;background:#2f7df6;display:flex;align-items:center;justify-content:center;overflow:hidden">
+              <span style="font-family:'Space Grotesk',sans-serif;font-size:40px;font-weight:700;color:#fff;line-height:1;letter-spacing:-.04em">M</span>
+              <span style="position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:9px;height:19px;border-radius:5px 5px 0 0;background:#fff"></span>
+            </div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:56px;font-weight:600;letter-spacing:-.035em;color:#0d1522;line-height:1">mobeeli</div>
+          </div>
+          <div style="display:flex;align-items:flex-end;gap:32px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:9px"><div style="position:relative;width:32px;height:32px;border-radius:7px;background:#2f7df6;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-family:'Space Grotesk',sans-serif;font-size:23px;font-weight:700;color:#fff;line-height:1;letter-spacing:-.04em">M</span><span style="position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:5px;height:11px;border-radius:3px 3px 0 0;background:#fff"></span></div><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#8c979e">32</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:9px"><div style="width:16px;height:16px;border-radius:4px;background:#2f7df6;display:flex;align-items:center;justify-content:center"><span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;color:#fff;line-height:1;letter-spacing:-.04em">M</span></div><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#2f7df6">16 · no notch</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:9px"><div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;letter-spacing:-.035em;color:#0d1522;line-height:1">mobeeli</div><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#8c979e">wordmark alone</span></div>
+          </div>
+        </div>
+        <div style="background:#0d1522;border-radius:4px;padding:40px 44px;display:flex;flex-direction:column;gap:32px">
+          <div style="display:flex;align-items:center;gap:16px">
+            <div style="position:relative;width:56px;height:56px;border-radius:11px;background:#2f7df6;display:flex;align-items:center;justify-content:center;overflow:hidden">
+              <span style="font-family:'Space Grotesk',sans-serif;font-size:40px;font-weight:700;color:#fff;line-height:1;letter-spacing:-.04em">M</span>
+              <span style="position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:9px;height:19px;border-radius:5px 5px 0 0;background:#0d1522"></span>
+            </div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:56px;font-weight:600;letter-spacing:-.035em;color:#fff;line-height:1">mobeeli</div>
+          </div>
+          <div style="display:flex;align-items:flex-end;gap:32px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:9px"><div style="position:relative;width:32px;height:32px;border-radius:7px;background:#2f7df6;display:flex;align-items:center;justify-content:center;overflow:hidden"><span style="font-family:'Space Grotesk',sans-serif;font-size:23px;font-weight:700;color:#fff;line-height:1;letter-spacing:-.04em">M</span><span style="position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:5px;height:11px;border-radius:3px 3px 0 0;background:#0d1522"></span></div><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#6b7479">32</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:9px"><div style="width:16px;height:16px;border-radius:4px;background:#2f7df6;display:flex;align-items:center;justify-content:center"><span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;color:#fff;line-height:1;letter-spacing:-.04em">M</span></div><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#5b9bf7">16 · no notch</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:9px"><div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;letter-spacing:-.035em;color:#fff;line-height:1">mobeeli</div><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#6b7479">wordmark alone</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1 1 380px;min-width:340px;display:flex;flex-direction:column;gap:16px">
+        <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">Keeps the M you already have equity in, but rebuilds it from the wordmark's own letterforms instead of a separate illustration — and cuts a keyway into it, so the M's centre seats into a slot. Two forms that only go together one way.</p>
+        <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">This is the current trend done with discipline: the expressive initial built from the same structural DNA as the rest of the type, so it can stand alone or slot back into the lockup without breaking the read. The present mark fails exactly that test — it looks like it wandered in from another brand.</p>
+        <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty"><strong style="color:#e8ecef;font-weight:600">The notch is a 32px-and-up detail.</strong> I tried it at 16 and it fails — at that size the bar eats the M's centre vertex and both counters, and the tile reads as an indistinct blue chip. Which is the same failure this document diagnoses as problem 01, so the honest answer is a tiered mark: notch above 32px, bare M at 16. That's the cited standard anyway — a favicon is an adaptation, not a shrunken lockup.</p>
+        <p style="margin:0;font-size:16px;line-height:1.65;color:#8c979e;text-wrap:pretty">Against it: “letter in a rounded square” is the most crowded shape in software branding. The keyway is what saves it, and the keyway is subtle.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5c -->
+  <div id="5c" style="margin-bottom:56px;scroll-margin-top:16px">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:rgba(255,255,255,.1);color:#e8ecef;border-radius:5px">5c</span>
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:600;letter-spacing:-.018em;margin:0;color:#e8ecef">Registration marks</h3>
+      <span style="font-size:13px;color:#8c979e">· a system, not a picture</span>
+    </div>
+    <div style="display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start">
+      <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:14px">
+        <div style="background:#fff;border-radius:4px;padding:40px 44px;display:flex;flex-direction:column;gap:32px">
+          <div style="display:flex;align-items:stretch;gap:15px;height:66px">
+            <div style="width:18px;border-left:4px solid #2f7df6;border-top:4px solid #2f7df6;border-bottom:4px solid #2f7df6"></div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:56px;font-weight:600;letter-spacing:-.035em;color:#0d1522;line-height:66px">mobeeli</div>
+            <div style="width:18px;border-right:4px solid #2f7df6;border-top:4px solid #2f7df6;border-bottom:4px solid #2f7df6"></div>
+          </div>
+          <div style="display:flex;align-items:flex-end;gap:32px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:9px">
+              <div style="display:flex;align-items:stretch;gap:7px;height:26px">
+                <div style="width:8px;border-left:2px solid #2f7df6;border-top:2px solid #2f7df6;border-bottom:2px solid #2f7df6"></div>
+                <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;letter-spacing:-.035em;color:#0d1522;line-height:26px">mobeeli</div>
+                <div style="width:8px;border-right:2px solid #2f7df6;border-top:2px solid #2f7df6;border-bottom:2px solid #2f7df6"></div>
+              </div>
+              <span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#8c979e">32</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:9px"><div style="width:32px;height:32px;border-radius:7px;background:#2f7df6;display:flex;align-items:center;justify-content:center"><div style="display:flex;align-items:stretch;gap:5px;height:16px"><div style="width:5px;border-left:2.5px solid #fff;border-top:2.5px solid #fff;border-bottom:2.5px solid #fff"></div><div style="width:5px;border-right:2.5px solid #fff;border-top:2.5px solid #fff;border-bottom:2.5px solid #fff"></div></div></div><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#8c979e">icon 32</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:9px"><div style="width:16px;height:16px;border-radius:4px;background:#2f7df6;display:flex;align-items:center;justify-content:center"><div style="display:flex;align-items:stretch;gap:3px;height:12px"><div style="width:4px;border-left:2px solid #fff;border-top:2px solid #fff;border-bottom:2px solid #fff"></div><div style="width:4px;border-right:2px solid #fff;border-top:2px solid #fff;border-bottom:2px solid #fff"></div></div></div><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#2f7df6">16 · thickened</span></div>
+          </div>
+        </div>
+        <div style="background:#0d1522;border-radius:4px;padding:40px 44px;display:flex;flex-direction:column;gap:24px">
+          <div style="display:flex;align-items:stretch;gap:15px;height:66px">
+            <div style="width:18px;border-left:4px solid #5b9bf7;border-top:4px solid #5b9bf7;border-bottom:4px solid #5b9bf7"></div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:56px;font-weight:600;letter-spacing:-.035em;color:#fff;line-height:66px">mobeeli</div>
+            <div style="width:18px;border-right:4px solid #5b9bf7;border-top:4px solid #5b9bf7;border-bottom:4px solid #5b9bf7"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#6b7479">the mark as a system</span>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <div style="display:flex;align-items:stretch;gap:7px;height:26px">
+                <div style="width:7px;border-left:1.5px solid #5b9bf7;border-top:1.5px solid #5b9bf7;border-bottom:1.5px solid #5b9bf7"></div>
+                <span style="font-size:13px;font-weight:600;color:#c7cfdd;line-height:26px">Fits your Avanza</span>
+                <div style="width:7px;border-right:1.5px solid #5b9bf7;border-top:1.5px solid #5b9bf7;border-bottom:1.5px solid #5b9bf7"></div>
+              </div>
+              <div style="display:flex;align-items:stretch;gap:7px;height:26px">
+                <div style="width:7px;border-left:1.5px solid #5b9bf7;border-top:1.5px solid #5b9bf7;border-bottom:1.5px solid #5b9bf7"></div>
+                <span style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#c7cfdd;line-height:26px">2NR-VE</span>
+                <div style="width:7px;border-right:1.5px solid #5b9bf7;border-top:1.5px solid #5b9bf7;border-bottom:1.5px solid #5b9bf7"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1 1 380px;min-width:340px;display:flex;flex-direction:column;gap:16px">
+        <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">Two brackets close around the name. Registration marks — the notation an engineer uses to say <em style="font-style:normal;color:#e8ecef">this, exactly this, within tolerance</em>.</p>
+        <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">The reason I like it: it isn't a logo, it's a <strong style="color:#e8ecef;font-weight:600">grammar</strong>. The same brackets can close around a part name, a spec, a verified fit — as shown at the bottom of the dark panel. The brand becomes a gesture the product performs, not a badge stuck in the corner. And it's the same vocabulary as scan direction <a href="#4d">4d</a>, so motion and identity would agree.</p>
+        <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">At 16px it's four strokes — which is the fewest marks of any direction here, but also the <em style="font-style:normal;color:#e8ecef">thinnest</em>. My first pass at 1.5px hairlines was visibly the faintest of the three favicons, so the tile above is a proper adaptation: strokes thickened to 2px and the pair widened to fill 12 of the 16px. Even so, this is the one I'd want to see on a real tab strip beside <a href="#5a">5a</a>'s “ee” before committing — line weight at 16px is where bracket marks usually lose.</p>
+        <p style="margin:0;font-size:16px;line-height:1.65;color:#8c979e;text-wrap:pretty">Against it: brackets are unowned by nature. It only becomes yours through relentless use, which takes discipline the company may not have bandwidth for in launch year. It also reads more “developer tool” than “trusted marketplace” — worth testing on shop owners before committing.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5d -->
+  <div id="5d" style="margin-bottom:20px;scroll-margin-top:16px">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:rgba(255,255,255,.1);color:#e8ecef;border-radius:5px">5d</span>
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:600;letter-spacing:-.018em;margin:0;color:#e8ecef">Keep the car, do the surgery</h3>
+      <span style="font-size:13px;color:#8c979e">· the conservative option</span>
+    </div>
+    <div style="display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start">
+      <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:14px">
+        <div style="background:#fff;border-radius:4px;padding:36px 44px;display:flex;align-items:center;gap:36px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+            <img src="assets/mobeeli-logo-blue.png" alt="Mobeeli current mark" style="height:56px;width:auto;display:block">
+            <span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#8c979e">today</span>
+          </div>
+          <span style="font-size:22px;color:#c3cace">→</span>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 22px;border:1px dashed #c3cace;border-radius:6px">
+            <span style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:#8c979e">needs the vector</span>
+            <span style="max-width:170px;text-align:center;font-size:12.5px;line-height:1.5;color:#636e7e">Not mocked. Flattening two blues into one and cutting the grille are path edits, not filters.</span>
+          </div>
+        </div>
+        <p style="margin:0;max-width:460px;font-size:13px;line-height:1.6;color:#6b7479">I'm deliberately not showing an “after” here. I only have flattened PNGs, and any CSS-filter version would keep the seam and keep “.com” — i.e. demonstrate neither of the two changes that matter. A document arguing for an honest tier test shouldn't fake its own comparison.</p>
+      </div>
+      <div style="flex:1 1 380px;min-width:340px;display:flex;flex-direction:column;gap:16px">
+        <p style="margin:0;font-size:16px;line-height:1.65;color:#c3cace;text-wrap:pretty">If the mark has more equity than I can see from outside — a sticker on shop windows, a partner deck, printed cards — the right move may be surgery rather than replacement. Four cuts, in order of value:</p>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <sc-for list="{{ surgery }}" as="s" hint-placeholder-count="4">
+            <div style="display:grid;grid-template-columns:26px 1fr;gap:14px;padding:13px 0;border-top:1px solid rgba(255,255,255,.08)">
+              <span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:#4d8ff5;font-variant-numeric:tabular-nums;padding-top:3px">{{ s.n }}</span>
+              <span style="font-size:15px;line-height:1.6;color:#c3cace">{{ s.t }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <p style="margin:0;font-size:16px;line-height:1.65;color:#8c979e;text-wrap:pretty">Cheapest path and zero recognition risk. But it keeps a car silhouette, which is the single most-used device in the category — and it keeps the mark and the wordmark speaking different languages.</p>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin:20px 0 0;font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.5)">Try next: “go with <a href="#5a">5a</a>” · “<a href="#5b">5b</a> but with the <a href="#5a">5a</a> blue e” · “show <a href="#5c">5c</a> in the real nav and footer” · “more directions”</p>
+</section>
+
+<!-- ═══ CLOSING ═══ -->
+<div style="max-width:1560px;margin:0 auto;padding:0 56px">
+  <div style="border-top:1px solid rgba(255,255,255,.14);margin-top:56px;padding:32px 0 0;max-width:76ch">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:600;letter-spacing:-.018em;margin:0 0 18px;color:#e8ecef">What I'd do, and what I'd need</h2>
+    <p style="margin:0 0 16px;font-size:16.5px;line-height:1.65;color:#c3cace;text-wrap:pretty"><a href="#5a">5a</a>, with <a href="#5c">5c</a>'s brackets adopted as a UI device rather than part of the logo. You get a wordmark that shares DNA with every headline on the site, a favicon nobody else has, and a bracket grammar the product can perform — without asking a symbol to carry meaning it can't hold at 16px.</p>
+    <p style="margin:0 0 16px;font-size:16.5px;line-height:1.65;color:#c3cace;text-wrap:pretty">Whichever you take, <strong style="color:#e8ecef;font-weight:600">“.com” comes out</strong>. That's the one non-negotiable. It dates the brand, it's redundant next to the URL bar, the deck and the footer both call the company “Mobeeli”, and the primary surface is becoming <code style="font-family:ui-monospace,Menlo,monospace;font-size:14px;color:#9dc2fa">company.mobeeli.com</code> — so the logo is asserting a domain that isn't even the main one.</p>
+    <p style="margin:0 0 22px;font-size:16.5px;line-height:1.65;color:#8c979e;text-wrap:pretty">To take any of this past mockup: the <strong style="color:#c3cace;font-weight:600">vector source</strong> of the current mark (I only have two flattened PNGs), and a note on where it appears physically today. If it's already on shop windows or printed material, that changes my recommendation toward <a href="#5d">5d</a> and I'd want to know before you decide.</p>
+  </div>
+
+  <div style="border-top:1px solid rgba(255,255,255,.09);margin-top:36px;padding:26px 0 0;max-width:76ch">
+    <h3 style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin:0 0 16px;color:#8c979e">Sources</h3>
+    <div style="display:flex;flex-direction:column;gap:9px">
+      <sc-for list="{{ sources }}" as="s" hint-placeholder-count="6">
+        <div style="display:grid;grid-template-columns:1fr auto;gap:18px;align-items:baseline;padding:7px 0;border-top:1px solid rgba(255,255,255,.06)">
+          <a href="{{ s.url }}" style="font-size:14.5px;line-height:1.5">{{ s.t }}</a>
+          <span style="font-size:12.5px;color:#6b7479;white-space:nowrap">{{ s.d }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      problems: [
+        { n: "01", t: "It has no small size", d: "One file for every context. The car's grille, headlights and bumper are fine detail that dies around 32px, and “.com” is unreadable well before that." },
+        { n: "02", t: "Two metaphors in one mark", d: "An M that is also a car, front-on. Each idea weakens the other, and the car costs all the detail that breaks at small sizes." },
+        { n: "03", t: "The gradient has a visible seam", d: "A hard tonal break across the middle reads as a rendering artifact rather than a decision. It also has to be flattened for single-colour print, embroidery and fax-grade documents." },
+        { n: "04", t: "“.com” is in the logo", d: "It dates the brand, duplicates the address bar, and contradicts the move to company.mobeeli.com. The deck and the site footer both say “Mobeeli”." },
+        { n: "05", t: "It shares no DNA with the type system", d: "A rounded geometric sans, next to a site locked to Space Grotesk and Inter. The logo and the headline beneath it read as two different companies." },
+        { n: "06", t: "Front-on car is the category cliché", d: "It is the most-used device in auto parts branding. It signals the sector and nothing else — least of all fitment, which is the actual thesis." },
+        { n: "07", t: "Too soft for the audience", d: "Roundness plus lowercase plus gradient reads consumer-friendly. The brief is trust, technical credibility and investor-grade." },
+      ],
+      findings: [
+        { tag: "The durable direction", body: "Typography is now the primary brand signal — icons secondary, wordmarks central, with custom letterforms treated as a strategic asset rather than decoration. Dropbox is the usual example: the type itself carries the personality.", src: "ManyPixels · Jan 2026; Awesomesauce, on WGSN / Pantone / LogoLounge forecasts · Jan 2026" },
+        { tag: "The expressive initial, disciplined", body: "The trend of a distinctive first letter only works when the initial is built from the same structural DNA as the wordmark — shared strokes, proportions and terminals — so it can stand alone or slot back in without breaking the read. Otherwise it “clashes like it wandered in from someone else's brand”.", src: "LogoLounge 2026 Logo Trend Report · June 2026" },
+        { tag: "Four tiers, not one file", body: "The standard is a 16px favicon, a simplified mark at 32px, a primary mark at 64px, and a full lockup above that — with the favicon an adaptation, usually a single letter or monogram, never a shrunken lockup.", src: "Cloudfusion · June 2026; Inkbot Design · April 2026; Premium Favicon · Jan 2026" },
+        { tag: "Flat is defensible again", body: "Jaguar's 2026 refresh stripped detail down to a clean flat wordmark — modern without coldness. Meanwhile the gradient revival only earns its keep when the colour is chromatically specific enough to be unrepeatable; a two-stop blue isn't.", src: "Hexadigital · July 2026; We And The Color · May 2026" },
+      ],
+      surgery: [
+        { n: "01", t: "Delete “.com”. Non-negotiable, whichever direction wins." },
+        { n: "02", t: "Flatten to one brand blue. Removes the seam and makes single-colour reproduction possible." },
+        { n: "03", t: "Strip the grille, headlights and bumper. Keep only the silhouette that survives 32px." },
+        { n: "04", t: "Reset the wordmark in Space Grotesk 600 so the lockup matches the site." },
+      ],
+      sources: [
+        { t: "LogoLounge — 2026 Logo Trend Report", url: "https://www.logolounge.com/trend/2026-logo-trend-report", d: "Jun 2026" },
+        { t: "Inkbot Design — Responsive Logo Design: 2026 Mobile-First Strategy Guide", url: "https://inkbotdesign.com/responsive-logo-design/", d: "Apr 2026" },
+        { t: "ManyPixels — Logo Design Trends 2026: Real Examples and Predictions", url: "https://www.manypixels.co/blog/brand-design/logo-design-trends", d: "Jan 2026" },
+        { t: "We And The Color — Logo Design Trends 2026: The End of the Single Static Mark", url: "https://weandthecolor.com/best-logo-design-trends-of-2026-whats-working-whats-tired-and-whats-next/209969", d: "May 2026" },
+        { t: "Cloudfusion — Responsive branding design workflow for 2026", url: "https://www.cloudfusion.co.za/blog/responsive-branding-design-workflow-for-2026-en", d: "Jun 2026" },
+        { t: "Hexadigital — Top Logo Design Trends Shaping Brands in 2026", url: "https://hexadigitalsolutions.ie/blog/logo-design-trends-branding-2026/", d: "Jul 2026" },
+        { t: "Premium Favicon — How to Make a Favicon from Your Logo", url: "https://www.premiumfavicon.com/blog/how-to-make-favicon-from-logo", d: "Jan 2026" },
+        { t: "Shift Brand Design — Visual and Verbal Identity of Automotive Parts", url: "https://www.shiftbranddesign.com/en/naming-identity-packaging/1026-visual-and-verbal-identity-of-automotive-parts-and-accessories", d: "case study" },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -40,11 +40,16 @@ describe("R8 · color & contrast", () => {
 });
 
 describe("R8 · typography", () => {
-  it("unifies the H2 heads at 600 — no phantom 800 on the dark cards (audit #3)", () => {
-    expect(landingCss).toMatch(/\.mb-cat-h2 \{[^}]*font-weight: 600;/s);
-    expect(landingCss).toMatch(/\.mb-inv-h2 \{[^}]*font-weight: 600;/s);
-    expect(landingCss).not.toMatch(/\.mb-cat-h2 \{[^}]*font-weight: 800;/s);
-    expect(landingCss).not.toMatch(/\.mb-inv-h2 \{[^}]*font-weight: 800;/s);
+  // SUPERSEDED BY R16 (ruling 7a). The R8 fix pinned these heads to 600 because
+  // the display face was Space Grotesk, whose axis stops at 700 — an 800 request
+  // faux-bolded. R16 moves the whole page onto Plus Jakarta Sans (variable
+  // 200-800), where 800 is a real instance, so the heads unify at 800 instead.
+  // The invariant that still matters is that they MATCH each other.
+  it("keeps the H2 heads unified at one real weight (audit #3, retuned in R16)", () => {
+    expect(landingCss).toMatch(/\.mb-cat-h2 \{[^}]*font-weight: 800;/s);
+    expect(landingCss).toMatch(/\.mb-inv-h2 \{[^}]*font-weight: 800;/s);
+    // and the shared .mb-h2 head agrees, so no band is an outlier
+    expect(landingCss).toMatch(/\.mb-h2 \{[^}]*font-weight: 800;/s);
   });
 
   it("drops the stray Georgia quote-mark family — stays on the display face (audit #9)", () => {

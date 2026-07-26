@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#f5f7fa; color:#0d1522; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+  html, body { overflow-x:clip; }
+  a { color:inherit; text-decoration:none; }
+  a:hover { color:#1b5fd9; }
+  ::selection { background:rgba(47,125,246,.25); }
+  @keyframes mbPulse { 0%,100%{opacity:.45} 50%{opacity:1} }
+  @keyframes mbCatScan { 0%{left:-100%} 100%{left:100%} }
+  @media (prefers-reduced-motion: reduce) {
+    [data-anim] { animation:none !important; }
+  }
+</style>
+</helmet>
+
+<div style="font-family:Inter,system-ui,-apple-system,sans-serif;background:#f5f7fa;color:#0d1522">
+
+<!-- ══ NAV — overlay variant, transparent over the dark hero ══ -->
+<div style="position:absolute;left:0;right:0;top:0;z-index:60;background:transparent;border-bottom:1px solid transparent">
+  <div style="max-width:1280px;margin:0 auto;padding:0 24px;height:66px;display:flex;align-items:center;gap:26px">
+    <a href="#top" style="display:flex;align-items:center"><img src="assets/mobeeli-logo-white.png" alt="Mobeeli" style="height:42px;width:auto"></a>
+    <div style="display:flex;gap:22px;flex-wrap:wrap;align-items:center;font-size:14px;font-weight:600">
+      <a href="#problem" style="color:rgba(255,255,255,.88)">The problem</a>
+      <a href="#how-it-works" style="color:rgba(255,255,255,.88)">How it works</a>
+      <a href="#top" style="color:rgba(255,255,255,.88)">Why Mobeeli</a>
+      <a href="#top" style="color:rgba(255,255,255,.88)">Early Adopters</a>
+      <a href="#top" style="color:rgba(255,255,255,.88)">Team</a>
+      <a href="#top" style="color:rgba(255,255,255,.88)">Investors</a>
+    </div>
+    <div style="flex:1"></div>
+    <div style="display:flex;align-items:center;gap:2px;border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:3px">
+      <span style="font:700 12px Inter,sans-serif;padding:5px 11px;border-radius:999px;background:#fff;color:#0d1522">EN</span>
+      <span style="font:700 12px Inter,sans-serif;padding:5px 11px;border-radius:999px;color:rgba(255,255,255,.88)">ID</span>
+    </div>
+    <a href="#top" style="background:#2f7df6;color:#fff;font-size:13.5px;font-weight:700;padding:10px 18px;border-radius:999px;white-space:nowrap">Join Waitlist</a>
+  </div>
+</div>
+
+<!-- ══ BAND 1 · HERO — dark, 100svh ══ -->
+<header id="top" style="position:relative;background:#0d1522;min-height:100svh;display:flex;align-items:center;padding:106px 24px 72px;overflow:hidden">
+  <div style="position:absolute;inset:0;z-index:0;pointer-events:none">
+    <img src="assets/veo/jakarta-hero-bg-poster.jpg" alt="" style="width:100%;height:100%;object-fit:cover;filter:brightness(.45) saturate(1.05);opacity:.3">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(13,21,34,.35),rgba(13,21,34,.35)),linear-gradient(rgba(13,21,34,.4),transparent 120px),radial-gradient(720px 420px at 82% 12%,rgba(47,125,246,.16),transparent 70%),radial-gradient(560px 380px at 8% 92%,rgba(18,63,158,.28),transparent 70%)"></div>
+  </div>
+  <div style="position:absolute;inset:0;pointer-events:none;opacity:.07;mix-blend-mode:overlay;z-index:1;background-image:url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
+  <div style="position:relative;z-index:1;width:100%;max-width:880px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center">
+    <div style="display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:700;letter-spacing:.06em;color:#c7cfdd;text-transform:uppercase">
+      <span data-anim style="width:8px;height:8px;border-radius:50%;background:#5b9bf7;flex:none;animation:mbPulse 2.4s ease-in-out infinite"></span>
+      <span>Launching 2026 — Jakarta, Indonesia</span>
+    </div>
+    <h1 style="margin:15px 0 0;display:grid;font-family:'Space Grotesk',sans-serif;font-size:clamp(2.75rem,6.6vw,5.25rem);line-height:1.02;letter-spacing:-.025em;font-weight:700;color:#fff">
+      <span style="grid-area:1/1;overflow-wrap:anywhere;min-width:0">
+        <span style="display:block">Every part,</span>
+        <span style="display:block;background-image:linear-gradient(92deg,#5b9bf7,#2f7df6 55%,#5b9bf7);-webkit-background-clip:text;background-clip:text;color:transparent">verified to fit.</span>
+      </span>
+    </h1>
+    <p style="margin:30px auto 0;max-width:640px;font-size:20px;line-height:1.6;color:#a9b4c6;text-wrap:pretty">Brands, distributors, stores, mechanics and drivers — one verified catalog for Indonesia's auto industry.</p>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:34px;justify-content:center">
+      <a href="#top" style="display:inline-flex;align-items:center;justify-content:center;background:#2f7df6;color:#fff;font-size:15px;font-weight:800;padding:15px 28px;border-radius:999px">Join Early Adopters Program</a>
+      <a href="#top" style="display:inline-flex;align-items:center;justify-content:center;border:1.5px solid rgba(255,255,255,.34);color:#fff;font-size:15px;font-weight:700;padding:14px 26px;border-radius:999px">For investors</a>
+    </div>
+  </div>
+</header>
+
+<!-- ══ BAND 2 · UNIFIED CATALOG — dark, 100svh ══ -->
+<section id="how-it-works" data-screen-label="Band 2 — unified catalog" style="position:relative;background:#0d1522;background-image:radial-gradient(680px 460px at 18% 8%,rgba(47,125,246,.13),transparent 72%),radial-gradient(600px 400px at 92% 94%,rgba(18,63,158,.22),transparent 70%);min-height:100svh;display:flex;align-items:center;padding:98px 24px 64px;overflow:hidden;scroll-margin-top:84px">
+  <div style="position:absolute;inset:0;pointer-events:none;opacity:.07;mix-blend-mode:overlay;z-index:1;background-image:url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)'/%3E%3C/svg%3E&quot;)"></div>
+  <div style="position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;text-align:center">
+    <div style="display:grid;grid-template-columns:320px 1fr;gap:40px;align-items:start;margin-top:30px">
+
+      <!-- left column -->
+      <div style="text-align:left">
+        <h2 style="font-family:'Space Grotesk',sans-serif;margin:14px 0 30px;font-size:28px;line-height:1.04;letter-spacing:-.024em;font-weight:600;color:#fff;text-wrap:balance">One verified listing per part. No duplicates. No guesswork.</h2>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;flex-direction:column;padding:16px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+            <span style="font-family:'Space Grotesk',sans-serif;font-feature-settings:'tnum';font-size:24px;font-weight:800;color:#5b9bf7">7,000+</span>
+            <span style="font-size:14px;color:#a9b4c6;margin-top:4px">OE specs (Simulation)</span>
+          </div>
+          <div style="display:flex;flex-direction:column;padding:16px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+            <span style="font-family:'Space Grotesk',sans-serif;font-feature-settings:'tnum';font-size:24px;font-weight:800;color:#5b9bf7">19,000+</span>
+            <span style="font-size:14px;color:#a9b4c6;margin-top:4px">applications (Simulation)</span>
+          </div>
+          <div style="display:flex;flex-direction:column;padding:16px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+            <span style="font-family:'Space Grotesk',sans-serif;font-feature-settings:'tnum';font-size:24px;font-weight:800;color:#5b9bf7">~500</span>
+            <span style="font-size:14px;color:#a9b4c6;margin-top:4px">models (Simulation)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- right column -->
+      <div>
+        <div style="display:flex;gap:20px;margin-bottom:24px;align-items:center">
+
+          <!-- glass picker panel: no padding, no border-radius (landing.css:2654) -->
+          <div style="flex:1;margin-bottom:16px;display:flex;flex-direction:column;align-items:center;gap:8px;background:linear-gradient(150deg,rgba(255,255,255,.08) 0%,rgba(255,255,255,.02) 100%);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(22px) saturate(1.5);-webkit-backdrop-filter:blur(22px) saturate(1.5);box-shadow:inset 1px 1px 0 rgba(255,255,255,.4),0 20px 46px rgba(3,8,16,.55)">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#a9b4c6">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                Filter Active
+              </span>
+            </div>
+            <sc-if value="{{ garageSaved }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:12px;background:rgba(47,125,246,.1);border:1px solid rgba(47,125,246,.3);padding:8px 16px;border-radius:999px">
+                <span style="font-size:11px;font-weight:800;letter-spacing:.05em;color:#5b9bf7;text-transform:uppercase">My Garage</span>
+                <span style="font-size:14px;font-weight:700;color:#fff">Toyota Avanza 1.5 G CVT 2019</span>
+                <span style="background:transparent;border:1px solid rgba(255,255,255,.2);color:#a9b4c6;border-radius:999px;padding:4px 10px;font-size:11px;margin-left:8px">Clear</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ pickerVisible }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+                <div style="display:flex;gap:8px">
+                  <span style="width:220px;background:rgba(13,21,34,.8);border:1px solid rgba(255,255,255,.08);border-radius:12px;color:#8b95a4;padding:6px 12px;font-size:13px">e.g. B 1234 CD or VIN</span>
+                  <span style="background:#2f7df6;color:#fff;border-radius:12px;padding:6px 16px;font-size:13px;font-weight:700">Find Vehicle</span>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
+                  <span style="background:rgba(13,21,34,.8);border:1px solid rgba(255,255,255,.08);border-radius:12px;color:#fff;padding:6px 12px;font-size:13px">2024 ▾</span>
+                  <span style="background:rgba(13,21,34,.8);border:1px solid rgba(255,255,255,.08);border-radius:12px;color:#fff;padding:6px 12px;font-size:13px">Toyota ▾</span>
+                  <span style="background:rgba(13,21,34,.8);border:1px solid rgba(255,255,255,.08);border-radius:12px;color:#fff;padding:6px 12px;font-size:13px">Avanza ▾</span>
+                  <span style="background:rgba(13,21,34,.8);border:1px solid rgba(255,255,255,.08);border-radius:12px;color:#fff;padding:6px 12px;font-size:13px">1.5 G CVT ▾</span>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+
+          <!-- car + perpetual scan line -->
+          <div style="position:relative;width:280px;height:140px;border-radius:12px;background:radial-gradient(circle at center,rgba(47,125,246,.2),transparent 70%);overflow:hidden;border:1px solid rgba(255,255,255,.08);flex:none">
+            <img src="assets/fitment/catalog-car-poster.jpg" alt="Catalog vehicle blueprint" style="width:100%;height:100%;object-fit:cover;mix-blend-mode:screen">
+            <div data-anim style="position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(to right,transparent,rgba(47,125,246,.5),transparent);animation:mbCatScan 1.5s infinite linear"></div>
+          </div>
+        </div>
+
+        <!-- 2×2 part cards -->
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px">
+          <sc-for list="{{ parts }}" as="part" hint-placeholder-count="4">
+            <div style="position:relative;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;backdrop-filter:blur(22px) saturate(1.5);-webkit-backdrop-filter:blur(22px) saturate(1.5);background-color:rgba(255,255,255,.06);box-shadow:inset 1px 1px 0 rgba(255,255,255,.2),0 10px 30px rgba(0,0,0,.3)">
+              <div style="position:relative;width:100%;aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:#000">
+                <img src="{{ part.img }}" alt="{{ part.name }}" style="width:100%;height:100%;object-fit:contain">
+              </div>
+              <div style="display:flex;flex-direction:column;text-align:left">
+                <div style="font-size:11px;text-transform:uppercase;color:#a9b4c6;letter-spacing:.5px">OEM Equivalent</div>
+                <div style="font-size:15px;font-weight:700;color:#fff;margin-top:2px">{{ part.name }}</div>
+                <div style="font-family:'Space Grotesk',sans-serif;font-feature-settings:'tnum';font-size:14px;font-weight:600;color:#5b9bf7;margin-top:6px">{{ part.price }} <span style="font-size:10px;color:#a9b4c6;font-weight:400;font-family:Inter,sans-serif">(Simulation)</span></div>
+              </div>
+              <sc-if value="{{ garageSaved }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:2px;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;background:rgba(47,125,246,.15);border:1px solid rgba(47,125,246,.3);color:#5b9bf7;font-size:12px;font-weight:700;width:fit-content"><span style="font-size:14px">✓</span> Verified Fit</div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BAND 3 · THE PROBLEM — light ══ -->
+<section id="problem" data-screen-label="Band 3 — the problem" style="padding:96px 24px;scroll-margin-top:84px">
+  <div style="max-width:1280px;margin:0 auto">
+    <h2 style="font-family:'Space Grotesk',sans-serif;margin:14px 0 0;font-size:clamp(38px,4.8vw,64px);line-height:1.04;letter-spacing:-.024em;font-weight:600;max-width:760px;color:#0d1522;text-wrap:balance">Buying car parts online is a guessing game.</h2>
+    <figure style="margin:18px 0 0;background:#0d1522;border-radius:18px;padding:44px 40px;color:#fff">
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:44px;line-height:0;color:#5b9bf7;font-weight:700" aria-hidden="true">“</div>
+      <blockquote style="margin:16px 0 0;font-size:clamp(20px,2.2vw,27px);line-height:1.45;font-weight:700;letter-spacing:-.01em;max-width:900px;text-wrap:pretty">Toko saya sampai ditutup karena terlalu banyak retur COD. Platform menghukum saya. Bukan pembelinya.</blockquote>
+      <div style="margin-top:14px;font-size:15px;line-height:1.6;color:#8b95a4;font-style:italic;max-width:760px">“My shop was closed because of too many returns from COD. The platform penalized me. Not the customer.”</div>
+      <figcaption style="margin-top:18px;font-size:13px;font-weight:700;letter-spacing:.05em;color:#5b9bf7">Shop owner, Senen Market, Jakarta — shared with permission</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ══ BAND 4 · ARCHIPELAGO — dark, 100svh, full-bleed map ══ -->
+<section data-screen-label="Band 4 — archipelago" style="position:relative;background:#0d1522;background-image:radial-gradient(1000px 520px at 62% -6%,rgba(47,125,246,.13),transparent 72%),radial-gradient(520px 360px at 14% 96%,rgba(18,63,158,.24),transparent 70%);min-height:100svh;display:flex;align-items:center;padding:100px 24px;overflow:hidden">
+  <div style="position:absolute;inset:0;mask-image:linear-gradient(to bottom,#000 0%,#000 62%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 62%,transparent 100%)">
+    <img src="assets/indo-map.svg" alt="" style="width:100%;height:100%;object-fit:cover">
+  </div>
+  <div style="position:absolute;inset:0;pointer-events:none;opacity:.07;mix-blend-mode:overlay;z-index:1;background-image:url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n3'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n3)'/%3E%3C/svg%3E&quot;)"></div>
+  <div style="position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;pointer-events:none">
+    <div style="text-align:center;max-width:840px;margin:0 auto;background:radial-gradient(62% 90% at 50% 42%,rgba(13,21,34,.62),transparent 78%);padding:36px 28px;border-radius:24px">
+      <div style="font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#5b9bf7">Across the archipelago</div>
+      <h2 style="font-family:'Space Grotesk',sans-serif;margin:14px 0 0;font-size:clamp(42px,5.4vw,74px);line-height:1.04;letter-spacing:-.024em;font-weight:600;color:#fff;text-wrap:balance">From Sabang to Merauke, one catalog.</h2>
+      <p style="margin:20px auto 0;max-width:680px;font-size:19px;line-height:1.65;color:#a9b4c6;text-wrap:pretty">100,000+ workshops and thousands of parts shops, finally speaking the same language — starting in Jakarta, 2026, then island by island.</p>
+    </div>
+    <div style="width:fit-content;margin:14px auto 0;text-align:center;font-size:12.5px;font-weight:600;color:#a9b4c6;background:rgba(13,21,34,.55);padding:6px 14px;border-radius:999px;backdrop-filter:blur(3px)">Drag the map to explore — launching in Jakarta first.</div>
+  </div>
+</section>
+
+<!-- ══ BAND 5 · AI CATALOG DEMO — light wrapper / dark card ══ -->
+<section data-screen-label="Band 5 — AI catalog demo" style="padding:96px 24px">
+  <div style="position:relative;max-width:1280px;margin:0 auto;background:#0d1522;background-image:radial-gradient(900px 500px at 50% -10%,rgba(47,125,246,.15),transparent 70%),radial-gradient(500px 340px at 88% 96%,rgba(18,63,158,.22),transparent 72%);border-radius:28px;padding:clamp(36px,5vw,64px);overflow:hidden;min-height:560px;display:flex;flex-direction:column;justify-content:space-between">
+    <div style="position:absolute;inset:0;pointer-events:none;opacity:.07;mix-blend-mode:overlay;z-index:1;background-image:url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n4'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n4)'/%3E%3C/svg%3E&quot;)"></div>
+    <div style="position:relative;z-index:2;display:flex;align-items:center;flex-wrap:wrap;gap:12px">
+      <div style="display:flex">
+        <div style="width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(3,8,16,.4)"><img src="assets/icons/xls2.png" alt="Excel file" style="height:26px;width:auto;display:block"></div>
+        <div style="width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(3,8,16,.4);margin-left:-9px"><img src="assets/icons/pdf2.png" alt="PDF file" style="height:26px;width:auto;display:block"></div>
+        <div style="width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(3,8,16,.4);margin-left:-9px"><img src="assets/icons/jpg2.png" alt="Photo file" style="height:26px;width:auto;display:block"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(13,21,34,.88);border:1px solid rgba(91,155,247,.4);border-radius:999px;padding:0 16px;height:44px;position:relative;z-index:3">
+        <span data-anim style="width:8px;height:8px;border-radius:50%;background:#5b9bf7;flex:none;animation:mbPulse 2s ease-in-out infinite"></span>
+        <span style="font-size:12.5px;font-weight:700;color:#c7cfdd;white-space:nowrap">Mobeeli AI · catalog assembled ✓</span>
+      </div>
+    </div>
+    <div style="position:absolute;right:4%;top:50%;transform:translateY(-50%);width:min(560px,54%);aspect-ratio:14/9;pointer-events:none;z-index:1">
+      <div style="position:absolute;left:39%;top:0%;width:clamp(100px,11vw,140px)"><img src="assets/parts/filter.png" alt="Oil filter" style="display:block;width:100%;height:auto;filter:drop-shadow(0 16px 26px rgba(3,8,16,.55))"></div>
+      <div style="position:absolute;left:70%;top:8%;width:clamp(95px,10vw,130px)"><img src="assets/parts/plug.png" alt="Spark plugs" style="display:block;width:100%;height:auto;filter:drop-shadow(0 16px 26px rgba(3,8,16,.55))"></div>
+      <div style="position:absolute;left:6%;top:46%;width:clamp(110px,13vw,160px)"><img src="assets/parts/disc.png" alt="Brake disc" style="display:block;width:100%;height:auto;filter:drop-shadow(0 16px 26px rgba(3,8,16,.55))"></div>
+      <div style="position:absolute;left:40%;top:42%;width:clamp(105px,12vw,150px)"><img src="assets/parts/shock.png" alt="Shock absorber" style="display:block;width:100%;height:auto;filter:drop-shadow(0 16px 26px rgba(3,8,16,.55))"></div>
+      <div style="position:absolute;left:70%;top:48%;width:clamp(110px,13vw,160px)"><img src="assets/parts/air.png" alt="Air filter" style="display:block;width:100%;height:auto;filter:drop-shadow(0 16px 26px rgba(3,8,16,.55))"></div>
+      <div style="position:absolute;left:50%;transform:translateX(-50%);top:86%;background:#2f7df6;color:#fff;font-size:12.5px;font-weight:800;padding:9px 16px;border-radius:999px;box-shadow:0 14px 34px rgba(47,125,246,.4);white-space:nowrap">✓ One catalog · 120M+ mappings (Simulation)</div>
+    </div>
+    <div style="position:relative;z-index:2;max-width:560px;margin-top:180px">
+      <h2 style="font-family:'Space Grotesk',sans-serif;margin:0;font-size:clamp(32px,3.8vw,50px);line-height:1.08;letter-spacing:-.025em;font-weight:600;color:#fff;text-wrap:balance">The catalog that puts itself together.</h2>
+      <p style="margin:16px 0 0;font-size:16px;line-height:1.7;color:#a9b4c6;text-wrap:pretty">Excel sheets, PDFs, even photos of handwritten ledgers — Mobeeli's AI reads them all and builds one clean catalog, mapped to every car on the road.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BAND 6 · BUYER CAPTURE — tint ══ -->
+<section data-screen-label="Band 6 — buyer capture" style="background:#e4edfd;background-image:radial-gradient(rgba(91,155,247,.1) 1.2px,transparent 1.2px);background-size:24px 24px;padding:34px 24px">
+  <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;text-align:center">
+    <div style="font-size:16.5px;font-weight:700;color:#123f9e">Buying parts? Be first to know when Mobeeli opens in Jakarta.</div>
+    <span style="border:1.5px solid #1b5fd9;color:#1b5fd9;font-size:14px;font-weight:800;padding:11px 22px;border-radius:999px;white-space:nowrap">Get notified</span>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer style="background:#0d1522;padding:64px 24px 44px">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:28px;flex-wrap:wrap">
+      <div>
+        <div><img src="assets/mobeeli-logo-white.png" alt="Mobeeli" style="height:40px;width:auto;display:block"></div>
+        <div style="margin-top:14px;font-size:14.5px;color:#8b95a4;max-width:340px;line-height:1.6">One platform to unify Indonesia's auto industry.</div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.12);margin-top:36px;padding-top:26px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap">
+      <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px"><a href="mailto:info@mobeeli.com" style="color:#5b9bf7;font-weight:600">info@mobeeli.com</a></div>
+      <div style="font-size:13px;color:#a9b4c6;font-weight:600">Mobeeli — Jakarta, Indonesia</div>
+    </div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;garageSaved&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;State&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const garageSaved = this.props.garageSaved ?? false;
+    return {
+      garageSaved,
+      pickerVisible: !garageSaved,
+      parts: [
+        { name: "Iridium Spark Plug", price: "Rp 85.000", img: "assets/parts/spark-plug.jpg" },
+        { name: "Clutch Cover Assy", price: "Rp 1.450.000", img: "assets/parts/clutch.jpg" },
+        { name: "Gas Shock Absorber", price: "Rp 850.000", img: "assets/parts/shock.jpg" },
+        { name: "Standard Grade Pads", price: "Rp 450.000", img: "assets/parts/brake-pad.jpg" },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

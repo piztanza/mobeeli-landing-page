@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#090c0f; -webkit-font-smoothing:antialiased; }
+  a { color:#6fa5f7; text-decoration:none; border-bottom:1px solid rgba(111,165,247,.32); }
+  a:hover { color:#9dc2fa; border-bottom-color:rgba(157,194,250,.6); }
+  ::selection { background:rgba(77,143,245,.3); }
+</style>
+</helmet>
+
+<div style="background:#090c0f;color:#e8ecef;font-family:Inter,system-ui,sans-serif;padding:0 0 140px">
+
+<div style="max-width:1420px;margin:0 auto;padding:72px 48px 0">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
+    <span style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#4d8ff5">Round 16</span>
+    <span style="width:22px;height:1px;background:rgba(255,255,255,.22)"></span>
+    <span style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#8c979e">Decisions · founder-gated</span>
+  </div>
+  <h1 style="font-family:'Space Grotesk',sans-serif;font-size:52px;line-height:1.03;font-weight:600;letter-spacing:-.025em;margin:0;max-width:17ch;text-wrap:pretty">What I need you to rule on before Gemini touches anything</h1>
+  <p style="font-size:18px;line-height:1.6;color:#b6bec4;max-width:64ch;margin:26px 0 0;text-wrap:pretty">Two open choices with options side by side, then five rulings I've already made and want you to sanity-check. The full page is in <strong style="color:#e8ecef;font-weight:600">Mobeeli Landing — R16 Proposal</strong>; today's page is recreated from source in <strong style="color:#e8ecef;font-weight:600">Mobeeli Landing — Current</strong> so you can flip between them.</p>
+</div>
+
+<!-- ═══ TURN 2 ═══ -->
+<section id="t2" style="padding:56px 48px 48px;max-width:1420px;margin:0 auto;border-bottom:1px solid rgba(255,255,255,.14)">
+  <div style="display:flex;align-items:baseline;gap:10px;margin:0 0 28px">
+    <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;padding:3px 7px;background:#e8ecef;color:#090c0f;border-radius:4px">2</span>
+    <span style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#e8ecef">The profile is not the deck</span>
+  </div>
+
+  <h2 style="font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:600;letter-spacing:-.02em;margin:0 0 20px;color:#e8ecef;max-width:22ch;text-wrap:pretty">You're right — and it's your own rule</h2>
+  <p style="margin:0 0 20px;font-size:17px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">R2 said it twice: keep the public profile <em style="font-style:normal;color:#e8ecef">broad</em>, because the idea and the tech moat are easily copyable now; and the front page is 3–4 brief sections with <em style="font-style:normal;color:#e8ecef">fewer numbers — data lives on its own page</em>. The page has drifted from both. I count <strong style="color:#e8ecef;font-weight:600">twelve numeric claims</strong> on it today, four of them fabricated prices and three of them a labelled guess at the size of your database.</p>
+
+  <div style="border-left:2px solid #4d8ff5;padding:6px 0 6px 22px;margin:0 0 28px;max-width:70ch">
+    <p style="margin:0 0 10px;font-size:19px;line-height:1.45;color:#e8ecef;font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-.01em">Show behaviour. Withhold quantity.</p>
+    <p style="margin:0;font-size:16px;line-height:1.62;color:#c3cace;text-wrap:pretty">A statistic hands a competitor your scale <em style="font-style:normal;color:#e8ecef">and the shape of your data model</em> — “specs / applications / models” is a diagram of how the fitment graph is built. A demonstration hands them the knowledge that it works, which they already assume, and which reading cannot copy. That's the line I'd draw, and it happens to be the line between a profile and a deck.</p>
+  </div>
+
+  <p style="margin:0 0 32px;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">The architecture for this already exists — <code style="font-family:ui-monospace,Menlo,monospace;font-size:14px;color:#9dc2fa">/deck</code> is token-gated, <code style="font-family:ui-monospace,Menlo,monospace;font-size:14px;color:#9dc2fa">/investors</code> has a request form, the data room is behind a person. The front page is currently doing a job it already has a gated surface for, and doing it with numbers it can't stand behind.</p>
+
+  <!-- what goes where -->
+  <div style="display:grid;gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:4px;max-width:1040px;margin:0 0 40px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.1)">
+      <div style="background:#0f1418;padding:15px 22px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:#8c979e">Stays on the profile — behaviour &amp; identity</div>
+      <div style="background:#0f1418;padding:15px 22px;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:#8c979e">Moves behind the gate — quantity &amp; economics</div>
+    </div>
+    <sc-for list="{{ splitRows }}" as="r" hint-placeholder-count="6">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.1)">
+        <div style="background:#0c1013;padding:16px 22px;font-size:14.5px;line-height:1.55;color:#c3cace">{{ r.keep }}</div>
+        <div style="background:#0c1013;padding:16px 22px;font-size:14.5px;line-height:1.55;color:#8c979e">{{ r.gate }}</div>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- how far -->
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;letter-spacing:-.015em;margin:0 0 8px;color:#e8ecef">How far to take it</h3>
+  <p style="margin:0 0 26px;font-size:15.5px;line-height:1.6;color:#8c979e;max-width:72ch">Same principle, three settings. Each one is a superset of the one before.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:stretch;margin-bottom:32px">
+
+    <div id="2a" style="flex:1 1 320px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px">
+      <div style="display:flex;align-items:baseline;gap:9px;font-size:12px;color:rgba(255,255,255,.55)">
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:rgba(255,255,255,.1);color:#e8ecef;border-radius:5px">2a</span>
+        <span style="color:#e8ecef;font-weight:600;font-size:13.5px">Trim</span>
+      </div>
+      <div style="background:#0c1013;border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:24px;display:flex;flex-direction:column;gap:14px;flex:1">
+        <p style="margin:0;font-size:14.5px;line-height:1.6;color:#c3cace">Pull the three stat tiles and the <span style="font-family:ui-monospace,Menlo,monospace;font-size:13px">120M+</span> pill. Nothing else changes.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#8c979e">Two deletions. Removes the database-shape leak and, incidentally, every version of the number contradiction from the indexed surface. The four simulated prices stay.</p>
+        <div style="margin-top:auto;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:#8c979e">Numeric claims left: <span style="color:#e8ecef">9</span></div>
+      </div>
+    </div>
+
+    <div id="2b" style="flex:1 1 320px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px">
+      <div style="display:flex;align-items:baseline;gap:9px;font-size:12px;color:rgba(255,255,255,.55)">
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:#2f7df6;color:#fff;border-radius:5px">2b</span>
+        <span style="color:#e8ecef;font-weight:600;font-size:13.5px">Split</span>
+        <span>· my recommendation</span>
+      </div>
+      <div style="background:#0c1013;border:1px solid rgba(47,125,246,.28);border-radius:6px;padding:24px;display:flex;flex-direction:column;gap:14px;flex:1">
+        <p style="margin:0;font-size:14.5px;line-height:1.6;color:#c3cace"><a href="#2a">2a</a>, plus the part cards <strong style="color:#e8ecef;font-weight:600">lose their prices and gain their fitment specs</strong>. Front page carries zero fabricated figures, so the “(Simulation)” tag has nothing left to label.</p>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 13px;border-radius:3px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);opacity:.5">
+            <span style="font-size:12.5px;color:#a9b4c6;flex:1;text-decoration:line-through">Rp 450.000 (Simulation)</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 13px;border-radius:3px;background:rgba(47,125,246,.09);border:1px solid rgba(47,125,246,.26)">
+            <span style="font-family:'Space Grotesk',sans-serif;font-size:12.5px;color:#9dc2fa;flex:1">front axle · ceramic · 2NR-VE</span>
+          </div>
+        </div>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#8c979e">Price is the least interesting thing about a Mobeeli card and the only invented one. A spec line is more on-thesis, more persuasive to anyone technical, and gives away nothing a parts catalogue doesn't already publish.</p>
+        <div style="margin-top:auto;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:#8c979e">Numeric claims left: <span style="color:#e8ecef">4</span></div>
+      </div>
+    </div>
+
+    <div id="2c" style="flex:1 1 320px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px">
+      <div style="display:flex;align-items:baseline;gap:9px;font-size:12px;color:rgba(255,255,255,.55)">
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:rgba(255,255,255,.1);color:#e8ecef;border-radius:5px">2c</span>
+        <span style="color:#e8ecef;font-weight:600;font-size:13.5px">Broad</span>
+      </div>
+      <div style="background:#0c1013;border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:24px;display:flex;flex-direction:column;gap:14px;flex:1">
+        <p style="margin:0;font-size:14.5px;line-height:1.6;color:#c3cace"><a href="#2b">2b</a>, plus the <span style="font-family:ui-monospace,Menlo,monospace;font-size:13px">217 → 4</span> filter count goes. Band 2 shows only the ✓ / ✕ behaviour — this fits your car, that one doesn't.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#8c979e">Most protective. But <span style="font-family:ui-monospace,Menlo,monospace;font-size:13px">217 → 4</span> is a statement about <em style="font-style:normal;color:#c3cace">a search</em>, not about your corpus, and it's the most legible proof on the page that filtering is real. I'd keep it and mark it illustrative — but this is the version to take if you want the profile to say almost nothing quantitative at all.</p>
+        <div style="margin-top:auto;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:#8c979e">Numeric claims left: <span style="color:#e8ecef">2</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- what I would not hide -->
+  <div style="display:grid;grid-template-columns:132px 1fr;gap:40px;border-top:1px solid rgba(255,255,255,.09);padding:30px 0 0;max-width:1040px">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;line-height:1.5;padding-top:4px">One push<br>back</div>
+    <div>
+      <p style="margin:0 0 16px;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty"><strong style="color:#e8ecef;font-weight:600">I'd still show the five-level picker, including the engine.</strong> It looks like the most sensitive detail on the page and I don't think it is.</p>
+      <p style="margin:0 0 16px;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">Resolving to submodel and engine is the published standard in mature aftermarkets — every ACES/PIES catalogue and every off-the-shelf fitment plugin does it. A competitor doesn't learn the target from you; they already know it. What they can't read off the page is the thing that's actually hard: having that data for Indonesian vehicles, derived rather than typed in.</p>
+      <p style="margin:0;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">So: <em style="font-style:normal;color:#e8ecef">the depth of the question is safe to show; the size of the answer is not.</em> Five dropdowns reveal ambition. “190K+ verified edges” reveals inventory. Overrule me if you disagree — you're closer to who's watching.</p>
+    </div>
+  </div>
+
+  <!-- standing rule -->
+  <div style="display:grid;grid-template-columns:132px 1fr;gap:40px;border-top:1px solid rgba(255,255,255,.09);padding:30px 0 0;max-width:1040px;margin-top:30px">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;line-height:1.5;padding-top:4px">For the<br>handoff doc</div>
+    <div>
+      <p style="margin:0 0 18px;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">If you take any of these, it should become a locked contract so no future round drifts back. Proposed wording:</p>
+      <div style="background:#0c1013;border:1px solid rgba(255,255,255,.09);border-radius:4px;padding:20px 24px;max-width:74ch">
+        <p style="margin:0 0 12px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#4d8ff5">§6.14 — Public surface</p>
+        <p style="margin:0;font-size:15.5px;line-height:1.68;color:#c3cace;text-wrap:pretty">The landing page is a company profile, not a pitch. It may state <em style="font-style:normal;color:#e8ecef">what</em> Mobeeli is, <em style="font-style:normal;color:#e8ecef">who</em> it serves, <em style="font-style:normal;color:#e8ecef">that</em> the product works, and <em style="font-style:normal;color:#e8ecef">who</em> is behind it. It may not state the size of the catalogue, the fee, unit economics, traction counts, or any simulated figure. Quantity lives behind <code style="font-family:ui-monospace,Menlo,monospace;font-size:14px;color:#9dc2fa">/deck</code> and the data room. Third-party market facts are permitted with a source.</p>
+      </div>
+      <p style="margin:18px 0 0;font-size:15px;line-height:1.6;color:#8c979e;max-width:70ch;text-wrap:pretty">Note the knock-on: that clause also retires the “(Simulation)” convention on this surface, because there'd be nothing left to simulate. The honesty discipline doesn't weaken — it just has less work to do.</p>
+    </div>
+  </div>
+
+  <!-- open question -->
+  <div style="display:grid;grid-template-columns:132px 1fr;gap:40px;border-top:1px solid rgba(255,255,255,.09);padding:30px 0 0;max-width:1040px;margin-top:30px">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#ef4444;line-height:1.5;padding-top:4px">Needs<br>your call</div>
+    <div>
+      <p style="margin:0 0 14px;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">Trimming the front page doesn't help if the data just sits one click away on a public route. <code style="font-family:ui-monospace,Menlo,monospace;font-size:14px;color:#9dc2fa">/why-mobeeli</code> is live, indexed and sitemapped, and it carries the pain tiles — 19.4% returns, 86% wrong-fit, and the <strong style="color:#e8ecef;font-weight:600">16.75–19.66% seller-fee range from your own June field survey</strong>. That last one is the wedge, stated to the decimal.</p>
+      <p style="margin:0;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">Three ways to go: leave it public (it's competitor pricing, not yours) · round it to “up to a fifth” and keep the exact figure for the deck · or take <code style="font-family:ui-monospace,Menlo,monospace;font-size:14px;color:#9dc2fa">/why-mobeeli</code> out of the sitemap and treat it as a link you hand out. Tell me which and I'll design to it.</p>
+    </div>
+  </div>
+
+  <p style="margin:30px 0 0;font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.5)">Try next: “take <a href="#2b">2b</a>, rebuild the proposal” · “<a href="#2b">2b</a> but keep prices” · “show me the profile with almost nothing on it”</p>
+</section>
+
+<!-- ═══ TURN 1 ═══ -->
+<section id="t1" style="padding:56px 48px 40px;max-width:1420px;margin:0 auto">
+  <div style="display:flex;align-items:baseline;gap:10px;margin:0 0 28px">
+    <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;padding:3px 7px;background:#e8ecef;color:#090c0f;border-radius:4px">1</span>
+    <span style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#e8ecef">Open decisions</span>
+  </div>
+
+  <!-- DECISION A -->
+  <div style="margin:0 0 20px">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:600;letter-spacing:-.015em;margin:0 0 8px;color:#e8ecef">Decision A — the two catalog bands</h2>
+    <p style="margin:0;font-size:15.5px;line-height:1.6;color:#8c979e;max-width:72ch">Bands 2 and 5 both claim “the catalog”, neither is labelled, and both are dark. §4.2.</p>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start;margin-bottom:64px">
+
+    <!-- 1a -->
+    <div id="1a" style="flex:1 1 420px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px">
+      <div style="display:flex;align-items:baseline;gap:9px;font-size:12px;color:rgba(255,255,255,.55)">
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:#2f7df6;color:#fff;border-radius:5px">1a</span>
+        <span style="color:#e8ecef;font-weight:600;font-size:13.5px">One band</span>
+        <span>· my recommendation</span>
+      </div>
+      <div style="background:#0c1013;border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:26px 26px 28px;display:flex;flex-direction:column;gap:20px">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div style="height:52px;border-radius:3px;background:#16202f;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;padding:0 14px;font-size:12.5px;color:#c3cace">Hero <span style="margin-left:auto;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#6b7479">#top</span></div>
+          <div style="height:38px;border-radius:3px;background:#e8ebf1;display:flex;align-items:center;padding:0 14px;font-size:12.5px;color:#0d1522;font-weight:500">The problem <span style="margin-left:auto;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#636e7e">#problem</span></div>
+          <div style="height:66px;border-radius:3px;background:#16202f;border:1px solid rgba(47,125,246,.4);display:flex;align-items:center;padding:0 14px;font-size:12.5px;color:#9dc2fa;font-weight:600">How it works — the catalog <span style="margin-left:auto;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#6b7479">#how-it-works</span></div>
+          <div style="height:44px;border-radius:3px;background:#16202f;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;padding:0 14px;font-size:12.5px;color:#c3cace">Archipelago <span style="margin-left:auto;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#6b7479">#archipelago</span></div>
+          <div style="height:44px;border-radius:3px;background:#e8ebf1;display:flex;align-items:center;padding:0 14px;font-size:12.5px;color:#0d1522;font-weight:500">Protection + capture <span style="margin-left:auto;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#636e7e">#protection</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:#c3cace"><strong style="color:#e8ecef;font-weight:600">What happens:</strong> <code style="font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#9dc2fa">AiCatalogCard</code> is deleted as a band. Its claim — the AI reads spreadsheets, PDFs and photos — becomes <em style="font-style:normal;color:#e8ecef">act one</em> of the catalog band, where it finally has a reason to be there: it explains where the listings came from before the picker filters them.</p>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:#8c979e"><strong style="color:#c3cace;font-weight:600">Costs:</strong> the sprite-orbit loop is retired. It's the prettiest motion on the site. Its CSS and the <code style="font-family:ui-monospace,Menlo,monospace;font-size:12.5px">scn1–6</code> copy keys go with it — deleted in the same commit, per guardrail 3.</p>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:#8c979e"><strong style="color:#c3cace;font-weight:600">Buys:</strong> five bands (R2's “3–4 brief sections” is finally within sight), one claim stated once, the nav's “How it works” lands on something that actually explains how it works, and one fewer WebGL context.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1b -->
+    <div id="1b" style="flex:1 1 420px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px">
+      <div style="display:flex;align-items:baseline;gap:9px;font-size:12px;color:rgba(255,255,255,.55)">
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:rgba(255,255,255,.1);color:#e8ecef;border-radius:5px">1b</span>
+        <span style="color:#e8ecef;font-weight:600;font-size:13.5px">Two bands, reframed</span>
+      </div>
+      <div style="background:#0c1013;border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:26px 26px 28px;display:flex;flex-direction:column;gap:20px">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div style="height:52px;border-radius:3px;background:#16202f;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;padding:0 14px;font-size:12.5px;color:#c3cace">Hero <span style="margin-left:auto;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#6b7479">#top</span></div>
+          <div style="height:38px;border-radius:3px;background:#e8ebf1;display:flex;align-items:center;padding:0 14px;font-size:12.5px;color:#0d1522;font-weight:500">The problem <span style="margin-left:auto;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#636e7e">#problem</span></div>
+          <div style="height:52px;border-radius:3px;background:#16202f;border:1px solid rgba(47,125,246,.4);display:flex;align-items:center;padding:0 14px;font-size:12.5px;color:#9dc2fa;font-weight:600">Where listings come from <span style="margin-left:auto;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#6b7479">#catalog</span></div>
+          <div style="height:52px;border-radius:3px;background:#16202f;border:1px solid rgba(47,125,246,.4);display:flex;align-items:center;padding:0 14px;font-size:12.5px;color:#9dc2fa;font-weight:600">Find the part that fits <span style="margin-left:auto;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#6b7479">#how-it-works</span></div>
+          <div style="height:44px;border-radius:3px;background:#16202f;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;padding:0 14px;font-size:12.5px;color:#c3cace">Archipelago <span style="margin-left:auto;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#6b7479">#archipelago</span></div>
+          <div style="height:44px;border-radius:3px;background:#e8ebf1;display:flex;align-items:center;padding:0 14px;font-size:12.5px;color:#0d1522;font-weight:500">Protection + capture <span style="margin-left:auto;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#636e7e">#protection</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:#c3cace"><strong style="color:#e8ecef;font-weight:600">What happens:</strong> both bands survive but stop making the same claim. The sprite band becomes <em style="font-style:normal;color:#e8ecef">supply</em> — “this is how a messy market becomes one catalog” — and the picker band becomes <em style="font-style:normal;color:#e8ecef">demand</em>. Each gets an id, a kicker, and a headline that can't be confused with the other's.</p>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:#8c979e"><strong style="color:#c3cace;font-weight:600">Costs:</strong> six bands, three of them dark and consecutive. Two of the three WebGL contexts stay. And the two bands still share the <code style="font-family:ui-monospace,Menlo,monospace;font-size:12.5px">.mb-cat-*</code> namespace that caused the R15 collision — that has to be split regardless.</p>
+          <p style="margin:0;font-size:14.5px;line-height:1.6;color:#8c979e"><strong style="color:#c3cace;font-weight:600">Buys:</strong> you keep the sprite loop, and the supply story gets room to breathe instead of being compressed into a third of a band.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DECISION B -->
+  <div style="margin:0 0 20px">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:600;letter-spacing:-.015em;margin:0 0 8px;color:#e8ecef">Decision B — where the protection story goes</h2>
+    <p style="margin:0;font-size:15.5px;line-height:1.6;color:#8c979e;max-width:78ch"><code style="font-family:ui-monospace,Menlo,monospace;font-size:14px;color:#9dc2fa">prot_r1-3</code> are defined in <code style="font-family:ui-monospace,Menlo,monospace;font-size:14px;color:#9dc2fa">copy.ts</code> in both languages and render on no page. §4.4.</p>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start;margin-bottom:24px">
+
+    <div id="1c" style="flex:1 1 340px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px">
+      <div style="display:flex;align-items:baseline;gap:9px;font-size:12px;color:rgba(255,255,255,.55)">
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:#2f7df6;color:#fff;border-radius:5px">1c</span>
+        <span style="color:#e8ecef;font-weight:600;font-size:13.5px">Its own band</span>
+        <span>· recommended</span>
+      </div>
+      <div style="background:#0c1013;border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:24px;display:flex;flex-direction:column;gap:16px;height:100%">
+        <div style="background:#fff;border-radius:3px;padding:16px 16px 18px">
+          <div style="font-size:8.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#1b5fd9">Protected on both sides</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:#0d1522;line-height:1.15;margin-top:7px;letter-spacing:-.015em">Funds release when the part fits — not just when it ships.</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e3e7ee;border:1px solid #e3e7ee;margin-top:13px">
+            <div style="background:#fff;padding:10px 8px;font-size:8.5px;line-height:1.35;color:#636e7e">Video-evidence resolution</div>
+            <div style="background:#fff;padding:10px 8px;font-size:8.5px;line-height:1.35;color:#636e7e">Authenticity verification</div>
+            <div style="background:#fff;padding:10px 8px;font-size:8.5px;line-height:1.35;color:#636e7e">Funds release on fit</div>
+          </div>
+        </div>
+        <p style="margin:0;font-size:14.5px;line-height:1.6;color:#c3cace">A light band between the archipelago and the footer, with the buyer capture folded into its foot so the strip stops being an orphan.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#8c979e">The Senen quote in band 2 is a <em style="font-style:normal;color:#c3cace">protection</em> story, not a fitment one — the shop closed because nobody could prove what happened. This band is the answer to it, and the page currently never gives one. Also lets the nav carry a truthful sixth link.</p>
+      </div>
+    </div>
+
+    <div id="1d" style="flex:1 1 340px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px">
+      <div style="display:flex;align-items:baseline;gap:9px;font-size:12px;color:rgba(255,255,255,.55)">
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:rgba(255,255,255,.1);color:#e8ecef;border-radius:5px">1d</span>
+        <span style="color:#e8ecef;font-weight:600;font-size:13.5px">Fourth act of the catalog band</span>
+      </div>
+      <div style="background:#0c1013;border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:24px;display:flex;flex-direction:column;gap:16px;height:100%">
+        <div style="background:#16202f;border:1px solid rgba(255,255,255,.08);border-radius:3px;padding:16px">
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px">
+            <div style="height:40px;background:rgba(255,255,255,.05);border-radius:2px;display:flex;align-items:flex-end;padding:5px;font-size:8px;color:#8c979e">01 sources</div>
+            <div style="height:40px;background:rgba(255,255,255,.05);border-radius:2px;display:flex;align-items:flex-end;padding:5px;font-size:8px;color:#8c979e">02 your car</div>
+            <div style="height:40px;background:rgba(255,255,255,.05);border-radius:2px;display:flex;align-items:flex-end;padding:5px;font-size:8px;color:#8c979e">03 the filter</div>
+            <div style="height:40px;background:rgba(47,125,246,.18);border:1px solid rgba(47,125,246,.4);border-radius:2px;display:flex;align-items:flex-end;padding:5px;font-size:8px;color:#9dc2fa">04 protected</div>
+          </div>
+        </div>
+        <p style="margin:0;font-size:14.5px;line-height:1.6;color:#c3cace">Protection becomes the closing beat of the single catalog band: you found the part, it fits, and here's what happens to your money.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#8c979e">Tightest page — stays at five bands with no new section. But it makes one band carry four ideas, and the trust argument ends up as the smallest of them. It's the thesis; four-across is a poor place for it.</p>
+      </div>
+    </div>
+
+    <div id="1e" style="flex:1 1 340px;display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px">
+      <div style="display:flex;align-items:baseline;gap:9px;font-size:12px;color:rgba(255,255,255,.55)">
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:rgba(255,255,255,.1);color:#e8ecef;border-radius:5px">1e</span>
+        <span style="color:#e8ecef;font-weight:600;font-size:13.5px">Leave it off · relabel the nav</span>
+      </div>
+      <div style="background:#0c1013;border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:24px;display:flex;flex-direction:column;gap:16px;height:100%">
+        <div style="background:#16202f;border:1px solid rgba(255,255,255,.08);border-radius:3px;padding:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <span style="font-size:9px;color:#8c979e;text-decoration:line-through">How it works</span>
+          <span style="font-size:9px;color:#6b7479">→</span>
+          <span style="font-size:9px;color:#9dc2fa;font-weight:600">The catalog</span>
+          <span style="width:100%;height:1px;background:rgba(255,255,255,.07);margin:2px 0"></span>
+          <span style="font-size:9px;color:#8c979e">Protection lives on <span style="font-family:ui-monospace,Menlo,monospace">/why-mobeeli</span></span>
+        </div>
+        <p style="margin:0;font-size:14.5px;line-height:1.6;color:#c3cace">Front page stays as-is; the nav stops promising an explanation it doesn't deliver, and protection is a section on the data page.</p>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#8c979e">Cheapest, and honest. But it concedes that the front page never makes the trust argument — the one thing that separates Mobeeli from a better search box. I'd only take this if you want R16 to be purely a cleanup round.</p>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin:22px 0 0;font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.5)">Try next: “go with <a href="#1a">1a</a> and <a href="#1c">1c</a>” · “show me <a href="#1b">1b</a> built out” · “<a href="#1c">1c</a> but dark, not light”</p>
+</section>
+
+<!-- ═══ RULINGS ═══ -->
+<div style="max-width:1420px;margin:0 auto;padding:0 48px">
+  <div style="border-top:1px solid rgba(255,255,255,.14);padding:44px 0 0">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:600;letter-spacing:-.02em;margin:0 0 10px;color:#e8ecef">Five calls I've already made</h2>
+    <p style="margin:0 0 44px;font-size:16px;line-height:1.6;color:#8c979e;max-width:68ch">These are in the proposal page. Each is small enough to reverse — say the word and I'll swap any of them.</p>
+  </div>
+
+  <!-- R1 glass -->
+  <div style="display:grid;grid-template-columns:132px 1fr;gap:40px;border-top:1px solid rgba(255,255,255,.09);padding:34px 0">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:600;line-height:1;color:#4d8ff5;font-variant-numeric:tabular-nums">01</span>
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;line-height:1.5">One glass<br>recipe · §4.3</span>
+    </div>
+    <div>
+      <p style="margin:0 0 24px;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">Today the picker panel and the part cards sit side by side in one band using two different glass recipes — and the picker has <strong style="color:#e8ecef;font-weight:600">no padding and no border-radius</strong>, so its content is flush against a sharp rectangle next to 16px-radius cards. One primitive replaces both.</p>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:stretch">
+        <div style="flex:1 1 300px;background:#16202f;border-radius:6px;padding:22px;display:flex;flex-direction:column;gap:14px">
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#8c979e">Today — picker</span>
+          <div style="background:linear-gradient(150deg,rgba(255,255,255,.08) 0%,rgba(255,255,255,.02) 100%);border:1px solid rgba(255,255,255,.14);box-shadow:inset 1px 1px 0 rgba(255,255,255,.4),0 20px 46px rgba(3,8,16,.55);display:flex;flex-direction:column;align-items:center;gap:8px">
+            <span style="font-size:12px;color:#a9b4c6">Filter Active</span>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
+              <span style="background:rgba(13,21,34,.8);border:1px solid rgba(255,255,255,.08);border-radius:12px;color:#fff;padding:6px 12px;font-size:12px">2024</span>
+              <span style="background:rgba(13,21,34,.8);border:1px solid rgba(255,255,255,.08);border-radius:12px;color:#fff;padding:6px 12px;font-size:12px">Toyota</span>
+            </div>
+          </div>
+          <span style="font-size:12.5px;line-height:1.5;color:#8c979e">0 radius · 0 padding · specular 0.4 corner smear</span>
+        </div>
+        <div style="flex:1 1 300px;background:#16202f;border-radius:6px;padding:22px;display:flex;flex-direction:column;gap:14px">
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#4d8ff5">Proposed — <code style="font-family:ui-monospace,Menlo,monospace;font-size:11px">.mb-glass</code></span>
+          <div style="background:linear-gradient(150deg,rgba(255,255,255,.075) 0%,rgba(255,255,255,.025) 100%);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 20px 46px rgba(3,8,16,.5);display:flex;flex-direction:column;align-items:center;gap:8px">
+            <span style="font-size:12px;color:#a9b4c6">Filter Active</span>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
+              <span style="background:rgba(13,21,34,.8);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#fff;padding:6px 12px;font-size:12px">2019</span>
+              <span style="background:rgba(13,21,34,.8);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#fff;padding:6px 12px;font-size:12px">Toyota</span>
+            </div>
+          </div>
+          <span style="font-size:12.5px;line-height:1.5;color:#8c979e">18px radius · 20px padding · one top specular</span>
+        </div>
+      </div>
+      <div style="margin-top:22px;background:#0c1013;border:1px solid rgba(255,255,255,.09);border-radius:4px;padding:18px 20px;max-width:760px">
+        <pre style="margin:0;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.75;color:#c3cace;white-space:pre-wrap">background: linear-gradient(150deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
+border: 1px solid rgba(255,255,255,.12);
+border-radius: 18px;   padding: 20px;
+backdrop-filter: blur(22px) saturate(1.5);
+box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 20px 46px rgba(3,8,16,.5);
+
+@media (prefers-reduced-transparency: reduce) { background: #16202f; }</pre>
+      </div>
+      <p style="margin:18px 0 0;font-size:15px;line-height:1.6;color:#8c979e;max-width:70ch;text-wrap:pretty">The fallback is <code style="font-family:ui-monospace,Menlo,monospace;font-size:13.5px;color:#9dc2fa">#16202f</code> — <em style="font-style:normal;color:#c3cace">lighter</em> than the <code style="font-family:ui-monospace,Menlo,monospace;font-size:13.5px;color:#9dc2fa">#0d1522</code> band, which closes §5 #10, where the reduced-transparency fallback painted cards the same colour as the surface behind them. Don't chase Apple's refraction version: it needs an SVG filter in <code style="font-family:ui-monospace,Menlo,monospace;font-size:13.5px;color:#9dc2fa">backdrop-filter</code>, which only Chromium supports.</p>
+    </div>
+  </div>
+
+  <!-- R2 type -->
+  <div style="display:grid;grid-template-columns:132px 1fr;gap:40px;border-top:1px solid rgba(255,255,255,.09);padding:34px 0">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:600;line-height:1;color:#4d8ff5;font-variant-numeric:tabular-nums">02</span>
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;line-height:1.5">Six steps<br>§4.1 · §4.8</span>
+    </div>
+    <div>
+      <p style="margin:0 0 24px;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">Band 2's H2 is a flat 28px while every neighbour is fluid 38–64px — and because the ≤480px rule lands later in the file, it renders <strong style="color:#e8ecef;font-weight:600">29px on a phone and 28px on a desktop</strong>. It goes onto the shared step. Six steps replace 27 px values, 9 clamps and five half-pixel increments.</p>
+      <div style="background:#0c1013;border:1px solid rgba(255,255,255,.09);border-radius:4px;overflow:hidden;max-width:860px">
+        <sc-for list="{{ typeScale }}" as="s" hint-placeholder-count="6">
+          <div style="display:grid;grid-template-columns:120px 1fr 260px;gap:20px;align-items:baseline;padding:16px 22px;border-top:1px solid rgba(255,255,255,.06)">
+            <span style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:#4d8ff5">{{ s.name }}</span>
+            <span style="font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:#c3cace">{{ s.value }}</span>
+            <span style="font-size:13px;color:#8c979e;line-height:1.5">{{ s.use }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:18px 0 0;font-size:15px;line-height:1.6;color:#8c979e;max-width:70ch;text-wrap:pretty">Weight is the other half: <code style="font-family:ui-monospace,Menlo,monospace;font-size:13.5px;color:#9dc2fa">landing.css</code> leans on 800 while <code style="font-family:ui-monospace,Menlo,monospace;font-size:13.5px;color:#9dc2fa">globals.css</code> sets headings to 600. Settle on <strong style="color:#c3cace;font-weight:600">600 for display, 700 for the heaviest UI label, nothing above</strong> — Space Grotesk gets coarse at 800 and that coarseness is a lot of why the page reads heavier than the platform.</p>
+    </div>
+  </div>
+
+  <!-- R3 scan -->
+  <div style="display:grid;grid-template-columns:132px 1fr;gap:40px;border-top:1px solid rgba(255,255,255,.09);padding:34px 0">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:600;line-height:1;color:#4d8ff5;font-variant-numeric:tabular-nums">03</span>
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;line-height:1.5">The scan<br>§4.5 · §5 #1</span>
+    </div>
+    <div>
+      <p style="margin:0 0 22px;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">Today a blue laser sweeps left-to-right <strong style="color:#e8ecef;font-weight:600">forever</strong>, for every visitor, with no reduced-motion gate — and <code style="font-family:ui-monospace,Menlo,monospace;font-size:13.5px;color:#9dc2fa">.is-scanning</code>, the class the component actually toggles, has no CSS at all. So the animation that means “we're reading your car” runs when nothing is happening, and the state that means something looks identical.</p>
+      <p style="margin:0 0 22px;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">Clinical register, as you chose. An instrument reads <em style="font-style:normal;color:#e8ecef">once</em>, top to bottom, and reports. It does not idle.</p>
+      <div style="display:flex;gap:1px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.09);border-radius:4px;overflow:hidden;flex-wrap:wrap;max-width:860px">
+        <div style="flex:1 1 200px;background:#0c1013;padding:20px 22px">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:#4d8ff5;margin-bottom:9px">At rest</div>
+          <p style="margin:0;font-size:14px;line-height:1.6;color:#8c979e">No sweep. A faint measurement grid and the last verified readout. The instrument is on, not working.</p>
+        </div>
+        <div style="flex:1 1 200px;background:#0c1013;padding:20px 22px">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:#4d8ff5;margin-bottom:9px">0 → 1.8s</div>
+          <p style="margin:0;font-size:14px;line-height:1.6;color:#8c979e">One pass, top to bottom, <code style="font-family:ui-monospace,Menlo,monospace;font-size:12.5px">cubic-bezier(.35,0,.25,1)</code> — decelerating, like a head that settles. Spec chips resolve behind it as it passes.</p>
+        </div>
+        <div style="flex:1 1 200px;background:#0c1013;padding:20px 22px">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:#4d8ff5;margin-bottom:9px">Settled</div>
+          <p style="margin:0;font-size:14px;line-height:1.6;color:#8c979e">Line gone. Readout locks: <span style="color:#c3cace">2019 Avanza 1.5 G · 2NR-VE</span>. Result count ticks 217 → 4.</p>
+        </div>
+        <div style="flex:1 1 200px;background:#0c1013;padding:20px 22px">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:#b91c1c;margin-bottom:9px">Reduced motion</div>
+          <p style="margin:0;font-size:14px;line-height:1.6;color:#8c979e">Straight to settled. No sweep, no tick. Non-negotiable — WCAG 2.2.2 and CLAUDE.md rule 3.</p>
+        </div>
+      </div>
+      <p style="margin:20px 0 0;font-size:15px;line-height:1.6;color:#8c979e;max-width:70ch;text-wrap:pretty">The moment worth designing isn't the sweep — it's <strong style="color:#c3cace;font-weight:600">217 → 4</strong>. That number falling is the product working. Right now the page never shows it.</p>
+    </div>
+  </div>
+
+  <!-- R4 the no -->
+  <div style="display:grid;grid-template-columns:132px 1fr;gap:40px;border-top:1px solid rgba(255,255,255,.09);padding:34px 0">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:600;line-height:1;color:#4d8ff5;font-variant-numeric:tabular-nums">04</span>
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;line-height:1.5">Show it<br>saying no</span>
+    </div>
+    <div>
+      <p style="margin:0 0 20px;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">The strongest thing in the round, and the one I'd argue hardest for. Band 2 only ever renders <span style="color:#9dc2fa">✓ Verified Fit</span> — four cards, four ticks, always. A badge that is never withheld proves nothing; decoration also always says yes.</p>
+      <p style="margin:0 0 24px;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">Every mature fitment tool in the category ships the negative badge alongside the positive one. Mobeeli should show a part being <em style="font-style:normal;color:#e8ecef">rejected</em> — not as a bad recommendation, but as the filter doing its job: 217 listings answer “brake pad”, four survive the Avanza's trim and engine.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;max-width:520px">
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 15px;border-radius:3px;background:rgba(47,125,246,.09);border:1px solid rgba(47,125,246,.26)">
+          <span style="color:#5b9bf7;font-size:13px;font-weight:800">✓</span>
+          <span style="font-size:14px;font-weight:600;color:#fff;flex:1">Standard Grade Pads</span>
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:11.5px;color:#9dc2fa">front · 2NR-VE</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 15px;border-radius:3px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);opacity:.55">
+          <span style="color:#b91c1c;font-size:13px;font-weight:800">✕</span>
+          <span style="font-size:14px;font-weight:600;color:#a9b4c6;flex:1;text-decoration:line-through">Ceramic Pad Set</span>
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:11.5px;color:#8c979e">1.3 E only</span>
+        </div>
+      </div>
+      <p style="margin:22px 0 0;font-size:15px;line-height:1.6;color:#8c979e;max-width:70ch;text-wrap:pretty">Red is used strictly as pain/error here, which is contract-legal. This is also the best answer to “make it look less like AI” on the whole list — generated pages are relentlessly affirmative. A product that tells you no is unmistakably a real one.</p>
+    </div>
+  </div>
+
+  <!-- R5 aurora + ids -->
+  <div style="display:grid;grid-template-columns:132px 1fr;gap:40px;border-top:1px solid rgba(255,255,255,.09);padding:34px 0 0">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:600;line-height:1;color:#4d8ff5;font-variant-numeric:tabular-nums">05</span>
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;line-height:1.5">Aurora + ids<br>§4.6 · §4.7</span>
+    </div>
+    <div style="padding-bottom:20px">
+      <p style="margin:0 0 20px;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">Three full-screen shader contexts run permanently, at three different intensities, with no in-view gate — and the 183 KB three chunk sits in the hero's critical path. Collapse to <strong style="color:#e8ecef;font-weight:600">one fixed aurora layer behind the whole page</strong>, revealed by the dark bands and covered by the light ones. Adjacent dark bands then read as one continuous space rather than two separately-decorated boxes, which is the actual fix for the catalog band and the archipelago sitting next to each other.</p>
+      <p style="margin:0 0 20px;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">Intensity responding to scroll is the right instinct, but keep it on the existing rAF-writes-a-CSS-var idiom. <code style="font-family:ui-monospace,Menlo,monospace;font-size:13.5px;color:#9dc2fa">animation-timeline: scroll()</code> is not Baseline — Firefox still has it behind a flag and coverage is around 82–83% — so it can only ever be enhancement on top. Also drop <code style="font-family:ui-monospace,Menlo,monospace;font-size:13.5px;color:#9dc2fa">preserveDrawingBuffer</code>; nothing reads that canvas back.</p>
+      <p style="margin:0 0 24px;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">Every band gets an id, and the DOM order changes so the problem band comes <em style="font-style:normal;color:#e8ecef">before</em> the catalog. That fixes the scrollspy contradiction by correcting the page rather than the nav — and it's the better story anyway: state the problem, then answer it.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:12.5px;padding:7px 12px;border-radius:3px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);color:#c3cace">#top</span>
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:12.5px;padding:7px 12px;border-radius:3px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);color:#c3cace">#problem</span>
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:12.5px;padding:7px 12px;border-radius:3px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);color:#c3cace">#how-it-works</span>
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:12.5px;padding:7px 12px;border-radius:3px;background:rgba(47,125,246,.14);border:1px solid rgba(47,125,246,.3);color:#9dc2fa">#archipelago <span style="color:#6b7479">new</span></span>
+        <span style="font-family:ui-monospace,Menlo,monospace;font-size:12.5px;padding:7px 12px;border-radius:3px;background:rgba(47,125,246,.14);border:1px solid rgba(47,125,246,.3);color:#9dc2fa">#protection <span style="color:#6b7479">new</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- copy for stamp -->
+  <div style="border-top:1px solid rgba(255,255,255,.14);margin-top:44px;padding:34px 0 0">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:600;letter-spacing:-.018em;margin:0 0 10px;color:#e8ecef">New EN strings — unstamped, awaiting your word</h2>
+    <p style="margin:0 0 26px;font-size:15.5px;line-height:1.6;color:#8c979e;max-width:70ch">Nothing here ships until you stamp it, and I haven't written the ID side — you said you'd take that. Existing keys are reused wherever one fit.</p>
+    <div style="background:#0c1013;border:1px solid rgba(255,255,255,.09);border-radius:4px;overflow:hidden;max-width:1000px">
+      <sc-for list="{{ newCopy }}" as="c" hint-placeholder-count="7">
+        <div style="display:grid;grid-template-columns:200px 1fr;gap:24px;padding:15px 22px;border-top:1px solid rgba(255,255,255,.06);align-items:baseline">
+          <span style="font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:#9dc2fa">{{ c.key }}</span>
+          <span style="font-size:14.5px;line-height:1.55;color:#c3cace">{{ c.en }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <p style="margin:24px 0 0;font-size:15px;line-height:1.6;color:#8c979e;max-width:70ch;text-wrap:pretty">One of these is already stamped elsewhere: <em style="font-style:normal;color:#c3cace">“Funds release when the part fits — not just when it ships”</em> is the deck's protected-funds caption from R26. Reusing it keeps the two artifacts saying the same sentence, which is worth more than a fresh line.</p>
+  </div>
+
+  <!-- still open -->
+  <div style="border-top:1px solid rgba(255,255,255,.14);margin-top:44px;padding:34px 0 0">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:600;letter-spacing:-.018em;margin:0 0 20px;color:#e8ecef">Parked, not forgotten</h2>
+    <div style="display:flex;flex-direction:column;gap:0;max-width:76ch">
+      <div style="display:grid;grid-template-columns:26px 1fr;gap:16px;padding:16px 0;border-top:1px solid rgba(255,255,255,.07)">
+        <span style="color:#b91c1c;font-size:15px">●</span>
+        <p style="margin:0;font-size:15.5px;line-height:1.6;color:#c3cace"><strong style="color:#e8ecef;font-weight:600">The catalog numbers.</strong> Band 2 says 19,000+ applications; band 5's pill says 120M+ mappings — <em style="font-style:normal">on the same page</em>. The deck retired 120M+ as unverifiable and now says 190K+ verified edges; <code style="font-family:ui-monospace,Menlo,monospace;font-size:13px">/platform/fitment</code> says 4,521,098. I've left the existing strings untouched in the proposal and made the tiles number-agnostic, so whichever way you rule, the layout holds.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:26px 1fr;gap:16px;padding:16px 0;border-top:1px solid rgba(255,255,255,.07)">
+        <span style="color:#8c979e;font-size:15px">●</span>
+        <p style="margin:0;font-size:15.5px;line-height:1.6;color:#c3cace"><strong style="color:#e8ecef;font-weight:600">EN vs ID “signed”.</strong> You said worry later — noted, not touched. It is still the indexed <code style="font-family:ui-monospace,Menlo,monospace;font-size:13px">/investors</code> meta description, so it wants closing before the next investor send rather than before the next design round.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:26px 1fr;gap:16px;padding:16px 0;border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07)">
+        <span style="color:#8c979e;font-size:15px">●</span>
+        <p style="margin:0;font-size:15.5px;line-height:1.6;color:#c3cace"><strong style="color:#e8ecef;font-weight:600">Platform parity.</strong> The demo is client-rendered, so the URL gives me an empty document — I still can't see what I'm meant to match. Four or five screenshots and I'll fold its material language into the next round.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      splitRows: [
+        { keep: "What Mobeeli is, and who it's for", gate: "7,000+ OE specs · 19,000+ applications · ~500 models" },
+        { keep: "That fitment is verified before checkout — shown working", gate: "120M+ mappings (already retired in the deck for 190K+)" },
+        { keep: "The Senen quote — a person, not a spec", gate: "Any count of shops approached, signed, or in the queue" },
+        { keep: "Protection: video evidence, authenticity, funds on fit", gate: "The fee, the take rate, unit economics, runway" },
+        { keep: "Launching 2026, Jakarta first", gate: "Simulated prices on the part cards" },
+        { keep: "Third-party market facts with a source (100,000+ workshops)", gate: "Anything tagged “(Simulation)” — if it needs the tag, it belongs in the deck" },
+      ],
+      typeScale: [
+        { name: "Display", value: "clamp(2.75rem, 6.6vw, 5.25rem) / 1.02 / 600", use: "Hero H1 only" },
+        { name: "Head", value: "clamp(38px, 4.8vw, 64px) / 1.04 / 600", use: "Every band H2 — including band 2" },
+        { name: "Head · wide", value: "clamp(42px, 5.4vw, 74px) / 1.04 / 600", use: "Full-bleed bands (archipelago)" },
+        { name: "Sub", value: "clamp(22px, 2.2vw, 28px) / 1.2 / 600", use: "Card and column headings" },
+        { name: "Lead", value: "19px / 1.65 / 400", use: "Band intro paragraph" },
+        { name: "Body", value: "16px / 1.7 / 400", use: "Everything else" },
+        { name: "Label", value: "12.5px / 700 / .14em uppercase", use: "Kickers, eyebrows, chips" },
+      ],
+      newCopy: [
+        { key: "prot_h2", en: "Funds release when the part fits — not just when it ships." },
+        { key: "prot_kicker", en: "Protected on both sides" },
+        { key: "prot_lead", en: "The shop in Senen wasn't penalised for selling a bad part. They were penalised because nobody could prove what happened. That's the part we built." },
+        { key: "cat_act1_l", en: "Whatever they send" },
+        { key: "cat_act2_l", en: "Your exact car" },
+        { key: "cat_act3_l", en: "What survives the filter" },
+        { key: "cat_filter_count", en: "217 listings answer “brake pad”. Four of them fit a 2019 Avanza 1.5 G." },
+        { key: "cat_no_fit", en: "Doesn't fit — 1.3 E only" },
+        { key: "cat_fits_vehicle", en: "Fits your Avanza" },
+        { key: "scan_reading", en: "Reading fitment · 1.8s" },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -6,7 +6,16 @@ const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   // .ba/ holds orchestrator specs + design reference files — not product source.
-  globalIgnores(["node_modules/**", ".next/**", "out/**", "next-env.d.ts", ".ba/**"]),
+  // design_handoff_r16_landing/ is the same: Claude Design's .dc.html prototypes
+  // and their bundled support.js are references to build FROM, never shipped.
+  globalIgnores([
+    "node_modules/**",
+    ".next/**",
+    "out/**",
+    "next-env.d.ts",
+    ".ba/**",
+    "design_handoff_r16_landing/**",
+  ]),
 ]);
 
 export default eslintConfig;

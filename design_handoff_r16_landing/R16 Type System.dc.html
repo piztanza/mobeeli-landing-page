@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;600;700&family=Archivo:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Outfit:wght@400;600;700&family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Bricolage+Grotesque:wght@400;600;700;800&family=Syne:wght@600;700;800&family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#090c0f; color:#e8ecef; -webkit-font-smoothing:antialiased; }
+  a { color:#9dc2fa; text-decoration:none; }
+  a:hover { color:#c9dcfc; }
+  ::selection { background:rgba(47,125,246,.3); }
+</style>
+</helmet>
+
+<div style="font-family:Inter,system-ui,sans-serif;background:#090c0f;min-height:100vh">
+
+<section id="t7" style="padding:52px 48px 56px;max-width:1240px;margin:0 auto">
+
+  <div style="display:flex;align-items:baseline;gap:10px;margin:0 0 26px">
+    <span style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;padding:3px 7px;background:#e8ecef;color:#090c0f;border-radius:4px">7</span>
+    <span style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#e8ecef">Page type system — ten pairings</span>
+  </div>
+
+  <h2 style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:600;letter-spacing:-.02em;margin:0 0 16px;color:#e8ecef;max-width:26ch">Ten type systems, each on the same four jobs</h2>
+  <p style="margin:0 0 12px;font-size:16px;line-height:1.62;color:#c3cace;max-width:76ch;text-wrap:pretty">A landing page asks type to do four different jobs, and most pairings are good at three of them. So every row below runs the same set: the <strong style="color:#e8ecef;font-weight:600">eyebrow</strong>, the <strong style="color:#e8ecef;font-weight:600">headline</strong> at band scale, a real <strong style="color:#e8ecef;font-weight:600">body paragraph</strong>, and — the one that eliminates candidates — the <strong style="color:#e8ecef;font-weight:600">spec readout</strong>, where measurements and the 217 → 4 count have to line up and stay legible.</p>
+  <p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#8c979e;max-width:76ch;text-wrap:pretty">Flip the language tweak to see each one carry Indonesian, and watch the line count rather than the look. I measured every row at the specimen's 20ch measure — <strong style="color:#c3cace;font-weight:600">every single one gains a line in ID</strong>, so that part is not a differentiator. What separates them is where they start and how far they fall.</p>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px;max-width:76ch">
+    <sc-for list="{{ wraps }}" as="w" hint-placeholder-count="10">
+      <span style="display:inline-flex;align-items:baseline;gap:7px;border:1px solid {{ w.border }};background:{{ w.bg }};border-radius:5px;padding:5px 10px;font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-variant-numeric:tabular-nums">
+        <span style="color:#e8ecef;font-weight:600">{{ w.id }}</span>
+        <span style="color:{{ w.fg }}">{{ w.txt }}</span>
+      </span>
+    </sc-for>
+  </div>
+  <p style="margin:0 0 34px;font-size:15px;line-height:1.6;color:#8c979e;max-width:76ch;text-wrap:pretty">Six start at two lines in English and land on three — that is the healthy band. <a href="#7c">7c</a>, <a href="#7g">7g</a> and <a href="#7j">7j</a> are already at three before translation, and <a href="#7j">7j</a> reaches six, which is not a headline any more. <a href="#7i">7i</a> is the sleeper: it looks fine in EN and doubles.</p>
+
+  <sc-for list="{{ systems }}" as="s" hint-placeholder-count="10">
+    <div id="{{ s.id }}" style="border-top:1px solid rgba(255,255,255,.09);padding:32px 0;display:grid;grid-template-columns:216px 1fr;gap:38px;scroll-margin-top:16px">
+
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap">
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;padding:3px 7px;background:rgba(255,255,255,.1);color:#e8ecef;border-radius:5px">{{ s.id }}</span>
+          <span style="font-size:13.5px;font-weight:600;color:#e8ecef">{{ s.title }}</span>
+        </div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:11px;line-height:1.55;letter-spacing:.05em;color:#8c979e">{{ s.pair }}</div>
+        <p style="margin:6px 0 0;font-size:13.5px;line-height:1.6;color:#8c979e;text-wrap:pretty">{{ s.note }}</p>
+        <div style="margin-top:6px;padding-top:10px;border-top:1px solid rgba(255,255,255,.07);font-size:12.5px;line-height:1.55;color:#6f7a82;text-wrap:pretty">{{ s.risk }}</div>
+        <div style="margin-top:4px;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:{{ s.tagColor }}">{{ s.tag }}</div>
+      </div>
+
+      <div style="background:#0d1522;border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:32px 34px 30px;min-width:0;display:flex;flex-direction:column;gap:20px">
+        <div style="font-family:{{ s.body }};font-size:calc(12.5px * var(--mb-s,1));font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#5b9bf7">{{ eyebrow }}</div>
+        <h3 style="font-family:{{ s.display }};margin:0;font-size:calc(44px * var(--mb-s,1));line-height:1.05;letter-spacing:{{ s.tracking }};font-weight:{{ s.dw }};color:#fff;max-width:20ch;text-wrap:balance">{{ headline }}</h3>
+        <p style="margin:0;font-family:{{ s.body }};font-size:calc(18px * var(--mb-s,1));line-height:1.65;color:#a9b4c6;max-width:58ch;text-wrap:pretty">{{ para }}</p>
+        <div style="display:flex;align-items:center;gap:26px;flex-wrap:wrap;padding-top:18px;border-top:1px solid rgba(255,255,255,.08)">
+          <div style="font-family:{{ s.mono }};font-size:calc(13px * var(--mb-s,1));font-weight:600;letter-spacing:.03em;color:#9dc2fa;font-variant-numeric:tabular-nums">PCD 4 × 100 · ⌀ 54.1 mm · ET 45</div>
+          <div style="display:flex;align-items:baseline;gap:9px;font-family:{{ s.mono }};font-variant-numeric:tabular-nums">
+            <span style="font-size:calc(28px * var(--mb-s,1));font-weight:600;color:#5f6c7e;text-decoration:line-through;text-decoration-thickness:2px">217</span>
+            <span style="font-size:calc(15px * var(--mb-s,1));color:#5f6c7e">→</span>
+            <span style="font-size:calc(28px * var(--mb-s,1));font-weight:600;color:#fff">4</span>
+          </div>
+          <div style="font-family:{{ s.body }};font-size:calc(13.5px * var(--mb-s,1));font-weight:700;color:#fff;background:rgba(47,125,246,.14);border:1px solid rgba(47,125,246,.3);border-radius:8px;padding:8px 14px">{{ cta }}</div>
+        </div>
+      </div>
+    </div>
+  </sc-for>
+
+  <div style="display:grid;grid-template-columns:216px 1fr;gap:38px;border-top:1px solid rgba(255,255,255,.09);padding:30px 0 0;margin-top:8px">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;line-height:1.5;padding-top:3px">What I'd<br>take</div>
+    <div>
+      <p style="margin:0 0 15px;font-size:16px;line-height:1.62;color:#c3cace;max-width:72ch;text-wrap:pretty"><a href="#7c">7c</a> — Sora over Plus Jakarta Sans, with Space Grotesk kept for specs only. It is a small move from where you already are, it earns the precision claim the whole page is making, and it keeps the Indonesian body font doing the reading. Three faces sounds like a lot; in practice it is one for headlines, one for prose, one for numbers, and each one is doing a job the others can't.</p>
+      <p style="margin:0 0 15px;font-size:16px;line-height:1.62;color:#c3cace;max-width:72ch;text-wrap:pretty">Against it: Sora is wide, and it carries the same 3 → 4 line penalty I flagged as a liability on <a href="#7g">7g</a>. I'm not going to pretend that away. The difference is what the extra line costs — <a href="#7g">7g</a>'s Unbounded is wide <em style="font-style:normal;color:#e8ecef">and</em> a display face you can't use anywhere else, so the cost recurs at every heading size; Sora's is a measure problem, solved by writing a shorter headline or widening the band to 24ch. If you're not willing to touch the headline copy, take <a href="#7a">7a</a> instead — it is the only recommendation here that needs no copy changes at all.</p>
+      <p style="margin:0 0 15px;font-size:16px;line-height:1.62;color:#c3cace;max-width:72ch;text-wrap:pretty">If you want fewer moving parts, <a href="#7a">7a</a> is the honest minimum — one family, already self-hosted, nothing new to load, and the Jakarta provenance is real rather than decorative. If you want the page to look unlike any other parts platform, <a href="#7e">7e</a> is the one that does it, and I'd want to see it on the full page before committing.</p>
+      <p style="margin:0;font-size:15px;line-height:1.6;color:#8c979e;max-width:72ch;text-wrap:pretty">One constraint worth naming: whatever you choose has to be self-hostable. Your repo already self-hosts Plus Jakarta Sans as a variable font rather than calling Google — keeping that pattern matters for load time in Indonesia and for not leaking visitor IPs to a third party. Every option here can be self-hosted; the ones marked <span style="color:#9dc2fa">already loaded</span> cost nothing extra.</p>
+    </div>
+  </div>
+
+  <p style="margin:30px 0 0;font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.5)">Try next: “apply <a href="#7c">7c</a> to the landing page” · “show <a href="#7a">7a</a> and <a href="#7c">7c</a> on the full page” · “<a href="#7e">7e</a> but a different serif”</p>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;lang&quot;: {
+    &quot;editor&quot;: &quot;enum&quot;,
+    &quot;options&quot;: [&quot;EN&quot;, &quot;ID&quot;],
+    &quot;default&quot;: &quot;EN&quot;,
+    &quot;tsType&quot;: &quot;string&quot;,
+    &quot;section&quot;: &quot;Compare&quot;
+  },
+  &quot;scale&quot;: {
+    &quot;editor&quot;: &quot;range&quot;,
+    &quot;min&quot;: 70,
+    &quot;max&quot;: 130,
+    &quot;step&quot;: 5,
+    &quot;default&quot;: 100,
+    &quot;unit&quot;: &quot;%&quot;,
+    &quot;tsType&quot;: &quot;number&quot;,
+    &quot;section&quot;: &quot;Compare&quot;
+  }
+}">
+class Component extends DCLogic {
+  componentDidMount() { this.sync(); }
+  componentDidUpdate() { this.sync(); }
+  sync() {
+    document.documentElement.style.setProperty("--mb-s", String((this.props.scale ?? 100) / 100));
+  }
+  renderVals() {
+    const id = (this.props.lang ?? "EN") === "ID";
+    const PJS = "'Plus Jakarta Sans',sans-serif";
+    const SG = "'Space Grotesk',sans-serif";
+    return {
+      eyebrow: id ? "CARA KERJANYA" : "HOW IT WORKS",
+      headline: id
+        ? "Satu daftar terverifikasi per suku cadang. Tanpa duplikat."
+        : "One verified listing per part. No duplicates.",
+      para: id
+        ? "Lembar Excel, PDF, bahkan foto catatan tulis tangan — AI Mobeeli membaca semuanya dan menyusun satu katalog bersih, dipetakan ke setiap mobil di jalan."
+        : "Excel sheets, PDFs, even photos of handwritten ledgers — Mobeeli's AI reads them all and builds one clean catalog, mapped to every car on the road.",
+      cta: id ? "Gabung Daftar Tunggu" : "Join Waitlist",
+      wraps: [
+        { id: "7a", txt: "2 → 3", fg: "#8c979e", bg: "rgba(255,255,255,.03)", border: "rgba(255,255,255,.1)" },
+        { id: "7b", txt: "2 → 3", fg: "#8c979e", bg: "rgba(255,255,255,.03)", border: "rgba(255,255,255,.1)" },
+        { id: "7c", txt: "3 → 4", fg: "#e3b341", bg: "rgba(227,179,65,.08)", border: "rgba(227,179,65,.28)" },
+        { id: "7d", txt: "2 → 3", fg: "#8c979e", bg: "rgba(255,255,255,.03)", border: "rgba(255,255,255,.1)" },
+        { id: "7e", txt: "2 → 3", fg: "#8c979e", bg: "rgba(255,255,255,.03)", border: "rgba(255,255,255,.1)" },
+        { id: "7f", txt: "2 → 3", fg: "#8c979e", bg: "rgba(255,255,255,.03)", border: "rgba(255,255,255,.1)" },
+        { id: "7g", txt: "3 → 4", fg: "#e3b341", bg: "rgba(227,179,65,.08)", border: "rgba(227,179,65,.28)" },
+        { id: "7h", txt: "2 → 3", fg: "#8c979e", bg: "rgba(255,255,255,.03)", border: "rgba(255,255,255,.1)" },
+        { id: "7i", txt: "2 → 4", fg: "#e3b341", bg: "rgba(227,179,65,.08)", border: "rgba(227,179,65,.28)" },
+        { id: "7j", txt: "3 → 6", fg: "#ef4444", bg: "rgba(239,68,68,.09)", border: "rgba(239,68,68,.3)" },
+      ],
+      systems: [
+        { id: "7a", title: "One family", pair: "PLUS JAKARTA SANS → everything", display: PJS, body: PJS, mono: PJS, dw: 800, tracking: "-.022em",
+          note: "Weight and size carry the whole hierarchy. Nothing new to load, nothing to keep in sync.",
+          risk: "Numbers are proportional by default — the spec row needs tabular figures turned on explicitly, which the CSS here does.",
+          tag: "Already loaded · zero cost", tagColor: "#9dc2fa" },
+        { id: "7b", title: "Where you are now", pair: "SPACE GROTESK → display · PLUS JAKARTA SANS → body", display: SG, body: PJS, mono: SG, dw: 600, tracking: "-.024em",
+          note: "The de facto current system. Technical display, humanist body, specs in the display face.",
+          risk: "Space Grotesk stops at 700 and its quirks get loud at 60px+. Fine at band scale, strained in the hero.",
+          tag: "Already loaded · zero cost", tagColor: "#9dc2fa" },
+        { id: "7c", title: "Instrument precision", pair: "SORA → display · PLUS JAKARTA SANS → body · SPACE GROTESK → specs", display: "Sora,sans-serif", body: PJS, mono: SG, dw: 700, tracking: "-.026em",
+          note: "Squared bowls and flat terminals read as measurement. Closest to what the scan is trying to say.",
+          risk: "Wide: 3 lines in EN, 4 in ID — same penalty as 7g. Fixable by shortening the headline, not by tuning the type. Also, three faces is the practical maximum.",
+          tag: "My recommendation", tagColor: "#5b9bf7" },
+        { id: "7d", title: "Parts-catalogue industrial", pair: "ARCHIVO → display + body · IBM PLEX MONO → specs", display: "Archivo,sans-serif", body: "Archivo,sans-serif", mono: "'IBM Plex Mono',monospace", dw: 700, tracking: "-.02em",
+          note: "American signage lineage. Feels like a workshop wall chart — utilitarian, unglamorous, trustworthy.",
+          risk: "Reads heavy-industry rather than software. Could undercut the AI story you're telling in band 3.",
+          tag: "Two new families", tagColor: "#8c979e" },
+        { id: "7e", title: "Editorial authority", pair: "INSTRUMENT SERIF → display · PLUS JAKARTA SANS → body · SPACE GROTESK → specs", display: "'Instrument Serif',serif", body: PJS, mono: SG, dw: 400, tracking: "-.012em",
+          note: "A serif in a category with none. Says established rather than newly funded — useful when you're pre-launch.",
+          risk: "Highest reward, highest risk. Needs the whole page rebuilt to judge; a specimen row flatters it.",
+          tag: "One new family", tagColor: "#8c979e" },
+        { id: "7f", title: "Contemporary neutral", pair: "OUTFIT → display · MANROPE → body", display: "Outfit,sans-serif", body: "Manrope,sans-serif", mono: "Manrope,sans-serif", dw: 700, tracking: "-.028em",
+          note: "Clean, current, uncontroversial. Manrope's slight quirks keep the body from going lifeless.",
+          risk: "Also what a great many 2024–26 startups look like. Nothing here is memorable.",
+          tag: "Two new families · drops PJS", tagColor: "#8c979e" },
+        { id: "7g", title: "Loud display, quiet body", pair: "UNBOUNDED → display · MANROPE → body", display: "Unbounded,sans-serif", body: "Manrope,sans-serif", mono: "Manrope,sans-serif", dw: 700, tracking: "-.03em",
+          note: "The display face does all the talking. High recall, immediately identifiable.",
+          risk: "Already 3 lines in EN and 4 in ID at this measure. The band grows with it, and the hero would need a shorter headline written for it.",
+          tag: "Two new families · drops PJS", tagColor: "#8c979e" },
+        { id: "7h", title: "Engineering credibility", pair: "IBM PLEX SANS → display + body · IBM PLEX MONO → specs", display: "'IBM Plex Sans',sans-serif", body: "'IBM Plex Sans',sans-serif", mono: "'IBM Plex Mono',monospace", dw: 600, tracking: "-.018em",
+          note: "One superfamily, designed together, with a mono that makes every measurement feel native rather than styled.",
+          risk: "Carries IBM's association strongly. Some read it as rigorous; some read it as enterprise software from 2018.",
+          tag: "Two new families · drops PJS", tagColor: "#8c979e" },
+        { id: "7i", title: "Editorial character", pair: "BRICOLAGE GROTESQUE → display · PLUS JAKARTA SANS → body · SPACE GROTESK → specs", display: "'Bricolage Grotesque',sans-serif", body: PJS, mono: SG, dw: 800, tracking: "-.024em",
+          note: "Warmth from small asymmetries rather than roundness. Distinct without being a costume.",
+          risk: "Doubles from 2 lines to 4 in ID — the worst EN→ID jump after 7j, and invisible until you switch. Separately: the irregularity is intentional, but if it reads as a rendering bug to you here, it will to a visitor.",
+          tag: "One new family", tagColor: "#8c979e" },
+        { id: "7j", title: "Design-forward", pair: "SYNE → display · INTER TIGHT → body", display: "Syne,sans-serif", body: "'Inter Tight',sans-serif", mono: "'Inter Tight',sans-serif", dw: 800, tracking: "-.02em",
+          note: "Unconventional proportions, strong contrast between round and straight. The most art-directed option.",
+          risk: "Breaks 3 lines to 6 in ID — that is no longer a headline. It also signals design studio more than infrastructure, which is the wrong flag for an investor page.",
+          tag: "Two new families · drops PJS", tagColor: "#8c979e" },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>
