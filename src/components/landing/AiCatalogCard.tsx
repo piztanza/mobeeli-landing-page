@@ -13,6 +13,16 @@ const AmbientAurora = dynamic(() => import("@/components/three/AmbientAurora"), 
   ssr: false,
 });
 
+/**
+ * NOT MOUNTED ON `/` since R16 (founder ruling 1a): it told a second, competing
+ * "the catalog" story alongside the working catalog in FitmentSection, so it was
+ * removed from LandingView. The component, its loop and its sprite assets are
+ * deliberately kept — it may earn a home on /why-mobeeli or in the deck. Its CSS
+ * (.mb-cat-section, .mb-cat-card, .mb-cat-stage, .mb-sprite*, .mb-cat-pill,
+ * .mb-file-chip*, .mb-ai-chip*, .mb-cat-h2, .mb-cat-p) stays in landing.css for
+ * the same reason — it is not dead, it is unmounted.
+ */
+
 import {
   BLOOM_DUR_MS,
   BLOOM_STAGGER_MS,

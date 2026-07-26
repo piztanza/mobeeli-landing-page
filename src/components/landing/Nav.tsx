@@ -25,10 +25,16 @@ export const PLATFORM_URL = "https://mobilee-demo.vercel.app/platform";
 // Landing anchors are /#id links so they resolve from every page, not just /
 // (CHG-piztanza-09); Team, Investors and Why Mobeeli (the data page) live on
 // their own routes; the Early Adopters slot is an external platform link.
+/**
+ * R16 ruling 1c adds a Protection anchor, which would have made SEVEN links
+ * against the 1040px breakpoint — they do not fit. Founder ruling: drop
+ * "Why Mobeeli" from the bar (the /why-mobeeli route stays live, indexed and
+ * reachable from the footer and in-page links) rather than Investors.
+ */
 const NAV_LINKS: readonly (readonly [href: string, key: CopyKey])[] = [
   ["/#problem", "nav_problem"],
   ["/#how-it-works", "nav_how"],
-  ["/why-mobeeli", "nav_why"],
+  ["/#protection", "nav_protect"],
   [PLATFORM_URL, "nav_early"],
   ["/team", "nav_team"],
   ["/investors", "nav_inv"],

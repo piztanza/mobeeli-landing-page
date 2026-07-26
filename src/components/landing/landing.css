@@ -895,6 +895,16 @@ button.mb-buyer-cta:active {
   margin-top: 6px;
 }
 
+/* R16 ruling 2b: the fitment spec that replaced the simulated price. Accent
+   colour + tabular numerals so the measurements read as instrument output. */
+.mb-cat-card-spec {
+  margin-top: 8px;
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  color: var(--mb-light-accent);
+  font-variant-numeric: tabular-nums;
+}
+
 .mb-sim-tag {
   font-size: 10px;
   color: var(--mb-dark-muted);
@@ -2610,33 +2620,60 @@ button.mb-buyer-cta:active {
   font-size: 13px;
   margin-bottom: 6px;
 }
-.mb-fit-protect {
-  margin-top: 36px;
-  padding: 24px;
-  background: rgba(13, 21, 34, 0.65);
-  border: 1px solid var(--mb-hairline-subtle);
-  border-radius: var(--mb-radius-card);
-  backdrop-filter: blur(12px);
+/* R16 ruling 1c: protection is its own light band now. The rules that styled the
+   old dark strip nested inside the fitment section were removed — that strip
+   stopped rendering when R15 replaced the section, so they matched nothing. */
+
+/* ---------- protection band (R16) ---------- */
+
+.mb-protect {
+  background: var(--mb-surface);
+  border-top: 1px solid var(--mb-border);
 }
-.mb-fit-protect-head {
+.mb-h2--protect {
+  max-width: 760px;
+  text-wrap: balance;
+}
+/* Hairline grid: 1px gaps over the border colour, white cells sitting on top. */
+.mb-protect-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 1px;
+  margin-top: 44px;
+  background: var(--mb-border);
+  border: 1px solid var(--mb-border);
+  border-radius: var(--mb-radius-card);
+  overflow: hidden;
+}
+.mb-protect-cell {
+  background: var(--mb-surface);
+  padding: 30px 28px 34px;
+}
+.mb-protect-cell-head {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
-  margin-bottom: 16px;
+  color: var(--mb-deep-blue);
 }
-.mb-fit-protect-title {
-  font-size: 18px;
+.mb-protect-icon {
+  flex: none;
+}
+.mb-protect-num {
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  color: var(--mb-muted-2);
+  font-variant-numeric: tabular-nums;
+}
+.mb-protect-t {
+  margin: 18px 0 0;
+  font-size: 17px;
+  line-height: 1.45;
   font-weight: 700;
-  color: #fff;
-}
-.mb-step-stack--row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.mb-step-stack--row .mb-prot-row {
-  flex: 1;
-  min-width: 220px;
+  letter-spacing: -0.01em;
+  color: var(--mb-ink);
+  text-wrap: pretty;
 }
 
 /* ==========================================================================

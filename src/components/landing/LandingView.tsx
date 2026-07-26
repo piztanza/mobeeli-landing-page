@@ -6,27 +6,31 @@ import { useScrollReveal } from "@/lib/hooks/useScrollReveal";
 import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
 
 import ActiveSectionProvider from "./ActiveSectionProvider";
-import AiCatalogCard from "./AiCatalogCard";
 import BuyerStrip from "./BuyerStrip";
 import FitmentSection from "./FitmentSection";
 import Footer from "./Footer";
 import Hero from "./Hero";
 import Nav from "./Nav";
 import ProblemSection from "./ProblemSection";
+import ProtectionSection from "./ProtectionSection";
 import SkipLink from "./SkipLink";
 import UnifyBand from "./UnifyBand";
 
 import "./landing.css";
 
 /**
- * Landing page (F-001, slimmed in the redesign) — the founder-approved
- * Variant-B band stack, alternating dark/light:
- * nav (overlay) → hero (dark, full viewport) → fitment (dark, full section) →
- * problem slim (light) → unify band (dark, full section) → AI catalog demo
- * (dark card, returned to the front page by founder decision 2026-07-23) →
- * buyer strip → footer. The data bands (proof bar, pain tiles, search
- * comparison, why-now) live on /why-mobeeli; Team and Investors keep their
- * own routes (CHG-piztanza-09, via SectionPage).
+ * Landing page (F-001) — the band stack, alternating dark/light (R16):
+ * nav (overlay) → hero (dark, full viewport) → catalog (dark, id="how-it-works")
+ * → problem (light, id="problem") → coverage (dark, id="coverage") →
+ * protection (light, id="protection") → buyer strip (id="waitlist") → footer.
+ *
+ * R16 ruling 1a: AiCatalogCard is no longer mounted here — it told a second,
+ * competing "the catalog" story next to the working one in FitmentSection. The
+ * component is deliberately KEPT in the repo (it is well built and may earn a
+ * home on /why-mobeeli or in the deck); it simply is not on `/`.
+ *
+ * The data bands (proof bar, pain tiles, search comparison, why-now) live on
+ * /why-mobeeli; Team and Investors keep their own routes (CHG-piztanza-09).
  * Scroll-reveal runs on [data-rev] elements and is disabled under
  * prefers-reduced-motion; the scrollspy silently tracks the active section.
  */
@@ -44,7 +48,7 @@ export default function LandingView() {
             <FitmentSection />
             <ProblemSection />
             <UnifyBand />
-            <AiCatalogCard />
+            <ProtectionSection />
             <BuyerStrip />
           </main>
           <Footer />

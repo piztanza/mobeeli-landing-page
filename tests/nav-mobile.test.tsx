@@ -17,7 +17,7 @@ const joinCss = readFileSync(new URL("../src/components/join/join.css", import.m
 const NAV_HREFS = [
   "/#problem",
   "/#how-it-works",
-  "/why-mobeeli",
+  "/#protection",
   "https://mobilee-demo.vercel.app/platform",
   "/team",
   "/investors",

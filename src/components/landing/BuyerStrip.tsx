@@ -61,7 +61,7 @@ export default function BuyerStrip() {
   };
 
   return (
-    <section ref={glowRef} className="mb-buyer">
+    <section id="waitlist" ref={glowRef} className="mb-buyer">
       <div className="mb-buyer-inner mb-glow-card">
         <div className="mb-buyer-line">{t("buyer_line")}</div>
         {success ? (
