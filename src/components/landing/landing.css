@@ -793,38 +793,219 @@ button.mb-buyer-cta:active {
   mix-blend-mode: screen;
 }
 
-/* R16 Bug A: the sweep now runs ONLY while a scan is in flight. It previously
-   carried `animation: mb-cat-scan 1.5s infinite linear` unconditionally, so what
-   read as a "scan" was permanent idle motion — and the .is-scanning class the
-   component sets styled nothing at all (zero occurrences in this file). */
+/* ── R16 §8, founder ruling 4a — the scan is a clinical measurement ──────────
+   An instrument reading a vehicle, not a decorative sweep: a line traverses the
+   frame top-to-bottom and pins each dimension to the point on the car it was
+   read from. One 1800ms pass = SCAN_DURATION_MS in FitmentSection.tsx.
+
+     acquire   0-216ms   (0-12%)   line fades in at the top of the frame
+     traverse  216-1314ms (12-73%) line travels 139px down the 140px frame
+     settle    1314-1800ms (73-100%) line fades out, the locked readout holds
+
+   Bug A discipline: every animation in this group is gated behind .is-scanning
+   and every element rests at opacity 0. Nothing here may move while the band is
+   idle — the original bug was an unconditional `infinite` sweep that read as
+   permanent motion while .is-scanning styled nothing at all.
+   Bug B discipline: see the reduced-motion block that closes this group. */
+
+/* Measurement grid behind the vehicle — the frame reads as an instrument
+   viewport rather than a photo. Static; it never animates. */
+.mb-cat-car-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(47, 125, 246, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(47, 125, 246, 0.06) 1px, transparent 1px);
+  background-size: 18px 18px;
+  pointer-events: none;
+}
+
 .mb-cat-scan-line {
   position: absolute;
   top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to right, transparent, rgba(47, 125, 246, 0.5), transparent);
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #7cb0f9;
+  box-shadow: 0 0 14px 3px rgba(47, 125, 246, 0.65);
   opacity: 0;
+  pointer-events: none;
 }
 /* One pass, 1800ms — matches SCAN_DURATION_MS in FitmentSection.tsx. The old
    1.5s vs 1800ms mismatch cut the sweep off mid-pass (R16 diagnosis #5). */
 .mb-cat-car-wrapper.is-scanning .mb-cat-scan-line {
-  opacity: 1;
   animation: mb-cat-scan 1800ms linear 1 forwards;
 }
 
 @keyframes mb-cat-scan {
-  0% { left: -100%; }
-  100% { left: 100%; }
+  0% { transform: translateY(0); opacity: 0; }
+  12% { transform: translateY(0); opacity: 1; }
+  73% { transform: translateY(139px); opacity: 1; }
+  86% { transform: translateY(139px); opacity: 0; }
+  100% { transform: translateY(139px); opacity: 0; }
 }
 
-/* R16 Bug B: the infinite sweep had no reduced-motion gate at all, so it ran for
-   users who explicitly asked for no motion. The scan result still lands (the
-   component's state change is unaffected) — only the travel is suppressed. */
+/* The readout layer: three measurement callouts + the lock. aria-hidden in the
+   markup — see the note in FitmentSection.tsx. */
+.mb-cat-scan-readout {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Each callout is anchored at the point the line crosses at its own trigger
+   time, so the dot appears exactly under the line as it passes: 500ms -> 36px,
+   800ms -> 74px, 1020ms -> 102px along the 139px traverse. x is a percentage so
+   the anchors hold when the frame goes full-width under 640px. */
+.mb-cat-scan-callout {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.mb-cat-scan-callout--1 { left: 9.5%; top: 36px; }
+.mb-cat-scan-callout--2 { left: 67.7%; top: 74px; }
+.mb-cat-scan-callout--3 { left: 14%; top: 102px; }
+
+.mb-cat-scan-dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--mb-light-accent);
+  box-shadow: 0 0 8px 2px rgba(47, 125, 246, 0.8);
+  opacity: 0;
+}
+
+.mb-cat-scan-leader {
+  position: absolute;
+  top: 2px;
+  height: 1px;
+  background: rgba(91, 155, 247, 0.5);
+  opacity: 0;
+}
+/* Callout 2 sits on the right of the frame, so its leader grows leftward. */
+.mb-cat-scan-callout--1 .mb-cat-scan-leader { left: 5px; width: 74px; transform-origin: left center; }
+.mb-cat-scan-callout--2 .mb-cat-scan-leader { left: -67px; width: 62px; transform-origin: right center; }
+.mb-cat-scan-callout--3 .mb-cat-scan-leader { left: 5px; width: 58px; transform-origin: left center; }
+
+.mb-cat-scan-val {
+  position: absolute;
+  top: 2px;
+  white-space: nowrap;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #9dc2fa;
+  /* The frame is dark but the vehicle plate is screen-blended, so the label can
+     land on a lit area — keep it legible without changing the flat look. */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+  opacity: 0;
+  transform: translateY(-50%);
+}
+.mb-cat-scan-callout--1 .mb-cat-scan-val { left: 82px; }
+.mb-cat-scan-callout--2 .mb-cat-scan-val { left: -124px; }
+.mb-cat-scan-callout--3 .mb-cat-scan-val { left: 66px; }
+
+.mb-cat-scan-lock {
+  position: absolute;
+  left: 10px;
+  bottom: 9px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+}
+.mb-cat-scan-lock-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--mb-light-accent);
+}
+.mb-cat-scan-lock-t {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #c7cfdd;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+  white-space: nowrap;
+}
+
+/* The stagger — one value is read at a time, all on the same easing. Delays are
+   absolute positions inside the 1800ms pass, so the readout stays locked to the
+   line no matter which trigger (picker or plate) started the scan. */
+.mb-cat-car-wrapper.is-scanning .mb-cat-scan-dot {
+  animation: mb-cat-scan-dot 300ms cubic-bezier(0.2, 0.7, 0.2, 1) 1 both;
+}
+.mb-cat-car-wrapper.is-scanning .mb-cat-scan-leader {
+  animation: mb-cat-scan-leader 450ms cubic-bezier(0.2, 0.7, 0.2, 1) 1 both;
+}
+.mb-cat-car-wrapper.is-scanning .mb-cat-scan-val {
+  animation: mb-cat-scan-val 500ms cubic-bezier(0.2, 0.7, 0.2, 1) 1 both;
+}
+.mb-cat-car-wrapper.is-scanning .mb-cat-scan-callout--1 .mb-cat-scan-dot,
+.mb-cat-car-wrapper.is-scanning .mb-cat-scan-callout--1 .mb-cat-scan-leader { animation-delay: 500ms; }
+.mb-cat-car-wrapper.is-scanning .mb-cat-scan-callout--1 .mb-cat-scan-val { animation-delay: 550ms; }
+.mb-cat-car-wrapper.is-scanning .mb-cat-scan-callout--2 .mb-cat-scan-dot,
+.mb-cat-car-wrapper.is-scanning .mb-cat-scan-callout--2 .mb-cat-scan-leader { animation-delay: 800ms; }
+.mb-cat-car-wrapper.is-scanning .mb-cat-scan-callout--2 .mb-cat-scan-val { animation-delay: 850ms; }
+.mb-cat-car-wrapper.is-scanning .mb-cat-scan-callout--3 .mb-cat-scan-dot,
+.mb-cat-car-wrapper.is-scanning .mb-cat-scan-callout--3 .mb-cat-scan-leader { animation-delay: 1020ms; }
+.mb-cat-car-wrapper.is-scanning .mb-cat-scan-callout--3 .mb-cat-scan-val { animation-delay: 1070ms; }
+.mb-cat-car-wrapper.is-scanning .mb-cat-scan-lock {
+  animation: mb-cat-scan-lock 500ms cubic-bezier(0.2, 0.7, 0.2, 1) 1300ms 1 both;
+}
+
+/* Each `to` state equals the element's resting style, so the reduced-motion
+   block below only has to raise opacity — there is no transform to unwind. */
+@keyframes mb-cat-scan-dot {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes mb-cat-scan-leader {
+  from { transform: scaleX(0); opacity: 0; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+@keyframes mb-cat-scan-val {
+  from { transform: translate(-5px, -50%); opacity: 0; }
+  to { transform: translate(0, -50%); opacity: 1; }
+}
+@keyframes mb-cat-scan-lock {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* R16 Bug B: the original infinite sweep had no reduced-motion gate at all, so
+   it ran for users who explicitly asked for no motion.
+   The reading is information, not decoration — so reduced motion shows the
+   FINISHED result: every callout and the lock, present immediately, with no
+   travel. Withholding the answer from the people who asked for no motion would
+   be the wrong fix. Only the traversing line is suppressed. */
 @media (prefers-reduced-motion: reduce) {
   .mb-cat-car-wrapper.is-scanning .mb-cat-scan-line {
     animation: none;
     opacity: 0;
+  }
+  /* A media query adds no specificity, so cancelling the stagger needs the SAME
+     two-class selector the .is-scanning rules use — `.mb-cat-car-wrapper
+     .mb-cat-scan-dot` (0,2,0) would silently lose to (0,3,0) and the animation
+     would keep running for exactly the users it is meant to spare. */
+  .mb-cat-car-wrapper.is-scanning .mb-cat-scan-dot,
+  .mb-cat-car-wrapper.is-scanning .mb-cat-scan-leader,
+  .mb-cat-car-wrapper.is-scanning .mb-cat-scan-val,
+  .mb-cat-car-wrapper.is-scanning .mb-cat-scan-lock {
+    animation: none;
+  }
+  /* Held at rest too, not just mid-scan: with no travel to watch, the frame is
+     simply a labelled diagram. */
+  .mb-cat-car-wrapper .mb-cat-scan-dot,
+  .mb-cat-car-wrapper .mb-cat-scan-leader,
+  .mb-cat-car-wrapper .mb-cat-scan-val,
+  .mb-cat-car-wrapper .mb-cat-scan-lock {
+    opacity: 1;
   }
 }
 

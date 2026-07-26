@@ -126,6 +126,15 @@ const en = {
   cat_part_verified: "Verified Fit",
   cat_filter_active: "Filter Active",
   cat_car_alt: "Catalog vehicle blueprint",
+  /* R16 §8 (ruling 4a): the scan's measurement callouts. The bore value reuses
+     fit3d_bore_v rather than duplicating it. These read the same illustrative
+     Avanza the catalogue cards above already describe (cat_part1_spec is
+     "2NR-VE"), so the whole readout stays one coherent vehicle — per-model
+     geometry is real data nobody has stamped.
+     DRAFT WORDING — founder to confirm EN and ID before this is treated as final. */
+  cat_scan_pcd: "PCD 4 × 100",
+  cat_scan_offset: "offset ET 45",
+  cat_scan_lock: "2019 Avanza 1.5 G · 2NR-VE",
   garage_plate_label: "Or enter Plate / VIN",
   garage_plate_placeholder: "e.g. B 1234 CD or VIN",
   garage_plate_btn: "Find Vehicle",
@@ -461,6 +470,15 @@ const id: Record<CopyKey, string> = {
   cat_part_verified: "Terverifikasi Cocok",
   cat_filter_active: "Filter Aktif",
   cat_car_alt: "Cetak biru kendaraan katalog",
+  /* R16 §8 (ruling 4a) — measurement callouts. These are engineering tokens
+     that do not translate: "PCD", "ET" and the engine code 2NR-VE are used
+     as-is in Indonesian workshop parlance, exactly as cat_part3_spec already
+     ships "ET 45" in the ID map. The bore callout reuses fit3d_bore_v, which
+     already carries the comma decimal ("⌀ 54,1 mm").
+     DRAFT WORDING — founder to confirm before this is treated as final. */
+  cat_scan_pcd: "PCD 4 × 100",
+  cat_scan_offset: "offset ET 45",
+  cat_scan_lock: "2019 Avanza 1.5 G · 2NR-VE",
   garage_plate_label: "Atau masukkan Plat / Noka",
   garage_plate_placeholder: "misal B 1234 CD atau Noka",
   garage_plate_btn: "Cari Kendaraan",
