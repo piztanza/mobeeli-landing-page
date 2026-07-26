@@ -13,6 +13,14 @@ const AmbientAurora = dynamic(() => import("@/components/three/AmbientAurora"), 
 });
 
 /**
+ * How long a scan runs, in ms. The CSS sweep
+ * (`.mb-cat-car-wrapper.is-scanning .mb-cat-scan-line`) is authored to the same
+ * number — a contract test asserts the two agree, so they can't drift apart
+ * again (they were 1800ms vs 1.5s, which cut the sweep off mid-pass).
+ */
+export const SCAN_DURATION_MS = 1800;
+
+/**
  * Unified catalog (R15) — the second section: a vehicle picker (YMM + plate/VIN)
  * that persists to a localStorage "garage", then a filtered catalog of real
  * part cards with honest "(Simulation)" price tags and a "verified fit" badge.
@@ -57,7 +65,7 @@ export default function FitmentSection() {
     setTimeout(() => {
       setIsScanning(false);
       saveGarage(`${m} ${mod} ${tr} ${y}`);
-    }, 1800);
+    }, SCAN_DURATION_MS);
   };
 
   const handleVinSubmit = (e: React.FormEvent) => {
@@ -72,7 +80,7 @@ export default function FitmentSection() {
       setIsScanning(false);
       saveGarage("Toyota Avanza 1.5 G CVT 2019");
       setVin("");
-    }, 1800);
+    }, SCAN_DURATION_MS);
   };
 
   // `as const` keeps each `key` a literal CopyKey, so t(part.key) is type-safe
@@ -92,29 +100,23 @@ export default function FitmentSection() {
         <div className="mb-fit3d-layout">
           {/* Left Column */}
           <div className="mb-fit3d-col mb-fit3d-col--left">
+            {/* R16 ruling 2b: the simulated stat tiles (OE specs / applications /
+                models) are gone. The landing page is a company profile, not a
+                pitch deck — it may say what Mobeeli is, not how big the
+                catalogue is. */}
             <h2 data-rev="0" className="mb-h2 mb-h2--fit3d mb-ucat-h2">
               {t("cat_unified_h2")}
             </h2>
-            <div className="mb-cat-stats">
-              <div className="mb-cat-stat">
-                <span className="mb-cat-stat-v">{t("cat_unified_stat1_v")}</span>
-                <span className="mb-cat-stat-l">{t("cat_unified_stat1_l")}</span>
-              </div>
-              <div className="mb-cat-stat">
-                <span className="mb-cat-stat-v">{t("cat_unified_stat2_v")}</span>
-                <span className="mb-cat-stat-l">{t("cat_unified_stat2_l")}</span>
-              </div>
-              <div className="mb-cat-stat">
-                <span className="mb-cat-stat-v">{t("cat_unified_stat3_v")}</span>
-                <span className="mb-cat-stat-l">{t("cat_unified_stat3_l")}</span>
-              </div>
-            </div>
           </div>
 
           {/* Right Column */}
           <div className="mb-fit3d-col mb-fit3d-col--right">
             <div className="mb-cat-top-row">
-              <div key={counter} className="mb-ymm-container mb-cat-ymm" suppressHydrationWarning>
+              <div
+                key={counter}
+                className="mb-ymm-container mb-cat-ymm mb-glass"
+                suppressHydrationWarning
+              >
                 <div className="mb-step-badge-row">
                   <label
                     className="mb-ymm-label"
@@ -229,7 +231,7 @@ export default function FitmentSection() {
 
             <div className="mb-cat-grid">
               {parts.map((part, i) => (
-                <div key={i} className="mb-ucat-card">
+                <div key={i} className="mb-ucat-card mb-glass">
                   <div className="mb-cat-card-img-wrap">
                     <Image
                       src={part.img}

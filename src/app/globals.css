@@ -52,11 +52,13 @@
    system) — NOT part of the .ba/design/style.json contract block above, same
    register as the a11y tokens below. */
 :root {
-  /* R7 type system — matches the platform: Space Grotesk display + Inter body
-     (next/font, self-hosted). --mb-font (Plus Jakarta Sans) stays a fallback. */
-  --mb-font-text: var(--font-inter), system-ui, -apple-system, sans-serif;
-  --mb-font-display:
-    var(--font-space-grotesk), var(--font-inter), system-ui, -apple-system, sans-serif;
+  /* R16 type system (founder ruling 7a): ONE family. Plus Jakarta Sans is
+     self-hosted above as a variable font (200-800), so display and text are the
+     same face at different weights — hierarchy comes from weight and size, not
+     from a second family. Supersedes the R7 Space Grotesk + Inter pairing;
+     next/font no longer loads anything. Drawn by Tokotype for Jakarta. */
+  --mb-font-text: var(--mb-font);
+  --mb-font-display: var(--mb-font);
   --mb-ink-dp1: #0a1019;
   --mb-ink-dp2: #111927;
   --mb-ink-dp3: #16202f;
@@ -73,11 +75,12 @@
   --mb-danger-on-dark: #f87171; /* danger tint legible on the near-black /why-mobeeli cards */
 }
 
-/* Proposal #8: Space Grotesk numeric data treatment */
+/* Numeric data treatment — tabular figures so digits align in columns.
+   (Was "Space Grotesk numeric treatment"; under R16 ruling 7a the display face
+   IS Plus Jakarta Sans, which ships tabular figures upstream.) */
 .mb-num-display,
 .mb-card-part-price,
 .mb-fitment-label-value,
-
 .mb-ds-badge {
   font-family: var(--mb-font-display);
   font-feature-settings: "tnum";
@@ -112,7 +115,10 @@ h1,
 h2,
 h3 {
   font-family: var(--mb-font-display);
-  font-weight: 600;
+  /* R16 (ruling 7a): with one family, weight carries the hierarchy. 800 is a
+     real instance of the PJS variable axis (200-800) — under the old Space
+     Grotesk display face it would have faux-bolded, which is why R8 pinned 600. */
+  font-weight: 800;
   text-wrap: balance;
   /* Long single words (esp. rotating ID tokens) break instead of clipping the
      grid track (audit #19). */

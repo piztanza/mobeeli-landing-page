@@ -76,10 +76,16 @@ describe("R15 catalog — i18n & honesty", () => {
   it("labels every catalog number as a Simulation (honesty contract)", () => {
     expect(t("en", "cat_sim_tag")).toBe("(Simulation)");
     expect(t("id", "cat_sim_tag")).toBe("(Simulasi)");
-    for (const k of ["cat_unified_stat1_l", "cat_unified_stat2_l", "cat_unified_stat3_l"] as const) {
-      expect(t("en", k)).toContain("(Simulation)");
-      expect(t("id", k)).toContain("(Simulasi)");
-    }
+  });
+
+  // R16 ruling 2b: the landing page is a company profile, not a pitch deck. The
+  // simulated catalogue-size tiles are gone and must not come back — the honesty
+  // fix for a fabricated figure is to remove it, not to label it.
+  it("ships no catalogue-size stat tiles at all", () => {
+    const copySrc = readFileSync(new URL("../src/lib/i18n/copy.ts", import.meta.url), "utf8");
+    expect(copySrc).not.toContain("cat_unified_stat");
+    expect(src).not.toContain("mb-cat-stats");
+    expect(css).not.toContain(".mb-cat-stat");
   });
 });
 
@@ -92,7 +98,7 @@ describe("R15 catalog — CSS contracts (contrast + no class collision)", () => 
   });
 
   it("keeps secondary catalog text legible on the dark surface (dark-muted, not light-band muted)", () => {
-    expect(css).toMatch(/\.mb-cat-stat-l \{[^}]*color: var\(--mb-dark-muted\);/s);
+    // (.mb-cat-stat-l was dropped in R16 with the stat tiles.)
     expect(css).toMatch(/\.mb-cat-card-brand \{[^}]*color: var\(--mb-dark-muted\);/s);
     expect(css).toMatch(/\.mb-sim-tag \{[^}]*color: var\(--mb-dark-muted\);/s);
   });
