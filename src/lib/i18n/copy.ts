@@ -148,6 +148,36 @@ const en = {
   garage_chip_clear: "Clear",
   how_s3_t: "Check out protected",
 
+  /* R20 band 2a — platform-flow Sankey. The industry-scale "how it works": three
+     parties push data in, it is verified in one core, three consume it out. No
+     figures (front page is a profile, not a pitch). DRAFT WORDING — founder
+     approves EN and confirms ID; party names match hero_sub_short's ID. */
+  plat_kicker: "Across the industry",
+  plat_h2: "Five parties. One platform in the middle.",
+  plat_p:
+    "Today the same part is described five times by five people who never speak to each other. That is where the wrong part comes from — not from anyone being careless.",
+  plat_src1_t: "Brands",
+  plat_src1_s: "publish once",
+  plat_src2_t: "Distributors",
+  plat_src2_s: "send anything",
+  plat_src3_t: "Stores",
+  plat_src3_s: "even a ledger photo",
+  plat_dst1_t: "Stores",
+  plat_dst1_s: "list without retyping",
+  plat_dst2_t: "Mechanics",
+  plat_dst2_s: "order for the car in the bay",
+  plat_dst3_t: "Drivers",
+  plat_dst3_s: "see only what fits",
+  plat_hub: "The platform",
+  plat_in_xls: "Excel file",
+  plat_in_pdf: "PDF file",
+  plat_in_jpg: "Photo of a handwritten ledger",
+  plat_out: "verified",
+  /* Accessible flow summary — the SVG/stack visuals are aria-hidden; this single
+     sentence is what a screen reader announces for the figure. */
+  plat_a11y:
+    "Brands, distributors and stores send parts data in any format to the Mobeeli platform, which verifies it. Stores, mechanics and drivers then receive one clean, verified catalog.",
+
   why_ds_title: "The Analog Margin Bleed.",
   why_ds_sub: "Today's B2B parts distribution network is broken for both sides.",
   why_ds_c1_t: "The 4-Tier Margin Bleed",
@@ -496,6 +526,36 @@ const id: Record<CopyKey, string> = {
   garage_chip_label: "Garasi Saya",
   garage_chip_clear: "Hapus",
   how_s3_t: "Checkout dengan tenang",
+
+  /* R20 band 2a. The five party names are taken VERBATIM from this map's own
+     hero_sub_short ("Merek, distributor, toko, mekanik, dan pengemudi") so the
+     page names the parties one consistent way. "suku cadang" follows the hero
+     rather than prob_h2's "onderdil" — the formal register, since this band
+     addresses the industry. "terverifikasi" matches cat_verified_note and
+     cat_part_verified. DRAFT WORDING — founder to confirm. */
+  plat_kicker: "Di seluruh industri",
+  plat_h2: "Lima pihak. Satu platform di tengah.",
+  plat_p:
+    "Hari ini suku cadang yang sama dideskripsikan lima kali oleh lima pihak yang tidak pernah saling bicara. Dari situlah salah beli berasal — bukan karena ada yang ceroboh.",
+  plat_src1_t: "Merek",
+  plat_src1_s: "publikasi sekali",
+  plat_src2_t: "Distributor",
+  plat_src2_s: "kirim format apa pun",
+  plat_src3_t: "Toko",
+  plat_src3_s: "bahkan foto buku catatan",
+  plat_dst1_t: "Toko",
+  plat_dst1_s: "pasang tanpa ketik ulang",
+  plat_dst2_t: "Mekanik",
+  plat_dst2_s: "pesan untuk mobil di bengkel",
+  plat_dst3_t: "Pengemudi",
+  plat_dst3_s: "lihat hanya yang cocok",
+  plat_hub: "Platform",
+  plat_in_xls: "File Excel",
+  plat_in_pdf: "File PDF",
+  plat_in_jpg: "Foto buku catatan tulis tangan",
+  plat_out: "terverifikasi",
+  plat_a11y:
+    "Merek, distributor, dan toko mengirim data suku cadang dalam format apa pun ke platform Mobeeli, yang memverifikasinya. Toko, mekanik, dan pengemudi kemudian menerima satu katalog terverifikasi yang bersih.",
 
   why_ds_title: "Lingkaran Setan Analog.",
   why_ds_sub: "Jaringan distribusi suku cadang saat ini merugikan kedua belah pihak.",

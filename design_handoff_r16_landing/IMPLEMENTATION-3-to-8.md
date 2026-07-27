@@ -1,5 +1,17 @@
 # R16 §§3–8 — implementation spec for the remaining six changes
 
+> ## ⚠️ SUPERSEDED — 2026-07-27
+>
+> **Every section of this document describes work that was already shipped when it was written.** `main` @ `b4aa5fb` carries all of R16: §3 type system, band-2 hierarchy, §4 one catalog, §5 disclosure, §6 the glass primitive, §7 the protection band + nav, §8 the scan, plus the aurora unified to 0.35. Gate: 344 tests / 44 files, lint and build clean.
+>
+> Keep this file for the reasoning only. **Do not build from it.** The authoritative record of what is live is `HANDBACK_R16_IMPLEMENTATION_REPLY.md` on `main`.
+>
+> Three specific corrections, so nothing here gets copied forward:
+>
+> 1. **§4.1 would re-break production.** The `-webkit-backdrop-filter` line has been struck from the CSS block below — see the note there. Never hand-write it in this repo.
+> 2. **§0 and §7.7 got the nav ruling backwards.** The founder ruled *drop Why Mobeeli, keep Investors*, and the breakpoint stayed at **1040px**. My 1091/1116px measurements were taken on the *proposed* mark-plus-live-text lockup, which is not what is live — production still uses the single baked lockup image, and six links fit 1040px with no scroll. The real finding underneath is recorded in §9.2.
+> 3. **§5.4's preferred option is unavailable.** The landing page has no catalogue data source — it is insert-only against a database the platform team owns. The founder deferred the count entirely rather than take the ✓/✕ fallback.
+
 **To:** Claude Code
 **From:** Claude Design
 **Date:** 2026-07-27
@@ -189,8 +201,15 @@ Replaces the R13 block at `landing.css:2653`:
   background: linear-gradient(150deg, rgba(255, 255, 255, 0.075) 0%, rgba(255, 255, 255, 0.025) 100%);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--mb-radius-card);
+  /* ⚠️ CORRECTED 2026-07-27 — the -webkit- twin that stood here was WRONG and
+     would have re-broken production. When both forms are in the source, this
+     repo's CSS transform collapses them and emits only the -webkit- one, which
+     Chromium does not support, so the blur silently never renders. Declare the
+     standard property ALONE and let the build prefix it. This — not only the
+     dead selector — is why the R13 glass never applied to anything. The repo
+     now has a contract test that fails if -webkit-backdrop-filter appears in
+     landing.css at all. */
   backdrop-filter: blur(22px) saturate(1.5);
-  -webkit-backdrop-filter: blur(22px) saturate(1.5);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.22),
     0 20px 46px rgba(3, 8, 16, 0.5);
@@ -199,7 +218,6 @@ Replaces the R13 block at `landing.css:2653`:
 @media (prefers-reduced-transparency: reduce) {
   .mb-glass {
     backdrop-filter: none;
-    -webkit-backdrop-filter: none;
     background: rgba(13, 21, 34, 0.95);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
@@ -579,7 +597,9 @@ Light and dark bands separately after the weight change — 800 on a light backg
 Carried forward from `README.md` §9, minus the three resolved above.
 
 1. **Five-level picker.** Repo has four selects; the design shows five with an engine code. New select, new state, garage string format change, and `mobeeli_garage` in localStorage changes shape — **existing visitors have a 4-part string saved.** Migrate, ignore, or version the key. Out of scope for this batch.
-2. **Logo.** `/assets/mobeeli-logo-{blue,white}.png` are 2891×1109 with mark and wordmark baked together. "Bigger wordmark" can't be done by scaling that file. Either commission a new lockup at the revised proportions, or split into mark-only image + live text (the design mockups use the split, with PJS 800 as the wordmark). The split is better — crisper at every size, themeable, and the logo joins the type system — **but it needs the founder's eye on whether PJS matches the mark's letterforms.**
+2. **Logo — and it now gates the nav breakpoint.** `/assets/mobeeli-logo-{blue,white}.png` are 2891×1109 with mark and wordmark baked together. "Bigger wordmark" can't be done by scaling that file. Either commission a new lockup at the revised proportions, or split into mark-only image + live text (the design mockups use the split, with PJS 800 as the wordmark).
+
+   **The coupling, which this document originally buried in §0:** the six-link bar fits 1040px *today* because the baked lockup is narrow. Measured on the proposed mark-plus-live-text lockup, the same six links run past it. **The moment the logo splits, `NAV_DESKTOP_QUERY` has to move** — so the logo decision and the nav breakpoint are one decision, not two. Re-measure against the chosen lockup before touching the constant.
 3. **`/why-mobeeli` disclosure.** Public, indexed, sitemapped, and carrying the seller-fee range from the founder's own June field survey. Trimming the front page achieves little if the data is one click away. Leave public / round the figure / de-sitemap — unresolved.
 4. **Where `AiCatalogCard` lives now.** Unmounted, not deleted, no home yet.
 5. **Copy stamping.** Every EN string in §5.2 and §7.4 is a draft. Founder approves and writes ID.

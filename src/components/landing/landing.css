@@ -2345,8 +2345,17 @@ button.mb-buyer-cta:active {
    dark-on-dark seam from hero→catalog to catalog→coverage. Measured: both bands
    compute the same --mb-ink background and sit flush with no border, so nothing
    marked the join. Scoped to the adjacency deliberately — the hairline appears
-   only when coverage actually follows a dark band, so reordering again cannot
-   leave a stray line under a light one. */
+   only when a band actually follows a dark one, so reordering cannot leave a
+   stray line under a light band.
+
+   R20 inserted the platform band between catalog and coverage, which broke the
+   original `.mb-fit3d + .mb-uni` adjacency and would have silently retired the
+   hairline — the guarding test reads this file's text, not the render, so it
+   would have stayed green over a dead rule. All three dark→dark joins are
+   enumerated instead: the first two are the live ones, and catalog→coverage is
+   kept so that removing the platform band restores the R18 seam automatically. */
+.mb-fit3d + .mb-plat,
+.mb-plat + .mb-uni,
 .mb-fit3d + .mb-uni {
   border-top: 1px solid var(--mb-hairline-subtle);
 }
@@ -2929,3 +2938,410 @@ button.mb-buyer-cta:active {
 
 /* (The R13 reduced-transparency fallback that stood here is superseded — the
    .mb-glass rule above carries it, for every panel, in one place.) */
+
+/* ============================================================
+   R20 band 2a — platform-flow Sankey. Dark band; CSS-only wash
+   (NO AmbientAurora — WebGL context budget, see auroraIntensity.ts).
+   ============================================================ */
+.mb-plat {
+  position: relative;
+  background: var(--mb-ink);
+  background-image: radial-gradient(
+    900px 520px at 50% 40%,
+    rgba(47, 125, 246, 0.13),
+    transparent 70%
+  );
+  overflow: hidden;
+}
+.mb-plat-h2 {
+  color: #fff;
+  max-width: 17ch;
+}
+.mb-plat-p {
+  margin: 24px 0 0;
+  max-width: 600px;
+  font-size: 19px;
+  line-height: 1.65;
+  color: var(--mb-dark-muted);
+  text-wrap: pretty;
+}
+
+/* The figure scales as one unit: viewBox aspect == container aspect, so the
+   SVG fits exactly and the %-positioned nodes track it at any width. */
+.mb-plat-fig {
+  margin: 56px 0 0;
+}
+.mb-plat-figure {
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  aspect-ratio: 1280 / 440;
+}
+.mb-plat-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.mb-plat-rib {
+  mix-blend-mode: screen;
+  transform-origin: left center;
+}
+.mb-plat-packet {
+  opacity: 0; /* only ever visible while the flow animation runs */
+  filter: drop-shadow(0 0 7px currentColor);
+}
+
+/* ---- nodes ---- */
+.mb-plat-node {
+  position: absolute;
+  box-sizing: border-box; /* there is a global reset, but pin it — the mockup broke without it */
+  border-radius: 15px;
+  padding: 16px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+}
+.mb-plat-node--src {
+  color: #fff;
+  background: linear-gradient(150deg, #1f62d6, #143f8f);
+  box-shadow: 0 14px 34px rgba(3, 8, 16, 0.55);
+}
+.mb-plat-node--dst {
+  color: var(--mb-light-accent);
+  background: linear-gradient(
+    158deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.035) 55%,
+    rgba(91, 155, 247, 0.1) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    0 14px 32px rgba(3, 8, 16, 0.42);
+}
+.mb-plat-node-t {
+  font-size: clamp(13px, 1.25vw, 15.5px);
+  font-weight: 800;
+  letter-spacing: -0.012em;
+  line-height: 1.2;
+  color: #fff;
+}
+.mb-plat-node-s {
+  font-size: clamp(11px, 1vw, 12px);
+  font-weight: 600;
+  line-height: 1.35;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+}
+.mb-plat-node--dst .mb-plat-node-s {
+  color: var(--mb-dark-muted);
+  text-shadow: none;
+}
+
+/* ---- spine (glass, NO backdrop-filter) ---- */
+.mb-plat-spine {
+  position: absolute;
+  border-radius: 21px;
+  padding: 1px;
+  background: linear-gradient(
+    158deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(91, 155, 247, 0.34) 38%,
+    rgba(255, 255, 255, 0.1) 72%,
+    rgba(255, 255, 255, 0.34) 100%
+  );
+  box-shadow:
+    0 26px 60px rgba(3, 8, 16, 0.66),
+    0 0 48px rgba(47, 125, 246, 0.2);
+  transform-origin: center;
+}
+.mb-plat-spine-inner {
+  position: relative;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.17) 0%,
+    rgba(255, 255, 255, 0.045) 46%,
+    rgba(91, 155, 247, 0.13) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mb-plat-noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.16;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  background-image: url("/assets/noise.svg");
+}
+.mb-plat-spec {
+  position: absolute;
+  left: -20%;
+  right: -20%;
+  height: 52%;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(255, 255, 255, 0.2) 45%,
+    rgba(255, 255, 255, 0.26) 55%,
+    transparent
+  );
+}
+.mb-plat-spine-body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 0 16px;
+}
+.mb-plat-mark {
+  height: 46px;
+  width: auto;
+  filter: drop-shadow(0 4px 12px rgba(3, 8, 16, 0.6));
+}
+.mb-plat-hairline {
+  width: 36px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+.mb-plat-hub {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
+  white-space: nowrap;
+}
+
+/* ---- edge labels ---- */
+.mb-plat-inlabel {
+  position: absolute;
+}
+.mb-plat-inchip {
+  left: 18.4%; /* == 236/1280 */
+}
+.mb-plat-chip-disc {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 22px rgba(3, 8, 16, 0.55);
+}
+.mb-plat-outlabel {
+  left: 70.8%; /* == 906/1280 */
+  top: 46.4%;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+}
+
+/* ---- accessible caption ---- */
+.mb-plat-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- vertical stack (shown < 1024px) ----
+   The spec cut over at 760px. Measured, that leaves a band where the Sankey is
+   present but broken: node boxes are a PERCENTAGE of the scaling viewBox, while
+   the labels are clamp() with 13px/11px floors — so below ~1024px the boxes keep
+   shrinking and the text does not. At 900px the EN sub-label overflows its node
+   by 2px; at 790px the ID labels overflow by up to 18px ("pasang tanpa ketik
+   ulang" needs 71px in a 53px box). Lowering the floors would push type under
+   11px, so the cutover moves instead: the stack is legible at every width where
+   the diagram is not. */
+.mb-plat-stack {
+  display: none;
+}
+.mb-plat-stack-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+.mb-plat-scard {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 10px;
+  border-radius: 14px;
+  text-align: center;
+}
+.mb-plat-scard--src {
+  color: #fff;
+  background: linear-gradient(150deg, #1f62d6, #143f8f);
+}
+.mb-plat-scard--dst {
+  color: var(--mb-light-accent);
+  background: linear-gradient(158deg, rgba(255, 255, 255, 0.14), rgba(91, 155, 247, 0.1));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.mb-plat-hubcard {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 28px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(91, 155, 247, 0.12));
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+.mb-plat-arrow {
+  align-self: center;
+  width: 2px;
+  height: 26px;
+  background: linear-gradient(180deg, rgba(91, 155, 247, 0.7), rgba(91, 155, 247, 0.2));
+}
+
+@media (max-width: 1023.98px) {
+  .mb-plat-figure {
+    display: none;
+  }
+  .mb-plat-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 8px;
+  }
+}
+
+/* ============================================================
+   Motion — progressive enhancement + in-view gate.
+   Base above renders the FINAL visible state (no-JS / reduced-motion safe).
+   Only .mb-plat--js under no-preference arms the hidden start; data-inview runs it.
+   ============================================================ */
+@keyframes mbplatRib {
+  from {
+    opacity: 0;
+    transform: translateX(-26px) scaleX(0.94);
+  }
+  to {
+    opacity: 0.42;
+    transform: none;
+  }
+}
+@keyframes mbplatNode {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes mbplatSpine {
+  from {
+    opacity: 0;
+    transform: scaleY(0.72);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes mbplatFlow {
+  from {
+    offset-distance: 0%;
+  }
+  to {
+    offset-distance: 100%;
+  }
+}
+@keyframes mbplatBreathe {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.92;
+  }
+}
+@keyframes mbplatSpec {
+  0%,
+  100% {
+    transform: translateY(-34%);
+  }
+  50% {
+    transform: translateY(34%);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mb-plat--js .mb-plat-rib {
+    opacity: 0;
+  }
+  .mb-plat--js .mb-plat-node,
+  .mb-plat--js .mb-plat-inlabel {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  .mb-plat--js .mb-plat-spine {
+    opacity: 0;
+  }
+
+  .mb-plat--js[data-inview="true"] .mb-plat-rib {
+    animation: mbplatRib 0.9s var(--mb-ease-standard) var(--rib-delay, 0s) forwards;
+  }
+  .mb-plat--js[data-inview="true"] .mb-plat-node,
+  .mb-plat--js[data-inview="true"] .mb-plat-inlabel {
+    animation: mbplatNode 0.7s var(--mb-ease-standard) var(--node-delay, var(--label-delay, 0s))
+      forwards;
+  }
+  .mb-plat--js[data-inview="true"] .mb-plat-spine {
+    animation: mbplatSpine 0.95s var(--mb-ease-standard) 0.34s forwards;
+  }
+  .mb-plat--js[data-inview="true"] .mb-plat-spec {
+    animation: mbplatSpec 9s ease-in-out infinite;
+  }
+
+  /* Packets loop only once revealed AND only where offset-path is supported —
+     otherwise the circle would sit stranded at the viewBox origin. */
+  @supports (offset-path: path("M0,0 L1,1")) {
+    .mb-plat--js[data-inview="true"] .mb-plat-packet {
+      animation:
+        mbplatFlow var(--pk-dur, 8s) linear var(--pk-delay, 0s) infinite,
+        mbplatBreathe var(--pk-dur, 8s) ease-in-out var(--pk-delay, 0s) infinite;
+    }
+  }
+}
+
+/* Translucent surfaces get an opaque fallback where the OS asks for it. */
+@media (prefers-reduced-transparency: reduce) {
+  .mb-plat-spine-inner {
+    background: rgba(13, 21, 34, 0.96);
+  }
+  .mb-plat-node--dst {
+    background: rgba(13, 21, 34, 0.9);
+  }
+}

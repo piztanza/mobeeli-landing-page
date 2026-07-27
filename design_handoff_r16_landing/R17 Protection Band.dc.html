@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#0c1013; color:#e8ecef; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+  a { color:#9dc2fa; text-decoration:none; }
+  a:hover { color:#c9dcfc; }
+  ::selection { background:rgba(47,125,246,.28); }
+</style>
+</helmet>
+
+<div style="font-family:'Plus Jakarta Sans',system-ui,sans-serif">
+
+<!-- ════════════════ HEADER ════════════════ -->
+<section style="padding:52px 48px 40px;max-width:1420px;margin:0 auto">
+  <div style="display:flex;align-items:baseline;gap:10px;margin:0 0 24px">
+    <span style="font-size:10px;font-weight:800;padding:3px 7px;background:#e8ecef;color:#0c1013;border-radius:4px">R17</span>
+    <span style="font-size:13px;font-weight:700;color:#e8ecef">Protection band — designed against main @ b4aa5fb</span>
+  </div>
+  <h1 style="font-size:42px;font-weight:800;letter-spacing:-.022em;margin:0 0 18px;color:#e8ecef;max-width:23ch;line-height:1.04;text-wrap:balance">The band that fixed a real hole is now the thinnest thing on the page.</h1>
+  <p style="margin:0 0 14px;font-size:17px;line-height:1.62;color:#c3cace;max-width:76ch;text-wrap:pretty">Ruling 1c did something more valuable than move a section: <code style="font-size:15px;color:#9dc2fa">prot_r1/2/3</code> and <code style="font-size:15px;color:#9dc2fa">how_s3_t</code> had been defined in <code style="font-size:15px;color:#9dc2fa">copy.ts</code> but rendered by nothing since R15 — <strong style="color:#e8ecef;font-weight:700">the protection story was silently absent from the live page.</strong> It's back.</p>
+  <p style="margin:0 0 14px;font-size:17px;line-height:1.62;color:#c3cace;max-width:76ch;text-wrap:pretty">But it shipped lean, because six new strings can't ship EN-only against test-enforced i18n parity. What's live is a three-word H2 and three noun phrases. Every other band on the page has a lede and body copy; this one has neither.</p>
+  <p style="margin:0;font-size:15.5px;line-height:1.6;color:#8c979e;max-width:76ch;text-wrap:pretty">So this is a stamping sheet, not a re-spec. The live band recreated exactly from <code style="font-size:14px;color:#9dc2fa">landing.css:2810–2860</code>, three directions for what it could be, and every proposed string listed at the bottom as a discrete decision. Nothing here is buildable until you rule on the words.</p>
+</section>
+
+<!-- ════════════════ LIVE ════════════════ -->
+<section style="padding:0 48px 52px;max-width:1420px;min-width:1424px;margin:0 auto">
+  <div style="display:flex;align-items:baseline;gap:11px;margin:0 0 14px;flex-wrap:wrap">
+    <span style="font-size:10.5px;font-weight:800;padding:3px 8px;background:#3fb950;color:#0c1013;border-radius:5px;letter-spacing:.04em">LIVE</span>
+    <span style="font-size:14px;font-weight:700;color:#e8ecef">What's on the page right now</span>
+    <span style="font-size:13px;color:#8c979e">— recreated from source, not a screenshot</span>
+  </div>
+
+  <div style="background:#f5f7fa;border-radius:10px;overflow:auto;border:1px solid rgba(255,255,255,.12)">
+    <div style="width:{{ bandW }};background:#ffffff;border-top:1px solid #e3e7ee;padding:96px 24px">
+      <div style="max-width:1280px;margin:0 auto">
+        <h2 style="margin:14px 0 0;font-size:61px;line-height:1.04;letter-spacing:-.022em;font-weight:800;color:#0d1522;max-width:760px;text-wrap:balance">Check out protected</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:1px;margin-top:44px;background:#e3e7ee;border:1px solid #e3e7ee;border-radius:18px;overflow:hidden">
+          <sc-for list="{{ liveCells }}" as="c" hint-placeholder-count="3">
+            <div style="background:#ffffff;padding:30px 28px 34px">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;color:#1b5fd9">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true">
+                  <sc-if value="{{ c.i1 }}" hint-placeholder-val="{{ false }}"><path d="M23 7l-7 5 7 5V7z"></path><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></sc-if>
+                  <sc-if value="{{ c.i2 }}" hint-placeholder-val="{{ false }}"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></sc-if>
+                  <sc-if value="{{ c.i3 }}" hint-placeholder-val="{{ false }}"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></sc-if>
+                </svg>
+                <span style="font-size:12.5px;font-weight:800;letter-spacing:.09em;color:#8b95a4;font-variant-numeric:tabular-nums">{{ c.n }}</span>
+              </div>
+              <h3 style="margin:18px 0 0;font-size:17px;line-height:1.45;font-weight:700;letter-spacing:-.01em;color:#0d1522;text-wrap:pretty">{{ c.t }}</h3>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:132px 1fr;gap:34px;margin-top:22px;max-width:1100px">
+    <div style="font-size:10.5px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;line-height:1.5;padding-top:3px">Read it<br>cold</div>
+    <div>
+      <p style="margin:0 0 12px;font-size:16px;line-height:1.62;color:#c3cace;max-width:72ch;text-wrap:pretty">A 61px headline saying three words, then three cells that name a feature and stop. A visitor who doesn't already know what "video-evidence resolution" means learns nothing from the band that exists to explain it — and the shop owner's quote two bands up, which this section is the answer to, goes unanswered.</p>
+      <p style="margin:0;font-size:15px;line-height:1.6;color:#8c979e;max-width:72ch;text-wrap:pretty">Structurally it's sound: the hairline grid, the 01/02/03 numerals, the icons all match the page. It's the copy layer that's missing, and that is entirely your call to make.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ TURN 1 ════════════════ -->
+<section id="t1" style="padding:44px 48px 56px;max-width:1420px;min-width:1424px;margin:0 auto;border-top:1px solid rgba(255,255,255,.14)">
+  <div style="display:flex;align-items:baseline;gap:10px;margin:0 0 14px">
+    <a href="#t1" style="font-size:10px;font-weight:800;padding:3px 7px;background:#e8ecef;color:#0c1013;border-radius:4px">1</a>
+    <span style="font-size:13px;font-weight:700;color:#e8ecef">Three directions</span>
+  </div>
+  <p style="margin:0 0 34px;font-size:15.5px;line-height:1.6;color:#8c979e;max-width:76ch;text-wrap:pretty">All three keep the shipped structure, icons and numerals. They differ in what the copy layer does and, for <a href="#1c">1c</a>, in how the three promises relate to each other. Each frame holds the real 1280px content width, so cells land at ~425px exactly as they do in production — pan the canvas rather than resizing to read them.</p>
+
+  <div style="display:flex;flex-direction:column;gap:40px">
+
+    <!-- ─── 1a ─── -->
+    <div id="1a" style="scroll-margin-top:16px">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+        <a href="#1a" style="font-size:10.5px;font-weight:800;padding:3px 8px;background:rgba(255,255,255,.1);color:#e8ecef;border-radius:5px">1a</a>
+        <span style="font-size:14.5px;font-weight:700;color:#e8ecef">Fill it out</span>
+        <span style="font-size:13px;color:#8c979e">— a lede and one paragraph per promise. Matches every other band.</span>
+        <span style="margin-left:auto;font-size:11.5px;font-weight:700;color:#e3b341;letter-spacing:.03em">4 new strings</span>
+      </div>
+      <div style="background:#f5f7fa;border-radius:10px;overflow:auto;border:1px solid rgba(255,255,255,.12)">
+        <div style="width:{{ bandW }};background:#ffffff;border-top:1px solid #e3e7ee;padding:96px 24px">
+          <div style="max-width:1280px;margin:0 auto">
+            <h2 style="margin:14px 0 0;font-size:61px;line-height:1.04;letter-spacing:-.022em;font-weight:800;color:#0d1522;max-width:760px;text-wrap:balance">Check out protected</h2>
+            <p style="margin:24px 0 0;max-width:620px;font-size:19px;line-height:1.65;color:#636e7e;text-wrap:pretty">Three guarantees that hold whichever side of the transaction you're on — the buyer isn't gambling on a photo, and the seller isn't punished for a dispute they can't prove.</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:1px;margin-top:44px;background:#e3e7ee;border:1px solid #e3e7ee;border-radius:18px;overflow:hidden">
+              <sc-for list="{{ cellsA }}" as="c" hint-placeholder-count="3">
+                <div style="background:#ffffff;padding:30px 28px 34px">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;color:#1b5fd9">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true">
+                      <sc-if value="{{ c.i1 }}" hint-placeholder-val="{{ false }}"><path d="M23 7l-7 5 7 5V7z"></path><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></sc-if>
+                      <sc-if value="{{ c.i2 }}" hint-placeholder-val="{{ false }}"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></sc-if>
+                      <sc-if value="{{ c.i3 }}" hint-placeholder-val="{{ false }}"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></sc-if>
+                    </svg>
+                    <span style="font-size:12.5px;font-weight:800;letter-spacing:.09em;color:#8b95a4;font-variant-numeric:tabular-nums">{{ c.n }}</span>
+                  </div>
+                  <h3 style="margin:18px 0 0;font-size:17px;line-height:1.45;font-weight:700;letter-spacing:-.01em;color:#0d1522;text-wrap:pretty">{{ c.t }}</h3>
+                  <p style="margin:12px 0 0;font-size:15.5px;line-height:1.7;color:#636e7e;text-wrap:pretty">{{ c.b }}</p>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="margin:14px 0 0;font-size:14.5px;line-height:1.6;color:#8c979e;max-width:78ch;text-wrap:pretty">The safe option. Nothing to argue with, nothing to remember. It makes the band consistent with the rest of the page and stops there.</p>
+    </div>
+
+    <!-- ─── 1b ─── -->
+    <div id="1b" style="scroll-margin-top:16px">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+        <a href="#1b" style="font-size:10.5px;font-weight:800;padding:3px 8px;background:#2f7df6;color:#fff;border-radius:5px">1b</a>
+        <span style="font-size:14.5px;font-weight:700;color:#e8ecef">Answer Senen</span>
+        <span style="font-size:13px;color:#8c979e">— the band opens by naming the failure it fixes.</span>
+        <span style="margin-left:auto;font-size:11.5px;font-weight:700;color:#e3b341;letter-spacing:.03em">4 new strings + revised H2</span>
+      </div>
+      <div style="background:#f5f7fa;border-radius:10px;overflow:auto;border:1px solid rgba(255,255,255,.12)">
+        <div style="width:{{ bandW }};background:#ffffff;border-top:1px solid #e3e7ee;padding:96px 24px">
+          <div style="max-width:1280px;margin:0 auto">
+            <h2 style="margin:14px 0 0;font-size:61px;line-height:1.04;letter-spacing:-.022em;font-weight:800;color:#0d1522;max-width:900px;text-wrap:balance">Funds release when the part fits — not just when it ships.</h2>
+            <p style="margin:24px 0 0;max-width:640px;font-size:19px;line-height:1.65;color:#636e7e;text-wrap:pretty">The shop in Senen wasn't penalised for selling a bad part. They were penalised because nobody could prove what happened. That's the part we built.</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:1px;margin-top:44px;background:#e3e7ee;border:1px solid #e3e7ee;border-radius:18px;overflow:hidden">
+              <sc-for list="{{ cellsB }}" as="c" hint-placeholder-count="3">
+                <div style="background:#ffffff;padding:30px 28px 34px">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;color:#1b5fd9">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true">
+                      <sc-if value="{{ c.i1 }}" hint-placeholder-val="{{ false }}"><path d="M23 7l-7 5 7 5V7z"></path><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></sc-if>
+                      <sc-if value="{{ c.i2 }}" hint-placeholder-val="{{ false }}"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></sc-if>
+                      <sc-if value="{{ c.i3 }}" hint-placeholder-val="{{ false }}"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></sc-if>
+                    </svg>
+                    <span style="font-size:12.5px;font-weight:800;letter-spacing:.09em;color:#8b95a4;font-variant-numeric:tabular-nums">{{ c.n }}</span>
+                  </div>
+                  <h3 style="margin:18px 0 0;font-size:17px;line-height:1.45;font-weight:700;letter-spacing:-.01em;color:#0d1522;text-wrap:pretty">{{ c.t }}</h3>
+                  <p style="margin:12px 0 0;font-size:15.5px;line-height:1.7;color:#636e7e;text-wrap:pretty">{{ c.b }}</p>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="margin:14px 0 0;font-size:14.5px;line-height:1.6;color:#8c979e;max-width:78ch;text-wrap:pretty">Same shape as <a href="#1a">1a</a>, different job. The page currently sets up a grievance in band 3 and never resolves it; this closes the loop. Cost: the H2 stops being a label and becomes a claim, so <code style="font-size:13.5px;color:#9dc2fa">how_s3_t</code> gets rewritten in both languages. Note the pairing — if you ever rewrite the Senen quote, this lede has to move with it.</p>
+    </div>
+
+    <!-- ─── 1c ─── -->
+    <div id="1c" style="scroll-margin-top:16px">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+        <a href="#1c" style="font-size:10.5px;font-weight:800;padding:3px 8px;background:rgba(255,255,255,.1);color:#e8ecef;border-radius:5px">1c</a>
+        <span style="font-size:14.5px;font-weight:700;color:#e8ecef">Show the sequence</span>
+        <span style="font-size:13px;color:#8c979e">— not three features. One guarantee, in three stages.</span>
+        <span style="margin-left:auto;font-size:11.5px;font-weight:700;color:#e3b341;letter-spacing:.03em">7 new strings + revised H2</span>
+      </div>
+      <div style="background:#f5f7fa;border-radius:10px;overflow:auto;border:1px solid rgba(255,255,255,.12)">
+        <div style="width:{{ bandW }};background:#ffffff;border-top:1px solid #e3e7ee;padding:96px 24px">
+          <div style="max-width:1280px;margin:0 auto">
+            <h2 style="margin:14px 0 0;font-size:61px;line-height:1.04;letter-spacing:-.022em;font-weight:800;color:#0d1522;max-width:900px;text-wrap:balance">Funds release when the part fits — not just when it ships.</h2>
+            <p style="margin:24px 0 0;max-width:640px;font-size:19px;line-height:1.65;color:#636e7e;text-wrap:pretty">The shop in Senen wasn't penalised for selling a bad part. They were penalised because nobody could prove what happened. So protection isn't three features — it's one sequence, and money is the last step.</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:1px;margin-top:44px;background:#e3e7ee;border:1px solid #e3e7ee;border-radius:18px;overflow:hidden">
+              <sc-for list="{{ cellsC }}" as="c" hint-placeholder-count="3">
+                <div style="background:#ffffff;padding:30px 28px 34px;display:flex;flex-direction:column">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;color:#1b5fd9">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true">
+                      <sc-if value="{{ c.i1 }}" hint-placeholder-val="{{ false }}"><path d="M23 7l-7 5 7 5V7z"></path><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></sc-if>
+                      <sc-if value="{{ c.i2 }}" hint-placeholder-val="{{ false }}"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></sc-if>
+                      <sc-if value="{{ c.i3 }}" hint-placeholder-val="{{ false }}"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></sc-if>
+                    </svg>
+                    <span style="display:flex;align-items:center;gap:9px">
+                      <span style="font-size:11px;font-weight:800;letter-spacing:.09em;color:#1b5fd9;text-transform:uppercase">{{ c.stage }}</span>
+                      <span style="font-size:12.5px;font-weight:800;letter-spacing:.09em;color:#8b95a4;font-variant-numeric:tabular-nums">{{ c.n }}</span>
+                    </span>
+                  </div>
+                  <h3 style="margin:18px 0 0;font-size:17px;line-height:1.45;font-weight:700;letter-spacing:-.01em;color:#0d1522;text-wrap:pretty">{{ c.t }}</h3>
+                  <p style="margin:12px 0 0;font-size:15.5px;line-height:1.7;color:#636e7e;text-wrap:pretty">{{ c.b }}</p>
+                  <div style="margin-top:20px;padding-top:16px;border-top:1px solid #e3e7ee;display:flex;align-items:center;gap:9px">
+                    <span style="width:6px;height:6px;border-radius:50%;background:#1b5fd9;flex:none"></span>
+                    <span style="font-size:13px;font-weight:700;color:#1b5fd9;letter-spacing:-.005em">{{ c.out }}</span>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="margin:14px 0 0;font-size:14.5px;line-height:1.6;color:#8c979e;max-width:78ch;text-wrap:pretty">This is the one I'd build. The 01/02/03 numerals are already on the page but currently decorative — three parallel things that happen to be numbered. Reading them as stages makes the argument the other two only assert: the money moves <em style="font-style:normal;color:#c3cace">last</em>, and everything before it exists to earn that. It's also the same principle that drove the scan redesign and ruling 2b — show the mechanism, don't claim the outcome.</p>
+      <p style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#8c979e;max-width:78ch;text-wrap:pretty">Against it: seven new strings is the largest stamping ask here, and the stage labels need to read naturally in Indonesian, not as translated English. If that's too much, <a href="#1b">1b</a> gets most of the value for four.</p>
+    </div>
+  </div>
+
+  <p style="margin:34px 0 0;font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.5)">Try next: “build <a href="#1c">1c</a>” · “<a href="#1c">1c</a> but keep the current H2” · “<a href="#1b">1b</a>, and here's my wording”</p>
+</section>
+
+<!-- ════════════════ STAMPING SHEET ════════════════ -->
+<section style="padding:44px 48px 60px;max-width:1420px;margin:0 auto;border-top:1px solid rgba(255,255,255,.14)">
+  <div style="font-size:10.5px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;margin-bottom:14px">The actual blocker</div>
+  <h2 style="font-size:31px;font-weight:800;letter-spacing:-.022em;margin:0 0 16px;color:#e8ecef;max-width:28ch;line-height:1.08">Every string, as a separate decision</h2>
+  <p style="margin:0 0 12px;font-size:16px;line-height:1.62;color:#c3cace;max-width:76ch;text-wrap:pretty">i18n parity is test-enforced in this repo — a key cannot ship with English only. So each row below needs your approval on the EN and your Indonesian, and until then none of the three directions can be built.</p>
+  <p style="margin:0 0 28px;font-size:15px;line-height:1.6;color:#8c979e;max-width:76ch;text-wrap:pretty">All EN is <strong style="color:#c3cace;font-weight:700">UNSTAMPED draft</strong>. Rewrite freely — the designs above are structure, and they hold whatever words you put in them.</p>
+
+  <div style="display:grid;gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:6px;overflow:hidden">
+    <div style="display:grid;grid-template-columns:170px 96px 1fr 96px;gap:20px;background:#12181d;padding:13px 22px;font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#8c979e">
+      <span>Key</span><span>Status</span><span>Draft EN</span><span>Used by</span>
+    </div>
+    <sc-for list="{{ strings }}" as="s" hint-placeholder-count="12">
+      <div style="display:grid;grid-template-columns:170px 96px 1fr 96px;gap:20px;background:#0c1013;padding:15px 22px;align-items:start">
+        <code style="font-size:13px;color:#9dc2fa;line-height:1.5;word-break:break-all">{{ s.key }}</code>
+        <span style="font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:{{ s.statusColor }};line-height:1.5">{{ s.status }}</span>
+        <span style="font-size:14.5px;line-height:1.6;color:#c3cace;text-wrap:pretty">{{ s.en }}</span>
+        <span style="font-size:12px;font-weight:700;color:#8c979e;line-height:1.5">{{ s.used }}</span>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="display:grid;grid-template-columns:132px 1fr;gap:34px;border-top:1px solid rgba(255,255,255,.09);padding-top:26px;margin-top:30px;max-width:1100px">
+    <div style="font-size:10.5px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;line-height:1.5;padding-top:3px">Two notes<br>on the ID</div>
+    <div>
+      <p style="margin:0 0 13px;font-size:16px;line-height:1.62;color:#c3cace;max-width:72ch;text-wrap:pretty">The repo already has precedents worth matching rather than re-deciding. <code style="font-size:14px;color:#9dc2fa">card_part_sub</code> renders “Front axle · ceramic” as “As depan · keramik”, and <code style="font-size:14px;color:#9dc2fa">fit3d_bore_v</code> establishes the comma decimal — <code style="font-size:14px;color:#9dc2fa">⌀ 54,1 mm</code>, not 54.1. Whatever you write, those two conventions are already load-bearing.</p>
+      <p style="margin:0;font-size:15px;line-height:1.6;color:#8c979e;max-width:72ch;text-wrap:pretty">And for <a href="#1c">1c</a> specifically: the three stage labels are the risk. “Captured / Checked / Released” is clean in English and can land stiff in Indonesian. If they don't have a natural equivalent, drop the labels and keep the sequence implied by the numerals — the design survives it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ ALSO ════════════════ -->
+<section style="padding:44px 48px 60px;max-width:1420px;margin:0 auto;border-top:1px solid rgba(255,255,255,.14)">
+  <div style="font-size:10.5px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;margin-bottom:14px">Separately</div>
+  <h2 style="font-size:31px;font-weight:800;letter-spacing:-.022em;margin:0 0 16px;color:#e8ecef;max-width:30ch;line-height:1.08">The logo and the nav breakpoint are one decision, not two</h2>
+  <p style="margin:0 0 14px;font-size:16px;line-height:1.62;color:#c3cace;max-width:76ch;text-wrap:pretty">This came out of the engineering review and it's the most useful thing my nav measurements produced — though not in the way I intended. My widths were taken on the <em style="font-style:normal;color:#e8ecef">proposed</em> mark-plus-live-text lockup, not the baked image that's actually live, so the numbers didn't describe production and the recommendation was wrong. The founder ruled the other way and the bar fits 1040px today.</p>
+  <p style="margin:0 0 14px;font-size:16px;line-height:1.62;color:#c3cace;max-width:76ch;text-wrap:pretty">But the coupling is real: <strong style="color:#e8ecef;font-weight:700">the six-link bar fits only because the baked lockup is narrow.</strong> Split the logo into mark + live wordmark — which is the only way to make the wordmark bigger, since the current asset has both baked into one 2891×1109 PNG — and the same six links run past 1040px. <code style="font-size:14px;color:#9dc2fa">NAV_DESKTOP_QUERY</code> has to move with it.</p>
+  <p style="margin:0;font-size:15px;line-height:1.6;color:#8c979e;max-width:76ch;text-wrap:pretty">So don't rule on the logo as a brand question alone. Whatever lockup you pick, the bar gets re-measured against it before the constant changes. <a href="#top">R16 Identity</a> still holds the four directions if you want to revisit them.</p>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const icons = [
+      { i1: true, i2: false, i3: false, n: "01" },
+      { i1: false, i2: true, i3: false, n: "02" },
+      { i1: false, i2: false, i3: true, n: "03" },
+    ];
+    const titles = [
+      "Video-evidence resolution",
+      "Authenticity verification",
+      "Funds release when the part fits",
+    ];
+    const bodiesA = [
+      "Unboxing on camera settles the argument. No more \u201Che said, she said\u201D deciding whether a shop stays open.",
+      "Counterfeit parts are checked before they reach a buyer \u2014 not disputed after they\u2019ve failed on the road.",
+      "Money is held until the part is confirmed on the car. The buyer isn\u2019t gambling and the seller isn\u2019t waiting.",
+    ];
+    const bodiesC = [
+      "Both sides record the handover. The footage is the record \u2014 nobody has to be believed.",
+      "The part is checked against the brand\u2019s own catalogue before it ships, not after it fails.",
+      "Payment sits with Mobeeli until the part is confirmed on the car. Then it moves.",
+    ];
+    const outsC = [
+      "Evidence exists before the dispute",
+      "Fakes stop at the warehouse",
+      "Nobody carries the risk alone",
+    ];
+    const stagesC = ["Captured", "Checked", "Released"];
+    const mk = (bodies, extra) => icons.map((ic, i) =>
+      Object.assign({}, ic, { t: titles[i], b: bodies ? bodies[i] : "" }, extra ? extra(i) : null));
+
+    return {
+      // 1280 inner + 2x24 section padding. Frames hold this fixed and the host
+      // canvas pans; letting them shrink reflowed cells to 253px and made the
+      // LIVE panel misrepresent the live page.
+      bandW: "1328px",
+      liveCells: icons.map((ic, i) => Object.assign({}, ic, { t: titles[i] })),
+      cellsA: mk(bodiesA),
+      cellsB: mk(bodiesA),
+      cellsC: mk(bodiesC, (i) => ({ out: outsC[i], stage: stagesC[i] })),
+      strings: [
+        { key: "how_s3_t", status: "Live", statusColor: "#3fb950", en: "Check out protected \u2014 kept as-is by 1a; rewritten by 1b and 1c to \u201CFunds release when the part fits \u2014 not just when it ships.\u201D", used: "all" },
+        { key: "prot_r1", status: "Live", statusColor: "#3fb950", en: "Video-evidence resolution", used: "all" },
+        { key: "prot_r2", status: "Live", statusColor: "#3fb950", en: "Authenticity verification", used: "all" },
+        { key: "prot_r3", status: "Live", statusColor: "#3fb950", en: "Funds release when the part fits", used: "all" },
+        { key: "prot_lede", status: "New", statusColor: "#e3b341", en: "1a: \u201CThree guarantees that hold whichever side of the transaction you\u2019re on \u2014 the buyer isn\u2019t gambling on a photo, and the seller isn\u2019t punished for a dispute they can\u2019t prove.\u201D \u00b7 1b/1c: the Senen callback, shown in each design.", used: "all" },
+        { key: "prot_r1_b", status: "New", statusColor: "#e3b341", en: "1a/1b: \u201CUnboxing on camera settles the argument. No more \u2018he said, she said\u2019 deciding whether a shop stays open.\u201D \u00b7 1c: \u201CBoth sides record the handover. The footage is the record \u2014 nobody has to be believed.\u201D", used: "all" },
+        { key: "prot_r2_b", status: "New", statusColor: "#e3b341", en: "1a/1b: \u201CCounterfeit parts are checked before they reach a buyer \u2014 not disputed after they\u2019ve failed on the road.\u201D \u00b7 1c: \u201CThe part is checked against the brand\u2019s own catalogue before it ships, not after it fails.\u201D", used: "all" },
+        { key: "prot_r3_b", status: "New", statusColor: "#e3b341", en: "1a/1b: \u201CMoney is held until the part is confirmed on the car. The buyer isn\u2019t gambling and the seller isn\u2019t waiting.\u201D \u00b7 1c: \u201CPayment sits with Mobeeli until the part is confirmed on the car. Then it moves.\u201D", used: "all" },
+        { key: "prot_r1_out", status: "New", statusColor: "#5b9bf7", en: "Evidence exists before the dispute", used: "1c only" },
+        { key: "prot_r2_out", status: "New", statusColor: "#5b9bf7", en: "Fakes stop at the warehouse", used: "1c only" },
+        { key: "prot_r3_out", status: "New", statusColor: "#5b9bf7", en: "Nobody carries the risk alone", used: "1c only" },
+        { key: "prot_stage1/2/3", status: "New", statusColor: "#5b9bf7", en: "Captured \u00b7 Checked \u00b7 Released \u2014 droppable if they don\u2019t land naturally in Indonesian; the numerals already imply the order.", used: "1c only" },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

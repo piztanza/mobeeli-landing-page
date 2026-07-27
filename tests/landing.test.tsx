@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
 import LandingPage from "@/app/page";
+import { SPY_SECTION_IDS } from "@/components/landing/ActiveSectionProvider";
 import { copy, langs, t } from "@/lib/i18n";
 
 /**
@@ -106,6 +107,31 @@ const LANDING_KEYS = [
   "uni_h2",
   "uni_p",
   "uni_drag",
+  /* R20 platform-flow band. NOTE what adding them here does and does not buy:
+     this array's only assertion is `toBeTruthy()` in both maps, so it is a
+     DEFINITION contract, not a render one. Presence on the page is asserted
+     separately, in the platform-band test below. */
+  "plat_kicker",
+  "plat_h2",
+  "plat_p",
+  "plat_src1_t",
+  "plat_src1_s",
+  "plat_src2_t",
+  "plat_src2_s",
+  "plat_src3_t",
+  "plat_src3_s",
+  "plat_dst1_t",
+  "plat_dst1_s",
+  "plat_dst2_t",
+  "plat_dst2_s",
+  "plat_dst3_t",
+  "plat_dst3_s",
+  "plat_hub",
+  "plat_in_xls",
+  "plat_in_pdf",
+  "plat_in_jpg",
+  "plat_out",
+  "plat_a11y",
   "foot_tag",
 ] as const;
 
@@ -180,11 +206,12 @@ describe("landing page render (F-001 + F-009)", () => {
     expect(html).toContain(esc(t("en", "hero_sub_short")));
   });
 
-  it("renders the R18 band order — problem second, catalog third, no protection band", () => {
+  it("renders the R20 band order — problem second, catalog third, platform fourth", () => {
     const bands = [
       t("en", "hero_chip"), // hero (dark, full viewport)
       t("en", "quote_main"), // the problem, slim (light, id="problem")
       t("en", "cat_unified_h2"), // unified catalog (dark, id="how-it-works")
+      t("en", "plat_h2"), // platform flow (dark, id="platform")
       t("en", "uni_h2"), // coverage / archipelago (dark, id="coverage")
       t("en", "buyer_line"), // buyer strip (id="waitlist")
       t("en", "foot_tag"), // footer
@@ -198,7 +225,7 @@ describe("landing page render (F-001 + F-009)", () => {
   });
 
   it("gives every band an id, and drops the second competing catalog (R16 ruling 1a)", () => {
-    for (const id of ["how-it-works", "problem", "coverage", "waitlist"]) {
+    for (const id of ["how-it-works", "problem", "coverage", "platform", "waitlist"]) {
       expect(html, `id="${id}"`).toContain(`id="${id}"`);
     }
     // AiCatalogCard is unmounted from `/` — its headline must not appear.
@@ -223,20 +250,34 @@ describe("landing page render (F-001 + F-009)", () => {
     expect(html.indexOf(esc(t("en", "cat_verified_note")))).toBeGreaterThan(heroEnd);
   });
 
-  // R18 call B: with the problem band moved up, catalog and coverage are now
-  // adjacent dark bands with identical backgrounds. Measured flush with no
-  // border before this, so the join needs a marker.
-  it("marks the catalog → coverage seam, and only when it is dark-on-dark", () => {
+  // R18 call B marked the dark-on-dark join between catalog and coverage. R20
+  // inserted the platform band between them, which broke that adjacency — so
+  // this asserts the CURRENTLY LIVE joins, not just that some rule exists.
+  //
+  // NOTE the limitation, deliberately recorded: this reads the stylesheet TEXT,
+  // so it proves the selectors are written, not that they match anything on the
+  // page. That is exactly how R20 could have silently retired the R18 hairline
+  // while staying green. The render-side guard is the band-order test above,
+  // which pins the DOM sequence these selectors depend on; the two together are
+  // what make the seam safe.
+  it("marks every dark-on-dark band seam, and only on adjacency", () => {
     const landingCss = readFileSync(
       new URL("../src/components/landing/landing.css", import.meta.url),
       "utf8",
     );
-    expect(landingCss).toMatch(
-      /\.mb-fit3d \+ \.mb-uni \{[^}]*border-top: 1px solid var\(--mb-hairline-subtle\);/s,
-    );
-    // Scoped to the adjacency — an unconditional border on .mb-uni would leave a
-    // stray line if it ever follows a light band.
+    const seam = landingCss.match(/(\.mb-[\w-]+ \+ \.mb-[\w-]+,?\s*)+\{[^}]*border-top:[^}]*\}/s);
+    expect(seam, "the dark-seam rule").not.toBeNull();
+    const block = seam![0];
+    // The two live joins after R20's insertion.
+    expect(block, "catalog → platform").toContain(".mb-fit3d + .mb-plat");
+    expect(block, "platform → coverage").toContain(".mb-plat + .mb-uni");
+    // Kept so that removing the platform band restores the R18 seam by itself.
+    expect(block, "catalog → coverage fallback").toContain(".mb-fit3d + .mb-uni");
+    expect(block).toContain("border-top: 1px solid var(--mb-hairline-subtle);");
+    // Still scoped to adjacency — an unconditional border on either dark band
+    // would leave a stray line the moment one follows a light band.
     expect(landingCss).not.toMatch(/^\.mb-uni \{[^}]*border-top:/ms);
+    expect(landingCss).not.toMatch(/^\.mb-plat \{[^}]*border-top:/ms);
   });
 
   it("keeps the desktop nav at five links (R18 call A freed a slot)", () => {
@@ -245,6 +286,32 @@ describe("landing page render (F-001 + F-009)", () => {
     // Count hrefs rather than tags: Link renders as <a>, but the external
     // platform link is a plain <a>, so an element-name regex is brittle.
     expect((bar.match(/href=/g) ?? []).length).toBe(5);
+  });
+
+  // R20 band 2a. The diagram argues convergence; the geometry test guards the
+  // shape, this guards that the band is actually on the page saying it.
+  it("renders the platform-flow band with all five parties and the core", () => {
+    for (const k of [
+      "plat_src1_t",
+      "plat_src2_t",
+      "plat_src3_t",
+      "plat_dst2_t",
+      "plat_dst3_t",
+      "plat_hub",
+    ] as const) {
+      expect(html, k).toContain(esc(t("en", k)));
+    }
+    expect(html).toContain('id="platform"');
+    // The visuals are decorative; the figure's meaning must reach a screen
+    // reader as one sentence, so the caption has to render.
+    expect(html).toContain(esc(t("en", "plat_a11y")));
+  });
+
+  // The band carries no nav anchor, so it must stay out of the scrollspy —
+  // otherwise the spy publishes #platform as active with nothing to navigate to.
+  it("keeps the platform band out of the scrollspy", () => {
+    expect(SPY_SECTION_IDS as readonly string[]).not.toContain("platform");
+    expect(html).not.toContain('href="/#platform"');
   });
 
   it("wires the nav waitlist CTA to /join and the hero shop CTA to platform registration", () => {

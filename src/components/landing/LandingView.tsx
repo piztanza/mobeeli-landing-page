@@ -11,6 +11,7 @@ import FitmentSection from "./FitmentSection";
 import Footer from "./Footer";
 import Hero from "./Hero";
 import Nav from "./Nav";
+import PlatformFlow from "./PlatformFlow";
 import ProblemSection from "./ProblemSection";
 import SkipLink from "./SkipLink";
 import UnifyBand from "./UnifyBand";
@@ -18,10 +19,21 @@ import UnifyBand from "./UnifyBand";
 import "./landing.css";
 
 /**
- * Landing page (F-001) — the band stack (R18):
+ * Landing page (F-001) — the band stack (R20):
  * nav (overlay) → hero (dark, full viewport) → problem (light, id="problem")
- * → catalog (dark, id="how-it-works") → coverage (dark, id="coverage") →
- * buyer strip (id="waitlist") → footer.
+ * → catalog (dark, id="how-it-works") → platform (dark, id="platform") →
+ * coverage (dark, id="coverage") → buyer strip (id="waitlist") → footer.
+ *
+ * R20: the platform-flow Sankey lands between catalog and coverage — the
+ * industry-scale "how it works" after the per-part one. It is deliberately NOT
+ * in SPY_SECTION_IDS: the spy publishes the active id, and this band has no nav
+ * anchor to publish to. It carries id="platform" for the band-id contract and
+ * for future anchoring only.
+ *
+ * Note the seam consequence: inserting a band here broke the R18 call B
+ * adjacency (.mb-fit3d + .mb-uni), so landing.css now enumerates all three
+ * dark→dark joins instead. See the comment above that rule — the guarding test
+ * reads the stylesheet text, so a dead selector there would not have failed.
  *
  * R18 call B: the problem leads. The Senen quote motivates the catalog band, so
  * it has to precede it — before this it sat behind the demo it sets up. It also
@@ -65,6 +77,7 @@ export default function LandingView() {
             <Hero />
             <ProblemSection />
             <FitmentSection />
+            <PlatformFlow />
             <UnifyBand />
             <BuyerStrip />
           </main>

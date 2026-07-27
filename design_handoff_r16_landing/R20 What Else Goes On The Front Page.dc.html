@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  html { background:#0a0e11; }
+  body { margin:0; background:#0a0e11; color:#e8ecef; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+  a { color:#9dc2fa; text-decoration:none; }
+  a:hover { color:#c9dcfc; }
+  ::selection { background:rgba(47,125,246,.28); }
+  @keyframes mbRib { from { opacity:0; transform:translateX(-26px) scaleX(.94) } to { opacity:1; transform:none } }
+  @keyframes mbNode { from { opacity:0; transform:translateY(14px) } to { opacity:1; transform:none } }
+  @keyframes mbSpine { from { opacity:0; transform:scaleY(.72) } to { opacity:1; transform:none } }
+  @keyframes mbFlow { from { offset-distance:0% } to { offset-distance:100% } }
+  @keyframes mbBreathe { 0%,100% { opacity:.5 } 50% { opacity:.92 } }
+  @keyframes mbSpec { 0%,100% { transform:translateY(-34%) } 50% { transform:translateY(34%) } }
+  @media (prefers-reduced-motion: reduce) {
+    [data-sk] { animation:none !important; opacity:1 !important; transform:none !important; }
+    [data-sk-dot] { animation:none !important; opacity:0 !important; }
+  }
+</style>
+</helmet>
+
+<div style="font-family:'Plus Jakarta Sans',system-ui,sans-serif">
+
+<!-- ═══════ ANSWER ═══════ -->
+<section style="padding:56px 48px 44px;box-sizing:border-box;width:1424px;margin:0 auto">
+  <div style="display:flex;align-items:baseline;gap:10px;margin:0 0 26px">
+    <span style="font-size:10px;font-weight:800;padding:3px 7px;background:#e8ecef;color:#0a0e11;border-radius:4px">R20</span>
+    <span style="font-size:13px;font-weight:700;color:#e8ecef">What else belongs on the front page</span>
+  </div>
+
+  <h1 style="font-size:46px;font-weight:800;letter-spacing:-.024em;margin:0 0 22px;color:#e8ecef;max-width:20ch;line-height:1.02;text-wrap:balance">Two additions. Not five. And you have to earn the room.</h1>
+
+  <p style="margin:0 0 16px;font-size:18px;line-height:1.6;color:#c3cace;max-width:76ch;text-wrap:pretty">You asked what cards, icons and stories could add substance without disclosure. I found six credible candidates and I am recommending two of them — because the strongest finding in the research is that stacking proof types is itself a tell.</p>
+
+  <div style="border-left:3px solid #2f7df6;padding:10px 0 10px 24px;margin:0 0 24px;max-width:76ch">
+    <p style="margin:0 0 10px;font-size:19px;line-height:1.42;color:#e8ecef;font-weight:700;letter-spacing:-.012em;text-wrap:pretty">“Don't stack four to compensate for having none.”</p>
+    <p style="margin:0;font-size:15.5px;line-height:1.62;color:#a9b4c6;text-wrap:pretty">And the reason it reads as compensation: <em style="font-style:normal;color:#e8ecef">unverifiable claims and hard evidence look identical at a glance</em>, so a reader discounts both at the same rate. Six vague sections do not add up to one credible one — they subtract from it.</p>
+  </div>
+
+  <p style="margin:0 0 26px;font-size:16px;line-height:1.62;color:#c3cace;max-width:76ch;text-wrap:pretty">There is also a hard constraint you did not ask about. Engineering measured the live page at <strong style="color:#e8ecef;font-weight:700">6.0 screens on mobile</strong>, with the catalog band alone taking 2.6 of them. Adding two bands without touching that puts you past seven. So the recommendation has three parts, and the third is not optional.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:6px;overflow:hidden;max-width:1240px">
+    <sc-for list="{{ answer }}" as="a" hint-placeholder-count="3">
+      <div style="flex:1 1 300px;background:#0f1418;padding:24px 26px 26px;display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:{{ a.color }}">{{ a.tag }}</span>
+        <span style="font-size:17px;font-weight:700;color:#e8ecef;letter-spacing:-.012em;line-height:1.3">{{ a.what }}</span>
+        <span style="font-size:14.5px;line-height:1.6;color:#8c979e;text-wrap:pretty">{{ a.why }}</span>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<!-- ═══════ PROOF GAP ═══════ -->
+<section style="padding:44px 48px 52px;box-sizing:border-box;width:1424px;margin:0 auto;border-top:1px solid rgba(255,255,255,.12)">
+  <div style="font-size:10.5px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;margin-bottom:14px">How I picked</div>
+  <h2 style="font-size:33px;font-weight:800;letter-spacing:-.022em;margin:0 0 16px;color:#e8ecef;max-width:28ch;line-height:1.08">A pre-launch company has five kinds of proof. You are using two.</h2>
+  <p style="margin:0 0 30px;font-size:16px;line-height:1.62;color:#c3cace;max-width:76ch;text-wrap:pretty">This taxonomy comes from the early-stage credibility literature, and it is the most useful thing the research turned up — it converts “what else should we add?” from a taste question into a gap analysis. Judged against the live page after calls A, B and C.</p>
+
+  <div style="display:grid;gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:6px;overflow:hidden;max-width:1240px">
+    <div style="display:grid;grid-template-columns:190px 108px 1fr;gap:22px;background:#12181d;padding:13px 24px;font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#8c979e">
+      <span>Proof type</span><span>Status</span><span>Where it is, or what is missing</span>
+    </div>
+    <sc-for list="{{ proofRows }}" as="r" hint-placeholder-count="5">
+      <div style="display:grid;grid-template-columns:190px 108px 1fr;gap:22px;background:#0c1013;padding:17px 24px;align-items:start">
+        <span style="font-size:14.5px;font-weight:700;color:#e8ecef;line-height:1.35">{{ r.kind }}</span>
+        <span style="font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:{{ r.color }};line-height:1.5">{{ r.status }}</span>
+        <span style="font-size:14.5px;line-height:1.6;color:#a9b4c6;text-wrap:pretty">{{ r.note }}</span>
+      </div>
+    </sc-for>
+  </div>
+
+  <p style="margin:22px 0 0;font-size:16px;line-height:1.62;color:#c3cace;max-width:76ch;text-wrap:pretty">Three gaps, and the rule says fill one or two, not three. <strong style="color:#e8ecef;font-weight:700">Founder evidence is the one to fill</strong> — partly because it is the cheapest, mostly because of what the research says about this specific market.</p>
+</section>
+
+<!-- ═══════ GUYUB ═══════ -->
+<section style="padding:44px 48px 52px;box-sizing:border-box;width:1424px;margin:0 auto;border-top:1px solid rgba(255,255,255,.12)">
+  <div style="display:flex;gap:44px;flex-wrap:wrap;align-items:flex-start">
+    <div style="flex:1 1 560px;min-width:520px">
+      <div style="font-size:10.5px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;margin-bottom:14px">The Indonesia-specific finding</div>
+      <h2 style="font-size:33px;font-weight:800;letter-spacing:-.022em;margin:0 0 18px;color:#e8ecef;max-width:24ch;line-height:1.08">This market runs on people, not brands</h2>
+      <p style="margin:0 0 15px;font-size:16px;line-height:1.62;color:#c3cace;max-width:66ch;text-wrap:pretty">Indonesian tech communications practice names a cultural value — <strong style="color:#e8ecef;font-weight:700">guyub</strong>, gathering to build close relationships and trust — and describes Indonesia as a relationship-driven market where media, policymakers and the wider ecosystem place high value on face-to-face engagement and visible, named executives.</p>
+      <p style="margin:0 0 15px;font-size:16px;line-height:1.62;color:#c3cace;max-width:66ch;text-wrap:pretty">Your front page currently has one human being on it: a shop owner in Senen, quoted anonymously. Nobody from Mobeeli appears at all. <code style="font-size:14.5px;color:#9dc2fa">/team</code> exists, but a visitor has to leave the page to find out whether real people are behind this.</p>
+      <p style="margin:0;font-size:15.5px;line-height:1.6;color:#8c979e;max-width:66ch;text-wrap:pretty">This is inference, and I will label it as such: the sources establish that Indonesia is relationship-driven and that named, visible leadership builds credibility there. They do not measure the effect of founder photos on a landing page. What they support is the direction, not a conversion claim.</p>
+    </div>
+
+    <div style="flex:0 0 auto;width:520px;display:flex;flex-direction:column;gap:16px">
+      <sc-for list="{{ langFinding }}" as="l" hint-placeholder-count="2">
+        <div style="background:#0f1418;border:1px solid {{ l.border }};border-radius:8px;padding:22px 24px">
+          <div style="font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:{{ l.tagColor }};margin-bottom:10px">{{ l.tag }}</div>
+          <p style="margin:0 0 12px;font-size:15px;line-height:1.62;color:#c3cace;text-wrap:pretty">{{ l.body }}</p>
+          <div style="font-size:12px;line-height:1.55;color:#6f7a82;padding-top:11px;border-top:1px solid rgba(255,255,255,.08)">{{ l.src }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ TURN 2 ═══════ -->
+<section id="t2" style="padding:44px 48px 54px;box-sizing:border-box;width:1424px;margin:0 auto;border-top:1px solid rgba(255,255,255,.12)">
+  <div style="display:flex;align-items:baseline;gap:10px;margin:0 0 14px">
+    <a href="#t2" style="font-size:10px;font-weight:800;padding:3px 7px;background:#e8ecef;color:#0a0e11;border-radius:4px">2</a>
+    <span style="font-size:13px;font-weight:700;color:#e8ecef">The flow diagram — a rebuild of <a href="#1a" style="font-size:10.5px;font-weight:800;padding:2px 6px;background:rgba(255,255,255,.1);color:#e8ecef;border-radius:4px">1a</a></span>
+  </div>
+
+  <h2 style="font-size:33px;font-weight:800;letter-spacing:-.022em;margin:0 0 16px;color:#e8ecef;max-width:28ch;line-height:1.08">Your reference fixed a flaw in my first version</h2>
+  <p style="margin:0 0 14px;font-size:16px;line-height:1.62;color:#c3cace;max-width:78ch;text-wrap:pretty">A row of five equal cards says <em style="font-style:normal;color:#e8ecef">five audiences</em>. That is not your story. Three parties push data <strong style="color:#e8ecef;font-weight:700">in</strong>, three consume it <strong style="color:#e8ecef;font-weight:700">out</strong>, and the whole value is that everything is forced through one verified point in the middle. A Sankey shows exactly that — and the pinch in the middle <em style="font-style:normal;color:#e8ecef">is</em> the product.</p>
+  <p style="margin:0 0 30px;font-size:15px;line-height:1.6;color:#8c979e;max-width:78ch;text-wrap:pretty">Note Stores appear on both sides. That is deliberate, not a duplication bug — they are the only party that both publishes and buys, and the diagram is the easiest place you will ever have to make that point.</p>
+
+  <div id="2a" style="scroll-margin-top:16px">
+    <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+      <a href="#2a" style="font-size:10.5px;font-weight:800;padding:3px 8px;background:#2f7df6;color:#fff;border-radius:5px">2a</a>
+      <span style="font-size:14.5px;font-weight:700;color:#e8ecef">Converge, verify, distribute</span>
+      <span style="font-size:13px;color:#8c979e">— dark band, drops between the catalog and the map</span>
+      <span style="margin-left:auto;font-size:11.5px;font-weight:700;color:#3fb950;letter-spacing:.03em">zero numbers</span>
+    </div>
+
+    <div style="border:1px solid rgba(47,125,246,.3);border-radius:10px;overflow:hidden">
+      <div style="box-sizing:border-box;width:1328px;background:#0d1522;background-image:radial-gradient(900px 520px at 50% 40%,rgba(47,125,246,.13),transparent 70%);padding:88px 24px 96px">
+        <div style="max-width:1280px;margin:0 auto">
+          <h2 style="margin:0;font-size:61px;line-height:1.04;letter-spacing:-.022em;font-weight:800;color:#fff;max-width:17ch;text-wrap:balance">Five parties. One platform in the middle.</h2>
+          <p style="margin:24px 0 0;max-width:600px;font-size:19px;line-height:1.65;color:#a9b4c6;text-wrap:pretty">Today the same part is described five times by five people who never speak to each other. That is where the wrong part comes from — not from anyone being careless.</p>
+
+          <div style="position:relative;width:1280px;height:440px;margin-top:56px">
+            <svg viewBox="0 0 1280 440" width="1280" height="440" style="position:absolute;inset:0;pointer-events:none;overflow:visible" aria-hidden="true">
+              <sc-for list="{{ ribs }}" as="r" hint-placeholder-count="3">
+                <path data-sk="1" d="{{ r.path }}" fill="{{ r.c }}" opacity=".42" style="mix-blend-mode:screen;transform-origin:left center;animation:mbRib .9s cubic-bezier(.2,.7,.2,1) {{ r.d }} both"></path>
+              </sc-for>
+            </svg>
+
+            <svg viewBox="0 0 1280 440" width="1280" height="440" style="position:absolute;inset:0;pointer-events:none;overflow:visible" aria-hidden="true">
+              <sc-for list="{{ dots }}" as="p" hint-placeholder-count="6">
+                <circle data-sk-dot="1" r="4" fill="{{ p.c }}" style="offset-path:path('{{ p.cl }}');offset-rotate:0deg;filter:drop-shadow(0 0 7px {{ p.c }});animation:mbFlow {{ p.dur }} linear {{ p.del }} infinite,mbBreathe {{ p.dur }} ease-in-out {{ p.del }} infinite"></circle>
+              </sc-for>
+            </svg>
+
+            <sc-for list="{{ srcNodes }}" as="n" hint-placeholder-count="3">
+              <div data-sk="1" style="box-sizing:border-box;position:absolute;left:0;width:140px;top:{{ n.top }};height:{{ n.h }};border-radius:15px;background:{{ n.g }};box-shadow:0 14px 34px rgba(3,8,16,.55);padding:16px 15px;display:flex;flex-direction:column;justify-content:center;gap:7px;animation:mbNode .7s cubic-bezier(.2,.7,.2,1) {{ n.d }} both">
+                <svg viewBox="0 0 24 24" width="21" height="21" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" style="flex:none;opacity:.95" aria-hidden="true">
+                  <sc-if value="{{ n.ic1 }}" hint-placeholder-val="{{ false }}"><rect x="3" y="8" width="18" height="12" rx="2"></rect><path d="M7 8V5h10v3"></path><path d="M8 12h2M14 12h2M8 16h2M14 16h2"></path></sc-if>
+                  <sc-if value="{{ n.ic2 }}" hint-placeholder-val="{{ false }}"><path d="M3 8h13v9H3z"></path><path d="M16 11h4l1 3v3h-5z"></path><circle cx="7" cy="19" r="1.6"></circle><circle cx="18" cy="19" r="1.6"></circle></sc-if>
+                  <sc-if value="{{ n.ic3 }}" hint-placeholder-val="{{ false }}"><path d="M4 9h16v11H4z"></path><path d="M4 9 6 4h12l2 5"></path><path d="M10 20v-5h4v5"></path></sc-if>
+                </svg>
+                <span style="font-size:15.5px;font-weight:800;color:#fff;letter-spacing:-.012em;line-height:1.2">{{ n.t }}</span>
+                <span style="font-size:12px;font-weight:600;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.55);line-height:1.35">{{ n.sub }}</span>
+              </div>
+            </sc-for>
+
+            <div data-sk="1" style="box-sizing:border-box;position:absolute;left:565px;width:150px;top:80px;height:280px;border-radius:21px;padding:1px;background:linear-gradient(158deg,rgba(255,255,255,.5) 0%,rgba(91,155,247,.34) 38%,rgba(255,255,255,.1) 72%,rgba(255,255,255,.34) 100%);box-shadow:0 26px 60px rgba(3,8,16,.66),0 0 48px rgba(47,125,246,.2);transform-origin:center;animation:mbSpine .95s cubic-bezier(.2,.7,.2,1) .34s both">
+              <div style="position:relative;height:100%;border-radius:20px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.17) 0%,rgba(255,255,255,.045) 46%,rgba(91,155,247,.13) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.48),inset 0 -1px 0 rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center">
+                <div style="position:absolute;inset:0;opacity:.16;mix-blend-mode:overlay;pointer-events:none;background-image:url(assets/noise.svg)"></div>
+                <div data-sk="1" style="position:absolute;left:-20%;right:-20%;height:52%;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(255,255,255,.2) 45%,rgba(255,255,255,.26) 55%,transparent);animation:mbSpec 9s ease-in-out infinite"></div>
+                <div style="position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;padding:0 16px">
+                  <img src="assets/mobeeli-mark.png" alt="Mobeeli" style="height:46px;width:auto;display:block;filter:drop-shadow(0 4px 12px rgba(3,8,16,.6))">
+                  <span style="width:36px;height:1px;background:rgba(255,255,255,.3)"></span>
+                  <span style="font-size:10.5px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.65);white-space:nowrap">The platform</span>
+                </div>
+              </div>
+            </div>
+
+            <sc-for list="{{ dstNodes }}" as="n" hint-placeholder-count="3">
+              <div data-sk="1" style="box-sizing:border-box;position:absolute;left:1140px;width:140px;top:{{ n.top }};height:{{ n.h }};border-radius:15px;background:linear-gradient(158deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,.035) 55%,rgba(91,155,247,.1) 100%);border:1px solid rgba(255,255,255,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.26),0 14px 32px rgba(3,8,16,.42);padding:16px 15px;display:flex;flex-direction:column;justify-content:center;gap:7px;animation:mbNode .7s cubic-bezier(.2,.7,.2,1) {{ n.d }} both">
+                <svg viewBox="0 0 24 24" width="21" height="21" stroke="#9dc2fa" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" style="flex:none" aria-hidden="true">
+                  <sc-if value="{{ n.ic3 }}" hint-placeholder-val="{{ false }}"><path d="M4 9h16v11H4z"></path><path d="M4 9 6 4h12l2 5"></path><path d="M10 20v-5h4v5"></path></sc-if>
+                  <sc-if value="{{ n.ic4 }}" hint-placeholder-val="{{ false }}"><path d="m14.5 5.5 4 4"></path><path d="M20 3.5a4.5 4.5 0 0 1-5.6 5.6L6 17.5 4 20l-.5-2.5L12 9.1A4.5 4.5 0 0 1 17.6 3.5z"></path></sc-if>
+                  <sc-if value="{{ n.ic5 }}" hint-placeholder-val="{{ false }}"><path d="M4 15h16v3H4z"></path><path d="m5 15 2-5h10l2 5"></path><circle cx="7.5" cy="18.5" r="1.6"></circle><circle cx="16.5" cy="18.5" r="1.6"></circle></sc-if>
+                </svg>
+                <span style="font-size:15.5px;font-weight:800;color:#fff;letter-spacing:-.012em;line-height:1.2">{{ n.t }}</span>
+                <span style="font-size:12px;font-weight:600;color:#c3cace;line-height:1.35">{{ n.sub }}</span>
+              </div>
+            </sc-for>
+
+            <sc-for list="{{ ribLabels }}" as="r" hint-placeholder-count="4">
+              <span data-sk="1" style="position:absolute;left:{{ r.lx }};top:{{ r.ly }};animation:mbNode .7s cubic-bezier(.2,.7,.2,1) {{ r.d }} both">
+                <sc-if value="{{ r.icXls }}" hint-placeholder-val="{{ false }}">
+                  <span style="display:flex;width:44px;height:44px;border-radius:50%;background:#fff;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(3,8,16,.55)">
+                    <img src="assets/icons/xls2.png" alt="Excel file" style="height:26px;width:auto;display:block">
+                  </span>
+                </sc-if>
+                <sc-if value="{{ r.icPdf }}" hint-placeholder-val="{{ false }}">
+                  <span style="display:flex;width:44px;height:44px;border-radius:50%;background:#fff;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(3,8,16,.55)">
+                    <img src="assets/icons/pdf2.png" alt="PDF file" style="height:26px;width:auto;display:block">
+                  </span>
+                </sc-if>
+                <sc-if value="{{ r.icJpg }}" hint-placeholder-val="{{ false }}">
+                  <span style="display:flex;width:44px;height:44px;border-radius:50%;background:#fff;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(3,8,16,.55)">
+                    <img src="assets/icons/jpg2.png" alt="Photo of a handwritten ledger" style="height:26px;width:auto;display:block">
+                  </span>
+                </sc-if>
+                <sc-if value="{{ r.txt }}" hint-placeholder-val="{{ true }}">
+                  <span style="font-size:11.5px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.85)">{{ r.lab }}</span>
+                </sc-if>
+              </span>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:18px;margin-top:22px;max-width:1280px">
+      <sc-for list="{{ sankeyNotes }}" as="n" hint-placeholder-count="4">
+        <div style="flex:1 1 280px;min-width:270px;background:#0f1418;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:20px 22px">
+          <div style="font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:{{ n.color }};margin-bottom:9px">{{ n.tag }}</div>
+          <p style="margin:0;font-size:14px;line-height:1.62;color:#a9b4c6;text-wrap:pretty">{{ n.body }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <p style="margin:28px 0 0;font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.5)">Try next: “build <a href="#2a">2a</a>” · “<a href="#2a">2a</a> but light band” · “show me how it collapses on mobile”</p>
+</section>
+
+<!-- ═══════ TURN 1 ═══════ -->
+<section id="t1" style="padding:44px 48px 54px;box-sizing:border-box;width:1424px;margin:0 auto;border-top:1px solid rgba(255,255,255,.12)">
+  <div style="display:flex;align-items:baseline;gap:10px;margin:0 0 14px">
+    <a href="#t1" style="font-size:10px;font-weight:800;padding:3px 7px;background:#e8ecef;color:#0a0e11;border-radius:4px">1</a>
+    <span style="font-size:13px;font-weight:700;color:#e8ecef">The two I'd add</span>
+  </div>
+  <p style="margin:0 0 34px;font-size:15.5px;line-height:1.6;color:#8c979e;max-width:76ch;text-wrap:pretty">Both drawn at the real 1280px content width, using the live tokens — <code style="font-size:14px;color:#9dc2fa">--mb-border</code> hairlines, 18px radius, the <code style="font-size:14px;color:#9dc2fa">.mb-h2</code> scale at 800. Neither contains a single number.</p>
+
+  <div style="display:flex;flex-direction:column;gap:38px">
+
+    <!-- 1a -->
+    <div id="1a" style="scroll-margin-top:16px">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+        <a href="#1a" style="font-size:10.5px;font-weight:800;padding:3px 8px;background:#2f7df6;color:#fff;border-radius:5px">1a</a>
+        <span style="font-size:14.5px;font-weight:700;color:#e8ecef">Who it's for — the industry, as a chain</span>
+        <span style="font-size:13px;color:#8c979e">— promotes one hero line into the argument</span>
+        <span style="margin-left:auto;font-size:11.5px;font-weight:700;color:#e3b341;letter-spacing:.03em">~7 new strings</span>
+      </div>
+      <div style="border:1px solid rgba(47,125,246,.3);border-radius:10px;overflow:hidden">
+        <div style="box-sizing:border-box;width:1328px;background:#ffffff;border-top:1px solid #e3e7ee;padding:96px 24px">
+          <div style="max-width:1280px;margin:0 auto">
+            <h2 style="margin:0;font-size:61px;line-height:1.04;letter-spacing:-.022em;font-weight:800;color:#0d1522;max-width:900px;text-wrap:balance">Five parties. One catalog. Nobody retypes anything.</h2>
+            <p style="margin:24px 0 0;max-width:620px;font-size:19px;line-height:1.65;color:#636e7e;text-wrap:pretty">Today a part is described five times by five people who never speak. That is where the wrong part comes from — not from anyone being careless.</p>
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1px;margin-top:44px;background:#e3e7ee;border:1px solid #e3e7ee;border-radius:18px;overflow:hidden">
+              <sc-for list="{{ chain }}" as="c" hint-placeholder-count="5">
+                <div style="background:#ffffff;padding:28px 22px 32px;display:flex;flex-direction:column;gap:14px">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;color:#1b5fd9">
+                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <sc-if value="{{ c.i1 }}" hint-placeholder-val="{{ false }}"><rect x="3" y="8" width="18" height="12" rx="2"></rect><path d="M7 8V5h10v3"></path></sc-if>
+                      <sc-if value="{{ c.i2 }}" hint-placeholder-val="{{ false }}"><path d="M3 8h13v9H3z"></path><path d="M16 11h4l1 3v3h-5z"></path><circle cx="7" cy="19" r="1.6"></circle><circle cx="18" cy="19" r="1.6"></circle></sc-if>
+                      <sc-if value="{{ c.i3 }}" hint-placeholder-val="{{ false }}"><path d="M4 9h16v11H4z"></path><path d="M4 9 6 4h12l2 5"></path></sc-if>
+                      <sc-if value="{{ c.i4 }}" hint-placeholder-val="{{ false }}"><path d="m14.5 5.5 4 4"></path><path d="M20 3.5a4.5 4.5 0 0 1-5.6 5.6L6 17.5 4 20l-.5-2.5L12 9.1A4.5 4.5 0 0 1 17.6 3.5z"></path></sc-if>
+                      <sc-if value="{{ c.i5 }}" hint-placeholder-val="{{ false }}"><path d="M4 15h16v3H4z"></path><path d="m5 15 2-5h10l2 5"></path><circle cx="7.5" cy="18.5" r="1.6"></circle><circle cx="16.5" cy="18.5" r="1.6"></circle></sc-if>
+                    </svg>
+                    <span style="font-size:11.5px;font-weight:800;letter-spacing:.09em;color:#8b95a4;font-variant-numeric:tabular-nums">{{ c.n }}</span>
+                  </div>
+                  <h3 style="margin:0;font-size:17px;line-height:1.35;font-weight:700;letter-spacing:-.01em;color:#0d1522">{{ c.who }}</h3>
+                  <p style="margin:0;font-size:14.5px;line-height:1.6;color:#636e7e;text-wrap:pretty">{{ c.gets }}</p>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="margin:13px 0 0;font-size:14.5px;line-height:1.6;color:#8c979e;max-width:80ch;text-wrap:pretty">This is the “how we change the industry” band, and right now it is a single clause buried in the hero subhead. Five parties named side by side <em style="font-style:normal;color:#c3cace">is</em> the ambition — it says you are infrastructure for a whole supply chain, not a shop, and it does it without one statistic. It is also standard practice for a multi-sided platform to name its sides explicitly.</p>
+    </div>
+
+    <!-- 1b -->
+    <div id="1b" style="scroll-margin-top:16px">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+        <a href="#1b" style="font-size:10.5px;font-weight:800;padding:3px 8px;background:#2f7df6;color:#fff;border-radius:5px">1b</a>
+        <span style="font-size:14.5px;font-weight:700;color:#e8ecef">Who's building it — a strip, not a team page</span>
+        <span style="font-size:13px;color:#8c979e">— the proof type you have none of</span>
+        <span style="margin-left:auto;font-size:11.5px;font-weight:700;color:#e3b341;letter-spacing:.03em">~3 strings + portraits</span>
+      </div>
+      <div style="border:1px solid rgba(47,125,246,.3);border-radius:10px;overflow:hidden">
+        <div style="box-sizing:border-box;width:1328px;background:#f5f7fa;border-top:1px solid #e3e7ee;padding:80px 24px">
+          <div style="max-width:1280px;margin:0 auto;display:flex;gap:64px;align-items:flex-start;flex-wrap:wrap">
+            <div style="flex:1 1 440px;min-width:400px">
+              <h2 style="margin:0;font-size:47px;line-height:1.06;letter-spacing:-.022em;font-weight:800;color:#0d1522;max-width:15ch;text-wrap:balance">Built in Jakarta, by people you can name.</h2>
+              <p style="margin:22px 0 0;max-width:440px;font-size:18px;line-height:1.65;color:#636e7e;text-wrap:pretty">We spent months in Senen and Kemayoran asking shop owners what actually goes wrong. This is not a platform designed abroad and shipped here.</p>
+              <div style="margin-top:26px;display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:700;color:#1b5fd9">Meet the team →</div>
+            </div>
+            <div style="flex:0 0 auto;display:flex;gap:20px">
+              <sc-for list="{{ founders }}" as="f" hint-placeholder-count="3">
+                <div style="width:196px;display:flex;flex-direction:column;gap:13px">
+                  <div style="width:196px;height:232px;border-radius:14px;border:1px solid #e3e7ee;background-image:repeating-linear-gradient(135deg,#eef1f6 0 9px,#f7f9fb 9px 18px);display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px">
+                    <span style="font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:#8b95a4;letter-spacing:.02em">{{ f.slot }}</span>
+                  </div>
+                  <div>
+                    <div style="font-size:15.5px;font-weight:700;color:#0d1522;letter-spacing:-.01em">{{ f.name }}</div>
+                    <div style="margin-top:3px;font-size:13.5px;color:#636e7e;line-height:1.45">{{ f.role }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p style="margin:13px 0 0;font-size:14.5px;line-height:1.6;color:#8c979e;max-width:80ch;text-wrap:pretty">Names and portraits are placeholders — <code style="font-size:13.5px;color:#9dc2fa">/team</code> has the real people and I have not read it. The point is the shape: three faces, one line of provenance, one link out. It discloses nothing and it answers the question a relationship-driven market asks first.</p>
+    </div>
+  </div>
+
+  <p style="margin:30px 0 0;font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.5)">Try next: “build <a href="#1a">1a</a>” · “<a href="#1b">1b</a> with the real team” · “both, and cut the catalog band down”</p>
+</section>
+
+<!-- ═══════ REJECTED ═══════ -->
+<section style="padding:44px 48px 52px;box-sizing:border-box;width:1424px;margin:0 auto;border-top:1px solid rgba(255,255,255,.12)">
+  <div style="font-size:10.5px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;margin-bottom:14px">Considered and rejected</div>
+  <h2 style="font-size:33px;font-weight:800;letter-spacing:-.022em;margin:0 0 16px;color:#e8ecef;max-width:26ch;line-height:1.08">Four more that look good until you ask what they prove</h2>
+  <p style="margin:0 0 30px;font-size:16px;line-height:1.62;color:#c3cace;max-width:76ch;text-wrap:pretty">Each of these is a real pattern and each would fill space respectably. That is the problem — space is not what the page is short of.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:18px;max-width:1280px">
+    <sc-for list="{{ rejected }}" as="r" hint-placeholder-count="4">
+      <div style="flex:1 1 290px;min-width:280px;background:#0f1418;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:22px 24px;display:flex;flex-direction:column;gap:11px">
+        <div style="font-size:15px;font-weight:700;color:#e8ecef;letter-spacing:-.01em">{{ r.title }}</div>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#a9b4c6;text-wrap:pretty">{{ r.body }}</p>
+        <div style="margin-top:auto;padding-top:11px;border-top:1px solid rgba(255,255,255,.08);font-size:13px;line-height:1.55;color:#e3b341">{{ r.verdict }}</div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<!-- ═══════ THE COST ═══════ -->
+<section style="padding:44px 48px 52px;box-sizing:border-box;width:1424px;margin:0 auto;border-top:1px solid rgba(255,255,255,.12)">
+  <div style="font-size:10.5px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;margin-bottom:14px">The part you have to pay for</div>
+  <h2 style="font-size:33px;font-weight:800;letter-spacing:-.022em;margin:0 0 16px;color:#e8ecef;max-width:28ch;line-height:1.08">Two new bands take mobile past seven screens</h2>
+  <p style="margin:0 0 28px;font-size:16px;line-height:1.62;color:#c3cace;max-width:76ch;text-wrap:pretty">Measured on live production by engineering, not estimated. Each block below is one phone screen at 390×844.</p>
+
+  <div style="display:flex;flex-direction:column;gap:20px;max-width:1240px">
+    <sc-for list="{{ scrollRows }}" as="s" hint-placeholder-count="3">
+      <div>
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap">
+          <span style="font-size:13.5px;font-weight:700;color:#e8ecef">{{ s.label }}</span>
+          <span style="font-size:13px;font-weight:700;color:{{ s.color }};font-variant-numeric:tabular-nums">{{ s.total }}</span>
+        </div>
+        <div style="display:flex;height:34px;gap:2px">
+          <sc-for list="{{ s.bands }}" as="b" hint-placeholder-count="5">
+            <div style="width:{{ b.w }};background:{{ b.bg }};border-radius:3px;display:flex;align-items:center;padding:0 9px;overflow:hidden">
+              <span style="font-size:11px;font-weight:700;color:{{ b.fg }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ b.t }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="display:grid;grid-template-columns:150px 1fr;gap:36px;border-top:1px solid rgba(255,255,255,.09);padding-top:26px;margin-top:32px;max-width:1180px">
+    <div style="font-size:10.5px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;line-height:1.5;padding-top:3px">Where the<br>room comes<br>from</div>
+    <div>
+      <p style="margin:0 0 14px;font-size:16px;line-height:1.62;color:#c3cace;max-width:72ch;text-wrap:pretty"><strong style="color:#e8ecef;font-weight:700">The catalog band, on phones only.</strong> It is 2.61 screens on mobile against 1.52 on desktop — it does not just get taller, it gets proportionally 1.7× heavier on the device where patience is shortest. The picker, the scan and four part cards are all stacked vertically there.</p>
+      <p style="margin:0 0 14px;font-size:16px;line-height:1.62;color:#c3cace;max-width:72ch;text-wrap:pretty">Two part cards instead of four, and a horizontally scrollable row rather than a stack, would take roughly a screen out without touching the desktop layout or removing a single idea. That is a mobile-layout change, not a content cut — the argument survives intact.</p>
+      <p style="margin:0;font-size:15px;line-height:1.6;color:#8c979e;max-width:72ch;text-wrap:pretty">And while you are in there: the buyer strip — your only conversion moment — is <strong style="color:#c3cace;font-weight:700">0.20 of a mobile screen</strong>, and it comes last. That is a separate problem and probably a bigger one than anything on this page.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SOURCES ═══════ -->
+<section style="padding:44px 48px 64px;box-sizing:border-box;width:1424px;margin:0 auto;border-top:1px solid rgba(255,255,255,.12)">
+  <div style="font-size:10.5px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;margin-bottom:16px">Sources, and what each one is worth</div>
+  <p style="margin:0 0 24px;font-size:15.5px;line-height:1.6;color:#8c979e;max-width:76ch;text-wrap:pretty">Being straight about quality: the pre-launch landing-page literature is mostly vendor content marketing and I have leaned on it only where several independent sources agree. The Bessemer and Stripe pieces are the strongest here. Nothing below is Indonesia-specific about landing pages — that combination does not appear to exist.</p>
+  <div style="display:flex;flex-direction:column;gap:10px;max-width:1180px">
+    <sc-for list="{{ sources }}" as="s" hint-placeholder-count="6">
+      <div style="display:grid;grid-template-columns:200px 88px 1fr;gap:20px;font-size:13.5px;line-height:1.55;align-items:baseline">
+        <a href="{{ s.url }}" target="_blank" rel="noreferrer" style="color:#9dc2fa;font-weight:600">{{ s.name }}</a>
+        <span style="font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:{{ s.qColor }}">{{ s.quality }}</span>
+        <span style="color:#8c979e">{{ s.what }}</span>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const G = "#3fb950", B = "#5b9bf7", R = "#ef4444", Y = "#e3b341";
+    // Sankey geometry, derived rather than eyeballed — every path below is
+    // generated from the node rectangles so the ribbons always meet their nodes.
+    // Spine widened 88 -> 150 so the mark and a horizontal caption both fit. It
+    // also shortens each ribbon run 456 -> 425px, which tightens the taper.
+    const W = 1280, H = 440, NW = 140, SX = 565, SW = 150;
+    const ribbon = (x0, a0, b0, x1, a1, b1) => {
+      const m = (x0 + x1) / 2;
+      return `M${x0},${a0} C${m},${a0} ${m},${a1} ${x1},${a1} L${x1},${b1} C${m},${b1} ${m},${b0} ${x0},${b0} Z`;
+    };
+    const line = (x0, y0, x1, y1) => {
+      const m = (x0 + x1) / 2;
+      return `M${x0},${y0} C${m},${y0} ${m},${y1} ${x1},${y1}`;
+    };
+    const DEEP = "#1b5fd9", PRIM = "#2f7df6", LITE = "#5b9bf7";
+    // Node boxes, matching the absolutely-positioned divs exactly.
+    const NODES = [[20, 116], [152, 264], [300, 420]];
+    const SY = 80, SH = 280;               // spine box
+    const PINCH = 0.55, GAP = 14;          // 45% narrowing, dark space between ribbons
+    // Ribbons attach to a centred FRACTION of each node edge rather than its full
+    // height. Node boxes have to be tall enough for icon + title + sub-label; the
+    // reference image's ribbons are thin with generous dark space around them, and
+    // tying ribbon mass to label height was what made them read as solid slabs.
+    const ATTACH = 0.58;
+    const NODES_A = NODES.map((n) => {
+      const c = (n[0] + n[1]) / 2, h = (n[1] - n[0]) * ATTACH / 2;
+      return [c - h, c + h];
+    });
+
+    // The spine slices are DERIVED from the node heights, never hand-authored.
+    // Authoring them as absolute pairs is how the first version ended up encoding
+    // expansion (328px of ribbon leaving, 362px arriving, negative gaps) — the
+    // exact opposite of the convergence this diagram exists to argue.
+    const heights = NODES_A.map((n) => n[1] - n[0]);
+    const sliceH = heights.map((h) => Math.round(h * PINCH));
+    const stackH = sliceH.reduce((a, b) => a + b, 0) + GAP * (sliceH.length - 1);
+    let cursor = SY + (SH - stackH) / 2;   // centred inside the spine
+    const SLICES = sliceH.map((h) => { const s = [cursor, cursor + h]; cursor += h + GAP; return s; });
+
+    // ONE continuous ribbon per party: source -> straight through the spine ->
+    // destination. Splitting it in two left the spine with nothing behind it, so
+    // the glass was just a tint on flat ink. Now the flow passes under it, which
+    // is both what makes it read as glass and what the section actually argues.
+    const X0 = NW, X1 = SX, X2 = SX + SW, X3 = W - NW;
+    // Control points sit at 66% of each run rather than the midpoint, so the
+    // ribbons stay flat leaving the nodes and do their taper close to the spine.
+    // With the midpoint the 45% pinch was spread over 456px and read as a gentle
+    // lean; concentrating it makes the convergence as legible as the argument.
+    const BIAS = 0.66;
+    const m1 = X0 + (X1 - X0) * BIAS, m2 = X3 - (X3 - X2) * BIAS;
+    const thru = (n, s) =>
+      `M${X0},${n[0]} C${m1},${n[0]} ${m1},${s[0]} ${X1},${s[0]} L${X2},${s[0]} ` +
+      `C${m2},${s[0]} ${m2},${n[0]} ${X3},${n[0]} L${X3},${n[1]} ` +
+      `C${m2},${n[1]} ${m2},${s[1]} ${X2},${s[1]} L${X1},${s[1]} ` +
+      `C${m1},${s[1]} ${m1},${n[1]} ${X0},${n[1]} Z`;
+    const thruLine = (n, s) => {
+      const cn = (n[0] + n[1]) / 2, cs = (s[0] + s[1]) / 2;
+      return `M${X0},${cn} C${m1},${cn} ${m1},${cs} ${X1},${cs} L${X2},${cs} C${m2},${cs} ${m2},${cn} ${X3},${cn}`;
+    };
+    const META = [{ c: DEEP, d: ".05s" }, { c: PRIM, d: ".18s" }, { c: LITE, d: ".31s" }];
+    const RIBS = NODES_A.map((n, i) => ({
+      key: "r" + i, c: META[i].c, d: META[i].d,
+      path: thru(n, SLICES[i]), cl: thruLine(n, SLICES[i]),
+    }));
+    const DOTS = [];
+    RIBS.forEach((r, i) => {
+      for (let k = 0; k < 2; k++) {
+        DOTS.push({ cl: r.cl, c: r.c, dur: (7.4 + i * 0.9) + "s", del: (i * 0.6 + k * 3.6) + "s" });
+      }
+    });
+
+    return {
+      ribs: RIBS,
+      dots: DOTS,
+      // Three labels in, ONE out. The asymmetry is the argument: three formats
+      // arrive, one verified thing leaves.
+      // The three inbound chips reuse the exact PNGs the live FitmentSection
+      // already renders for "whatever they send", in the same white circle — the
+      // Sankey sits directly above that band, so bare uppercase text would have
+      // named the same three formats a second, inconsistent way.
+      // Flags, not paths. A {{ hole }} in an src attribute makes the browser
+      // fetch the literal "{{ r.img }}" string before it resolves, which logs a
+      // resource error on every load — attribute values are not safe places for
+      // computed strings here. Same reason the inline noise data URI failed.
+      ribLabels: [
+        { lab: "Excel file", icXls: true, lx: "236px", ly: "46px", d: ".05s" },
+        { lab: "PDF file", icPdf: true, lx: "236px", ly: "186px", d: ".18s" },
+        { lab: "Photo of a ledger", icJpg: true, lx: "236px", ly: "338px", d: ".31s" },
+        { lab: "verified", txt: true, lx: "906px", ly: "204px", d: ".58s" },
+      ],
+      // Gradients sit in the --mb-deep-blue family so solid-white titles clear
+      // AA. The earlier light-to-dark progression bottomed out at 2.81:1 on the
+      // lightest card; the three ribbons already carry that distinction.
+      srcNodes: [
+        { t: "Brands", sub: "publish once", top: "20px", h: "96px", g: "linear-gradient(150deg,#1b5fd9,#123f9e)", d: ".02s", ic1: true },
+        { t: "Distributors", sub: "send anything", top: "152px", h: "112px", g: "linear-gradient(150deg,#1f62d6,#14428f)", d: ".12s", ic2: true },
+        { t: "Stores", sub: "even a ledger photo", top: "300px", h: "120px", g: "linear-gradient(150deg,#2366d2,#163f86)", d: ".22s", ic3: true },
+      ],
+      // Stores carries the SAME storefront glyph on both sides — that repetition
+      // is the point, since they are the only party that both publishes and buys.
+      dstNodes: [
+        { t: "Stores", sub: "list without retyping", top: "20px", h: "96px", d: ".62s", ic3: true },
+        { t: "Mechanics", sub: "order for the car in the bay", top: "152px", h: "112px", d: ".72s", ic4: true },
+        { t: "Drivers", sub: "see only what fits", top: "300px", h: "120px", d: ".82s", ic5: true },
+      ],
+      sankeyNotes: [
+        { tag: "The animation", color: "#5b9bf7", body: "Ribbons draw in left to right over ~1s, then packets travel the centrelines on a slow loop. It reads as data moving, not decoration. Under prefers-reduced-motion everything lands in its final state instantly and the packets are hidden \u2014 same gate the scan already uses." },
+        { tag: "How it blends", color: "#5b9bf7", body: "Dark band on --mb-ink with the same aurora wash as the catalog section, 96px rhythm, .mb-h2 at 800. It sits between the catalog and the map, so the dark-on-dark seam call B created gets a third band rather than a hairline \u2014 this replaces that fix." },
+        { tag: "Why a Sankey and not cards", color: "#5b9bf7", body: "Cards imply five independent audiences. A flow diagram shows dependency: the parties on the right only get clean data because the parties on the left were normalised. That is the company, drawn." },
+        { tag: "The mark in the spine", color: "#5b9bf7", body: "Vertical type was the weakness \u2014 the spine is the hero of the diagram and its label was the hardest thing on the page to read, and it spelled out MOBEELI where the mark says it instantly. The mark now sits horizontally with a hairline and a one-line caption. Note this does NOT pre-empt the logo ruling: using the mark alone inside a product diagram is normal even for companies whose nav keeps a full lockup, so the split decision stays open." },
+        { tag: "The honest caveat", color: "#e3b341", body: "Real Sankeys encode quantity in ribbon thickness. Yours cannot \u2014 you have no public volumes and would not publish them. The 45% narrowing at the spine is a fixed ratio chosen to make the pinch legible, not a measured one, and the widths are compositional. It reads correctly without axis labels, but do not let it grow numbers later." },
+        { tag: "The glass, and why no blur", color: "#5b9bf7", body: "The spine is built the way 2026 practice now recommends \u2014 translucency plus a gradient border, fractal-noise grain (assets/noise.svg; inlining it as a data URI does not work here, the template compiler rewrites camelCase attributes like baseFrequency even inside the string), an inset specular highlight and a soft outer glow \u2014 with NO backdrop-filter. That is not a compromise: current guidance is explicitly to avoid nesting backdrop-filters, and here it also fixes a real bug, because blur plus the ribbons' mix-blend-mode:screen painted a hard bright rectangle almost 3\u00d7 the spine's width. The slow vertical sheen is the Liquid Glass cue, on a 9s loop, and it stops under reduced motion." },
+        { tag: "Two build notes", color: "#e3b341", body: "Ribbon labels are solid white with the scan's text-shadow \u2014 at 62% white they failed AA over the lightest ribbon, and 2026 glass guidance says the same thing: put a scrim or a high-contrast stroke behind text on translucent surfaces. And every node needs box-sizing:border-box; there is no reset in this document, so padding pushed the destination cards 31px past the diagram edge." },
+      ],
+      answer: [
+        { tag: "Add", color: B, what: "Who it's for — five parties, one catalog", why: "Your industry-change argument is currently one clause in the hero subhead. This is the band that makes it." },
+        { tag: "Add", color: B, what: "Who's building it — a founder strip", why: "The only proof type you have none of, in a market the research describes as relationship-driven." },
+        { tag: "Pay for it", color: Y, what: "Cut the catalog band on mobile", why: "It is 2.6 of the page's 6.0 phone screens. Two new bands without this puts you past seven." },
+      ],
+      proofRows: [
+        { kind: "Product evidence", status: "Strong", color: G, note: "The five-level picker, the 1.8s scan, the fitment-spec cards. This is the best thing on the page and it is doing most of the work alone." },
+        { kind: "Market evidence", status: "Partial", color: Y, note: "The Senen quote and the archipelago band establish the problem and the geography. Nothing establishes that a whole supply chain is the unit of change." },
+        { kind: "Founder evidence", status: "Absent", color: R, note: "Nobody from Mobeeli appears on the front page. /team exists but a visitor must leave to find it. This is gap one, and the one I would fill." },
+        { kind: "Process evidence", status: "Absent", color: R, note: "No timeline beyond \u201CLaunching 2026\u201D in the hero chip. What happens after someone joins the waitlist is unstated." },
+        { kind: "Early-user evidence", status: "Absent", color: R, note: "The Early Adopters Program is a nav link to the platform. On the page itself, no design partner, pilot shop or beta signal of any kind." },
+      ],
+      langFinding: [
+        { tag: "Relevant to 1b", tagColor: B, border: "rgba(91,155,247,.28)",
+          body: "Indonesian tech PR practice describes a relationship-driven market that values visible, named executives and face-to-face engagement \u2014 and names guyub, the cultural value of gathering to build trust. It also recommends storytelling in Bahasa Indonesia rather than English-first.",
+          src: "Hoffman Agency, \u201CHow to Speak Tech Like a Local in Indonesia\u201D (May 2025)" },
+        { tag: "A live bug this reframes", tagColor: R, border: "rgba(239,68,68,.28)",
+          body: "English proficiency in Indonesia is relatively low against neighbouring markets, and audiences expect content in their own language. Engineering found nav_cta, nav.cta, join.title and early_cta all render \u201CJoin Waitlist\u201D in the Indonesian map \u2014 your primary conversion action and the waitlist page title are in English to an Indonesian visitor. Read alongside the localization finding, that is not a cosmetic gap.",
+          src: "GTE Localize (Apr 2026) \u00b7 engineering handback, main @ e77d388" },
+      ],
+      chain: [
+        { n: "01", who: "Brands", gets: "Publish once, correctly, instead of chasing every reseller's spreadsheet.", i1: true },
+        { n: "02", who: "Distributors", gets: "Send whatever format you already have. It gets read.", i2: true },
+        { n: "03", who: "Stores", gets: "List without retyping, and stop absorbing returns you cannot prove.", i3: true },
+        { n: "04", who: "Mechanics", gets: "Order for the car in the bay, not the car you hope it is.", i4: true },
+        { n: "05", who: "Drivers", gets: "See only what fits. Nothing else appears.", i5: true },
+      ],
+      founders: [
+        { slot: "founder portrait", name: "Name", role: "Co-founder" },
+        { slot: "founder portrait", name: "Name", role: "Co-founder" },
+        { slot: "founder portrait", name: "Name", role: "Co-founder" },
+      ],
+      rejected: [
+        { title: "A principles manifesto", body: "Three or four beliefs about how the industry should work. Cheap to write, looks substantial, reads as values-led.",
+          verdict: "Rejected \u2014 unverifiable by construction. This is exactly the section a reader discounts on sight." },
+        { title: "A roadmap or timeline", body: "Q1 Jakarta, Q3 Surabaya, and so on. Signals momentum and makes the 2026 date concrete.",
+          verdict: "Rejected \u2014 it is a promise with dates on it, and it discloses sequencing you would not put in the deck." },
+        { title: "An FAQ", body: "Handles objections, catches long-tail search, gives the page depth without new claims.",
+          verdict: "Rejected for now \u2014 an FAQ answers questions people are already asking. Pre-launch, you would be inventing them." },
+        { title: "Early-adopter proof", body: "The strongest pre-launch signal there is \u2014 Bessemer argues a design partner won by cold outreach beats any warm testimonial.",
+          verdict: "Deferred, not rejected \u2014 the honest version needs a named shop who agreed to be named. Worth chasing; cannot be designed." },
+      ],
+      scrollRows: [
+        { label: "Live today", total: "6.0 screens", color: "#8c979e", bands: [
+          { t: "Hero", w: "16.7%", bg: "#1e2831", fg: "#c3cace" },
+          { t: "Problem", w: "13.7%", bg: "#2a3540", fg: "#c3cace" },
+          { t: "Catalog \u00b7 2.61", w: "43.5%", bg: "#e3b341", fg: "#0a0e11" },
+          { t: "Coverage", w: "16.7%", bg: "#1e2831", fg: "#c3cace" },
+          { t: "Strip", w: "3.3%", bg: "#2a3540", fg: "#c3cace" },
+          { t: "Foot", w: "6.1%", bg: "#161d24", fg: "#8c979e" },
+        ] },
+        { label: "Add both bands, change nothing else", total: "7.6 screens", color: R, bands: [
+          { t: "Hero", w: "13.2%", bg: "#1e2831", fg: "#c3cace" },
+          { t: "Problem", w: "10.8%", bg: "#2a3540", fg: "#c3cace" },
+          { t: "Catalog \u00b7 2.61", w: "34.3%", bg: "#ef4444", fg: "#fff" },
+          { t: "Who it's for", w: "11.8%", bg: "#2f7df6", fg: "#fff" },
+          { t: "Coverage", w: "13.2%", bg: "#1e2831", fg: "#c3cace" },
+          { t: "Team", w: "9.2%", bg: "#2f7df6", fg: "#fff" },
+          { t: "Strip", w: "2.6%", bg: "#2a3540", fg: "#c3cace" },
+          { t: "Foot", w: "4.9%", bg: "#161d24", fg: "#8c979e" },
+        ] },
+        { label: "Add both, and cut the catalog band on mobile", total: "6.6 screens", color: G, bands: [
+          { t: "Hero", w: "15.2%", bg: "#1e2831", fg: "#c3cace" },
+          { t: "Problem", w: "12.4%", bg: "#2a3540", fg: "#c3cace" },
+          { t: "Catalog \u00b7 1.6", w: "24.2%", bg: "#3fb950", fg: "#0a0e11" },
+          { t: "Who it's for", w: "13.6%", bg: "#2f7df6", fg: "#fff" },
+          { t: "Coverage", w: "15.2%", bg: "#1e2831", fg: "#c3cace" },
+          { t: "Team", w: "10.6%", bg: "#2f7df6", fg: "#fff" },
+          { t: "Strip", w: "3.0%", bg: "#2a3540", fg: "#c3cace" },
+          { t: "Foot", w: "5.8%", bg: "#161d24", fg: "#8c979e" },
+        ] },
+      ],
+      sources: [
+        { name: "Bessemer Venture Partners", quality: "Strong", qColor: G, url: "https://www.bvp.com/atlas/design-partners-the-pre-launch-edge-most-ai-founders-ignore",
+          what: "Design partners as the pre-launch signal; cold outreach beats warm intros; conversion is the signal, not sentiment (May 2026)" },
+        { name: "Stripe", quality: "Strong", qColor: G, url: "https://stripe.com/resources/more/two-sided-marketplace-strategy",
+          what: "Two-sided marketplace dynamics \u2014 neither side has value without the other, which is the argument 1a makes visually (Dec 2025)" },
+        { name: "Hoffman Agency", quality: "Useful", qColor: B, url: "https://www.hoffman.com/blog/speak-tech-indonesia/",
+          what: "guyub; Indonesia as relationship-driven; named visible leadership builds credibility; storytelling in Bahasa not English-first (May 2025)" },
+        { name: "GTE Localize", quality: "Useful", qColor: B, url: "https://gtelocalize.net/indonesian-localization/",
+          what: "Relatively low English proficiency; audiences expect content in their own language. Vendor source \u2014 directionally consistent with the above" },
+        { name: "Geeks for Growth", quality: "Useful", qColor: B, url: "https://geeksforgrowth.com/startup-build-trust-early/",
+          what: "The five-part proof taxonomy used in this document, and the \u201Cno big logos\u201D playbook: avoid fake logos and inflated metrics" },
+        { name: "StartupNation", quality: "Useful", qColor: B, url: "https://startupnation.com/grow-your-business/how-startups-can-build-trust-quickly-with-high-impact-homepage-messaging/",
+          what: "\u201CUnverifiable claims and hard evidence look identical at a glance\u201D \u2014 the core argument against adding vague sections (2026)" },
+        { name: "Twine", quality: "Thin", qColor: "#8c979e", url: "https://www.twine.net/blog/pre-launch-landing-page/",
+          what: "\u201CDon't stack four to compensate for having none.\u201D Also claims \u201CGet early access\u201D outperforms \u201CJoin the waitlist\u201D \u2014 unsourced, treat as a hypothesis worth testing" },
+        { name: "KickoffLabs", quality: "Thin", qColor: "#8c979e", url: "https://kickofflabs.com/blog/startup-landing-page-validation/",
+          what: "\u201CMake the idea feel real without pretending the company is farther along than it is\u201D \u2014 vendor content, but the framing is sound" },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>
