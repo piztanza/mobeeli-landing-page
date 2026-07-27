@@ -8,13 +8,19 @@ import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
 import { langs, t } from "@/lib/i18n";
 
 /**
- * R16 ruling 1c — protection as its own band.
+ * The protection band — component contract.
  *
- * Context worth keeping: `prot_r1/2/3` and `how_s3_t` were defined in copy.ts
- * but rendered by NOTHING after R15 replaced the fitment section (the compact
- * strip they lived in went with it). The protection story was silently missing
- * from the page. This band restores it, so the regression this guards against
- * is "the promises exist in copy but nobody shows them".
+ * The arc, honestly: `prot_r1/2/3` and `how_s3_t` were defined in copy.ts but
+ * rendered by NOTHING after R15 replaced the fitment section (the compact strip
+ * they lived in went with it). R16 ruling 1c built this band and fixed that real
+ * hole. R18 call A then unmounted it from `/` — for POSITIONING, not because it
+ * was wrong: "we make the aftermarket trustworthy" is the message Otoklix and
+ * Bengkel Mania already occupy, so the front page stakes fitment instead.
+ *
+ * The component still exists and must still work wherever it is next mounted
+ * (/platform is the likely home), so the component-level assertions below stay.
+ * The live-page assertions are gone — `tests/landing.test.tsx` now guards the
+ * opposite: that the band does NOT appear on `/`.
  */
 
 const landingCss = readFileSync(
@@ -31,7 +37,6 @@ const page = renderToStaticMarkup(<LandingPage />);
 describe("protection band renders the promises", () => {
   it("is a light band with its own anchor id", () => {
     expect(band).toContain('id="protection"');
-    expect(page).toContain('id="protection"');
     expect(landingCss).toMatch(/\.mb-protect \{[^}]*background: var\(--mb-surface\);/s);
   });
 
@@ -70,20 +75,18 @@ describe("the old nested strip is gone", () => {
   });
 });
 
-describe("nav (founder ruling: drop Why Mobeeli, not Investors)", () => {
-  it("anchors protection and keeps Investors", () => {
-    expect(page).toContain('href="/#protection"');
+describe("nav, after R18 call A freed the protection slot", () => {
+  it("keeps Investors in the bar", () => {
     expect(page).toContain('href="/investors"');
   });
 
-  it("no longer links /why-mobeeli from the bar, but the route still exists", () => {
-    expect(page).not.toContain('href="/why-mobeeli"');
-    for (const lang of langs) expect(t(lang, "nav_protect"), `${lang}.nav_protect`).toBeTruthy();
-  });
-
-  it("keeps the bar at six links so it still fits the 1040px breakpoint", () => {
-    const bar = page.slice(0, page.indexOf('id="mb-nav-sheet"'));
-    const links = bar.match(/class="mb-nav-links"[\s\S]*?<\/div>/)?.[0] ?? "";
-    expect((links.match(/<a /g) ?? []).length).toBe(6);
+  // The band is unmounted but its copy stays paired, so restoring it anywhere is
+  // a mount rather than a translation round. The link-count guard lives in
+  // tests/landing.test.tsx; duplicating it here would just be two places to fix.
+  it("keeps the protection copy defined and paired in both languages", () => {
+    for (const lang of langs) {
+      expect(t(lang, "nav_protect"), `${lang}.nav_protect`).toBeTruthy();
+      expect(t(lang, "how_s3_t"), `${lang}.how_s3_t`).toBeTruthy();
+    }
   });
 });

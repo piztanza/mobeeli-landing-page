@@ -13,11 +13,10 @@ const landingCss = readFileSync(
 );
 const joinCss = readFileSync(new URL("../src/components/join/join.css", import.meta.url), "utf8");
 
-/** The 6 nav links + Join CTA every viewport must offer (CHG-piztanza-10). */
+/** The 5 nav links + Join CTA every viewport must offer (CHG-piztanza-10, R18 call A). */
 const NAV_HREFS = [
   "/#problem",
   "/#how-it-works",
-  "/#protection",
   "https://mobilee-demo.vercel.app/platform",
   "/team",
   "/investors",
@@ -45,7 +44,7 @@ describe("mobile hamburger nav (F-001, CHG-piztanza-10)", () => {
     }
   });
 
-  it("ships the sheet hidden by default with the 6 links, EN/ID toggle and Join CTA", () => {
+  it("ships the sheet hidden by default with the 5 links, EN/ID toggle and Join CTA", () => {
     const sheetAt = html.indexOf('id="mb-nav-sheet"');
     expect(sheetAt).toBeGreaterThanOrEqual(0);
     const sheet = html.slice(sheetAt);

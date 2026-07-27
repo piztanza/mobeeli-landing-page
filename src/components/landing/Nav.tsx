@@ -23,18 +23,19 @@ import { useActiveSection } from "./ActiveSectionProvider";
 export const PLATFORM_URL = "https://mobilee-demo.vercel.app/platform";
 
 // Landing anchors are /#id links so they resolve from every page, not just /
-// (CHG-piztanza-09); Team, Investors and Why Mobeeli (the data page) live on
-// their own routes; the Early Adopters slot is an external platform link.
+// (CHG-piztanza-09); Team and Investors live on their own routes; the Early
+// Adopters slot is an external platform link.
 /**
- * R16 ruling 1c adds a Protection anchor, which would have made SEVEN links
- * against the 1040px breakpoint — they do not fit. Founder ruling: drop
- * "Why Mobeeli" from the bar (the /why-mobeeli route stays live, indexed and
- * reachable from the footer and in-page links) rather than Investors.
+ * R16 ruling 1c added a Protection anchor and, to fit it against the 1040px
+ * breakpoint, the founder dropped "Why Mobeeli" from the bar. R18 call A cuts
+ * the protection band, so the anchor goes with it — leaving FIVE links and a
+ * free slot. Whether "Why Mobeeli" returns to that slot is an open founder
+ * call, NOT an automatic revert: see the note in the R18 handoff. The
+ * /why-mobeeli route stays live, indexed and linked from the footer either way.
  */
 const NAV_LINKS: readonly (readonly [href: string, key: CopyKey])[] = [
   ["/#problem", "nav_problem"],
   ["/#how-it-works", "nav_how"],
-  ["/#protection", "nav_protect"],
   [PLATFORM_URL, "nav_early"],
   ["/team", "nav_team"],
   ["/investors", "nav_inv"],
@@ -64,7 +65,7 @@ function LangToggle() {
 }
 
 /**
- * Sticky nav — logo, 6 section links, EN/ID pill toggle, Join Waitlist CTA (F-009: routes to
+ * Sticky nav — logo, 5 section links, EN/ID pill toggle, Join Waitlist CTA (F-009: routes to
  * /join). Below 880px the links/toggle/CTA collapse into a hamburger sheet (CHG-piztanza-10):
  * animated icon, body scroll lock, closes on link tap / outside tap / Escape (returning focus
  * to the toggle), aria-expanded + aria-controls wired to the sheet.

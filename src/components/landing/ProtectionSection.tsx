@@ -4,6 +4,15 @@ import { useT } from "@/lib/i18n/LanguageProvider";
 import type { CopyKey } from "@/lib/i18n";
 
 /**
+ * R18 call A: no longer mounted on `/`. Kept deliberately — the CSS below it in
+ * landing.css is only legal while these class names appear in a .tsx. If this
+ * file is ever deleted, delete the .mb-protect* rules in the same commit.
+ *
+ * Cut for positioning, not because it was wrong: "we make the aftermarket
+ * trustworthy" is the message Otoklix and Bengkel Mania already occupy, so the
+ * front page stakes fitment instead. The mechanics move to /platform and the
+ * deck; authenticity survives on `/` as one clause (R18 call C).
+ *
  * Protection band (R16, founder ruling 1c) — a light band with its own id and
  * nav anchor.
  *

@@ -12,17 +12,23 @@ import Footer from "./Footer";
 import Hero from "./Hero";
 import Nav from "./Nav";
 import ProblemSection from "./ProblemSection";
-import ProtectionSection from "./ProtectionSection";
 import SkipLink from "./SkipLink";
 import UnifyBand from "./UnifyBand";
 
 import "./landing.css";
 
 /**
- * Landing page (F-001) — the band stack, alternating dark/light (R16):
+ * Landing page (F-001) — the band stack, alternating dark/light (R18):
  * nav (overlay) → hero (dark, full viewport) → catalog (dark, id="how-it-works")
  * → problem (light, id="problem") → coverage (dark, id="coverage") →
- * protection (light, id="protection") → buyer strip (id="waitlist") → footer.
+ * buyer strip (id="waitlist") → footer.
+ *
+ * R18 call A: ProtectionSection is no longer mounted here. Not because the
+ * protection story is weak — counterfeits are estimated at 30%+ of parts sold —
+ * but because "we make the aftermarket trustworthy" is the message Otoklix
+ * ($10M Series A, 900+ workshops) and Bengkel Mania already occupy. The front
+ * page stakes fitment, which nobody else is claiming. The mechanics move to
+ * /platform and the deck. Component KEPT, same as AiCatalogCard under 1a.
  *
  * R16 ruling 1a: AiCatalogCard is no longer mounted here — it told a second,
  * competing "the catalog" story next to the working one in FitmentSection. The
@@ -48,7 +54,6 @@ export default function LandingView() {
             <FitmentSection />
             <ProblemSection />
             <UnifyBand />
-            <ProtectionSection />
             <BuyerStrip />
           </main>
           <Footer />

@@ -179,13 +179,12 @@ describe("landing page render (F-001 + F-009)", () => {
     expect(html).toContain(esc(t("en", "hero_sub_short")));
   });
 
-  it("renders the R16 band order — catalog second, protection fifth", () => {
+  it("renders the R18 band order — catalog second, no protection band", () => {
     const bands = [
       t("en", "hero_chip"), // hero (dark, full viewport)
       t("en", "cat_unified_h2"), // unified catalog (dark, id="how-it-works")
       t("en", "quote_main"), // the problem, slim (light, id="problem")
       t("en", "uni_h2"), // coverage / archipelago (dark, id="coverage")
-      t("en", "how_s3_t"), // protection (light, id="protection") — R16 ruling 1c
       t("en", "buyer_line"), // buyer strip (id="waitlist")
       t("en", "foot_tag"), // footer
     ];
@@ -198,11 +197,27 @@ describe("landing page render (F-001 + F-009)", () => {
   });
 
   it("gives every band an id, and drops the second competing catalog (R16 ruling 1a)", () => {
-    for (const id of ["how-it-works", "problem", "coverage", "protection", "waitlist"]) {
+    for (const id of ["how-it-works", "problem", "coverage", "waitlist"]) {
       expect(html, `id="${id}"`).toContain(`id="${id}"`);
     }
     // AiCatalogCard is unmounted from `/` — its headline must not appear.
     expect(html).not.toContain(esc(t("en", "cat_h2")));
+  });
+
+  // R18 call A. The failure mode this invites is silent re-addition, so guard the
+  // absence explicitly rather than relying on the band-order test to notice.
+  it("keeps the protection band off the front page (R18 call A)", () => {
+    expect(html).not.toContain('id="protection"');
+    expect(html).not.toContain('href="/#protection"');
+    expect(html).not.toContain(esc(t("en", "how_s3_t")));
+  });
+
+  it("keeps the desktop nav at five links (R18 call A freed a slot)", () => {
+    const bar = html.match(/<div class="mb-nav-links">.*?<\/div>/s)?.[0] ?? "";
+    expect(bar, "nav-links container").not.toBe("");
+    // Count hrefs rather than tags: Link renders as <a>, but the external
+    // platform link is a plain <a>, so an element-name regex is brittle.
+    expect((bar.match(/href=/g) ?? []).length).toBe(5);
   });
 
   it("wires the nav waitlist CTA to /join and the hero shop CTA to platform registration", () => {
@@ -215,7 +230,6 @@ describe("landing page render (F-001 + F-009)", () => {
     for (const href of [
       "/#problem",
       "/#how-it-works",
-      "/#protection",
       "https://mobilee-demo.vercel.app/platform",
       "/team",
       "/investors",

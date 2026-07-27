@@ -2805,7 +2805,12 @@ button.mb-buyer-cta:active {
    old dark strip nested inside the fitment section were removed — that strip
    stopped rendering when R15 replaced the section, so they matched nothing. */
 
-/* ---------- protection band (R16) ---------- */
+/* ---------- protection band (R16) — UNMOUNTED since R18 call A ----------
+   These rules are intentionally retained: ProtectionSection.tsx still exists
+   (it may earn a home on /platform) and the dead-selector contract test passes
+   only while these class names appear in a .tsx. Do not go looking for this
+   band on `/` — it is not mounted there. Delete the component and these rules
+   together, or neither. */
 
 .mb-protect {
   background: var(--mb-surface);
