@@ -3125,6 +3125,16 @@ button.mb-buyer-cta:active {
   color: #fff;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
   white-space: nowrap;
+  /* Scrim, not just a shadow. The ribbons pass UNDER the glass core in `screen`
+     blend and the specular sweep crosses it, so the painted backdrop behind this
+     label drifts to ~rgb(113,134,164) — white at 10.5px measured 3.7:1 there,
+     under the 4.5:1 floor (and far too small to count as large text; a shadow
+     aids legibility but does not raise the ratio). This was the only text on the
+     band that failed. Same remedy the archipelago band uses for copy over the
+     bright map (.mb-uni-head, .mb-uni-drag). Measured after: 13.3:1. */
+  background: rgba(9, 15, 25, 0.72);
+  padding: 4px 9px;
+  border-radius: 999px;
 }
 
 /* ---- edge labels ---- */
@@ -3143,6 +3153,13 @@ button.mb-buyer-cta:active {
   align-items: center;
   justify-content: center;
   box-shadow: 0 8px 22px rgba(3, 8, 16, 0.55);
+}
+/* Same treatment as .mb-file-chip img — the display height is set here so the
+   portrait document glyphs keep their 76:96 ratio instead of being squared off. */
+.mb-plat-chip-disc img {
+  height: 26px;
+  width: auto;
+  display: block;
 }
 .mb-plat-outlabel {
   left: 70.8%; /* == 906/1280 */

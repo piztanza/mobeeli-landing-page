@@ -226,7 +226,14 @@ export default function PlatformFlow() {
                 }}
               >
                 <span className="mb-plat-chip-disc">
-                  <Image src={c.src} alt={t(c.key)} width={26} height={26} />
+                  {/* Intrinsic 76×96, not 26×26 — these are portrait document
+                      glyphs and declaring them square stretches them 25%. The
+                      display size comes from CSS, as with .mb-file-chip img.
+                      unoptimized for the same reason AiCatalogCard gives: they
+                      are 1–2 KB, the optimizer saves nothing, and a dropped
+                      optimizer response once left the PDF chip blank on the
+                      live site (CHG-piztanza-18). */}
+                  <Image src={c.src} alt={t(c.key)} width={76} height={96} unoptimized />
                 </span>
               </span>
             ))}
@@ -273,11 +280,15 @@ export default function PlatformFlow() {
                 <span className="mb-plat-noise" />
                 <span className="mb-plat-spec" />
                 <span className="mb-plat-spine-body">
+                  {/* mobeeli-mark.png is 1200×1200. Declaring 60×46 makes Next
+                      warn on every load that one dimension was modified without
+                      the other; the square intrinsic keeps the ratio honest and
+                      .mb-plat-mark still sets the painted height. */}
                   <Image
                     className="mb-plat-mark"
                     src="/assets/mobeeli-mark.png"
                     alt="Mobeeli"
-                    width={60}
+                    width={46}
                     height={46}
                   />
                   <span className="mb-plat-hairline" />
@@ -319,7 +330,11 @@ export default function PlatformFlow() {
             </div>
             <span className="mb-plat-arrow" />
             <div className="mb-plat-hubcard">
-              <Image src="/assets/mobeeli-mark.png" alt="Mobeeli" width={52} height={40} />
+              {/* Square, like its desktop twin. The spec declared 52×40 for a
+                  1:1 asset and gave this copy no class to correct it, so the
+                  brand mark painted 30% wide — on EVERY phone, since the stack
+                  is the only rendering of this band below 1024px. */}
+              <Image src="/assets/mobeeli-mark.png" alt="Mobeeli" width={40} height={40} />
               <span className="mb-plat-hub">{t("plat_hub")}</span>
             </div>
             <span className="mb-plat-arrow" />
