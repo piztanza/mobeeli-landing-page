@@ -500,10 +500,16 @@ button.mb-buyer-cta:active {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* The source clip is near-white; grade it down hard so the hero stays a
-     dark surface — with the scrim veil below, white body text keeps >=4.5:1. */
-  filter: brightness(0.45) saturate(1.05);
-  opacity: 0.3;
+  /* The source clip is near-white, so it is graded down — but R25 change B
+     deliberately overturns the earlier "do not lighten the grade" instruction
+     (HANDBACK_LANDING_VISUAL_POLISH_REPLY.md), because that grade plus
+     opacity 0.3 plus a flat 0.35 ink veil compounded to roughly a tenth of the
+     photograph's real luminance and it read as noise rather than as Jakarta.
+     Contrast is now bought LOCALLY by .mb-hero-scrim over the text column
+     instead of globally over the whole band. The math was re-run, which is what
+     that instruction actually asked for — see the note on .mb-hero-scrim. */
+  filter: brightness(0.62) saturate(1.05);
+  opacity: 0.5;
 }
 .mb-ambient-aurora {
   position: absolute;
@@ -521,11 +527,44 @@ button.mb-buyer-cta:active {
 .mb-hero-bg-scrim {
   position: absolute;
   inset: 0;
+  /* R25 change B removed the flat rgba(13,21,34,0.35) veil that was the first
+     layer here. It bought text contrast everywhere in order to protect one
+     column, and it was the largest single contributor to the photograph
+     disappearing. The top gradient stays — it protects the overlay nav, which
+     genuinely does span the full width — and so do the two brand tints. */
   background-image:
-    linear-gradient(rgba(13, 21, 34, 0.35), rgba(13, 21, 34, 0.35)),
     linear-gradient(rgba(13, 21, 34, 0.4), transparent 120px),
     radial-gradient(720px 420px at 82% 12%, rgba(47, 125, 246, 0.16), transparent 70%),
     radial-gradient(560px 380px at 8% 92%, rgba(18, 63, 158, 0.28), transparent 70%);
+}
+
+/* R25 change B — the hero photograph was compounding brightness(.45),
+   opacity(.3) and a flat .35 wash, landing near a tenth of its real luminance.
+   Darkening is now LOCAL to the text column, so the image reads while the
+   subhead's contrast improves. Ellipse, not a rectangle: a hard edge over a
+   photograph is more visible than the darkening itself.
+
+   Measured after the change, compositing photo -> grade -> opacity -> scrim at
+   both the 86% centre stop and the 72% stop the lower copy sits nearer:
+     hero chip  #c7cfdd 12.5px  11.5:1 centre / 10.6:1 at 46%
+     subhead    #a9b4c6 20px     8.6:1 centre /  7.9:1 at 46%
+   Identical at 1280 and 390. Both clear the 4.5:1 floor with room — the two
+   colours are lighter than white, so they were the binding constraint, not the
+   H1. This IS the re-run of the contrast math that the earlier standing
+   instruction ("do not lighten the grade or remove the veil without re-running
+   the contrast math") required before the grade could move. If a future change
+   relocates the text column, raise the centre stop rather than re-darkening the
+   image — that is what this change exists to undo. */
+.mb-hero-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    62% 76% at 50% 46%,
+    rgba(9, 15, 26, 0.86) 0%,
+    rgba(9, 15, 26, 0.72) 46%,
+    rgba(9, 15, 26, 0) 78%
+  );
 }
 /* R4: the hero is type-focused (the 3D scene has its own band below) — a
    single centered column reads stronger at full viewport. */

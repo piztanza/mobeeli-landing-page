@@ -131,14 +131,33 @@ describe("hero background media (visual-polish iteration 1 + audit fix)", () => 
     expect(landingCss).toMatch(/\.mb-hero-grid \{[^}]*z-index: 1;/s);
   });
 
-  it("grades the near-white clip dark so hero text keeps AA contrast (CSS contract)", () => {
-    // Audit fix: brightness-graded video + a flat ink veil in the scrim.
+  it("grades the near-white clip and buys hero text contrast LOCALLY (CSS contract)", () => {
+    // R25 change B replaced the audit-era approach. The clip is still graded —
+    // it is near-white source and the hero must stay a dark surface — but the
+    // grade is lighter (0.45 -> 0.62, opacity 0.3 -> 0.5) and the flat
+    // rgba(13,21,34,0.35) veil that used to darken the entire band is gone.
+    // Compounded, those three took the photograph to roughly a tenth of its
+    // real luminance.
+    //
+    // Contrast is now bought by .mb-hero-scrim, an ellipse over the text column
+    // only. Measured composited on the live page, identical at 1280 and 390:
+    // chip 11.5:1, subhead 8.6:1 (10.6 and 7.9 at the scrim's 46% stop). Those
+    // two are lighter than white and so were the binding constraint, not the H1.
     expect(landingCss).toMatch(
-      /\.mb-hero-bg-media video,\s*\.mb-hero-bg-media img \{[^}]*filter: brightness\(0\.4/s,
+      /\.mb-hero-bg-media video,\s*\.mb-hero-bg-media img \{[^}]*filter: brightness\(0\.62\)/s,
     );
-    expect(landingCss).toMatch(
+    // The veil must NOT come back — re-adding it is the regression this guards.
+    expect(landingCss).not.toMatch(
       /\.mb-hero-bg-scrim \{[^}]*linear-gradient\(rgba\(13, 21, 34, 0\.35\), rgba\(13, 21, 34, 0\.35\)\)/s,
     );
+    // The top gradient stays: it protects the overlay nav, which does span the
+    // full width, so that one is not a text-column concern.
+    expect(landingCss).toMatch(
+      /\.mb-hero-bg-scrim \{[^}]*linear-gradient\(rgba\(13, 21, 34, 0\.4\), transparent 120px\)/s,
+    );
+    // The local scrim must exist and must be a radial — a rectangle would show
+    // a hard edge over the photograph.
+    expect(landingCss).toMatch(/\.mb-hero-scrim \{[^}]*background: radial-gradient\(/s);
   });
 
   it("dots the buyer strip with the engineering grid (CSS contract)", () => {

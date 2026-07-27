@@ -46,6 +46,12 @@ export default function Hero() {
           <Image src="/veo/jakarta-hero-bg-poster.jpg" alt="" fill sizes="100vw" />
         )}
         <div className="mb-hero-bg-scrim" />
+        {/* R25 change B — darkening local to the text column. Must stay the LAST
+            child of the media wrapper: the reduced-motion branch renders
+            next/image with fill (inline position:absolute) and the video branch
+            is promoted by its own opacity, so a scrim placed before either one
+            paints underneath the photograph instead of over it. */}
+        <span className="mb-hero-scrim" aria-hidden />
       </div>
       <div className="mb-hero-grid">
         <div>
