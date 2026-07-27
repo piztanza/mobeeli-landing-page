@@ -109,7 +109,23 @@ const en = {
     "“My shop was closed because of too many returns from COD. The platform penalized me. Not the customer.”",
   quote_by: "Shop owner, Senen Market, Jakarta — shared with permission",
   how_kicker: "How it works",
-  cat_unified_h2: "One verified listing per part. No duplicates. No guesswork.",
+  /* R25 — the how-it-works band now spans industry scale (the flow figure) and
+     per-part proof (the picker + result), so it needs one headline for both and
+     a kicker of its own. Note `how_kicker` above is a dormant twin of
+     `cat_kicker` with the same value; it renders nowhere and is left alone
+     rather than repurposed, so nothing silently changes on another surface.
+     DRAFT WORDING — founder approves EN and confirms ID. */
+  cat_kicker: "How it works",
+  /* Rewritten in R25. "No duplicates. No guesswork." described the catalogue;
+     the new second clause states what the flow figure above it argues — that the
+     listing is one thing no matter which of the five parties described it. */
+  cat_unified_h2: "One verified listing per part. No matter who described it.",
+  cat_unified_p:
+    "Brands, distributors and stores each name the same part differently. Mobeeli reconciles them into one listing, then checks it against your exact car before you see it.",
+  /* The hand-off from the diagram to the demonstration. Deliberately short — it
+     is a hinge, not a paragraph. */
+  cat_bridge: "One description in. One verified listing out.",
+  cat_window_title: "Verified for your vehicle",
   cat_part1_name: "Iridium Spark Plug",
   cat_part2_name: "Clutch Cover Assy",
   cat_part3_name: "Gas Shock Absorber",
@@ -488,7 +504,17 @@ const id: Record<CopyKey, string> = {
     "“My shop was closed because of too many returns from COD. The platform penalized me. Not the customer.”",
   quote_by: "Pemilik toko, Pasar Senen, Jakarta — dibagikan seizin beliau",
   how_kicker: "Cara kerja",
-  cat_unified_h2: "Satu listing terverifikasi per suku cadang. Tanpa duplikat. Tanpa menebak.",
+  /* R25. cat_kicker matches this file's own nav_how ("Cara kerja") rather than
+     inventing a second phrasing for the same idea. The party names in
+     cat_unified_p are the ones hero_sub_short and the plat_* keys already use —
+     Merek, distributor, toko — so the page names the five parties one way
+     throughout. DRAFT WORDING — founder to confirm. */
+  cat_kicker: "Cara kerja",
+  cat_unified_h2: "Satu listing terverifikasi per suku cadang. Siapa pun yang mendeskripsikannya.",
+  cat_unified_p:
+    "Merek, distributor, dan toko menamai suku cadang yang sama dengan cara berbeda. Mobeeli menyatukannya menjadi satu listing, lalu memeriksanya terhadap mobil Anda sebelum Anda melihatnya.",
+  cat_bridge: "Satu deskripsi masuk. Satu listing terverifikasi keluar.",
+  cat_window_title: "Terverifikasi untuk kendaraan Anda",
   cat_part1_name: "Busi Iridium",
   cat_part2_name: "Dekrup Kopling",
   cat_part3_name: "Shockbreaker Gas",

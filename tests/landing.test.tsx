@@ -50,6 +50,11 @@ const LANDING_KEYS = [
   "quote_en",
   "quote_by",
   "cat_unified_h2",
+  /* R25 — the merged how-it-works band. */
+  "cat_kicker",
+  "cat_unified_p",
+  "cat_bridge",
+  "cat_window_title",
   "cat_verified_note",
   "prot_r1",
   "prot_r2",
