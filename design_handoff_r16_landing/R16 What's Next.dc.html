@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@700&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#090c0f; color:#e8ecef; -webkit-font-smoothing:antialiased; }
+  a { color:#9dc2fa; text-decoration:none; }
+  a:hover { color:#c9dcfc; }
+  ::selection { background:rgba(47,125,246,.3); }
+</style>
+</helmet>
+
+<div style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#090c0f;min-height:100vh">
+
+<!-- ════════ HEADER ════════ -->
+<section style="padding:52px 48px 34px;max-width:1340px;margin:0 auto">
+  <div style="display:flex;align-items:baseline;gap:10px;margin:0 0 24px">
+    <span style="font-size:10px;font-weight:700;padding:3px 7px;background:#e8ecef;color:#090c0f;border-radius:4px">R16</span>
+    <span style="font-size:13px;font-weight:700;color:#e8ecef">Where this stands, and what moves next</span>
+  </div>
+  <h1 style="font-size:40px;font-weight:800;letter-spacing:-.022em;margin:0 0 18px;color:#e8ecef;max-width:24ch;line-height:1.05">Two of eight shipped. Five ready. One blocked on you.</h1>
+  <p style="margin:0 0 8px;font-size:17px;line-height:1.62;color:#c3cace;max-width:74ch;text-wrap:pretty">The scan went live yesterday, and it took both live bugs with it. Everything else is specified and waiting — five changes need no decision from you at all, and one is stuck behind a nav bar that has run out of room.</p>
+  <p style="margin:0;font-size:15.5px;line-height:1.6;color:#8c979e;max-width:74ch;text-wrap:pretty">Below: the state of all eight, then the three decisions that actually gate work, drawn rather than described.</p>
+</section>
+
+<!-- ════════ STATUS BOARD ════════ -->
+<section style="padding:0 48px 52px;max-width:1340px;margin:0 auto">
+  <div style="display:flex;align-items:center;gap:22px;margin:0 0 20px;flex-wrap:wrap">
+    <span style="font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#8c979e">The eight changes</span>
+    <div style="flex:1;height:1px;background:rgba(255,255,255,.1);min-width:40px"></div>
+    <sc-for list="{{ legend }}" as="l" hint-placeholder-count="3">
+      <span style="display:inline-flex;align-items:center;gap:7px;font-size:12px;color:#8c979e">
+        <span style="width:8px;height:8px;border-radius:2px;background:{{ l.color }};flex:none"></span>{{ l.label }}
+      </span>
+    </sc-for>
+  </div>
+
+  <div style="display:grid;gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:5px;overflow:hidden">
+    <sc-for list="{{ items }}" as="it" hint-placeholder-count="8">
+      <div style="background:#0c1013;display:grid;grid-template-columns:32px 92px 1fr 250px 128px;gap:22px;align-items:center;padding:17px 22px">
+        <span style="font-size:12.5px;font-weight:700;color:#5f6c7e;font-variant-numeric:tabular-nums">{{ it.n }}</span>
+        <span style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:{{ it.color }};white-space:nowrap">{{ it.status }}</span>
+        <div style="min-width:0">
+          <div style="font-size:15px;font-weight:700;color:#e8ecef;letter-spacing:-.01em">{{ it.title }}</div>
+          <div style="font-size:13px;line-height:1.5;color:#8c979e;margin-top:3px">{{ it.detail }}</div>
+        </div>
+        <div style="font-size:12.5px;line-height:1.5;color:{{ it.gateColor }}">{{ it.gate }}</div>
+        <div style="height:5px;border-radius:3px;background:rgba(255,255,255,.07);overflow:hidden">
+          <div style="height:100%;width:{{ it.pct }};background:{{ it.color }};border-radius:3px"></div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <p style="margin:18px 0 0;font-size:14px;line-height:1.6;color:#8c979e;max-width:78ch;text-wrap:pretty">The five marked <span style="color:#5b9bf7;font-weight:700">READY</span> can be picked up in any order and shipped independently. None of them waits on the others, and none waits on you — the copy in change 5 ships as DRAFT keys and gets stamped later without blocking the code.</p>
+</section>
+
+<!-- ════════ DECISION 1 — NAV ════════ -->
+<section style="padding:44px 48px 52px;max-width:1340px;margin:0 auto;border-top:1px solid rgba(255,255,255,.12)">
+  <div style="display:flex;align-items:baseline;gap:11px;margin:0 0 16px;flex-wrap:wrap">
+    <span style="font-size:10px;font-weight:700;padding:3px 7px;background:#ef4444;color:#fff;border-radius:4px">BLOCKS CHANGE 8</span>
+    <span style="font-size:13px;font-weight:700;color:#e8ecef">Decision 1 — the nav has run out of room</span>
+  </div>
+  <h2 style="font-size:31px;font-weight:800;letter-spacing:-.022em;margin:0 0 16px;color:#e8ecef;max-width:26ch;line-height:1.08">Protection needs an anchor. There are already six links.</h2>
+  <p style="margin:0 0 12px;font-size:16px;line-height:1.62;color:#c3cace;max-width:74ch;text-wrap:pretty">The bars below are built from the real parts — the actual mark at 42px, the wordmark at 32px Poppins 700, links at 14px/600, the same 26px and 22px gaps as the live nav — and the widths quoted are <strong style="color:#e8ecef;font-weight:700">measured off these exact bars</strong>, not estimated. Check any of them in the console: <code style="font-size:13px;color:#9dc2fa">$$('[data-bar]').map(e =&gt; e.dataset.bar + ' ' + e.offsetWidth)</code>.</p>
+  <div style="border-left:2px solid #e3b341;padding:4px 0 4px 20px;margin:0 0 20px;max-width:74ch">
+    <p style="margin:0;font-size:15.5px;line-height:1.62;color:#c3cace;text-wrap:pretty">Measuring changed the answer. The repo's breakpoint is <code style="font-size:14px;color:#9dc2fa">1040px</code>, and once Protection is added <strong style="color:#e8ecef;font-weight:700">no option clears it</strong> — not even dropping a link. So the bars are judged against <strong style="color:#e8ecef;font-weight:700">1109px</strong>, the raised breakpoint the R16 proposal already commits to. The real question is not whether to drop a link; it is how high the breakpoint has to go.</p>
+  </div>
+  <p style="margin:0 0 30px;font-size:14.5px;line-height:1.6;color:#8c979e;max-width:74ch;text-wrap:pretty">Solid red line is the breakpoint that option must clear; hatching is the region past it. The faint dashed line is the reference point — 1040px on the first three, 1109px on option C.</p>
+
+  <sc-for list="{{ navOpts }}" as="o" hint-placeholder-count="4">
+    <div style="margin-bottom:26px">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:9px;flex-wrap:wrap">
+        <span style="font-size:10.5px;font-weight:700;padding:3px 7px;background:{{ o.badgeBg }};color:{{ o.badgeFg }};border-radius:5px">{{ o.id }}</span>
+        <span style="font-size:14px;font-weight:700;color:#e8ecef">{{ o.label }}</span>
+        <span style="font-size:13px;font-weight:600;color:{{ o.verdictColor }}">{{ o.verdict }}</span>
+      </div>
+      <div data-barframe="1" style="position:relative;height:{{ barFrameH }};overflow:hidden;border-radius:6px;background:#0d1522;border:1px solid rgba(255,255,255,.09)">
+        <div style="position:absolute;left:0;top:0;width:1280px;height:68px;transform:{{ barScale }};transform-origin:left top">
+          <div style="position:absolute;left:{{ o.bpLeft }};top:0;height:68px;right:0;background:repeating-linear-gradient(135deg,rgba(239,68,68,.14) 0 6px,transparent 6px 12px)"></div>
+          <div style="position:absolute;left:{{ o.ghostLeft }};top:0;height:68px;width:0;border-left:1px dashed rgba(255,255,255,.26)"></div>
+          <div style="position:absolute;left:{{ o.bpLeft }};top:0;height:68px;width:0;border-left:1.5px solid rgba(239,68,68,.85)"></div>
+          <div data-bar="{{ o.id }}" style="position:relative;z-index:2;display:inline-flex;align-items:center;gap:26px;height:68px;padding:0 24px;white-space:nowrap">
+            <span style="display:flex;align-items:center;gap:11px;flex:none">
+              <img src="assets/mobeeli-mark.png" alt="" style="height:42px;width:auto;display:block">
+              <span style="font-family:Poppins,sans-serif;font-size:32px;font-weight:700;letter-spacing:-.028em;color:#fff;line-height:1">mobeeli</span>
+            </span>
+            <span style="display:flex;align-items:center;gap:22px;font-size:14px;font-weight:600;flex:none">
+              <sc-for list="{{ o.links }}" as="lk" hint-placeholder-count="7">
+                <span style="color:{{ lk.color }}">{{ lk.t }}</span>
+              </sc-for>
+            </span>
+            <span style="flex:1"></span>
+            <span style="flex:none;display:flex;align-items:center;gap:2px;border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:3px">
+              <span style="font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;background:#fff;color:#0d1522">EN</span>
+              <span style="font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;color:rgba(255,255,255,.88)">ID</span>
+            </span>
+            <span style="flex:none;padding:10px 18px;border-radius:999px;background:#2f7df6;color:#fff;font-size:13.5px;font-weight:700">Join Waitlist</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:8px;margin-top:7px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:700;color:{{ o.verdictColor }};font-variant-numeric:tabular-nums">{{ o.width }}</span>
+        <span style="font-size:12.5px;line-height:1.5;color:#8c979e">{{ o.note }}</span>
+      </div>
+    </div>
+  </sc-for>
+
+  <div style="display:grid;grid-template-columns:124px 1fr;gap:34px;border-top:1px solid rgba(255,255,255,.09);padding-top:24px;max-width:1040px">
+    <div style="font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;line-height:1.5;padding-top:3px">What I'd<br>take</div>
+    <div>
+      <p style="margin:0 0 13px;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty">Still <strong style="color:#e8ecef;font-weight:700">Option A</strong>, with one correction I owe you: it does not fit 1109 — it misses by 7px. That is a breakpoint nudge to 1120, not a structural problem, and I'd take it over the alternative. Investors is a destination people arrive looking for rather than browse to, and it is the only one of the six that isn't part of the product story. It keeps its footer link and the hero's secondary button.</p>
+      <p style="margin:0 0 13px;font-size:15px;line-height:1.6;color:#8c979e;max-width:70ch;text-wrap:pretty"><strong style="color:#c3cace;font-weight:700">Option B is the one that needs no bump at all</strong> — 18px spare at the breakpoint already committed. If you'd rather not touch the breakpoint again, take B. I don't recommend it only because Protection and Why Mobeeli overlap in subject, and cutting the deeper page to make room for the shallower anchor is the wrong direction.</p>
+      <p style="margin:0;font-size:15px;line-height:1.6;color:#8c979e;max-width:70ch;text-wrap:pretty">Option C I'd avoid: 1240px means a 13-inch laptop at default scaling gets the mobile burger. It clears its line comfortably, but that headroom is bought by taking the desktop nav away from a whole class of machine.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ DECISION 2 — AURORA ════════ -->
+<section style="padding:44px 48px 52px;max-width:1340px;margin:0 auto;border-top:1px solid rgba(255,255,255,.12)">
+  <div style="display:flex;align-items:baseline;gap:11px;margin:0 0 16px;flex-wrap:wrap">
+    <span style="font-size:10px;font-weight:700;padding:3px 7px;background:#e3b341;color:#090c0f;border-radius:4px">MY ERROR, NOW CORRECTED</span>
+    <span style="font-size:13px;font-weight:700;color:#e8ecef">Decision 2 — three auroras, not two</span>
+  </div>
+  <h2 style="font-size:31px;font-weight:800;letter-spacing:-.022em;margin:0 0 16px;color:#e8ecef;max-width:26ch;line-height:1.08">I said unmounting the demo card fixes this. It doesn't.</h2>
+  <p style="margin:0 0 30px;font-size:16px;line-height:1.62;color:#c3cace;max-width:74ch;text-wrap:pretty">I missed <code style="font-size:14px;color:#9dc2fa">Hero.tsx</code>. There are three WebGL contexts on the page at three intensities. Removing the demo card leaves two — in adjacent dark bands, 8% apart, which is close enough to read as an accident rather than a decision.</p>
+
+  <div style="display:flex;gap:26px;flex-wrap:wrap;margin-bottom:32px">
+    <div style="flex:1 1 300px;min-width:280px">
+      <div style="font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:#8c979e;margin-bottom:11px">Today — three contexts</div>
+      <div style="display:flex;flex-direction:column;gap:2px;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.09)">
+        <sc-for list="{{ auroraNow }}" as="a" hint-placeholder-count="3">
+          <div style="position:relative;height:74px;background:#0d1522;display:flex;align-items:center;padding:0 20px;overflow:hidden">
+            <div style="position:absolute;inset:0;background-image:radial-gradient(420px 200px at 72% 20%,rgba(47,125,246,{{ a.glow }}),transparent 70%)"></div>
+            <div style="position:relative;display:flex;align-items:baseline;gap:12px">
+              <span style="font-size:14.5px;font-weight:700;color:#e8ecef">{{ a.band }}</span>
+              <span style="font-size:12.5px;color:#8c979e;font-variant-numeric:tabular-nums">{{ a.file }}</span>
+            </div>
+            <div style="position:relative;margin-left:auto;font-size:19px;font-weight:800;color:{{ a.vColor }};font-variant-numeric:tabular-nums">{{ a.v }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:11px 0 0;font-size:12.5px;line-height:1.55;color:#8c979e">Change 4 removes only the third. The first two stay, and their difference is invisible in isolation but reads as drift when you scroll from one to the other.</p>
+    </div>
+
+    <div style="flex:1 1 300px;min-width:280px">
+      <div style="font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:#8c979e;margin-bottom:11px">Three ways out</div>
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <sc-for list="{{ auroraOpts }}" as="o" hint-placeholder-count="3">
+          <div style="background:#0c1013;border:1px solid {{ o.border }};border-radius:6px;padding:15px 18px">
+            <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:6px;flex-wrap:wrap">
+              <span style="font-size:10.5px;font-weight:700;padding:2px 7px;background:{{ o.badgeBg }};color:{{ o.badgeFg }};border-radius:4px">{{ o.id }}</span>
+              <span style="font-size:14px;font-weight:700;color:#e8ecef">{{ o.label }}</span>
+            </div>
+            <p style="margin:0;font-size:13px;line-height:1.6;color:#8c979e;text-wrap:pretty">{{ o.note }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:124px 1fr;gap:34px;border-top:1px solid rgba(255,255,255,.09);padding-top:24px;max-width:1040px">
+    <div style="font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;line-height:1.5;padding-top:3px">What I'd<br>take</div>
+    <p style="margin:0;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty"><strong style="color:#e8ecef;font-weight:700">B now, A tracked separately.</strong> Unify both to 0.35 — that is a one-line change and it removes the visual inconsistency today. Two WebGL contexts is a real cost on a mid-range Android in Jakarta, but it is a performance problem, not a design problem, and it deserves its own measured piece of work rather than being smuggled into this batch.</p>
+  </div>
+</section>
+
+<!-- ════════ DECISION 3 — 217 → 4 ════════ -->
+<section style="padding:44px 48px 52px;max-width:1340px;margin:0 auto;border-top:1px solid rgba(255,255,255,.12)">
+  <div style="display:flex;align-items:baseline;gap:11px;margin:0 0 16px;flex-wrap:wrap">
+    <span style="font-size:10px;font-weight:700;padding:3px 7px;background:#e3b341;color:#090c0f;border-radius:4px">GATES PART OF CHANGE 5</span>
+    <span style="font-size:13px;font-weight:700;color:#e8ecef">Decision 3 — is 217 → 4 real or illustrative?</span>
+  </div>
+  <h2 style="font-size:31px;font-weight:800;letter-spacing:-.022em;margin:0 0 16px;color:#e8ecef;max-width:28ch;line-height:1.08">The strongest proof on the page is the one number I can't source.</h2>
+  <p style="margin:0 0 30px;font-size:16px;line-height:1.62;color:#c3cace;max-width:74ch;text-wrap:pretty">It isn't in the repo — it exists only in my proposal, so building it is new work either way. The question is what it claims. And it interacts with your disclosure ruling: 2b removed every simulated figure, which is what let the "(Simulation)" tag retire. Put an unlabelled invented number back and that unravels.</p>
+
+  <div style="display:flex;gap:22px;flex-wrap:wrap;margin-bottom:32px">
+    <sc-for list="{{ countOpts }}" as="c" hint-placeholder-count="3">
+      <div style="flex:1 1 280px;min-width:262px;display:flex;flex-direction:column;gap:11px">
+        <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap">
+          <span style="font-size:10.5px;font-weight:700;padding:3px 7px;background:{{ c.badgeBg }};color:{{ c.badgeFg }};border-radius:5px">{{ c.id }}</span>
+          <span style="font-size:14px;font-weight:700;color:#e8ecef">{{ c.label }}</span>
+        </div>
+        <div style="background:#0d1522;border:1px solid {{ c.border }};border-radius:8px;padding:22px;display:flex;flex-direction:column;gap:14px;flex:1">
+          <div style="font-size:11.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#8b95a4">What survives the filter</div>
+          <div style="min-height:52px;display:flex;align-items:flex-end">
+            <sc-if value="{{ c.isA }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:baseline;gap:9px;font-variant-numeric:tabular-nums">
+                <span style="font-size:32px;font-weight:800;color:#5f6c7e;text-decoration:line-through;text-decoration-thickness:2px">217</span>
+                <span style="font-size:16px;color:#5f6c7e">→</span>
+                <span style="font-size:32px;font-weight:800;color:#fff">4</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ c.isB }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:baseline;gap:9px;font-variant-numeric:tabular-nums;flex-wrap:wrap">
+                <span style="font-size:32px;font-weight:800;color:#5f6c7e;text-decoration:line-through;text-decoration-thickness:2px">217</span>
+                <span style="font-size:16px;color:#5f6c7e">→</span>
+                <span style="font-size:32px;font-weight:800;color:#fff">4</span>
+                <span style="font-size:11px;color:#8b95a4;margin-left:4px">(Illustrative)</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ c.isC }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:6px;width:100%">
+                <div style="display:flex;align-items:center;gap:9px;padding:8px 11px;background:rgba(47,125,246,.09);border:1px solid rgba(47,125,246,.26);border-radius:2px">
+                  <span style="color:#5b9bf7;font-size:12px;font-weight:800">✓</span>
+                  <span style="font-size:12.5px;font-weight:700;color:#fff">Standard Grade Pads</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:9px;padding:8px 11px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:2px;opacity:.55">
+                  <span style="color:#b91c1c;font-size:12px;font-weight:800">✕</span>
+                  <span style="font-size:12.5px;font-weight:700;color:#a9b4c6;text-decoration:line-through">Ceramic Pad Set</span>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+          <p style="margin:0;font-size:13.5px;line-height:1.6;color:#a9b4c6;text-wrap:pretty">{{ c.note }}</p>
+          <div style="margin-top:auto;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-size:12.5px;line-height:1.55;color:{{ c.costColor }}">{{ c.cost }}</div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="display:grid;grid-template-columns:124px 1fr;gap:34px;border-top:1px solid rgba(255,255,255,.09);padding-top:24px;max-width:1040px">
+    <div style="font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;line-height:1.5;padding-top:3px">What I'd<br>take</div>
+    <p style="margin:0;font-size:16px;line-height:1.62;color:#c3cace;max-width:70ch;text-wrap:pretty"><strong style="color:#e8ecef;font-weight:700">Real, from the seeded catalog.</strong> You are pre-launch with a real database behind this — a genuine count of what matches an Avanza 1.5 G is available, it is a statement about one search rather than about your corpus, and it needs no honesty label because it is true. If the query can't be run cheaply at build time, the fallback is the ✓/✕ pair alone. I would not ship an invented number here; that is the one thing 2b was for.</p>
+  </div>
+</section>
+
+<!-- ════════ ORDER OF WORK ════════ -->
+<section style="padding:44px 48px 60px;max-width:1340px;margin:0 auto;border-top:1px solid rgba(255,255,255,.12)">
+  <div style="font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#8c979e;margin-bottom:16px">If you rule today</div>
+  <h2 style="font-size:31px;font-weight:800;letter-spacing:-.022em;margin:0 0 26px;color:#e8ecef;max-width:26ch;line-height:1.08">Five can start immediately. Three unlock behind one answer each.</h2>
+
+  <div style="display:flex;gap:2px;flex-wrap:wrap;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:6px;overflow:hidden;margin-bottom:26px">
+    <sc-for list="{{ waves }}" as="w" hint-placeholder-count="3">
+      <div style="flex:1 1 300px;min-width:280px;background:#0c1013;padding:24px 26px 26px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:baseline;gap:10px">
+          <span style="font-size:24px;font-weight:800;color:{{ w.color }};font-variant-numeric:tabular-nums">{{ w.n }}</span>
+          <span style="font-size:14.5px;font-weight:700;color:#e8ecef">{{ w.label }}</span>
+        </div>
+        <div style="font-size:12.5px;line-height:1.55;color:{{ w.color }}">{{ w.when }}</div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <sc-for list="{{ w.rows }}" as="r" hint-placeholder-count="3">
+            <div style="display:flex;align-items:baseline;gap:10px;font-size:13.5px;line-height:1.5">
+              <span style="color:{{ w.color }};font-weight:700;flex:none">{{ r.k }}</span>
+              <span style="color:#a9b4c6">{{ r.t }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <p style="margin:0 0 8px;font-size:16px;line-height:1.62;color:#c3cace;max-width:74ch;text-wrap:pretty">Everything in wave 1 is independently revertable and wants its own pull request. The type change is the one to review carefully — it touches every route, not just the landing page.</p>
+  <p style="margin:0;font-size:14.5px;line-height:1.6;color:#8c979e;max-width:74ch;text-wrap:pretty">Say the word on the three decisions above and I'll fold the answers into the handoff. If you'd rather rule on nothing for now, wave 1 still ships — you lose the protection band and the filter count, and gain nothing else you'd miss.</p>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const G = "#3fb950", B = "#5b9bf7", R = "#ef4444";
+
+    // Layout widths of the four bars drawn below, read with offsetWidth from
+    // this exact markup on 2026-07-26. The bars are built from the real nav
+    // parts, so these are measurements, not estimates. Re-check any time:
+    //   [...document.querySelectorAll('[data-bar]')]
+    //     .map(e => e.dataset.bar + ' ' + e.offsetWidth)
+    // If a number here disagrees with what that prints, this file is stale.
+    const W = { NOW: 1200, A: 1116, B: 1091, C: 1200 };
+    const scale = 0.63;
+
+    const mkLinks = (drop) => {
+      const out = ["The problem", "How it works", "Why Mobeeli", "Early Adopters", "Team", "Investors"]
+        .filter((t) => t !== drop)
+        .map((t) => ({ t, color: "rgba(255,255,255,.88)" }));
+      out.splice(2, 0, { t: "Protection", color: "#5b9bf7" });
+      return out;
+    };
+
+    // Every bar is judged against 1109px — the breakpoint the R16 proposal
+    // already commits to — not the repo's current 1040px, which nothing clears
+    // once Protection is added. 1040 is drawn as a ghost line for reference.
+    const opt = (id, label, drop, bp, note, badgeBg, badgeFg) => {
+      const w = W[id];
+      const fits = w == null ? null : w <= bp;
+      return {
+        id, label, note, badgeBg, badgeFg,
+        links: mkLinks(drop),
+        bpLeft: bp + "px",
+        ghostLeft: bp === 1109 ? "1040px" : "1109px",
+        verdict: w == null ? "measuring" : fits ? "clears " + bp + "px" : "misses " + bp + "px by " + (w - bp) + "px",
+        verdictColor: w == null ? "#8c979e" : fits ? G : (w - bp <= 12 ? "#e3b341" : R),
+        width: w == null ? "measuring" : w + "px measured \u00b7 needs a breakpoint of " + w + "px or more",
+      };
+    };
+
+    return {
+      barScale: "scale(" + scale + ")",
+      barFrameH: Math.round(68 * scale) + 2 + "px",
+      legend: [
+        { label: "Shipped", color: G },
+        { label: "Ready to build", color: B },
+        { label: "Blocked", color: R },
+      ],
+      items: [
+        { n: "1", status: "Shipped", color: G, pct: "100%", title: "Bugs A and B", detail: "Dead is-scanning class; ungated infinite animation", gate: "Live, main @ 2ceb938", gateColor: G },
+        { n: "2", status: "Shipped", color: G, pct: "100%", title: "\u00a78 \u2014 the scan choreography (4a)", detail: "Single measured 1800ms pass, three callouts, lock readout", gate: "Live, 48/48 browser checks", gateColor: G },
+        { n: "3", status: "Ready", color: B, pct: "12%", title: "\u00a73 \u2014 type system (7a)", detail: "Two CSS variables + delete two next/font imports", gate: "No blocker; review on every route", gateColor: "#8c979e" },
+        { n: "4", status: "Ready", color: B, pct: "8%", title: "Band 2 hierarchy", detail: "Delete font-size: 28px from .mb-ucat-h2", gate: "No blocker; one line", gateColor: "#8c979e" },
+        { n: "5", status: "Ready", color: B, pct: "10%", title: "\u00a76 \u2014 unified .mb-glass", detail: "One recipe; retires the dead .mb-cat-card rule", gate: "No blocker; do before change 8", gateColor: "#8c979e" },
+        { n: "6", status: "Ready", color: B, pct: "10%", title: "\u00a75 \u2014 disclosure (2b)", detail: "Stat tiles out, prices become fitment specs", gate: "Partly \u2014 the 217/4 count needs decision 3", gateColor: "#e3b341" },
+        { n: "7", status: "Ready", color: B, pct: "10%", title: "\u00a74 \u2014 unmount AiCatalogCard", detail: "Off the landing page; files stay in the repo", gate: "No blocker, but see decision 2", gateColor: "#e3b341" },
+        { n: "8", status: "Blocked", color: R, pct: "4%", title: "\u00a77 \u2014 protection as its own band", detail: "New section, own id, nav anchor", gate: "Needs decision 1 \u2014 the nav is full", gateColor: R },
+      ],
+      navOpts: [
+        opt("NOW", "Seven links, nothing dropped", null, 1109,
+          "\u2014 the do-nothing case. Reaches deep into the hatching, and would force the breakpoint up to 1200 on its own.",
+          "rgba(239,68,68,.16)", "#ef4444"),
+        opt("A", "Drop Investors from the nav", "Investors", 1109,
+          "\u2014 misses by 7px, which is a nudge rather than a problem: move the breakpoint to 1120 and it clears. Investors goes to the footer and the hero's secondary button.",
+          "rgba(47,125,246,.9)", "#fff"),
+        opt("B", "Drop Why Mobeeli from the nav", "Why Mobeeli", 1109,
+          "\u2014 the only option that fits the breakpoint already in the proposal, with 18px to spare. But Why Mobeeli is a product-story page that Protection partly overlaps, so losing it costs more strategically.",
+          "rgba(255,255,255,.12)", "#e8ecef"),
+        opt("C", "Keep all seven, raise the breakpoint to 1240px", null, 1240,
+          "\u2014 same bar as NOW; only the line moved. The dashed line is 1109px, now abandoned to the burger along with every laptop between there and 1240.",
+          "rgba(255,255,255,.12)", "#e8ecef"),
+      ],
+      auroraNow: [
+        { band: "Hero", file: "Hero.tsx:32", v: "0.40", vColor: "#e8ecef", glow: ".2" },
+        { band: "Catalog", file: "FitmentSection.tsx:100", v: "0.30", vColor: "#e8ecef", glow: ".14" },
+        { band: "Demo card", file: "AiCatalogCard.tsx:258", v: "0.28", vColor: "#5f6c7e", glow: ".06" },
+      ],
+      auroraOpts: [
+        { id: "A", label: "One shared context", border: "rgba(255,255,255,.1)", badgeBg: "rgba(255,255,255,.12)", badgeFg: "#e8ecef",
+          note: "Hoist a single aurora to LandingView behind both dark bands. Cheapest at runtime, largest refactor." },
+        { id: "B", label: "Keep both, unify the value", border: "rgba(47,125,246,.28)", badgeBg: "rgba(47,125,246,.9)", badgeFg: "#fff",
+          note: "Pick one intensity for both. One line; still two contexts, but the inconsistency is gone." },
+        { id: "C", label: "Keep both, make it deliberate", border: "rgba(255,255,255,.1)", badgeBg: "rgba(255,255,255,.12)", badgeFg: "#e8ecef",
+          note: "Hero brighter than the catalog band is defensible \u2014 but only as a written rule, not an accident." },
+      ],
+      countOpts: [
+        { id: "A", label: "Real, from the catalog", isA: true, isB: false, isC: false,
+          badgeBg: "rgba(47,125,246,.9)", badgeFg: "#fff", border: "rgba(47,125,246,.28)",
+          note: "A genuine count of what matches an Avanza 1.5 G, queried from the seeded database. No label needed \u2014 it is true.",
+          cost: "Cost: a build-time query. Needs the data to exist today.", costColor: "#9dc2fa" },
+        { id: "B", label: "Illustrative, labelled", isA: false, isB: true, isC: false,
+          badgeBg: "rgba(255,255,255,.12)", badgeFg: "#e8ecef", border: "rgba(255,255,255,.1)",
+          note: "Keeps the proof but reinstates an honesty label \u2014 exactly what ruling 2b let you retire.",
+          cost: "Cost: the Simulation convention comes back to this band.", costColor: "#e3b341" },
+        { id: "C", label: "Drop it \u2014 behaviour only", isA: false, isB: false, isC: true,
+          badgeBg: "rgba(255,255,255,.12)", badgeFg: "#e8ecef", border: "rgba(255,255,255,.1)",
+          note: "The tick/cross pair alone. Still proves the filter says no \u2014 just without the scale of the search.",
+          cost: "Cost: the band loses its most legible piece of proof.", costColor: "#8c979e" },
+      ],
+      waves: [
+        { n: "1", label: "Start now", color: B, when: "No decision needed \u2014 five changes",
+          rows: [
+            { k: "\u00a73", t: "Type system \u2014 review every route" },
+            { k: "\u2014", t: "Band 2 hierarchy \u2014 one line" },
+            { k: "\u00a76", t: "Unified .mb-glass" },
+            { k: "\u00a75", t: "Disclosure, minus the count" },
+            { k: "\u00a74", t: "Unmount AiCatalogCard" },
+          ] },
+        { n: "2", label: "One answer each", color: "#e3b341", when: "Unlocks the moment you rule",
+          rows: [
+            { k: "\u00a77", t: "Protection band \u2014 needs decision 1" },
+            { k: "\u00a75", t: "The 217/4 count \u2014 decision 3" },
+            { k: "#6", t: "Aurora intensity \u2014 decision 2" },
+          ] },
+        { n: "3", label: "Its own piece of work", color: "#8c979e", when: "Not this batch \u2014 scoped separately",
+          rows: [
+            { k: "\u2014", t: "Five-level picker + garage migration" },
+            { k: "\u2014", t: "Logo split into mark + live text" },
+            { k: "\u2014", t: "/why-mobeeli disclosure" },
+            { k: "\u2014", t: "One shared WebGL context" },
+          ] },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -15,6 +15,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     ".ba/**",
     "design_handoff_r16_landing/**",
+    // Scratch files written by the local session-memory tool — not product source.
+    ".remember/**",
   ]),
 ]);
 

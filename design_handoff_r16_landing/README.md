@@ -3,6 +3,8 @@
 **Target repo:** `mobeeli-landing-page` (Next.js App Router + TypeScript, Vercel)
 **Design source:** the `.dc.html` files bundled in this folder
 **Prepared:** 2026-07-26
+**Implementation status:** §8 (the scan) is **shipped and live** — `main` @ `2ceb938`. See `design_handback_r16_s8/README.md` in the repo for the verification record.
+**→ For the remaining six changes, build from `IMPLEMENTATION-3-to-8.md` in this folder.** It supersedes §§3–7 below with exact values, the three founder decisions resolved, and per-change contract tests. This document remains the reference for *why*; that one is *what to type*.
 **Fidelity:** High. Colors, type, spacing and timings below are exact and were read from the running design files.
 
 ---
@@ -38,7 +40,7 @@ Eight problems were diagnosed on the current landing page. All eight were confir
 | 3 | Three different glass recipes, one of which is dead | `.mb-ucat-card` at `landing.css:844`, the R13 block at `landing.css:2653`, `.mb-fit-protect` at `landing.css:2620` — and the R13 block targets `.mb-cat-card`, a class that was renamed to `.mb-ucat-card` (see the comment at `landing.css:842`), so **it never matches the part cards** |
 | 4 | The protection story is buried inside the fitment section | `.mb-fit-protect` is nested in `FitmentSection`; the nav has no anchor for it |
 | 5 | The 1.8s scan is an undesigned loading state | `FitmentSection.tsx` sets `isScanning` for `1800`ms; the CSS runs `mb-cat-scan 1.5s infinite linear` (`landing.css:822`) — the periods do not match, so the sweep is cut off mid-pass |
-| 6 | Aurora is mounted twice with different intensities | `AmbientAurora intensity={0.3}` in `FitmentSection.tsx`, `intensity={0.28}` in `AiCatalogCard.tsx` |
+| 6 | Aurora is mounted **three** times with three different intensities | `intensity={0.4}` in `Hero.tsx:32`, `{0.3}` in `FitmentSection.tsx:100`, `{0.28}` in `AiCatalogCard.tsx:258` — three WebGL contexts on one page |
 | 7 | Three bands have no `id`, so they cannot be linked or tracked | `UnifyBand`, `AiCatalogCard`, `BuyerStrip` render `<section>` with no `id` |
 | 8 | Three font families load where one would do | `layout.tsx` loads Inter + Space Grotesk via `next/font`, while `globals.css:2` already self-hosts Plus Jakarta Sans as a variable font (200–800) |
 
@@ -166,7 +168,21 @@ protection (light, id="protection") → buyer strip (id="waitlist") → footer
 
 **Step 4.4 — dead CSS.** `AiCatalogCard`'s styles (`.mb-cat-section`, `.mb-cat-card`, `.mb-cat-stage`, `.mb-sprite*`, `.mb-cat-pill`, `.mb-file-chip*`, `.mb-ai-chip*`, `.mb-cat-h2`, `.mb-cat-p`) stay in `landing.css` since the component still exists. **Do not delete them** — but note that `.mb-cat-card` is now unused on the landing page, which matters for §6.
 
-**Step 4.5 — Aurora.** With `AiCatalogCard` unmounted, only one `AmbientAurora` remains (`intensity={0.3}` in `FitmentSection`). That resolves diagnosis #6 with no further work. Verify no other component mounts it.
+**Step 4.5 — Aurora.** ⚠️ **Corrected 2026-07-26.** An earlier draft of this document claimed unmounting `AiCatalogCard` leaves a single `AmbientAurora`. That was wrong — I missed `Hero.tsx`. There are **three** mounts:
+
+| Component | Line | Intensity |
+|---|---|---|
+| `Hero.tsx` | 32 | `0.4` |
+| `FitmentSection.tsx` | 100 | `0.3` |
+| `AiCatalogCard.tsx` | 258 | `0.28` |
+
+Unmounting `AiCatalogCard` leaves **two** live WebGL contexts, in two adjacent dark bands, at intensities 8% apart — close enough that the difference reads as inconsistency rather than intent. **Diagnosis #6 is therefore not resolved by change 4.** It needs its own decision, and it is a founder/perf call rather than a mechanical fix:
+
+- **(a) One shared context.** Hoist a single `AmbientAurora` to `LandingView` behind both dark bands and let each band mask it. Cheapest at runtime; largest refactor.
+- **(b) Keep both, unify the value.** Pick one intensity for both mounts. One-line change; still two contexts.
+- **(c) Keep both, make the difference deliberate.** Hero brighter than the catalog band is defensible if it is a stated rule rather than an accident.
+
+My recommendation is (b) at `0.35` as an immediate fix, with (a) tracked separately — two contexts is a real mobile battery and memory cost, but it is not a visual defect once the values agree. **Do not implement any of these without a ruling.**
 
 ---
 
@@ -387,10 +403,12 @@ Gate every one of these animations behind `.is-scanning`:
 
 ```css
 .mb-cat-car-wrapper .mb-cat-scan-line,
-.mb-cat-car-wrapper .mb-scan-callout { animation: none; opacity: 0; }
-.mb-cat-car-wrapper.is-scanning .mb-cat-scan-line { animation: mb-scan-line 1800ms linear 1 forwards; }
+.mb-cat-car-wrapper .mb-cat-scan-callout { animation: none; opacity: 0; }
+.mb-cat-car-wrapper.is-scanning .mb-cat-scan-line { animation: mb-cat-scan 1800ms linear 1 forwards; }
 /* …per-callout rules with the delays from the table above… */
 ```
+
+> **Namespace:** use the `mb-cat-scan-*` prefix, **not** `mb-scan-*`. `.mb-scan-overlay` (`landing.css:2697`) and `.mb-scan-laser` (`landing.css:2704`) already exist as dead rules from the removed GarageOS scanner. Landing new work in that namespace makes live rules indistinguishable from orphans during the outstanding dead-CSS sweep.
 
 Delete the old `.mb-cat-scan-line` rule (`landing.css:815`) and the `@keyframes mb-cat-scan` (line 825) — the infinite sweep goes away entirely.
 
@@ -398,11 +416,25 @@ Delete the old `.mb-cat-scan-line` rule (`landing.css:815`) and the `@keyframes 
 
 ```css
 @media (prefers-reduced-motion: reduce) {
+  /* (0,3,0) — must match the gated rules' specificity, or cancelling does not cancel */
   .mb-cat-car-wrapper.is-scanning .mb-cat-scan-line { animation: none; opacity: 0; }
-  .mb-cat-car-wrapper .mb-scan-callout,
-  .mb-cat-car-wrapper .mb-scan-lock { animation: none; opacity: 1; transform: none; }
+  .mb-cat-car-wrapper.is-scanning .mb-cat-scan-dot,
+  .mb-cat-car-wrapper.is-scanning .mb-cat-scan-leader,
+  .mb-cat-car-wrapper.is-scanning .mb-cat-scan-val,
+  .mb-cat-car-wrapper.is-scanning .mb-cat-scan-lock { animation: none; }
+  /* (0,2,0) — beats the base rules, holds the reading at rest too */
+  .mb-cat-car-wrapper .mb-cat-scan-dot,
+  .mb-cat-car-wrapper .mb-cat-scan-leader,
+  .mb-cat-car-wrapper .mb-cat-scan-val,
+  .mb-cat-car-wrapper .mb-cat-scan-lock { opacity: 1; }
 }
 ```
+
+> ⚠️ **Two traps in this block, both corrected above after implementation review.**
+>
+> **Specificity.** A media query adds no specificity. A `.mb-cat-car-wrapper .mb-cat-scan-dot` reset is (0,2,0) and loses to the gated `.mb-cat-car-wrapper.is-scanning .mb-cat-scan-dot` at (0,3,0) — so the full stagger keeps running for exactly the users who asked for no motion, and because the elements are also forced to `opacity: 1` the failure is near-invisible in review. Match the `.is-scanning` selector when cancelling animation; use the shorter selector only for the `opacity` hold.
+>
+> **Do not write `transform: none`.** `.mb-cat-scan-val` carries `translateY(-50%)` to centre each label on its 1px leader; `transform: none` drops that and pushes all three labels down half a line. Instead author each keyframe's `to` state to equal the element's resting style — `translate(0, -50%)` for the value, `scale(1)` for the dot, `scaleX(1)` for the leader — so reduced motion only ever raises `opacity` and there is no transform to unwind.
 
 Reduced motion shows the **finished** reading — all callouts and the lock, immediately, no travel. The user gets the information without the motion. That is the correct reduced-motion behavior for a state change; hiding the result would be wrong.
 
@@ -412,9 +444,9 @@ Reduced motion shows the **finished** reading — all callouts and the lock, imm
 
 ## 9. Open items — need a founder ruling, do not guess
 
-1. **Nav overflow.** Adding Protection makes seven links against a 1040px breakpoint. Options: (a) drop `/investors` from the main nav and keep it in the footer + hero CTA; (b) drop `/why-mobeeli`; (c) raise `NAV_DESKTOP_QUERY`. My recommendation is (a) — Investors is a destination people seek, not one they browse. **Ask before implementing.**
+1. ~~**Nav overflow.**~~ **Resolved — see `IMPLEMENTATION-3-to-8.md` §0 and §7.7.** Measuring the real bars changed the answer: nothing clears 1040px once Protection is added, so the question was never whether to drop a link. Drop Investors, raise the breakpoint to **1120px** (not the 1109px quoted in §7 below — that figure is superseded).
 
-2. **The `217 → 4` filter count.** The mockup shows it as designed feedback. I could not find it implemented in `FitmentSection.tsx`. If it does not exist, it is new work and needs a copy key plus a decision on whether the numbers are real or illustrative. If illustrative, it needs a label — which reopens the Simulation-tag question that §5.3 closes.
+2. ~~**The `217 → 4` filter count.**~~ **Resolved — see `IMPLEMENTATION-3-to-8.md` §5.4.** Real count from the seeded catalog, no honesty label needed because it is true. If the query is not cheap at build time, fall back to the ✓/✕ pair — do not invent numbers.
 
 3. **The five-level picker.** The mockup shows Year / Make / Model / Trim / **Engine** (`2NR-VE`). The repo has **four** selects — there is no engine level, and `trim` values are like `"1.5 G CVT"`. Adding engine is real work: new select, new state, garage string format change, and the `mobeeli_garage` localStorage value changes shape. **Migration matters** — existing visitors have a 4-part string saved. Decide whether to migrate, ignore, or version the key.
 
@@ -423,6 +455,10 @@ Reduced motion shows the **finished** reading — all callouts and the lock, imm
 5. **`/why-mobeeli` disclosure.** That route is public, indexed and sitemapped, and carries the seller-fee range from the founder's own June field survey. Trimming the front page achieves little if the data sits one click away. Three options were put to the founder: leave it public, round the figure, or de-sitemap the route. **Unresolved.**
 
 6. **Where `AiCatalogCard` goes.** Unmounted from `/` but not deleted. It has no home yet.
+
+7. ~~**Aurora — three mounts, two after change 4.**~~ **Resolved — see `IMPLEMENTATION-3-to-8.md` §6.2.** Unify both survivors to `0.35` behind an exported constant; the shared-context refactor is tracked as separate performance work.
+
+8. **`text-shadow` on the scan labels.** The implementation added `text-shadow: 0 1px 3px rgba(0,0,0,.85)` to the value and lock text, which was not in this brief. The reasoning is sound — the vehicle plate is `mix-blend-mode: screen`, so a label can land on a lit area of the blueprint, and the shadow only does work where the car is bright. **I accept it.** Recorded here so it is not mistaken for drift later.
 
 ---
 

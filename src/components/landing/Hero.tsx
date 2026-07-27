@@ -10,6 +10,8 @@ import { useT } from "@/lib/i18n/LanguageProvider";
 
 import HeroRotator from "./HeroRotator";
 
+import { AURORA_INTENSITY } from "@/components/three/auroraIntensity";
+
 const AmbientAurora = dynamic(() => import("@/components/three/AmbientAurora"), {
   ssr: false,
 });
@@ -29,7 +31,7 @@ export default function Hero() {
   return (
     <header id="top" className="mb-hero">
       <div className="mb-hero-bg-media" aria-hidden>
-        <AmbientAurora intensity={0.4} />
+        <AmbientAurora intensity={AURORA_INTENSITY} />
         {!reduced ? (
           <video
             src="/veo/jakarta-hero-bg.mp4"

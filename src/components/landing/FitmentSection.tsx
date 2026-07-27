@@ -8,6 +8,8 @@ import { useT } from "@/lib/i18n/LanguageProvider";
 
 import HeroNetworkBackground from "./HeroNetworkBackground";
 
+import { AURORA_INTENSITY } from "@/components/three/auroraIntensity";
+
 const AmbientAurora = dynamic(() => import("@/components/three/AmbientAurora"), {
   ssr: false,
 });
@@ -97,7 +99,7 @@ export default function FitmentSection() {
 
   return (
     <section id="how-it-works" className="mb-fit3d mb-section">
-      <AmbientAurora intensity={0.3} />
+      <AmbientAurora intensity={AURORA_INTENSITY} />
       <HeroNetworkBackground />
       <div className="mb-fit3d-inner mb-section-inner">
         <div className="mb-fit3d-layout">

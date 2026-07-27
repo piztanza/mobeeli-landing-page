@@ -2,9 +2,10 @@
 
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
+import { AURORA_INTENSITY } from "./auroraIntensity";
 
 export interface AmbientAuroraProps {
-  /** Tunable base intensity multiplier (e.g. 0.4 for hero, 0.3 for fitment, 0.28 for catalog). */
+  /** Base intensity multiplier. Callers should pass {@link AURORA_INTENSITY}. */
   intensity?: number;
   className?: string;
 }
@@ -77,7 +78,7 @@ const fragmentShader = /* glsl */ `
  * WebGL aurora backdrop (R10-A).
  */
 export default function AmbientAurora({
-  intensity = 0.4,
+  intensity = AURORA_INTENSITY,
   className = "mb-ambient-aurora",
 }: AmbientAuroraProps) {
   const containerRef = useRef<HTMLDivElement>(null);
