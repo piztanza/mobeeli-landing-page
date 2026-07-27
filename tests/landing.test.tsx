@@ -49,6 +49,7 @@ const LANDING_KEYS = [
   "quote_en",
   "quote_by",
   "cat_unified_h2",
+  "cat_verified_note",
   "prot_r1",
   "prot_r2",
   "prot_r3",
@@ -210,6 +211,16 @@ describe("landing page render (F-001 + F-009)", () => {
     expect(html).not.toContain('id="protection"');
     expect(html).not.toContain('href="/#protection"');
     expect(html).not.toContain(esc(t("en", "how_s3_t")));
+  });
+
+  it("carries authenticity as one clause in the catalog band (R18 call C)", () => {
+    expect(html).toContain(esc(t("en", "cat_verified_note")));
+    // It must NOT have grown back into a band of its own.
+    expect(html).not.toContain('id="protection"');
+    // And it belongs to the catalog, not the hero: the hero sub is the
+    // positioning line and a separate test pins it broad and digit-free.
+    const heroEnd = html.indexOf('id="problem"');
+    expect(html.indexOf(esc(t("en", "cat_verified_note")))).toBeGreaterThan(heroEnd);
   });
 
   // R18 call B: with the problem band moved up, catalog and coverage are now

@@ -1092,6 +1092,19 @@ button.mb-buyer-cta:active {
   font-weight: 400;
 }
 
+/* R18 call C: authenticity as a property of "verified", not a second feature.
+   One line, deliberately — a trust BAND would put us on a competitor's message.
+   Deliberately undecorated: no accent colour, no icon, no box. --mb-dark-muted
+   because this sits on the dark catalog band. */
+.mb-cat-verified-note {
+  margin: 28px 0 0;
+  max-width: 46ch;
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--mb-dark-muted);
+  text-wrap: pretty;
+}
+
 .mb-cat-verified {
   margin-top: 2px;
   display: inline-flex;

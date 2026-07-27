@@ -124,6 +124,12 @@ const en = {
   cat_part4_spec: "front axle · ceramic · 2NR-VE",
   cat_part_brand: "OEM Equivalent",
   cat_part_verified: "Verified Fit",
+  /* R18 call C: authenticity carried as ONE clause, subordinate to the fitment
+     claim. Verification is the noun; fit and authenticity are its two outputs —
+     that keeps trust from competing with the thesis (a trust BAND would put us
+     on Otoklix's message, which is why R18 call A removed one).
+     DRAFT WORDING — founder to confirm EN and ID. */
+  cat_verified_note: "Verified means two things: it fits your car, and it's the real part.",
   cat_filter_active: "Filter Active",
   cat_car_alt: "Catalog vehicle blueprint",
   /* R16 §8 (ruling 4a): the scan's measurement callouts. The bore value reuses
@@ -468,6 +474,11 @@ const id: Record<CopyKey, string> = {
   cat_part4_spec: "As depan · keramik · 2NR-VE",
   cat_part_brand: "Setara OEM",
   cat_part_verified: "Terverifikasi Cocok",
+  /* R18 call C. Wording follows this file's own precedents rather than being
+     invented: fit3d_auth_v is "Genuine" → "Asli", and card_part_chip is
+     "Verified fit" → "Dipastikan cocok".
+     DRAFT WORDING — founder to confirm. */
+  cat_verified_note: "Terverifikasi berarti dua hal: cocok untuk mobil Anda, dan barangnya asli.",
   cat_filter_active: "Filter Aktif",
   cat_car_alt: "Cetak biru kendaraan katalog",
   /* R16 §8 (ruling 4a) — measurement callouts. These are engineering tokens

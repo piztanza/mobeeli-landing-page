@@ -290,6 +290,11 @@ export default function FitmentSection() {
                 </div>
               ))}
             </div>
+
+            {/* R18 call C: authenticity as a property of "verified", not a
+                second feature. One line, deliberately — anything that looks like
+                a feature callout becomes the band call A just removed. */}
+            <p className="mb-cat-verified-note">{t("cat_verified_note")}</p>
           </div>
         </div>
       </div>
