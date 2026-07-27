@@ -166,7 +166,9 @@ describe("landing i18n completeness (F-001)", () => {
 
   it("keeps the slim-landing copy broad — deck thesis line, no figures (redesign phase 4)", () => {
     expect(t("en", "hero_sub_short")).toContain("verified catalog for Indonesia's auto industry");
-    expect(t("id", "hero_sub_short")).toContain("katalog terverifikasi untuk industri otomotif Indonesia");
+    expect(t("id", "hero_sub_short")).toContain(
+      "katalog terverifikasi untuk industri otomotif Indonesia",
+    );
     // Founder direction: no market sizes or moat counts on the front page.
     for (const lang of langs) {
       expect(t(lang, "hero_sub_short")).not.toMatch(/\d/);
@@ -211,12 +213,11 @@ describe("landing page render (F-001 + F-009)", () => {
     expect(html).toContain(esc(t("en", "hero_sub_short")));
   });
 
-  it("renders the R20 band order — problem second, catalog third, platform fourth", () => {
+  it("renders the R25 band order — problem second, how-it-works third, no platform band", () => {
     const bands = [
       t("en", "hero_chip"), // hero (dark, full viewport)
       t("en", "quote_main"), // the problem, slim (light, id="problem")
-      t("en", "cat_unified_h2"), // unified catalog (dark, id="how-it-works")
-      t("en", "plat_h2"), // platform flow (dark, id="platform")
+      t("en", "cat_unified_h2"), // how it works (dark, id="how-it-works")
       t("en", "uni_h2"), // coverage / archipelago (dark, id="coverage")
       t("en", "buyer_line"), // buyer strip (id="waitlist")
       t("en", "foot_tag"), // footer
@@ -230,7 +231,7 @@ describe("landing page render (F-001 + F-009)", () => {
   });
 
   it("gives every band an id, and drops the second competing catalog (R16 ruling 1a)", () => {
-    for (const id of ["how-it-works", "problem", "coverage", "platform", "waitlist"]) {
+    for (const id of ["how-it-works", "problem", "coverage", "waitlist"]) {
       expect(html, `id="${id}"`).toContain(`id="${id}"`);
     }
     // AiCatalogCard is unmounted from `/` — its headline must not appear.
@@ -273,11 +274,12 @@ describe("landing page render (F-001 + F-009)", () => {
     const seam = landingCss.match(/(\.mb-[\w-]+ \+ \.mb-[\w-]+,?\s*)+\{[^}]*border-top:[^}]*\}/s);
     expect(seam, "the dark-seam rule").not.toBeNull();
     const block = seam![0];
-    // The two live joins after R20's insertion.
-    expect(block, "catalog → platform").toContain(".mb-fit3d + .mb-plat");
-    expect(block, "platform → coverage").toContain(".mb-plat + .mb-uni");
-    // Kept so that removing the platform band restores the R18 seam by itself.
-    expect(block, "catalog → coverage fallback").toContain(".mb-fit3d + .mb-uni");
+    // R25 merged the platform band away, so catalog → coverage is the single
+    // live dark→dark join again. The two .mb-plat adjacencies R20 added are
+    // pruned: they would match nothing, and this text-reading test could not
+    // tell the difference — which is the whole reason to prune deliberately.
+    expect(block, "catalog → coverage").toContain(".mb-fit3d + .mb-uni");
+    expect(block, "no dead platform adjacency").not.toContain(".mb-plat");
     expect(block).toContain("border-top: 1px solid var(--mb-hairline-subtle);");
     // Still scoped to adjacency — an unconditional border on either dark band
     // would leave a stray line the moment one follows a light band.
@@ -293,9 +295,11 @@ describe("landing page render (F-001 + F-009)", () => {
     expect((bar.match(/href=/g) ?? []).length).toBe(5);
   });
 
-  // R20 band 2a. The diagram argues convergence; the geometry test guards the
-  // shape, this guards that the band is actually on the page saying it.
-  it("renders the platform-flow band with all five parties and the core", () => {
+  // R20 band 2a, embedded by R25. The diagram argues convergence; the geometry
+  // test guards the shape, this guards that it is on the page saying it. The
+  // parties still render — they moved INTO the how-it-works band, they did not
+  // go away, which is why these assertions are kept rather than deleted.
+  it("renders the platform-flow figure with all five parties and the core", () => {
     for (const k of [
       "plat_src1_t",
       "plat_src2_t",
@@ -306,7 +310,6 @@ describe("landing page render (F-001 + F-009)", () => {
     ] as const) {
       expect(html, k).toContain(esc(t("en", k)));
     }
-    expect(html).toContain('id="platform"');
     // The visuals are decorative; the figure's meaning must reach a screen
     // reader as one sentence, so the caption has to render.
     expect(html).toContain(esc(t("en", "plat_a11y")));
@@ -317,6 +320,29 @@ describe("landing page render (F-001 + F-009)", () => {
   it("keeps the platform band out of the scrollspy", () => {
     expect(SPY_SECTION_IDS as readonly string[]).not.toContain("platform");
     expect(html).not.toContain('href="/#platform"');
+  });
+
+  it("keeps the platform flow inside the how-it-works band (R25)", () => {
+    const band = html.slice(html.indexOf('id="how-it-works"'));
+    const end = band.indexOf('id="coverage"');
+    const inner = band.slice(0, end === -1 ? undefined : end);
+    expect(inner).toContain("mb-plat-fig");
+    expect(inner).toContain(esc(t("en", "cat_bridge")));
+    // The diagram must precede the picker: industry scale, then per-part proof.
+    expect(inner.indexOf("mb-plat-fig")).toBeLessThan(inner.indexOf("mb-cat-panels"));
+  });
+
+  // This exists because the R25 mockup omits the scan entirely, and a literal
+  // reading of it would delete shipped, tested work. The scan did not go away —
+  // it moved inside the result window, which is what it means in the product.
+  it("keeps the scan choreography (R25 must not regress R16 §8)", () => {
+    expect(html).toContain("mb-cat-car-wrapper");
+    expect(html).toContain("mb-cat-scan-line");
+    expect(html).toContain(esc(t("en", "cat_scan_lock")));
+    // The overlay only works if the frame is inside the window body.
+    const body = html.slice(html.indexOf("mb-cat-window-body"));
+    expect(body.indexOf("mb-cat-car-wrapper")).toBeGreaterThan(-1);
+    expect(body.indexOf("mb-cat-car-wrapper")).toBeLessThan(body.indexOf("mb-cat-grid"));
   });
 
   it("wires the nav waitlist CTA to /join and the hero shop CTA to platform registration", () => {

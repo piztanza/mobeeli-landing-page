@@ -103,9 +103,23 @@ function PartyGlyph({ icon }: { icon: IconKey }) {
 }
 
 /**
- * Platform-flow band (R20 2a) — industry-scale "how it works" as a Sankey:
- * three inputs converge through one verified core and fan back out to three
- * outputs. Sits between the catalog and coverage bands.
+ * Platform-flow figure (R20 2a, embedded by R25) — the industry-scale half of
+ * the "how it works" band: three inputs converge through one verified core and
+ * fan back out to three outputs.
+ *
+ * R25: this is no longer its own <section>. It is a figure INSIDE
+ * FitmentSection, above the picker, so the diagram's output hands straight to
+ * the per-part demonstration instead of ending on an abstract caption. It
+ * therefore has no kicker, no H2 and no lede of its own — the band has one
+ * headline. plat_kicker / plat_h2 / plat_p are deliberately KEPT in copy.ts
+ * (same precedent as prot_r*): LANDING_KEYS is an existence contract, not a
+ * render contract, so they keep passing, EN and ID stay paired, and restoring a
+ * standalone band is a mount rather than a translation round.
+ *
+ * The filename is load-bearing. The geometry module is `platformFlowGeometry`
+ * rather than `platformFlow` because this repo is developed on a
+ * case-insensitive filesystem, where "./PlatformFlow" resolves .ts before .tsx
+ * and would match it. Do not rename either file.
  *
  * Motion is progressive-enhancement + in-view gated:
  *   • base CSS renders the final (visible) state — correct with no JS and under
@@ -157,200 +171,180 @@ export default function PlatformFlow() {
     }) as React.CSSProperties;
 
   return (
-    <section id="platform" className="mb-plat mb-section">
-      <div className="mb-plat-inner mb-section-inner">
-        <div data-rev="0" className="mb-kicker mb-kicker--accent">
-          {t("plat_kicker")}
-        </div>
-        <h2 data-rev="1" className="mb-h2 mb-plat-h2">
-          {t("plat_h2")}
-        </h2>
-        <p data-rev="2" className="mb-plat-p">
-          {t("plat_p")}
-        </p>
+    <div className="mb-plat-fig-wrap">
+      <figure
+        className={`mb-plat-fig ${js ? "mb-plat--js" : ""}`}
+        ref={ref}
+        data-inview={inView ? "true" : undefined}
+      >
+        {/* ---- desktop: the Sankey ---- */}
+        <div className="mb-plat-figure" aria-hidden>
+          <svg
+            className="mb-plat-svg"
+            viewBox={`0 0 ${FLOW_VIEW.w} ${FLOW_VIEW.h}`}
+            preserveAspectRatio="xMidYMid meet"
+          >
+            {FLOW.ribbons.map((r) => (
+              <path
+                key={r.key}
+                className="mb-plat-rib"
+                d={r.path}
+                fill={r.color}
+                opacity="0.42"
+                style={{ ["--rib-delay" as string]: r.delay }}
+              />
+            ))}
+          </svg>
 
-        <figure
-          className={`mb-plat-fig ${js ? "mb-plat--js" : ""}`}
-          ref={ref}
-          data-inview={inView ? "true" : undefined}
-        >
-          {/* ---- desktop: the Sankey ---- */}
-          <div className="mb-plat-figure" aria-hidden>
-            <svg
-              className="mb-plat-svg"
-              viewBox={`0 0 ${FLOW_VIEW.w} ${FLOW_VIEW.h}`}
-              preserveAspectRatio="xMidYMid meet"
-            >
-              {FLOW.ribbons.map((r) => (
-                <path
-                  key={r.key}
-                  className="mb-plat-rib"
-                  d={r.path}
+          <svg
+            className="mb-plat-svg mb-plat-svg--packets"
+            viewBox={`0 0 ${FLOW_VIEW.w} ${FLOW_VIEW.h}`}
+            preserveAspectRatio="xMidYMid meet"
+          >
+            {FLOW.ribbons.flatMap((r, i) =>
+              [0, 1].map((k) => (
+                <circle
+                  key={`${r.key}-p${k}`}
+                  className="mb-plat-packet"
+                  r="4"
                   fill={r.color}
-                  opacity="0.42"
-                  style={{ ["--rib-delay" as string]: r.delay }}
+                  style={{
+                    offsetPath: `path('${r.centerline}')`,
+                    ["--pk-dur" as string]: `${7.4 + i * 0.9}s`,
+                    ["--pk-delay" as string]: `${i * 0.6 + k * 3.6}s`,
+                  }}
                 />
-              ))}
-            </svg>
+              )),
+            )}
+          </svg>
 
-            <svg
-              className="mb-plat-svg mb-plat-svg--packets"
-              viewBox={`0 0 ${FLOW_VIEW.w} ${FLOW_VIEW.h}`}
-              preserveAspectRatio="xMidYMid meet"
+          {/* inbound file chips */}
+          {IN_CHIPS.map((c, i) => (
+            <span
+              key={c.key}
+              className="mb-plat-inlabel mb-plat-inchip"
+              style={{
+                top: `${IN_CHIP_TOP_PCT[i]}%`,
+                ["--label-delay" as string]: c.delay,
+              }}
             >
-              {FLOW.ribbons.flatMap((r, i) =>
-                [0, 1].map((k) => (
-                  <circle
-                    key={`${r.key}-p${k}`}
-                    className="mb-plat-packet"
-                    r="4"
-                    fill={r.color}
-                    style={{
-                      offsetPath: `path('${r.centerline}')`,
-                      ["--pk-dur" as string]: `${7.4 + i * 0.9}s`,
-                      ["--pk-delay" as string]: `${i * 0.6 + k * 3.6}s`,
-                    }}
-                  />
-                )),
-              )}
-            </svg>
-
-            {/* inbound file chips */}
-            {IN_CHIPS.map((c, i) => (
-              <span
-                key={c.key}
-                className="mb-plat-inlabel mb-plat-inchip"
-                style={{
-                  top: `${IN_CHIP_TOP_PCT[i]}%`,
-                  ["--label-delay" as string]: c.delay,
-                }}
-              >
-                <span className="mb-plat-chip-disc">
-                  {/* Intrinsic 76×96, not 26×26 — these are portrait document
+              <span className="mb-plat-chip-disc">
+                {/* Intrinsic 76×96, not 26×26 — these are portrait document
                       glyphs and declaring them square stretches them 25%. The
                       display size comes from CSS, as with .mb-file-chip img.
                       unoptimized for the same reason AiCatalogCard gives: they
                       are 1–2 KB, the optimizer saves nothing, and a dropped
                       optimizer response once left the PDF chip blank on the
                       live site (CHG-piztanza-18). */}
-                  <Image src={c.src} alt={t(c.key)} width={76} height={96} unoptimized />
-                </span>
+                <Image src={c.src} alt={t(c.key)} width={76} height={96} unoptimized />
               </span>
-            ))}
-
-            {/* outbound "verified" tag */}
-            <span
-              className="mb-plat-inlabel mb-plat-outlabel"
-              style={{ ["--label-delay" as string]: "0.58s" }}
-            >
-              {t("plat_out")}
             </span>
+          ))}
 
-            {/* source nodes */}
-            {SOURCES.map((p, i) => (
-              <div
-                key={p.t}
-                className="mb-plat-node mb-plat-node--src"
-                style={{
-                  ...nodeStyle(
-                    FLOW.nodes[i].topPct,
-                    FLOW.nodes[i].heightPct,
-                    FLOW_LAYOUT.srcLeftPct,
-                  ),
-                  ["--node-delay" as string]: p.delay,
-                }}
-              >
-                <PartyGlyph icon={p.icon} />
-                <span className="mb-plat-node-t">{t(p.t)}</span>
-                <span className="mb-plat-node-s">{t(p.s)}</span>
-              </div>
-            ))}
+          {/* outbound "verified" tag */}
+          <span
+            className="mb-plat-inlabel mb-plat-outlabel"
+            style={{ ["--label-delay" as string]: "0.58s" }}
+          >
+            {t("plat_out")}
+          </span>
 
-            {/* spine — the verified core */}
+          {/* source nodes */}
+          {SOURCES.map((p, i) => (
             <div
-              className="mb-plat-spine"
+              key={p.t}
+              className="mb-plat-node mb-plat-node--src"
               style={{
-                left: `${FLOW.spine.leftPct}%`,
-                width: `${FLOW.spine.widthPct}%`,
-                top: `${FLOW.spine.topPct}%`,
-                height: `${FLOW.spine.heightPct}%`,
+                ...nodeStyle(FLOW.nodes[i].topPct, FLOW.nodes[i].heightPct, FLOW_LAYOUT.srcLeftPct),
+                ["--node-delay" as string]: p.delay,
               }}
             >
-              <div className="mb-plat-spine-inner">
-                <span className="mb-plat-noise" />
-                <span className="mb-plat-spec" />
-                <span className="mb-plat-spine-body">
-                  {/* mobeeli-mark.png is 1200×1200. Declaring 60×46 makes Next
+              <PartyGlyph icon={p.icon} />
+              <span className="mb-plat-node-t">{t(p.t)}</span>
+              <span className="mb-plat-node-s">{t(p.s)}</span>
+            </div>
+          ))}
+
+          {/* spine — the verified core */}
+          <div
+            className="mb-plat-spine"
+            style={{
+              left: `${FLOW.spine.leftPct}%`,
+              width: `${FLOW.spine.widthPct}%`,
+              top: `${FLOW.spine.topPct}%`,
+              height: `${FLOW.spine.heightPct}%`,
+            }}
+          >
+            <div className="mb-plat-spine-inner">
+              <span className="mb-plat-noise" />
+              <span className="mb-plat-spec" />
+              <span className="mb-plat-spine-body">
+                {/* mobeeli-mark.png is 1200×1200. Declaring 60×46 makes Next
                       warn on every load that one dimension was modified without
                       the other; the square intrinsic keeps the ratio honest and
                       .mb-plat-mark still sets the painted height. */}
-                  <Image
-                    className="mb-plat-mark"
-                    src="/assets/mobeeli-mark.png"
-                    alt="Mobeeli"
-                    width={46}
-                    height={46}
-                  />
-                  <span className="mb-plat-hairline" />
-                  <span className="mb-plat-hub">{t("plat_hub")}</span>
-                </span>
-              </div>
+                <Image
+                  className="mb-plat-mark"
+                  src="/assets/mobeeli-mark.png"
+                  alt="Mobeeli"
+                  width={46}
+                  height={46}
+                />
+                <span className="mb-plat-hairline" />
+                <span className="mb-plat-hub">{t("plat_hub")}</span>
+              </span>
             </div>
+          </div>
 
-            {/* destination nodes */}
-            {DESTS.map((p, i) => (
-              <div
-                key={p.t}
-                className="mb-plat-node mb-plat-node--dst"
-                style={{
-                  ...nodeStyle(
-                    FLOW.nodes[i].topPct,
-                    FLOW.nodes[i].heightPct,
-                    FLOW_LAYOUT.dstLeftPct,
-                  ),
-                  ["--node-delay" as string]: p.delay,
-                }}
-              >
+          {/* destination nodes */}
+          {DESTS.map((p, i) => (
+            <div
+              key={p.t}
+              className="mb-plat-node mb-plat-node--dst"
+              style={{
+                ...nodeStyle(FLOW.nodes[i].topPct, FLOW.nodes[i].heightPct, FLOW_LAYOUT.dstLeftPct),
+                ["--node-delay" as string]: p.delay,
+              }}
+            >
+              <PartyGlyph icon={p.icon} />
+              <span className="mb-plat-node-t">{t(p.t)}</span>
+              <span className="mb-plat-node-s">{t(p.s)}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* ---- mobile: a vertical stack, CSS-toggled (SSR-safe, no JS branch) ---- */}
+        <div className="mb-plat-stack" aria-hidden>
+          <div className="mb-plat-stack-row">
+            {SOURCES.map((p) => (
+              <div key={p.t} className="mb-plat-scard mb-plat-scard--src">
                 <PartyGlyph icon={p.icon} />
                 <span className="mb-plat-node-t">{t(p.t)}</span>
-                <span className="mb-plat-node-s">{t(p.s)}</span>
               </div>
             ))}
           </div>
-
-          {/* ---- mobile: a vertical stack, CSS-toggled (SSR-safe, no JS branch) ---- */}
-          <div className="mb-plat-stack" aria-hidden>
-            <div className="mb-plat-stack-row">
-              {SOURCES.map((p) => (
-                <div key={p.t} className="mb-plat-scard mb-plat-scard--src">
-                  <PartyGlyph icon={p.icon} />
-                  <span className="mb-plat-node-t">{t(p.t)}</span>
-                </div>
-              ))}
-            </div>
-            <span className="mb-plat-arrow" />
-            <div className="mb-plat-hubcard">
-              {/* Square, like its desktop twin. The spec declared 52×40 for a
+          <span className="mb-plat-arrow" />
+          <div className="mb-plat-hubcard">
+            {/* Square, like its desktop twin. The spec declared 52×40 for a
                   1:1 asset and gave this copy no class to correct it, so the
                   brand mark painted 30% wide — on EVERY phone, since the stack
                   is the only rendering of this band below 1024px. */}
-              <Image src="/assets/mobeeli-mark.png" alt="Mobeeli" width={40} height={40} />
-              <span className="mb-plat-hub">{t("plat_hub")}</span>
-            </div>
-            <span className="mb-plat-arrow" />
-            <div className="mb-plat-stack-row">
-              {DESTS.map((p) => (
-                <div key={p.t} className="mb-plat-scard mb-plat-scard--dst">
-                  <PartyGlyph icon={p.icon} />
-                  <span className="mb-plat-node-t">{t(p.t)}</span>
-                </div>
-              ))}
-            </div>
+            <Image src="/assets/mobeeli-mark.png" alt="Mobeeli" width={40} height={40} />
+            <span className="mb-plat-hub">{t("plat_hub")}</span>
           </div>
+          <span className="mb-plat-arrow" />
+          <div className="mb-plat-stack-row">
+            {DESTS.map((p) => (
+              <div key={p.t} className="mb-plat-scard mb-plat-scard--dst">
+                <PartyGlyph icon={p.icon} />
+                <span className="mb-plat-node-t">{t(p.t)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
 
-          <figcaption className="mb-plat-sr">{t("plat_a11y")}</figcaption>
-        </figure>
-      </div>
-    </section>
+        <figcaption className="mb-plat-sr">{t("plat_a11y")}</figcaption>
+      </figure>
+    </div>
   );
 }
