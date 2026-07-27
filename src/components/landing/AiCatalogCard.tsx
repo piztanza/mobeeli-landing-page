@@ -9,6 +9,8 @@ import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import type { CopyKey } from "@/lib/i18n";
 import { useT } from "@/lib/i18n/LanguageProvider";
 
+import { AURORA_INTENSITY } from "@/components/three/auroraIntensity";
+
 const AmbientAurora = dynamic(() => import("@/components/three/AmbientAurora"), {
   ssr: false,
 });
@@ -255,7 +257,7 @@ export default function AiCatalogCard({ static: staticMode = false }: { static?:
   return (
     <section ref={glowRef} className="mb-cat-section">
       <div data-rev="0" className="mb-cat-card mb-glow-card">
-        <AmbientAurora intensity={0.28} />
+        <AmbientAurora intensity={AURORA_INTENSITY} />
         <div className="mb-cat-head">
           <div className="mb-file-chips">
             {/* unoptimized: these are 1–2 KB PNGs, so the optimizer saves
