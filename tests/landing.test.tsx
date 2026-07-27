@@ -179,11 +179,11 @@ describe("landing page render (F-001 + F-009)", () => {
     expect(html).toContain(esc(t("en", "hero_sub_short")));
   });
 
-  it("renders the R18 band order — catalog second, no protection band", () => {
+  it("renders the R18 band order — problem second, catalog third, no protection band", () => {
     const bands = [
       t("en", "hero_chip"), // hero (dark, full viewport)
-      t("en", "cat_unified_h2"), // unified catalog (dark, id="how-it-works")
       t("en", "quote_main"), // the problem, slim (light, id="problem")
+      t("en", "cat_unified_h2"), // unified catalog (dark, id="how-it-works")
       t("en", "uni_h2"), // coverage / archipelago (dark, id="coverage")
       t("en", "buyer_line"), // buyer strip (id="waitlist")
       t("en", "foot_tag"), // footer
@@ -210,6 +210,22 @@ describe("landing page render (F-001 + F-009)", () => {
     expect(html).not.toContain('id="protection"');
     expect(html).not.toContain('href="/#protection"');
     expect(html).not.toContain(esc(t("en", "how_s3_t")));
+  });
+
+  // R18 call B: with the problem band moved up, catalog and coverage are now
+  // adjacent dark bands with identical backgrounds. Measured flush with no
+  // border before this, so the join needs a marker.
+  it("marks the catalog → coverage seam, and only when it is dark-on-dark", () => {
+    const landingCss = readFileSync(
+      new URL("../src/components/landing/landing.css", import.meta.url),
+      "utf8",
+    );
+    expect(landingCss).toMatch(
+      /\.mb-fit3d \+ \.mb-uni \{[^}]*border-top: 1px solid var\(--mb-hairline-subtle\);/s,
+    );
+    // Scoped to the adjacency — an unconditional border on .mb-uni would leave a
+    // stray line if it ever follows a light band.
+    expect(landingCss).not.toMatch(/^\.mb-uni \{[^}]*border-top:/ms);
   });
 
   it("keeps the desktop nav at five links (R18 call A freed a slot)", () => {

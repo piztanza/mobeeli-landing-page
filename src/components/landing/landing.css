@@ -2328,6 +2328,16 @@ button.mb-buyer-cta:active {
 
 /* Full-viewport section (founder, 2026-07-23): the archipelago statement gets
    its own screen, mirroring the hero's vh/svh fallback chain. */
+/* R18 call B moved the problem band above the catalog, which relocated the
+   dark-on-dark seam from hero→catalog to catalog→coverage. Measured: both bands
+   compute the same --mb-ink background and sit flush with no border, so nothing
+   marked the join. Scoped to the adjacency deliberately — the hairline appears
+   only when coverage actually follows a dark band, so reordering again cannot
+   leave a stray line under a light one. */
+.mb-fit3d + .mb-uni {
+  border-top: 1px solid var(--mb-hairline-subtle);
+}
+
 .mb-uni {
   position: relative;
   background: var(--mb-ink);

@@ -18,10 +18,22 @@ import UnifyBand from "./UnifyBand";
 import "./landing.css";
 
 /**
- * Landing page (F-001) — the band stack, alternating dark/light (R18):
- * nav (overlay) → hero (dark, full viewport) → catalog (dark, id="how-it-works")
- * → problem (light, id="problem") → coverage (dark, id="coverage") →
+ * Landing page (F-001) — the band stack (R18):
+ * nav (overlay) → hero (dark, full viewport) → problem (light, id="problem")
+ * → catalog (dark, id="how-it-works") → coverage (dark, id="coverage") →
  * buyer strip (id="waitlist") → footer.
+ *
+ * R18 call B: the problem leads. The Senen quote motivates the catalog band, so
+ * it has to precede it — before this it sat behind the demo it sets up. It also
+ * breaks up the two full dark screens a visitor used to get on arrival; the
+ * remaining dark-on-dark seam moves down to catalog → coverage, between two
+ * bands that are already visually distinct.
+ *
+ * Side effect worth recording: SPY_SECTION_IDS in ActiveSectionProvider is
+ * ["problem", "how-it-works"] and resolveActive returns the FIRST match, so it
+ * is a priority list. Until this reorder the DOM ran the other way round, which
+ * meant that with both bands visible the spy marked the lower one. DOM order and
+ * array order now agree.
  *
  * R18 call A: ProtectionSection is no longer mounted here. Not because the
  * protection story is weak — counterfeits are estimated at 30%+ of parts sold —
@@ -51,8 +63,8 @@ export default function LandingView() {
           <Nav overlay />
           <main id="main-content" tabIndex={-1}>
             <Hero />
-            <FitmentSection />
             <ProblemSection />
+            <FitmentSection />
             <UnifyBand />
             <BuyerStrip />
           </main>
