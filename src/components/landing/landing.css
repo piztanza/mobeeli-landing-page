@@ -262,10 +262,10 @@
 }
 /* Ink-on-ink otherwise. */
 .mb-nav--overlay:not(.is-solid) .mb-nav-cta {
-  background: var(--mb-primary);
+  background: var(--mb-primary-cta);
 }
 .mb-nav--overlay:not(.is-solid) .mb-nav-cta:hover {
-  background: var(--mb-primary-hover);
+  background: var(--mb-primary-cta-hover);
 }
 .mb-nav--overlay:not(.is-solid) .mb-nav-burger-bar {
   background: #fff;
@@ -669,7 +669,7 @@ button.mb-buyer-cta:active {
   }
 }
 .mb-btn-primary-dark {
-  background: var(--mb-primary);
+  background: var(--mb-primary-cta);
   font-size: 15px;
   font-weight: 800;
   padding: 15px 28px;
@@ -679,7 +679,7 @@ button.mb-buyer-cta:active {
   color: #fff;
 }
 .mb-btn-primary-dark:hover {
-  background: var(--mb-primary-hover);
+  background: var(--mb-primary-cta-hover);
 }
 .mb-btn-ghost-dark {
   border: 1.5px solid rgba(255, 255, 255, 0.34);
@@ -1977,7 +1977,7 @@ button.mb-buyer-cta:active {
   left: 50%;
   transform: translateX(-50%);
   top: 86%;
-  background: var(--mb-primary);
+  background: var(--mb-primary-cta);
   color: #fff;
   font-size: 12.5px;
   font-weight: 800;
@@ -2312,7 +2312,7 @@ button.mb-buyer-cta:active {
   margin: 0 auto;
   display: grid;
   place-items: center;
-  background: var(--mb-primary);
+  background: var(--mb-primary-cta);
   color: #fff;
   font-size: 24px;
   font-weight: 800;
@@ -2677,7 +2677,7 @@ button.mb-buyer-cta:active {
   width: 220px;
 }
 .mb-vin-btn {
-  background: var(--mb-primary);
+  background: var(--mb-primary-cta);
   color: #fff;
   border: none;
   border-radius: var(--mb-radius-input);

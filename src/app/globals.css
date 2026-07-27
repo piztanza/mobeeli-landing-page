@@ -21,6 +21,13 @@
   --mb-primary-hover: #5596f7;
   --mb-deep-blue: #1b5fd9;
   --mb-deep-blue-hover: #123f9e;
+  /* R25 change A — AA-compliant fill for buttons that carry WHITE text.
+     --mb-primary (#2f7df6) is 3.90:1 on white, below the 4.5:1 AA floor; it stays
+     the brand primary for borders, glows, ribbon fills and text on dark, where
+     the ratio is not a text-contrast question. --mb-deep-blue is 5.70:1.
+     Contract test: tests/cta-contrast.test.ts. */
+  --mb-primary-cta: var(--mb-deep-blue);
+  --mb-primary-cta-hover: var(--mb-deep-blue-hover);
   --mb-light-accent: #5b9bf7;
   --mb-tint: #e4edfd;
   --mb-ink: #0d1522;

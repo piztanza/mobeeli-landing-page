@@ -74,7 +74,13 @@ describe("nav overlay + hero viewport (CSS contracts)", () => {
     expect(overlayBlock).toMatch(/\.mb-nav-logo-white \{[^}]*display: block;/s);
     expect(overlayBlock).toMatch(/\.mb-nav-links a \{[^}]*color: rgba\(255, 255, 255, 0\.88\);/s);
     expect(overlayBlock).toMatch(/\.mb-lang-btn\.is-active \{[^}]*background: #fff;/s);
-    expect(overlayBlock).toMatch(/\.mb-nav-cta \{[^}]*background: var\(--mb-primary\);/s);
+    // R25 change A: the overlay CTA moved to the AA-compliant fill. White on
+    // --mb-primary is 3.90:1; --mb-primary-cta resolves to --mb-deep-blue at
+    // 5.70:1. The white here is inherited from .mb-nav-cta and .mb-landing
+    // .mb-nav-cta, so no same-block grep — including the contract test in
+    // tests/cta-contrast.test.ts — can see this rule. This assertion is the
+    // only thing guarding it.
+    expect(overlayBlock).toMatch(/\.mb-nav-cta \{[^}]*background: var\(--mb-primary-cta\);/s);
     expect(overlayBlock).toMatch(/\.mb-nav-burger-bar \{[^}]*background: #fff;/s);
   });
 

@@ -62,7 +62,7 @@
 .mb-deck .mb-deck-gate-cta {
   display: inline-block;
   margin-top: 28px;
-  background: var(--mb-primary);
+  background: var(--mb-primary-cta);
   color: #fff;
   font-size: 15px;
   font-weight: 800;
@@ -72,7 +72,7 @@
 }
 
 .mb-deck .mb-deck-gate-cta:hover {
-  background: var(--mb-primary-hover);
+  background: var(--mb-primary-cta-hover);
 }
 
 /* ---------- founder-only /deck-admin ---------- */
@@ -132,7 +132,7 @@
 .mb-da-copy,
 .mb-da-btn {
   align-self: flex-start;
-  background: var(--mb-primary);
+  background: var(--mb-primary-cta);
   color: #fff;
   font-size: 14px;
   font-weight: 800;
@@ -144,7 +144,7 @@
 
 .mb-da-copy:hover,
 .mb-da-btn:hover {
-  background: var(--mb-primary-hover);
+  background: var(--mb-primary-cta-hover);
 }
 
 .mb-da-form {
