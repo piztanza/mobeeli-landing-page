@@ -2945,6 +2945,9 @@ button.mb-buyer-cta:active {
    also makes the select grid, engine row and VIN row span the panel. */
 .mb-cat-ymm {
   align-items: stretch;
+  /* The mockup insets the panel's content ~24px; without this the stretched
+     rows sit flush against the glass edge (founder 2026-07-28, third round). */
+  padding: 22px 24px 24px;
 }
 .mb-cat-ymm .mb-picker-forms {
   align-items: stretch;
@@ -3030,6 +3033,7 @@ button.mb-buyer-cta:active {
   padding: 0 16px;
   font-size: 13px;
   font-weight: 700;
+  white-space: nowrap; /* "Find Vehicle" must not break in the padded panel */
   cursor: pointer;
 }
 .mb-vin-btn:hover {
@@ -3904,14 +3908,21 @@ button.mb-buyer-cta:active {
 /* ---- the single-SKU claim, under the picker ---- */
 .mb-cat-sku {
   grid-area: sku;
-  /* .mb-fit3d-inner centres text; the mockup's card is left-aligned. */
+  /* .mb-fit3d-inner centres text; the mockup's card is left-aligned — and a
+     ROW: 42px disc left, copy beside it (mockup padding 15/17 verbatim). */
   text-align: left;
   align-items: flex-start;
   display: flex;
+  flex-direction: row;
+  gap: 14px;
+  margin-top: 16px;
+  padding: 15px 17px;
+}
+.mb-cat-sku-copy {
+  display: flex;
   flex-direction: column;
   gap: 7px;
-  margin-top: 16px;
-  padding: 18px 18px 20px;
+  min-width: 0;
 }
 .mb-cat-sku-kicker {
   color: var(--mb-light-accent);
@@ -4151,11 +4162,11 @@ button.mb-buyer-cta:active {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
+  width: 42px; /* mockup: 42, was 34 */
+  height: 42px;
   border-radius: 50%;
-  background: rgba(47, 125, 246, 0.16);
-  border: 1px solid rgba(47, 125, 246, 0.34);
+  background: rgba(47, 125, 246, 0.22); /* mockup tint, was .16 */
+  border: 1px solid rgba(47, 125, 246, 0.36);
   color: var(--mb-light-accent);
   flex: none;
 }

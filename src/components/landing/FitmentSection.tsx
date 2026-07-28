@@ -299,9 +299,14 @@ export default function FitmentSection() {
                 <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
               </svg>
             </span>
-            <span className="mb-cat-sku-kicker mb-t4">{t("cat_sku_kicker")}</span>
-            <span className="mb-cat-sku-title">{t("cat_sku_title")}</span>
-            <span className="mb-cat-sku-sub">{t("cat_sku_sub")}</span>
+            {/* Copy in its own column: the mockup's card is a ROW — disc on
+                the left, text beside it (founder 2026-07-28, third fidelity
+                round on this band). */}
+            <div className="mb-cat-sku-copy">
+              <span className="mb-cat-sku-kicker mb-t4">{t("cat_sku_kicker")}</span>
+              <span className="mb-cat-sku-title">{t("cat_sku_title")}</span>
+              <span className="mb-cat-sku-sub">{t("cat_sku_sub")}</span>
+            </div>
           </div>
 
           {/* The result, framed as the product surface it will appear on. Same
