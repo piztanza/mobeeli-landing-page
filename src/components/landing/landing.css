@@ -750,14 +750,23 @@ button.mb-buyer-cta:active {
   background: var(--mb-ink);
   /* Distinct glow geometry from the hero (audit #22): mirrored to blue
      top-left / deep bottom-right so no two dark bands share the same recipe. */
-  /* Founder 2026-07-28: "the background... exactly like this". The mockup band
-     is the SAME --mb-ink token; what made ours read lighter and bluer was these
-     two washes at 0.13/0.22 plus the WebGL aurora on top. Halved, so the band
-     sits back down at the design's near-flat ink and the panels carry the
-     contrast instead of the backdrop. */
+  /* The mockup band's OWN background stack, read from its computed styles this
+     time rather than inferred: an rgba(10,17,25,.62) veil over the ink, two
+     washes (top-left blue, bottom-right deep), and the 44px blueprint grid as
+     two 1px line gradients. The earlier "halve the washes" guess is superseded
+     — the design is darker AND more textured than plain ink, not flatter. */
   background-image:
-    radial-gradient(680px 460px at 18% 8%, rgba(47, 125, 246, 0.06), transparent 72%),
-    radial-gradient(600px 400px at 92% 94%, rgba(18, 63, 158, 0.1), transparent 70%);
+    linear-gradient(rgba(10, 17, 25, 0.62), rgba(10, 17, 25, 0.62)),
+    radial-gradient(900px 480px at 30% 22%, rgba(47, 125, 246, 0.15), transparent 70%),
+    radial-gradient(700px 500px at 96% 100%, rgba(18, 63, 158, 0.26), transparent 70%),
+    linear-gradient(rgba(47, 125, 246, 0.043) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(47, 125, 246, 0.043) 1px, transparent 1px);
+  background-size:
+    auto,
+    auto,
+    auto,
+    44px 44px,
+    44px 44px;
   min-height: 100vh;
   min-height: 100svh;
   display: flex;
@@ -4051,4 +4060,23 @@ button.mb-buyer-cta:active {
   border: 1px solid rgba(47, 125, 246, 0.34);
   color: var(--mb-light-accent);
   flex: none;
+}
+/* The car blueprint layer (see FitmentSection). Contained under the content:
+   z-index 0 keeps it above the band background but below .mb-fit3d-inner. */
+.mb-fit3d-wire {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  /* .13, not the mockup's .16 — ours still has the aurora adding light above,
+     so the wire needs a touch less of its own to land at the same whisper. */
+  opacity: 0.13;
+  pointer-events: none;
+}
+.mb-fit3d-wire img {
+  object-fit: cover;
+  mix-blend-mode: screen;
+}
+/* .mb-fit3d-inner centres text; the mockup's picker is left-aligned. */
+.mb-cat-ymm {
+  text-align: left;
 }

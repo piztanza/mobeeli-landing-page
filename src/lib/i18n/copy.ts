@@ -187,7 +187,7 @@ const en = {
   cat_scan_offset: "offset ET 45",
   cat_scan_lock: "2019 Avanza 1.5 G · 2NR-VE",
   garage_plate_label: "Or enter Plate / VIN",
-  garage_plate_placeholder: "e.g. B 1234 CD or VIN",
+  garage_plate_placeholder: "B 1234 CD or VIN",
   garage_plate_btn: "Find Vehicle",
   garage_chip_label: "My Garage",
   garage_chip_clear: "Clear",
@@ -581,7 +581,7 @@ const id: Record<CopyKey, string> = {
   cat_part3_spec: "belakang · gas · ET 45",
   cat_part4_spec: "As depan · keramik · 2NR-VE",
   cat_part_brand: "Setara OEM",
-  cat_part_verified: "Terverifikasi Cocok",
+  cat_part_verified: "Terverifikasi",
   /* R18 call C. Wording follows this file's own precedents rather than being
      invented: fit3d_auth_v is "Genuine" → "Asli", and card_part_chip is
      "Verified fit" → "Dipastikan cocok".
@@ -599,8 +599,8 @@ const id: Record<CopyKey, string> = {
   cat_scan_offset: "offset ET 45",
   cat_scan_lock: "2019 Avanza 1.5 G · 2NR-VE",
   garage_plate_label: "Atau masukkan Plat / Noka",
-  garage_plate_placeholder: "misal B 1234 CD atau Noka",
-  garage_plate_btn: "Cari Kendaraan",
+  garage_plate_placeholder: "B 1234 CD",
+  garage_plate_btn: "Cari",
   garage_chip_label: "Garasi Saya",
   garage_chip_clear: "Hapus",
   how_s3_t: "Checkout dengan tenang",

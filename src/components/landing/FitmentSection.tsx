@@ -121,6 +121,17 @@ export default function FitmentSection() {
 
   return (
     <section id="how-it-works" className="mb-fit3d mb-section">
+      {/* The mockup's car blueprint: a full-band wireframe, screen-blended so
+          its black plate vanishes into the washes. Extracted from the design
+          file itself (it ships the image as a blob), so this is the exact
+          artwork, not a redrawing. Mounted BEFORE the aurora deliberately —
+          screen-blending on top of the WebGL canvas flared the lines far past
+          the design's whisper (caught on the first screenshot); under it, the
+          wire blends only with the flat washes, as it does in the mockup,
+          which has no aurora on this band at all. */}
+      <div className="mb-fit3d-wire" aria-hidden>
+        <Image src="/assets/catalog-car-wireframe.jpg" alt="" fill sizes="100vw" />
+      </div>
       <AmbientAurora intensity={AURORA_INTENSITY} />
       {/* Founder 2026-07-28: the animated bezier-network background is OFF this
           band — the travelling packets and the radiating node read as motion
