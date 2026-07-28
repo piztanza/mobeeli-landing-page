@@ -342,6 +342,36 @@ describe("landing page render (F-001 + F-009)", () => {
     expect(html).not.toContain('href="/#platform"');
   });
 
+  it("keeps the merged head off AiCatalogCard's colliding class (R25)", () => {
+    const band = html.slice(html.indexOf('id="how-it-works"'));
+    const end = band.indexOf('id="coverage"');
+    const inner = band.slice(0, end === -1 ? undefined : end);
+    expect(inner).toContain("mb-ucat-head");
+    // .mb-cat-head carries display:flex from AiCatalogCard; it must not reach
+    // this band or the kicker/H2/lede become a wrapping row.
+    expect(inner).not.toMatch(/class="[^"]*mb-cat-head/);
+  });
+
+  it("gives every .mb-cat-panels child an explicit grid area (R25 defect 1)", () => {
+    const css = readFileSync(
+      new URL("../src/components/landing/landing.css", import.meta.url),
+      "utf8",
+    );
+    // Every direct child of the panels grid must be placed by name;
+    // auto-placement put the SKU card in the window's column on first deploy.
+    //
+    // Sliced rather than regex-matched on purpose: a `new RegExp` built from a
+    // template literal silently eats its own backslashes (`\.` becomes `.`,
+    // `\s` becomes `s`), which is how the first version of this test passed a
+    // malformed pattern. String slicing cannot fail that way.
+    for (const sel of ["mb-cat-ymm", "mb-cat-sku", "mb-cat-window"]) {
+      const at = css.indexOf(`\n.${sel} {`);
+      expect(at, `${sel} rule not found`).toBeGreaterThan(-1);
+      const body = css.slice(at, css.indexOf("}", at));
+      expect(body, `${sel} needs a grid-area`).toContain("grid-area");
+    }
+  });
+
   it("keeps the platform flow inside the how-it-works band (R25)", () => {
     const band = html.slice(html.indexOf('id="how-it-works"'));
     const end = band.indexOf('id="coverage"');

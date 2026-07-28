@@ -121,14 +121,14 @@ export default function FitmentSection() {
         {/* One headline for the whole band, full width. R16 ruling 2b: the
             simulated stat tiles (OE specs / applications / models) are gone —
             the landing page is a company profile, not a pitch deck. */}
-        <div className="mb-cat-head">
+        <div className="mb-ucat-head">
           <div data-rev="0" className="mb-kicker mb-kicker--accent">
             {t("cat_kicker")}
           </div>
           <h2 data-rev="1" className="mb-h2 mb-h2--fit3d mb-ucat-h2">
             {t("cat_unified_h2")}
           </h2>
-          <p data-rev="2" className="mb-cat-head-p">
+          <p data-rev="2" className="mb-ucat-head-p">
             {t("cat_unified_p")}
           </p>
         </div>
