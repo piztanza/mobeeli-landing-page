@@ -91,11 +91,26 @@ export default function FitmentSection() {
   // R16 ruling 2b: cards carry a FITMENT SPEC, not a simulated price. `as const`
   // keeps each key a literal CopyKey, so t(part.key) / t(part.spec) typecheck
   // without an unsafe cast.
+  // The last entry does NOT fit, deliberately. A catalogue that only ever
+  // returns matches proves nothing — showing the one it rejected, and why, is
+  // the whole argument. `fits: false` drives the struck-through name and the
+  // red chip; it is never gated on `garage`, because a non-match is a result
+  // too.
   const parts = [
-    { key: "cat_part1_name", spec: "cat_part1_spec", img: "/assets/parts/spark-plug.jpg" },
-    { key: "cat_part2_name", spec: "cat_part2_spec", img: "/assets/parts/clutch.jpg" },
-    { key: "cat_part3_name", spec: "cat_part3_spec", img: "/assets/parts/shock.jpg" },
-    { key: "cat_part4_name", spec: "cat_part4_spec", img: "/assets/parts/brake-pad.jpg" },
+    {
+      key: "cat_part1_name",
+      spec: "cat_part1_spec",
+      img: "/assets/parts/spark-plug.jpg",
+      fits: true,
+    },
+    { key: "cat_part2_name", spec: "cat_part2_spec", img: "/assets/parts/clutch.jpg", fits: true },
+    { key: "cat_part3_name", spec: "cat_part3_spec", img: "/assets/parts/shock.jpg", fits: true },
+    {
+      key: "cat_part5_name",
+      spec: "cat_part5_spec",
+      img: "/assets/parts/brake-pad.jpg",
+      fits: false,
+    },
   ] as const;
 
   return (
@@ -155,6 +170,9 @@ export default function FitmentSection() {
                 </svg>
                 {t("cat_filter_active")}
               </label>
+              {/* The count is the point of the panel: five levels, not four.
+                  Trim alone does not determine fitment — the engine does. */}
+              <span className="mb-ymm-levels">{t("cat_picker_levels")}</span>
             </div>
             {garage && !isScanning ? (
               <div className="mb-garage-active">
@@ -229,8 +247,23 @@ export default function FitmentSection() {
                     <option value="1.5 Prime">1.5 Prime</option>
                   </select>
                 </div>
+                {/* The fifth level, and the reason the panel claims five. Shown
+                    as a derived chip rather than a sixth control: the engine
+                    follows from the trim, so making it selectable would invite
+                    a combination that does not exist. */}
+                <div className="mb-ymm-engine">
+                  <span className="mb-ymm-engine-code">{t("cat_engine_code")}</span>
+                  <span className="mb-ymm-engine-note">{t("cat_engine_note")}</span>
+                </div>
               </div>
             )}
+          </div>
+
+          {/* The architectural claim the picker is evidence for. */}
+          <div className="mb-cat-sku mb-t2">
+            <span className="mb-cat-sku-kicker mb-t4">{t("cat_sku_kicker")}</span>
+            <span className="mb-cat-sku-title">{t("cat_sku_title")}</span>
+            <span className="mb-cat-sku-sub">{t("cat_sku_sub")}</span>
           </div>
 
           {/* The result, framed as the product surface it will appear on. Same
@@ -247,7 +280,33 @@ export default function FitmentSection() {
                 <i />
                 <i />
               </span>
-              <span className="mb-cat-window-title">{t("cat_window_title")}</span>
+              <span className="mb-cat-window-search">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="13"
+                  height="13"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeLinecap="round"
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="m20 20-3.5-3.5" />
+                </svg>
+                {t("cat_search_query")}
+              </span>
+              <span className="mb-cat-window-title">{t("cat_katalog_label")}</span>
+            </div>
+            {/* FOUNDER RULING 2026-07-28: illustrative counts, shipped WITH
+                cat_sim_tag. R16 ruling 2b had banned simulated figures from this
+                band; they return only because they are labelled — the same
+                compromise R15 set for the part cards. Do not quietly drop the
+                tag: without it the page asserts a measured catalogue size. */}
+            <div className="mb-cat-count">
+              <span className="mb-cat-count-fit">{t("cat_count_fit")}</span>
+              <span className="mb-cat-count-sim">{t("cat_sim_tag")}</span>
+              <span className="mb-cat-count-rest">{t("cat_count_hidden")}</span>
+              <span className="mb-cat-count-rest">{t("cat_count_ai")}</span>
             </div>
             <div className={`mb-cat-window-body ${isScanning ? "is-scanning" : ""}`}>
               <div className={`mb-cat-car-wrapper ${isScanning ? "is-scanning" : ""}`}>
@@ -294,8 +353,9 @@ export default function FitmentSection() {
 
               <div className="mb-cat-grid">
                 {parts.map((part, i) => (
-                  <div key={i} className="mb-ucat-card mb-glass">
+                  <div key={i} className={`mb-ucat-card mb-glass ${part.fits ? "" : "is-unfit"}`}>
                     <div className="mb-cat-card-img-wrap">
+                      <span className="mb-cat-genuine">{t("cat_badge_genuine")}</span>
                       <Image
                         src={part.img}
                         alt={t(part.key)}
@@ -309,10 +369,17 @@ export default function FitmentSection() {
                       <div className="mb-cat-card-name">{t(part.key)}</div>
                       <div className="mb-cat-card-spec">{t(part.spec)}</div>
                     </div>
-                    {garage && !isScanning && (
-                      <div className="mb-cat-verified">
-                        <span className="mb-cat-check">✓</span> {t("cat_part_verified")}
+                    {!part.fits ? (
+                      <div className="mb-cat-verified mb-cat-verified--unfit">
+                        <span className="mb-cat-check">✕</span> {t("cat_chip_unfit")}
                       </div>
+                    ) : (
+                      garage &&
+                      !isScanning && (
+                        <div className="mb-cat-verified">
+                          <span className="mb-cat-check">✓</span> {t("cat_part_verified")}
+                        </div>
+                      )
                     )}
                   </div>
                 ))}

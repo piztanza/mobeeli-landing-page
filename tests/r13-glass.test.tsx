@@ -55,7 +55,10 @@ describe("R16 — one glass primitive", () => {
 
   it("is actually applied to the live panels — not just declared", () => {
     expect(fitmentSrc).toMatch(/className="mb-ymm-container mb-cat-ymm mb-glass"/);
-    expect(fitmentSrc).toMatch(/className="mb-ucat-card mb-glass"/);
+    // R25 made the card's class conditional — the non-fitting result carries
+    // `is-unfit` — so this matches the glass pair at the head of the list
+    // rather than the whole literal attribute.
+    expect(fitmentSrc).toMatch(/mb-ucat-card mb-glass/);
   });
 
   it("has retired the recipes that targeted classes no longer in the markup", () => {

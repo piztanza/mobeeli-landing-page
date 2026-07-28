@@ -3620,3 +3620,183 @@ button.mb-buyer-cta:active {
     opacity: 0;
   }
 }
+
+/* ============================================================
+   R25 full-mockup pass — the detail `mobeeli-landing-r25.html` carries that
+   R25-IMPLEMENTATION.md never specified: the five-level picker, the single-SKU
+   claim, the catalogue window chrome, and the card that deliberately does not
+   fit.
+   ============================================================ */
+
+/* ---- picker: the fifth level ---- */
+.mb-ymm-levels {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mb-light-accent);
+}
+.mb-ymm-engine {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+.mb-ymm-engine-code {
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: rgba(47, 125, 246, 0.16);
+  border: 1px solid rgba(47, 125, 246, 0.34);
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #fff;
+}
+.mb-ymm-engine-note {
+  font-size: 12.5px;
+  color: var(--mb-dark-muted);
+}
+
+/* ---- the single-SKU claim, under the picker ---- */
+.mb-cat-sku {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 16px;
+  padding: 18px 18px 20px;
+}
+.mb-cat-sku-kicker {
+  color: var(--mb-light-accent);
+}
+.mb-cat-sku-title {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.35;
+  color: #fff;
+  text-wrap: pretty;
+}
+.mb-cat-sku-sub {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--mb-dark-muted);
+}
+
+/* ---- window chrome: the query and the catalogue label ---- */
+.mb-cat-window-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  padding: 7px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 12.5px;
+  color: var(--mb-dark-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mb-cat-window-bar .mb-cat-window-title {
+  margin-left: auto;
+  flex: none;
+}
+
+/* ---- the result count. The (Simulation) tag is load-bearing, not decoration:
+        these figures are illustrative and the band may not assert a measured
+        catalogue size without it (R16 ruling 2b, reinstated-with-label by the
+        founder on 2026-07-28). ---- */
+.mb-cat-count {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 8px;
+  padding: 12px 16px 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.mb-cat-count-fit {
+  font-weight: 800;
+  color: #fff;
+}
+.mb-cat-count-sim {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--mb-light-accent);
+}
+.mb-cat-count-rest {
+  color: var(--mb-muted-2);
+}
+
+/* ---- cards: the provenance badge, and the one that does not fit ---- */
+.mb-cat-card-img-wrap {
+  /* the badge anchors to the plate */
+  position: relative;
+}
+.mb-cat-genuine {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(191, 122, 30, 0.9);
+  border: 1px solid rgba(233, 163, 62, 0.55);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+/* The rejected result. Muted, struck through, and explicitly labelled — a
+   catalogue that only ever returns matches proves nothing. The chip uses the
+   repo's red, NOT the mockup's emerald/red pair: its greens are banned hexes
+   (see the palette test) and its red needed no change. */
+.mb-ucat-card.is-unfit {
+  opacity: 0.72;
+}
+.mb-ucat-card.is-unfit .mb-cat-card-name {
+  text-decoration: line-through;
+  color: var(--mb-muted-2);
+}
+.mb-ucat-card.is-unfit .mb-cat-card-spec,
+.mb-ucat-card.is-unfit .mb-cat-card-brand {
+  color: var(--mb-muted-2);
+}
+.mb-ucat-card.is-unfit .mb-cat-card-img {
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+.mb-cat-verified--unfit {
+  background: rgba(214, 69, 69, 0.14);
+  border-color: rgba(214, 69, 69, 0.36);
+  color: #f0a3a3;
+}
+
+/* ---- the spine's process labels ---- */
+.mb-plat-steps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  margin-top: 2px;
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.62);
+  text-align: center;
+}
+
+@media (max-width: 959.98px) {
+  .mb-cat-window-search {
+    display: none; /* the bar is chrome; at this width the query is noise */
+  }
+}

@@ -37,16 +37,26 @@ describe("R15 catalog — structure", () => {
     expect(html).toContain(t("en", "cat_part1_name"));
   });
 
-  // R16 ruling 2b: cards carry a fitment SPEC, not a simulated price. There is
-  // no fabricated figure left on this surface to label, so the Simulation tag
-  // is not rendered here any more.
-  it("shows fitment specs instead of simulated prices", () => {
-    for (const k of ["cat_part1_spec", "cat_part2_spec", "cat_part3_spec", "cat_part4_spec"] as const) {
+  // R16 ruling 2b: cards carry a fitment SPEC, not a simulated price — no
+  // prices, ever. That half is permanent.
+  //
+  // The Simulation tag, however, is BACK on this surface, and deliberately.
+  // FOUNDER RULING 2026-07-28: the R25 mockup's result line ("4 of 217 fit your
+  // car · 213 hidden") reinstates illustrative counts, ON CONDITION that they
+  // carry cat_sim_tag — the same compromise R15 originally set. So the tag must
+  // RENDER here; its absence would mean the page is asserting a measured
+  // catalogue size, which is the thing ruling 2b actually forbade.
+  //
+  // cat_part4_spec is no longer rendered: R25 replaced the fourth card with the
+  // deliberately non-fitting one (cat_part5_*). The key stays defined and paired
+  // in copy.ts, same precedent as prot_r*.
+  it("shows fitment specs instead of simulated prices, and labels the counts", () => {
+    for (const k of ["cat_part1_spec", "cat_part2_spec", "cat_part3_spec", "cat_part5_spec"] as const) {
       expect(html, k).toContain(t("en", k));
       for (const lang of langs) expect(t(lang, k), `${lang}.${k}`).toBeTruthy();
     }
     expect(html).not.toContain("Rp ");
-    expect(html).not.toContain(t("en", "cat_sim_tag"));
+    expect(html, "illustrative counts must stay labelled").toContain(t("en", "cat_sim_tag"));
   });
 
   it("keeps the ambient aurora but has no 3D wheel / three-fiber import", () => {

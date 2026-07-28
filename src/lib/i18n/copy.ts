@@ -126,6 +126,30 @@ const en = {
      is a hinge, not a paragraph. */
   cat_bridge: "One description in. One verified listing out.",
   cat_window_title: "Verified for your vehicle",
+  /* R25 full-mockup pass. The catalogue result window and the five-level
+     picker, matched to `mobeeli-landing-r25.html`.
+     DRAFT WORDING — founder approves EN and confirms ID. */
+  cat_picker_title: "Select your vehicle",
+  cat_picker_levels: "5 levels",
+  cat_engine_code: "2NR-VE",
+  cat_engine_note: "← engine, the fifth level",
+  cat_sku_kicker: "Single-SKU architecture",
+  cat_sku_title: "One listing per part. Every brand its own.",
+  cat_sku_sub: "Enforced by the schema, not by moderators",
+  cat_search_query: "kampas rem · Avanza 1.5 G CVT",
+  cat_katalog_label: "Mobeeli · Katalog",
+  /* FOUNDER RULING 2026-07-28: these counts are illustrative, not measured, and
+     ship carrying cat_sim_tag. R16 ruling 2b had removed simulated figures from
+     this band; the founder reinstated them for the mockup's result line ON THE
+     CONDITION that they are labelled, which is the R15 precedent for the part
+     cards. Do NOT drop the tag to tidy the line up. */
+  cat_count_fit: "4 of 217 fit your car",
+  cat_count_hidden: "· 213 hidden — they do not fit",
+  cat_count_ai: "· catalogue assembled by Mobeeli AI",
+  cat_badge_genuine: "Genuine",
+  cat_chip_unfit: "Does not fit",
+  cat_part5_name: "Ceramic Pad Set",
+  cat_part5_spec: "1.3 E only — wrong axle",
   cat_part1_name: "Iridium Spark Plug",
   cat_part2_name: "Clutch Cover Assy",
   cat_part3_name: "Gas Shock Absorber",
@@ -173,9 +197,9 @@ const en = {
   plat_p:
     "Today the same part is described five times by five people who never speak to each other. That is where the wrong part comes from — not from anyone being careless.",
   plat_src1_t: "Brands",
-  plat_src1_s: "publish once",
+  plat_src1_s: "publish once, correctly",
   plat_src2_t: "Distributors",
-  plat_src2_s: "send anything",
+  plat_src2_s: "send any format",
   plat_src3_t: "Stores",
   plat_src3_s: "even a ledger photo",
   plat_dst1_t: "Stores",
@@ -185,6 +209,10 @@ const en = {
   plat_dst3_t: "Drivers",
   plat_dst3_s: "see only what fits",
   plat_hub: "The platform",
+  /* The three things the core actually does, under the mark. */
+  plat_step1: "Normalise",
+  plat_step2: "De-duplicate",
+  plat_step3: "Map to vehicle",
   plat_in_xls: "Excel file",
   plat_in_pdf: "PDF file",
   plat_in_jpg: "Photo of a handwritten ledger",
@@ -515,6 +543,25 @@ const id: Record<CopyKey, string> = {
     "Merek, distributor, dan toko menamai suku cadang yang sama dengan cara berbeda. Mobeeli menyatukannya menjadi satu listing, lalu memeriksanya terhadap mobil Anda sebelum Anda melihatnya.",
   cat_bridge: "Satu deskripsi masuk. Satu listing terverifikasi keluar.",
   cat_window_title: "Terverifikasi untuk kendaraan Anda",
+  /* R25 full-mockup pass. Where the mockup itself is already in Indonesian its
+     wording is taken VERBATIM — the search query, the count line and the pad
+     card's spec were written that way in the design. DRAFT — founder to confirm. */
+  cat_picker_title: "Pilih kendaraan Anda",
+  cat_picker_levels: "5 tingkat",
+  cat_engine_code: "2NR-VE",
+  cat_engine_note: "← mesin, tingkat kelima",
+  cat_sku_kicker: "Arsitektur Single-SKU",
+  cat_sku_title: "Satu listing per suku cadang. Setiap merek punya sendiri.",
+  cat_sku_sub: "Ditegakkan oleh skema, bukan oleh moderator",
+  cat_search_query: "kampas rem · Avanza 1.5 G CVT",
+  cat_katalog_label: "Mobeeli · Katalog",
+  cat_count_fit: "4 dari 217 cocok untuk mobil Anda",
+  cat_count_hidden: "· 213 disembunyikan karena tidak pas",
+  cat_count_ai: "· katalog disusun oleh Mobeeli AI",
+  cat_badge_genuine: "Genuine",
+  cat_chip_unfit: "Tidak Pas",
+  cat_part5_name: "Ceramic Pad Set",
+  cat_part5_spec: "1.3 E only — as tidak cocok",
   cat_part1_name: "Busi Iridium",
   cat_part2_name: "Dekrup Kopling",
   cat_part3_name: "Shockbreaker Gas",
@@ -564,7 +611,7 @@ const id: Record<CopyKey, string> = {
   plat_p:
     "Hari ini suku cadang yang sama dideskripsikan lima kali oleh lima pihak yang tidak pernah saling bicara. Dari situlah salah beli berasal — bukan karena ada yang ceroboh.",
   plat_src1_t: "Merek",
-  plat_src1_s: "publikasi sekali",
+  plat_src1_s: "publikasi sekali, benar",
   plat_src2_t: "Distributor",
   plat_src2_s: "kirim format apa pun",
   plat_src3_t: "Toko",
@@ -576,6 +623,9 @@ const id: Record<CopyKey, string> = {
   plat_dst3_t: "Pengemudi",
   plat_dst3_s: "lihat hanya yang cocok",
   plat_hub: "Platform",
+  plat_step1: "Normalisasi",
+  plat_step2: "Hapus duplikat",
+  plat_step3: "Petakan ke kendaraan",
   plat_in_xls: "File Excel",
   plat_in_pdf: "File PDF",
   plat_in_jpg: "Foto buku catatan tulis tangan",

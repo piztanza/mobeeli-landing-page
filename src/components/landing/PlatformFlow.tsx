@@ -292,6 +292,13 @@ export default function PlatformFlow() {
                 />
                 <span className="mb-plat-hairline" />
                 <span className="mb-plat-hub">{t("plat_hub")}</span>
+                {/* What the core actually does. Without these the spine is a
+                    logo in a box; with them it is a process. */}
+                <span className="mb-plat-steps">
+                  <span>{t("plat_step1")}</span>
+                  <span>{t("plat_step2")}</span>
+                  <span>{t("plat_step3")}</span>
+                </span>
               </span>
             </div>
           </div>
