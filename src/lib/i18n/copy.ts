@@ -299,14 +299,18 @@ const en = {
   team_r2: "CTO & Co-Founder",
   team_n3: "Ferdinansyah Husein",
   team_r3: "COO & Co-Founder",
-  team_c1: "Signed 9 of 14 shops in one afternoon — runs market strategy and the seller program.",
+  /* FOUNDER RULING 2026-07-29: the "9 of 14" count is retired everywhere —
+     the small denominator undersold the real signal, which is conversion
+     speed. Keep the honest fact (most shops visited signed the same
+     afternoon), never a raw count. */
+  team_c1: "Signed Mobeeli's first shops in a single afternoon — runs market strategy and the seller program.",
   team_c2:
     "Built the platform pre-funding — the fitment engine, gated AI ingestion, the marketplace.",
   team_c3: "Runs operations and partnerships — logistics, payments, and the wholesaler pipeline.",
   inv_kicker: "For investors",
   inv_h2: "Come see what we've built.",
   inv_p:
-    "Mobeeli is built and already signing shops — 9 of the first 14 we visited signed in one afternoon. If you follow commerce infrastructure in Southeast Asia, we'd like to show you what's coming.",
+    "Mobeeli is built, and Jakarta's shops are already signing on — most of the shops we visited signed the same afternoon. If you follow commerce infrastructure in Southeast Asia, we'd like to show you what's coming.",
   inv_cta: "Request the deck",
   inv_or: "or write to the founders directly",
   /* Deck request form on /investors (F-016) — name/firm/work-email required. */
@@ -733,7 +737,8 @@ const id: Record<CopyKey, string> = {
   team_r2: "CTO & Co-Founder",
   team_n3: "Ferdinansyah Husein",
   team_r3: "COO & Co-Founder",
-  team_c1: "Meneken 9 dari 14 toko dalam satu sore — memegang strategi pasar dan program penjual.",
+  team_c1:
+    "Meneken toko-toko pertama Mobeeli dalam satu sore — memegang strategi pasar dan program penjual.",
   team_c2:
     "Membangun platform ini sebelum ada pendanaan — dari mesin kecocokan, ingesti AI, sampai marketplace-nya.",
   team_c3:
@@ -741,7 +746,7 @@ const id: Record<CopyKey, string> = {
   inv_kicker: "Untuk investor",
   inv_h2: "Lihat apa yang sudah kami bangun.",
   inv_p:
-    "Mobeeli sudah jadi dan toko-toko mulai minat bergabung — 9 dari 14 toko pertama yang kami datangi setuju untuk join waitlist di sore yang sama. Kalau Anda mengikuti infrastruktur commerce di Asia Tenggara, kami ingin menunjukkan apa yang kami persiapkan.",
+    "Mobeeli sudah jadi, dan toko-toko di Jakarta sudah mulai bergabung — sebagian besar toko yang kami datangi setuju di sore yang sama. Kalau Anda mengikuti infrastruktur commerce di Asia Tenggara, kami ingin menunjukkan apa yang kami persiapkan.",
   inv_cta: "Minta deck",
   inv_or: "atau langsung hubungi para founder",
   /* Deck request form on /investors (F-016) — name/firm/work-email required. */
