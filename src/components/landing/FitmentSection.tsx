@@ -410,11 +410,16 @@ export default function FitmentSection() {
                         </span>
                         {t("cat_badge_genuine")}
                       </span>
+                      {/* Not `fill` — the mockup caps the part at 78% of the
+                          band and centres it, so the img is flow content
+                          inside the flex-centred band. 1024² is the file's
+                          real intrinsic. */}
                       <Image
                         src={part.img}
                         alt={t(part.key)}
-                        fill
-                        sizes="(max-width: 600px) 100vw, 300px"
+                        width={1024}
+                        height={1024}
+                        sizes="(max-width: 600px) 78vw, 240px"
                         className="mb-cat-card-img"
                       />
                     </div>

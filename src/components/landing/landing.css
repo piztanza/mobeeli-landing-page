@@ -1255,10 +1255,22 @@ button.mb-buyer-cta:active {
    single recipe to change. */
 .mb-ucat-card {
   position: relative;
-  padding: 16px;
+  /* Mockup anatomy (extracted 2026-07-28, founder: "You still havent fixed
+     it"): the card has NO padding — the image band bleeds to its edges and
+     the chip/info stack carries its own 14px inset. overflow clips the band
+     to the 16px radius. */
+  padding: 0;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0;
+}
+/* 0,2,0 beats .mb-glass's var(--mb-radius-card), which sits LATER in the
+   file and would otherwise win the radius back to 18 (mockup: 16). Descendant
+   form, not .mb-ucat-card.mb-glass — r13-glass extracts the primitive with a
+   regex that would match that compound selector first. */
+.mb-cat-grid .mb-ucat-card {
+  border-radius: 16px;
 }
 
 /* R25 - the part image as TEXTURE, not a hero shot. mix-blend-mode: screen
@@ -1271,24 +1283,34 @@ button.mb-buyer-cta:active {
 .mb-cat-card-img-wrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 3 / 2;
-  border-radius: 10px;
+  /* 23/18 == the mockup band's 207x162. Full-bleed: no own radius (the card
+     clips), and the mockup's slightly warmer plate colour. */
+  aspect-ratio: 23 / 18;
   overflow: hidden;
-  background: #05080d;
+  background: #0a1119;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mb-cat-card-img {
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
+  /* The mockup's cap: the part occupies at most 78% of the band on either
+     axis, centred — the dark plate around it is part of the composition. */
+  max-width: 78%;
+  max-height: 78%;
   object-fit: contain;
   mix-blend-mode: screen;
-  opacity: 0.9;
 }
 
 .mb-cat-card-info {
   display: flex;
   flex-direction: column;
   text-align: left;
+  /* The stack's own inset now that the card has none (8px rides under the
+     chip's 13px top margin; mockup rhythm 13/8/8). */
+  padding: 8px 14px 15px;
 }
 
 /* .mb-cat-card-brand rule removed with its render site — the mockup's cards
@@ -1296,10 +1318,10 @@ button.mb-buyer-cta:active {
    copy.ts, dormant. */
 
 .mb-cat-card-name {
-  font-size: 15px;
+  font-size: 14px; /* mockup: 14, was 15 */
   font-weight: 700;
   color: #fff;
-  margin-top: 2px;
+  margin-top: 0;
 }
 
 .mb-cat-card-price {
@@ -1339,11 +1361,13 @@ button.mb-buyer-cta:active {
 }
 
 .mb-cat-verified {
-  margin-top: 10px;
+  /* Sits on the card's 14px inset now that the card itself has no padding. */
+  margin: 13px 14px 0;
+  align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
+  padding: 4px 9px;
   border-radius: 20px;
   /* Founder 2026-07-28 lifted the R15 "no green" ban for success states, so the
      fill, border and text below are the R25 mockup's own values. Green here is
@@ -1353,7 +1377,7 @@ button.mb-buyer-cta:active {
   background: rgba(16, 185, 129, 0.13);
   border: 1px solid rgba(16, 185, 129, 0.3);
   color: #34d399;
-  font-size: 12px;
+  font-size: 11px; /* mockup chip is 24px tall: 4+4 padding + one 16px line */
   font-weight: 700;
   width: fit-content;
 }
@@ -2916,6 +2940,23 @@ button.mb-buyer-cta:active {
   gap: 8px;
 }
 /* Mockup treatment: the panel title reads as chrome, not as a form label. */
+/* The catalog picker left-aligns every row like the mockup — the shared
+   .mb-ymm-container centres its children (other mounts keep that). Stretch
+   also makes the select grid, engine row and VIN row span the panel. */
+.mb-cat-ymm {
+  align-items: stretch;
+}
+.mb-cat-ymm .mb-picker-forms {
+  align-items: stretch;
+}
+/* The mockup's header is a full-width space-between row: title left,
+   "5 LEVELS" right. Scoped to the picker — .mb-step-badge-row elsewhere
+   (how-it-works) keeps its shrink-wrapped layout. */
+.mb-cat-ymm .mb-step-badge-row {
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 6px; /* + the panel's 8px gap = the mockup's 14 */
+}
 .mb-ymm-label {
   font-size: 11px;
   font-weight: 800;
@@ -3835,9 +3876,9 @@ button.mb-buyer-cta:active {
   margin-left: auto;
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.06em; /* mockup: 0.66px at 11px */
   text-transform: uppercase;
-  color: var(--mb-light-accent);
+  color: #5b9bf7; /* mockup verbatim — brighter than --mb-light-accent */
 }
 .mb-ymm-engine {
   display: flex;
@@ -3942,8 +3983,8 @@ button.mb-buyer-cta:active {
    up disagreeing. */
 .mb-cat-genuine {
   position: absolute;
-  top: 8px;
-  left: 8px;
+  top: 12px;
+  left: 12px;
   z-index: 2;
   display: inline-flex;
   align-items: center;
@@ -3969,7 +4010,7 @@ button.mb-buyer-cta:active {
    repo's red, NOT the mockup's emerald/red pair: its greens are banned hexes
    (see the palette test) and its red needed no change. */
 .mb-ucat-card.is-unfit {
-  opacity: 0.72;
+  opacity: 0.55; /* mockup verbatim, was 0.72 */
 }
 .mb-ucat-card.is-unfit .mb-cat-card-name {
   text-decoration: line-through;

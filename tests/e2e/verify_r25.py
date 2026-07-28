@@ -65,8 +65,11 @@ with sync_playwright() as p:
         "e => { const c=getComputedStyle(e); return {a:c.aspectRatio,bg:c.backgroundColor}; }")
     img = pg.eval_on_selector(".mb-cat-card-img",
         "e => { const c=getComputedStyle(e); return {b:c.mixBlendMode,o:c.opacity}; }")
-    ck("C4 plate is 3:2", plate["a"].replace(" ", "") == "3/2", plate["a"])
-    ck("C4 plate is DARK (screen blend needs it)", plate["bg"] == "rgb(5, 8, 13)", plate["bg"])
+    # 2026-07-28 full-mockup card pass: the band is the mockup's 207x162
+    # (23/18), full-bleed, on the mockup's own plate colour rgb(10,17,25) —
+    # the earlier 3/2 + #05080d were the pre-extraction approximation.
+    ck("C4 plate is the mockup's 23:18", plate["a"].replace(" ", "") == "23/18", plate["a"])
+    ck("C4 plate is DARK (screen blend needs it)", plate["bg"] == "rgb(10, 17, 25)", plate["bg"])
     ck("C4 part image screen-blends", img["b"] == "screen", img["b"])
     cols = pg.eval_on_selector(".mb-cat-grid", "e => getComputedStyle(e).gridTemplateColumns")
     ck("5.6 card grid is auto-fit (>1 column at 1280)", len(cols.split()) > 1, cols)
