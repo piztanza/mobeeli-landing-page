@@ -332,7 +332,10 @@ export default function PlatformFlow() {
             <Image src="/assets/mobeeli-mark.png" alt="Mobeeli" width={40} height={40} />
             <span className="mb-plat-hub">{t("plat_hub")}</span>
           </div>
-          <span className="mb-plat-arrow" />
+          {/* --out, not :last-of-type. Both arrows are <span>, and the hub card
+              between them contains one too, so a type-based selector is a trap
+              waiting for the next markup change. */}
+          <span className="mb-plat-arrow mb-plat-arrow--out" />
           <div className="mb-plat-stack-row">
             {DESTS.map((p) => (
               <div key={p.t} className="mb-plat-scard mb-plat-scard--dst">

@@ -3469,3 +3469,154 @@ button.mb-buyer-cta:active {
     background: rgba(13, 21, 34, 0.9);
   }
 }
+
+/* ============================================================
+   R25 change C — one callout vocabulary, four weights.
+   RULE: at most one T1 per band, and no two T1s adjacent in DOM order.
+   Heaviest last: a band should build to its emphasis, not open with it.
+
+   T1 IS `.mb-glass`, deliberately not a new class. R16 §6 consolidated four
+   glass recipes into that one primitive, and two byte-exact contract tests pin
+   it — `/\.mb-glass \{[^}]*\}/` for the recipe and a reduced-transparency block
+   that admits no second selector. Aliasing would satisfy neither safely, and a
+   fifth recipe is the thing R16 removed. Use `.mb-glass` for T1 and the classes
+   below for everything lighter.
+   ============================================================ */
+
+/* T1-light — the light-band equivalent. Two of five bands are light and glass
+   has no meaning on them; a tinted panel carries the same weight.
+   NOTE it fills with --mb-tint, which is also the buyer strip's own background,
+   so a T1-light panel would be invisible in #waitlist. On `/` the only band it
+   reads as a panel on is #problem, over --mb-bg. */
+.mb-t1--light {
+  background: var(--mb-tint);
+  border: 1px solid rgba(27, 95, 217, 0.14);
+  border-radius: var(--mb-radius-card);
+  backdrop-filter: none;
+  box-shadow: 0 14px 34px rgba(13, 21, 34, 0.07);
+}
+/* --mb-muted (#636e7e) on --mb-tint is 4.39:1 and FAILS AA. #556074 is 5.38:1. */
+.mb-t1--light,
+.mb-t1--light p {
+  color: #556074;
+}
+
+/* T2 — a supporting panel. Border and fill, no blur. */
+.mb-t2 {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+/* T3 — an inline chip. */
+.mb-t3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  border-radius: 8px;
+  background: rgba(47, 125, 246, 0.12);
+  border: 1px solid rgba(47, 125, 246, 0.28);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--mb-light-accent);
+}
+
+/* T4 — a label. Type only, no container. */
+.mb-t4 {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--mb-muted-2);
+}
+
+/* R25 change C — a looping status dot asserts that something is happening.
+   Nothing is: these sit on static labels. The dot stays, the loop goes.
+   Scoped to the hero chip rather than removing `.mb-pulse` or its keyframes,
+   which are still used by AnalogDeathSpiral on /why-mobeeli and by a test that
+   renders AiCatalogCard.
+
+   The carve-out that matters: this rule is about STATUS BADGES. Motion in a
+   DIAGRAM is the subject, not decoration — the flow packets, the spine sweep
+   and the network paths all keep looping deliberately. */
+.mb-hero-chip .mb-dot {
+  animation: none;
+}
+
+/* ============================================================
+   R25 changes F + G — motion hardening, and the stacked layout.
+   ============================================================ */
+
+/* offset-path is not universal. Without this an unsupported browser leaves the
+   packets stacked at the SVG origin — a visible defect, worse than no packets.
+   The existing @supports block only ARMS the animation; this hides the circles
+   outright where the property is missing. */
+@supports not (offset-path: path("M0,0 L1,1")) {
+  .mb-plat-packet {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mb-plat-packet {
+    display: none;
+  }
+}
+
+/* Below the 1023.98px cutover the ribbons are hidden and .mb-plat-stack takes
+   over — that is every phone and most tablets, i.e. the MAJORITY of traffic.
+   Without motion the stack reads as three unrelated groups and the
+   in → through → out argument is lost, which is the whole point of the figure.
+
+   A travelling dot in each direction restores it: blue down into the hub,
+   emerald down out of it, offset in phase so the flow reads as continuous
+   rather than synchronised. This is diagram motion, not a status badge — the
+   distinction change C draws. */
+.mb-plat-arrow {
+  position: relative;
+}
+.mb-plat-arrow::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  border-radius: 50%;
+  background: var(--mb-primary);
+  opacity: 0;
+}
+/* The spec asked for an emerald fill here. That hex is BANNED by the R15
+   palette hardening (tests/r15-catalog.test.tsx, "no banned emerald/indigo
+   hexes" — and note that test greps the raw file, so naming the hex even in a
+   comment fails it). The desktop figure this stack stands in for is all blues
+   anyway, so the outbound direction reads as the light accent: distinguishable
+   from the inbound primary, in palette, consistent with the diagram. */
+.mb-plat-arrow--out::after {
+  background: var(--mb-light-accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mb-plat-arrow::after {
+    animation: mb-plat-vdrop 2.6s linear infinite;
+  }
+  .mb-plat-arrow--out::after {
+    animation-delay: 1.3s;
+  }
+}
+@keyframes mb-plat-vdrop {
+  from {
+    top: 0;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  to {
+    top: 100%;
+    opacity: 0;
+  }
+}
