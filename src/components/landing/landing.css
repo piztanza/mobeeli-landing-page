@@ -3960,21 +3960,18 @@ button.mb-buyer-cta:active {
 }
 
 /* ============================================================
-   Founder 2026-07-28 — the mark is barely visible on dark.
-   `mobeeli-logo-white.png` is only half white: the wordmark is white but the
-   M-car mark is brand blue, measured rgb(12,84,206), which is 2.77:1 on
-   --mb-ink — under even the 3:1 non-text floor, let alone legible. Brightness
-   lifts the blue while white clamps at white, so the lockup keeps its shape and
-   the mark comes forward. Measured after: ~5.1:1.
+   Founder 2026-07-28 (evening) — the mark keeps its TRUE colours everywhere.
+   The brightness(1.6) that stood here was a visibility fix for the OLD lockup,
+   whose only dark-surface signal was the 2.77:1 blue mark. It had a side
+   effect the founder caught once the new lockup shipped: the mark's blues
+   rendered visibly DIFFERENT on dark surfaces than on the light bar (and than
+   on /join, which never had the filter). With the new art the white wordmark
+   carries dark-surface legibility on its own, so the filter is gone and only
+   the TEXT differs between the variants — white on dark, near-black on light —
+   which is exactly what the two PNGs already encode.
    ============================================================ */
-.mb-nav-logo-white,
-.mb-footer-logo img,
-.mb-plat-hubcard img {
-  filter: brightness(1.6) saturate(1.05);
-}
-/* The spine mark already carries a drop-shadow; extend rather than replace it. */
 .mb-plat-mark {
-  filter: brightness(1.6) saturate(1.05) drop-shadow(0 4px 12px rgba(3, 8, 16, 0.6));
+  filter: drop-shadow(0 4px 12px rgba(3, 8, 16, 0.6));
 }
 /* ============================================================
    R25 grid-fidelity pass — the mockup's card anatomy, verbatim where the
