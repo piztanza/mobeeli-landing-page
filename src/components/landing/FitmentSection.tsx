@@ -180,6 +180,77 @@ export default function FitmentSection() {
               </div>
             ) : (
               <div className="mb-picker-forms">
+                {/* Mockup order: labelled selects first, the derived engine
+                    level, a hairline, THEN the plate/VIN escape hatch. The VIN
+                    form used to lead, which inverted the panel's argument —
+                    the five levels are the point, the plate is the shortcut. */}
+                <div className="mb-ymm-picker">
+                  <label className="mb-ymm-field">
+                    <span className="mb-ymm-field-label">{t("ymm_year")}</span>
+                    <select
+                      value={year}
+                      className="mb-ymm-select"
+                      onChange={(e) => handleYmmChange(e.target.value, make, model, trim)}
+                    >
+                      <option value="2022">2022</option>
+                      <option value="2023">2023</option>
+                      <option value="2024">2024</option>
+                      <option value="2025">2025</option>
+                      <option value="2026">2026</option>
+                    </select>
+                  </label>
+                  <label className="mb-ymm-field">
+                    <span className="mb-ymm-field-label">{t("ymm_make")}</span>
+                    <select
+                      value={make}
+                      className="mb-ymm-select"
+                      onChange={(e) => handleYmmChange(year, e.target.value, model, trim)}
+                    >
+                      <option value="Toyota">Toyota</option>
+                      <option value="Honda">Honda</option>
+                      <option value="Mitsubishi">Mitsubishi</option>
+                      <option value="Daihatsu">Daihatsu</option>
+                      <option value="Hyundai">Hyundai</option>
+                    </select>
+                  </label>
+                  <label className="mb-ymm-field">
+                    <span className="mb-ymm-field-label">{t("ymm_model")}</span>
+                    <select
+                      value={model}
+                      className="mb-ymm-select"
+                      onChange={(e) => handleYmmChange(year, make, e.target.value, trim)}
+                    >
+                      <option value="Avanza">Avanza</option>
+                      <option value="Innova Zenix">Innova Zenix</option>
+                      <option value="Xpander">Xpander</option>
+                      <option value="Xenia">Xenia</option>
+                      <option value="Stargazer">Stargazer</option>
+                    </select>
+                  </label>
+                  <label className="mb-ymm-field">
+                    <span className="mb-ymm-field-label">{t("ymm_trim")}</span>
+                    <select
+                      value={trim}
+                      className="mb-ymm-select"
+                      onChange={(e) => handleYmmChange(year, make, model, e.target.value)}
+                    >
+                      <option value="1.5 G CVT">1.5 G CVT</option>
+                      <option value="2.0 V HEV">2.0 V HEV</option>
+                      <option value="1.5 Ultimate">1.5 Ultimate</option>
+                      <option value="1.5 R CVT">1.5 R CVT</option>
+                      <option value="1.5 Prime">1.5 Prime</option>
+                    </select>
+                  </label>
+                </div>
+                {/* The fifth level, and the reason the panel claims five. Shown
+                    as a derived chip rather than a sixth control: the engine
+                    follows from the trim, so making it selectable would invite
+                    a combination that does not exist. */}
+                <div className="mb-ymm-engine">
+                  <span className="mb-ymm-engine-code">{t("cat_engine_code")}</span>
+                  <span className="mb-ymm-engine-note">{t("cat_engine_note")}</span>
+                </div>
+                <div className="mb-ymm-divider" aria-hidden />
                 <form onSubmit={handleVinSubmit} className="mb-vin-form">
                   <input
                     type="text"
@@ -193,70 +264,30 @@ export default function FitmentSection() {
                     {t("garage_plate_btn")}
                   </button>
                 </form>
-                <div className="mb-ymm-picker">
-                  <select
-                    value={year}
-                    aria-label={t("ymm_year")}
-                    className="mb-ymm-select"
-                    onChange={(e) => handleYmmChange(e.target.value, make, model, trim)}
-                  >
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>
-                    <option value="2024">2024</option>
-                    <option value="2025">2025</option>
-                    <option value="2026">2026</option>
-                  </select>
-                  <select
-                    value={make}
-                    aria-label={t("ymm_make")}
-                    className="mb-ymm-select"
-                    onChange={(e) => handleYmmChange(year, e.target.value, model, trim)}
-                  >
-                    <option value="Toyota">Toyota</option>
-                    <option value="Honda">Honda</option>
-                    <option value="Mitsubishi">Mitsubishi</option>
-                    <option value="Daihatsu">Daihatsu</option>
-                    <option value="Hyundai">Hyundai</option>
-                  </select>
-                  <select
-                    value={model}
-                    aria-label={t("ymm_model")}
-                    className="mb-ymm-select"
-                    onChange={(e) => handleYmmChange(year, make, e.target.value, trim)}
-                  >
-                    <option value="Avanza">Avanza</option>
-                    <option value="Innova Zenix">Innova Zenix</option>
-                    <option value="Xpander">Xpander</option>
-                    <option value="Xenia">Xenia</option>
-                    <option value="Stargazer">Stargazer</option>
-                  </select>
-                  <select
-                    value={trim}
-                    aria-label={t("ymm_trim")}
-                    className="mb-ymm-select"
-                    onChange={(e) => handleYmmChange(year, make, model, e.target.value)}
-                  >
-                    <option value="1.5 G CVT">1.5 G CVT</option>
-                    <option value="2.0 V HEV">2.0 V HEV</option>
-                    <option value="1.5 Ultimate">1.5 Ultimate</option>
-                    <option value="1.5 R CVT">1.5 R CVT</option>
-                    <option value="1.5 Prime">1.5 Prime</option>
-                  </select>
-                </div>
-                {/* The fifth level, and the reason the panel claims five. Shown
-                    as a derived chip rather than a sixth control: the engine
-                    follows from the trim, so making it selectable would invite
-                    a combination that does not exist. */}
-                <div className="mb-ymm-engine">
-                  <span className="mb-ymm-engine-code">{t("cat_engine_code")}</span>
-                  <span className="mb-ymm-engine-note">{t("cat_engine_note")}</span>
-                </div>
               </div>
             )}
           </div>
 
-          {/* The architectural claim the picker is evidence for. */}
+          {/* The architectural claim the picker is evidence for. The glyph is
+              the database icon the picker's old "Filter Active" label carried —
+              it belongs to this claim, not to the picker chrome. */}
           <div className="mb-cat-sku mb-t2">
+            <span className="mb-cat-sku-icon" aria-hidden>
+              <svg
+                viewBox="0 0 24 24"
+                width="17"
+                height="17"
+                stroke="currentColor"
+                strokeWidth="2"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+              </svg>
+            </span>
             <span className="mb-cat-sku-kicker mb-t4">{t("cat_sku_kicker")}</span>
             <span className="mb-cat-sku-title">{t("cat_sku_title")}</span>
             <span className="mb-cat-sku-sub">{t("cat_sku_sub")}</span>
@@ -351,7 +382,23 @@ export default function FitmentSection() {
                 {parts.map((part, i) => (
                   <div key={i} className={`mb-ucat-card mb-glass ${part.fits ? "" : "is-unfit"}`}>
                     <div className="mb-cat-card-img-wrap">
-                      <span className="mb-cat-genuine">{t("cat_badge_genuine")}</span>
+                      <span className="mb-cat-genuine">
+                        <span className="mb-cat-genuine-dot" aria-hidden>
+                          <svg
+                            viewBox="0 0 24 24"
+                            width="8"
+                            height="8"
+                            stroke="#fff"
+                            strokeWidth="3"
+                            fill="none"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M12 3 5 5.6v5c0 4.3 7 9.4 7 9.4s7-5.1 7-9.4v-5z" />
+                          </svg>
+                        </span>
+                        {t("cat_badge_genuine")}
+                      </span>
                       <Image
                         src={part.img}
                         alt={t(part.key)}
@@ -360,23 +407,53 @@ export default function FitmentSection() {
                         className="mb-cat-card-img"
                       />
                     </div>
+                    {/* Chip ALWAYS renders, above the name, per the mockup —
+                        it was gated on `garage && !isScanning`, which is why
+                        the founder's screenshot showed bare card bottoms: no
+                        saved vehicle, no chips. The verdict is the card's
+                        headline, not a reward for using the picker. The brand
+                        line ("OEM Equivalent") is gone the same way the mockup
+                        omits it — cat_part_brand stays defined, dormant. */}
+                    {!part.fits ? (
+                      <div className="mb-cat-verified mb-cat-verified--unfit">
+                        <span className="mb-cat-chip-dot mb-cat-chip-dot--unfit" aria-hidden>
+                          <svg
+                            viewBox="0 0 24 24"
+                            width="9"
+                            height="9"
+                            stroke="#fff"
+                            strokeWidth="3.4"
+                            fill="none"
+                            strokeLinecap="round"
+                          >
+                            <path d="M18 6 6 18M6 6l12 12" />
+                          </svg>
+                        </span>
+                        {t("cat_chip_unfit")}
+                      </div>
+                    ) : (
+                      <div className="mb-cat-verified">
+                        <span className="mb-cat-chip-dot" aria-hidden>
+                          <svg
+                            viewBox="0 0 24 24"
+                            width="9"
+                            height="9"
+                            stroke="#fff"
+                            strokeWidth="3.4"
+                            fill="none"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M20 6 9 17l-5-5" />
+                          </svg>
+                        </span>
+                        {t("cat_part_verified")}
+                      </div>
+                    )}
                     <div className="mb-cat-card-info">
-                      <div className="mb-cat-card-brand">{t("cat_part_brand")}</div>
                       <div className="mb-cat-card-name">{t(part.key)}</div>
                       <div className="mb-cat-card-spec">{t(part.spec)}</div>
                     </div>
-                    {!part.fits ? (
-                      <div className="mb-cat-verified mb-cat-verified--unfit">
-                        <span className="mb-cat-check">✕</span> {t("cat_chip_unfit")}
-                      </div>
-                    ) : (
-                      garage &&
-                      !isScanning && (
-                        <div className="mb-cat-verified">
-                          <span className="mb-cat-check">✓</span> {t("cat_part_verified")}
-                        </div>
-                      )
-                    )}
                   </div>
                 ))}
               </div>

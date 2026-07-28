@@ -18,10 +18,7 @@ const src = readFileSync(
   new URL("../src/components/landing/FitmentSection.tsx", import.meta.url),
   "utf8",
 );
-const css = readFileSync(
-  new URL("../src/components/landing/landing.css", import.meta.url),
-  "utf8",
-);
+const css = readFileSync(new URL("../src/components/landing/landing.css", import.meta.url), "utf8");
 const html = renderToStaticMarkup(
   <LanguageProvider>
     <FitmentSection />
@@ -51,7 +48,12 @@ describe("R15 catalog — structure", () => {
   // deliberately non-fitting one (cat_part5_*). The key stays defined and paired
   // in copy.ts, same precedent as prot_r*.
   it("shows fitment specs instead of simulated prices, and labels the counts", () => {
-    for (const k of ["cat_part1_spec", "cat_part2_spec", "cat_part3_spec", "cat_part5_spec"] as const) {
+    for (const k of [
+      "cat_part1_spec",
+      "cat_part2_spec",
+      "cat_part3_spec",
+      "cat_part5_spec",
+    ] as const) {
       expect(html, k).toContain(t("en", k));
       for (const lang of langs) expect(t(lang, k), `${lang}.${k}`).toBeTruthy();
     }
@@ -95,6 +97,7 @@ describe("R15 catalog — hardening (perf, type-safety, no green)", () => {
       "rgba(16, 185, 129, 0.13)", // verified chip fill
       "rgba(16, 185, 129, 0.3)", // verified chip border
       "#34d399", // verified chip text
+      "#10b981", // the chip's solid verdict dot (grid-fidelity pass) — same exception
     ];
     const greenHits = (css.match(/#10b981|#34d399|rgba\(16, ?185, ?129[^)]*\)/gi) ?? []).map((s) =>
       s.toLowerCase(),
@@ -146,8 +149,14 @@ describe("R15 catalog — CSS contracts (contrast + no class collision)", () => 
   });
 
   it("keeps secondary catalog text legible on the dark surface (dark-muted, not light-band muted)", () => {
-    // (.mb-cat-stat-l was dropped in R16 with the stat tiles.)
-    expect(css).toMatch(/\.mb-cat-card-brand \{[^}]*color: var\(--mb-dark-muted\);/s);
+    // (.mb-cat-stat-l was dropped in R16 with the stat tiles; .mb-cat-card-brand
+    // went in the R25 grid-fidelity pass — the mockup's cards carry
+    // chip → name → spec with no brand line, so the rule this pinned is gone.
+    // The spec line inherits the same duty and is pinned instead.)
+    expect(css).toMatch(
+      /\.mb-cat-card-spec \{[^}]*color: var\(--mb-light-accent\)|\.mb-cat-card-spec \{[^}]*color: var\(--mb-dark-muted\);/s,
+    );
     expect(css).toMatch(/\.mb-sim-tag \{[^}]*color: var\(--mb-dark-muted\);/s);
+    expect(css, "brand rule stays retired").not.toMatch(/^\.mb-cat-card-brand \{/m);
   });
 });
