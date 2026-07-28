@@ -790,6 +790,34 @@ button.mb-buyer-cta:active {
   padding: calc(66px + 32px) var(--mb-container-pad) 64px;
   overflow: hidden;
 }
+/* The under-glass light sources (founder 2026-07-28, "i dont see the
+   glassmorph blur improvement"). A hot white core inside the blue orb gives
+   the blur mid-frequency detail to smear — a soft gradient alone just dims. */
+.mb-fit3d-glow {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 50%;
+}
+.mb-fit3d-glow--a {
+  width: 560px;
+  height: 560px;
+  right: 2%;
+  bottom: 16%;
+  background:
+    radial-gradient(closest-side, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0) 10%),
+    radial-gradient(closest-side, rgba(91, 155, 247, 0.5) 0%, rgba(91, 155, 247, 0.2) 40%, transparent 70%);
+}
+.mb-fit3d-glow--b {
+  width: 440px;
+  height: 440px;
+  left: 4%;
+  bottom: 4%;
+  background:
+    radial-gradient(closest-side, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0) 9%),
+    radial-gradient(closest-side, rgba(47, 125, 246, 0.44) 0%, rgba(47, 125, 246, 0.16) 44%, transparent 72%);
+}
+
 .mb-fit3d-inner {
   position: relative;
   z-index: 2;
