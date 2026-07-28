@@ -2582,10 +2582,30 @@ button.mb-buyer-cta:active {
   text-align: center;
   max-width: 840px;
   margin: 0 auto;
-  /* Soft scrim keeps the copy readable over the bright map dots. */
-  background: radial-gradient(62% 90% at 50% 42%, rgba(13, 21, 34, 0.62), transparent 78%);
+  /* Scrim at the mockup's strength — but painted on an OVERSIZED ::before with
+     a closest-side radial, not on this box. Painted directly, the ellipse hit
+     the padding-box edge while still ~35% opaque and drew a visible rectangle
+     around the copy (caught on the first screenshot after strengthening it).
+     closest-side puts the gradient's 100% stop exactly on the layer's nearest
+     edge, so it reaches zero precisely where the paint area ends — a seam is
+     impossible by construction, at any size. */
+  position: relative;
   padding: 36px 28px;
   border-radius: 24px;
+}
+/* The head's scrim layer — see the note inside .mb-uni-head. */
+.mb-uni-head::before {
+  content: "";
+  position: absolute;
+  inset: -140px -260px;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    closest-side at 50% 52%,
+    rgba(13, 21, 34, 0.82) 0%,
+    rgba(13, 21, 34, 0.68) 48%,
+    transparent 100%
+  );
 }
 .mb-uni-h2 {
   margin: 14px 0 0;
@@ -2617,8 +2637,18 @@ button.mb-buyer-cta:active {
 .mb-uni-bleed {
   position: absolute;
   inset: 0;
-  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+  /* z-index: 1 is the collision fix, not decoration. Without it this layer
+     forms NO stacking context, so IndoGlobe's projected Jakarta label — which
+     carries its own z-index — competed globally against .mb-uni-inner's z2 and
+     painted ON TOP of the subhead ("Jakarta — first market, 2026" sat across
+     the copy in the founder's screenshot). With the context established, every
+     child of the scene stays below the copy no matter what z it asks for. */
+  z-index: 1;
+  /* Dissolve begins at 78% (was 62%): the earlier fade hid the map's lower
+     third and left the band's bottom half as empty ink, where the design shows
+     the archipelago persisting almost to the next band. */
+  mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
 }
 .mb-uni-scene {
   width: 100%;

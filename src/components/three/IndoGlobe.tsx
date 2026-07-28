@@ -182,11 +182,16 @@ function initScene(THREE: ThreeModule, host: HTMLDivElement, refs: SceneRefs): (
   };
 
   // Ocean grid + two-tone land dots with pseudo-elevation (design loops,
-  // ported as pure builders in indoMap.ts)
-  scene.add(mkPts(buildOceanDots(), 0x27395a, 0.028, 0.5));
+  // ported as pure builders in indoMap.ts). Colours are the R25 mockup's own
+  // (its flat dot-map SVG uses exactly #27395a / #4a90f7 / #9cc3ff); the land
+  // dot SIZES are lifted ~40% over the original port because at the previous
+  // 0.034/0.04 the landmasses read as faint scatter next to the design's dense
+  // bright islands — the founder compared them side by side. Ocean stays small
+  // so the archipelago keeps its figure-ground.
+  scene.add(mkPts(buildOceanDots(), 0x27395a, 0.03, 0.5));
   const { land, landHi } = buildLandDots();
-  scene.add(mkPts(land, 0x4a90f7, 0.034, 0.92));
-  scene.add(mkPts(landHi, 0x9cc3ff, 0.04, 0.95));
+  scene.add(mkPts(land, 0x4a90f7, 0.048, 0.95));
+  scene.add(mkPts(landHi, 0x9cc3ff, 0.056, 1.0));
 
   // Jakarta marker + pulse ring, city dots, bezier arcs with moving dots
   const jv = toM(JAKARTA, 0.03);
