@@ -23,7 +23,10 @@ import { useActiveSection } from "./ActiveSectionProvider";
 /* Founder 2026-07-28: the Early Adopters nav link goes STRAIGHT to signup, not
    to the platform's front door — the nav entry is a call to action, and the
    extra hop was losing people. The hero CTA already pointed here. */
-export const PLATFORM_URL = "https://mobilee-demo.vercel.app/platform/join";
+/* Founder 2026-07-28 (later): Early Adopters signup moved to the company
+   portal — every Early Adopters entry point (this nav slot, the hero CTA, and
+   the Early Adopters section CTA) now routes to company.mobeeli.com/join. */
+export const PLATFORM_URL = "https://company.mobeeli.com/join";
 
 // Landing anchors are /#id links so they resolve from every page, not just /
 // (CHG-piztanza-09); Team and Investors live on their own routes; the Early
