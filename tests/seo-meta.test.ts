@@ -175,6 +175,7 @@ describe("robots.txt and sitemap.xml (F-010)", () => {
       "https://mobeeli.com/why-mobeeli",
       "https://mobeeli.com/team",
       "https://mobeeli.com/investors",
+      "https://mobeeli.com/careers",
     ]);
   });
 });

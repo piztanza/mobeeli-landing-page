@@ -2763,6 +2763,42 @@ button.mb-buyer-cta:active {
   gap: 28px;
   flex-wrap: wrap;
 }
+/* The mockup's two-column footer menu (founder 2026-07-28): 11px caps
+   headings, 14px quiet links, 64px between columns. Values extracted from
+   the mockup DOM. */
+.mb-footer-menu {
+  display: flex;
+  gap: 64px;
+}
+.mb-footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 110px;
+}
+.mb-footer-col-h {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8b95a4;
+  margin-bottom: 3px;
+}
+.mb-footer-col a {
+  font-size: 14px;
+  font-weight: 600;
+  color: #c3cace;
+  text-decoration: none;
+}
+.mb-footer-col a:hover {
+  color: #fff;
+}
+@media (max-width: 560px) {
+  .mb-footer-menu {
+    gap: 40px;
+  }
+}
+
 .mb-footer-logo img {
   height: 40px;
   width: auto;

@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { useScrollReveal } from "@/lib/hooks/useScrollReveal";
 import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
 
+import CareersSection from "./CareersSection";
 import EarlyAdopters from "./EarlyAdopters";
 import Footer from "./Footer";
 import Investors from "./Investors";
@@ -43,6 +44,7 @@ const SECTIONS = {
   "early-adopters": EarlyAdopters,
   investors: Investors,
   "why-mobeeli": WhyDataSections,
+  careers: CareersSection,
 } as const;
 
 /** Section slugs that moved off the landing page onto their own routes. */

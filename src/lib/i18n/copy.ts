@@ -37,6 +37,9 @@ const en = {
   nav_early: "Early Adopters",
   nav_team: "Team",
   nav_inv: "Investors",
+  /* Careers page (founder request 2026-07-28). Linked from the footer only —
+     the top nav stays at five links. DRAFT pending founder stamp. */
+  nav_careers: "Careers",
   /* R16 ruling 1c: protection became its own band, so it needs an anchor. */
   nav_protect: "Protection",
   nav_cta: "Join us",
@@ -361,6 +364,28 @@ const en = {
   indo_note: "— first market, 2026",
   foot_tag: "One platform to unify Indonesia's auto industry.",
   foot_copyright: "Mobeeli — Jakarta, Indonesia",
+  /* Footer menu (the R25 mockup's two-column footer; founder request
+     2026-07-28). Link labels reuse nav_* keys — these are the column
+     headings, the a11y label and the one label the nav does not carry.
+     The join link uses nav_cta ("Join us"), not the mockup's "Join
+     waitlist": the founder's rename ruling supersedes the mockup there.
+     DRAFT pending founder stamp. */
+  foot_menu_a11y: "Site links",
+  foot_col_company: "Company",
+  foot_col_product: "Product",
+  foot_coverage: "Coverage",
+
+  /* /careers page (founder request 2026-07-28) — honest pre-launch stance:
+     no roles are invented; the page says none are posted and routes
+     interest to the footer's existing public address. DRAFT pending
+     founder stamp. */
+  careers_kicker: "Careers",
+  careers_h2: "Help build the parts backbone.",
+  careers_p:
+    "Mobeeli is a small founding team in Jakarta building one verified parts catalogue for Indonesia's auto industry. We are pre-launch, and we hire slowly.",
+  careers_open:
+    "No open roles are posted right now. When a role opens, it will be listed on this page.",
+  careers_cta: "Think we should meet anyway? Write to us.",
 
   /* Join Waitlist page (F-007) — keys mirror the Join Waitlist.dc.html TXT map, jw_-prefixed. */
   jw_back_home: "← Back to Mobeeli",
@@ -465,6 +490,7 @@ const id: Record<CopyKey, string> = {
   nav_early: "Early Adopters",
   nav_team: "Tim",
   nav_inv: "Investor",
+  nav_careers: "Karier",
   /* R16 ruling 1c: protection became its own band, so it needs an anchor. */
   nav_protect: "Perlindungan",
   nav_cta: "Gabung",
@@ -773,6 +799,17 @@ const id: Record<CopyKey, string> = {
   indo_note: "— pasar pertama, 2026",
   foot_tag: "Satu platform yang menyatukan industri otomotif Indonesia.",
   foot_copyright: "Mobeeli — Jakarta, Indonesia",
+  foot_menu_a11y: "Tautan situs",
+  foot_col_company: "Perusahaan",
+  foot_col_product: "Produk",
+  foot_coverage: "Jangkauan",
+  careers_kicker: "Karier",
+  careers_h2: "Ikut membangun tulang punggung suku cadang.",
+  careers_p:
+    "Mobeeli adalah tim pendiri kecil di Jakarta yang membangun satu katalog suku cadang terverifikasi untuk industri otomotif Indonesia. Kami belum meluncur, dan kami merekrut dengan hati-hati.",
+  careers_open:
+    "Belum ada lowongan yang dibuka saat ini. Saat lowongan dibuka, lowongan itu akan tampil di halaman ini.",
+  careers_cta: "Merasa kita perlu bertemu? Tulis kepada kami.",
 
   /* Join Waitlist page (F-007) — keys mirror the Join Waitlist.dc.html TXT map, jw_-prefixed. */
   jw_back_home: "← Kembali ke Mobeeli",

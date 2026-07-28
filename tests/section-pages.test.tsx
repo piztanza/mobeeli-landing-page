@@ -2,6 +2,7 @@ import type { ReactElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
+import CareersPage, { metadata as careersMetadata } from "@/app/careers/page";
 import EarlyAdoptersPage, { metadata as earlyAdoptersMetadata } from "@/app/early-adopters/page";
 import InvestorsPage, { metadata as investorsMetadata } from "@/app/investors/page";
 import TeamPage, { metadata as teamMetadata } from "@/app/team/page";
@@ -22,7 +23,7 @@ function esc(s: string): string {
 
 /** The section pages split off the landing stack (CHG-piztanza-09 + redesign phase 3). */
 const PAGES: readonly {
-  path: "/team" | "/early-adopters" | "/investors" | "/why-mobeeli";
+  path: "/team" | "/early-adopters" | "/investors" | "/why-mobeeli" | "/careers";
   Page: () => ReactElement;
   metadata: typeof teamMetadata;
   titleKey: CopyKey;
@@ -65,6 +66,15 @@ const PAGES: readonly {
     descriptionKey: "why_h2",
     sectionId: "why-now",
     h2Key: "why_h2",
+  },
+  {
+    path: "/careers",
+    Page: CareersPage,
+    metadata: careersMetadata,
+    titleKey: "nav_careers",
+    descriptionKey: "careers_h2",
+    sectionId: "careers",
+    h2Key: "careers_h2",
   },
 ];
 

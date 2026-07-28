@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import { useT } from "@/lib/i18n/LanguageProvider";
 
@@ -25,6 +26,26 @@ export default function Footer() {
           {/* Social slot removed (audit #7): the dead href="#" "in" anchor read
               as an unfinished placeholder. A real LinkedIn mark returns WITH a
               real founder-supplied URL (see HANDOFF outstanding items). */}
+          {/* The R25 mockup's two-column footer menu (founder 2026-07-28).
+              Careers joins the Company column — it has no nav slot, so this
+              is its inbound link — and Why Mobeeli finally gets one too. The
+              join label follows the founder's "Join us" rename, not the
+              mockup's "Join waitlist". */}
+          <nav className="mb-footer-menu" aria-label={t("foot_menu_a11y")}>
+            <div className="mb-footer-col">
+              <span className="mb-footer-col-h">{t("foot_col_company")}</span>
+              <Link href="/team">{t("nav_team")}</Link>
+              <Link href="/investors">{t("nav_inv")}</Link>
+              <Link href="/why-mobeeli">{t("nav_why")}</Link>
+              <Link href="/careers">{t("nav_careers")}</Link>
+            </div>
+            <div className="mb-footer-col">
+              <span className="mb-footer-col-h">{t("foot_col_product")}</span>
+              <Link href="/#how-it-works">{t("nav_how")}</Link>
+              <Link href="/#coverage">{t("foot_coverage")}</Link>
+              <Link href="/join">{t("nav_cta")}</Link>
+            </div>
+          </nav>
         </div>
         <div className="mb-footer-bottom">
           <div className="mb-footer-contact">

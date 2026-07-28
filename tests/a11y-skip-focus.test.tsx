@@ -4,6 +4,7 @@ import type { ReactElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
+import CareersPage from "@/app/careers/page";
 import EarlyAdoptersPage from "@/app/early-adopters/page";
 import InvestorsPage from "@/app/investors/page";
 import JoinPage from "@/app/join/page";
@@ -27,6 +28,7 @@ const PAGES: readonly { path: string; Page: () => ReactElement }[] = [
   { path: "/early-adopters", Page: EarlyAdoptersPage },
   { path: "/investors", Page: InvestorsPage },
   { path: "/why-mobeeli", Page: WhyMobeeliPage },
+  { path: "/careers", Page: CareersPage },
 ];
 
 describe("skip-to-content link", () => {
