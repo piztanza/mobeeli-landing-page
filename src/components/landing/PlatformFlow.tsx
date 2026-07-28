@@ -20,6 +20,32 @@ import { FLOW, FLOW_LAYOUT, FLOW_VIEW } from "./platformFlowGeometry";
 const GRAD_IN_STOP = 565 / FLOW_VIEW.w;
 const GRAD_OUT_STOP = 715 / FLOW_VIEW.w;
 
+/**
+ * Displacement map for the spine's refraction edge (founder greenlight
+ * 2026-07-28 "ok go" — the one liquid-glass showpiece, spine ONLY).
+ * Red encodes X displacement, green Y, mid-grey is neutral: two linear ramps
+ * screen-blended give a gentle full-slab lens — the backdrop bends outward
+ * toward the rim like light through thick glass. Consumed by the
+ * #mb-glass-refract filter below via feImage, stretched to the filter region
+ * with preserveAspectRatio="none".
+ */
+const REFRACT_MAP =
+  "data:image/svg+xml," +
+  encodeURIComponent(
+    "<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'>" +
+      "<defs>" +
+      "<linearGradient id='x' x1='0' y1='0' x2='1' y2='0'>" +
+      "<stop offset='0' stop-color='#000'/><stop offset='1' stop-color='#f00'/>" +
+      "</linearGradient>" +
+      "<linearGradient id='y' x1='0' y1='0' x2='0' y2='1'>" +
+      "<stop offset='0' stop-color='#000'/><stop offset='1' stop-color='#0f0'/>" +
+      "</linearGradient>" +
+      "</defs>" +
+      "<rect width='100' height='100' fill='url(#x)'/>" +
+      "<rect width='100' height='100' fill='url(#y)' style='mix-blend-mode:screen'/>" +
+      "</svg>",
+  );
+
 type IconKey = "brand" | "truck" | "store" | "wrench" | "car";
 
 interface Party {
@@ -180,6 +206,29 @@ export default function PlatformFlow() {
 
   return (
     <div className="mb-plat-fig-wrap">
+      {/* The refraction filter the spine's enhanced backdrop-filter references.
+          Chromium-only by design: browsers that cannot parse url() inside
+          backdrop-filter drop that declaration and keep the plain
+          blur+saturate fallback that precedes it in landing.css. */}
+      <svg className="mb-plat-refract-defs" aria-hidden focusable="false" width="0" height="0">
+        <filter
+          id="mb-glass-refract"
+          colorInterpolationFilters="sRGB"
+          x="0"
+          y="0"
+          width="100%"
+          height="100%"
+        >
+          <feImage href={REFRACT_MAP} preserveAspectRatio="none" result="map" />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="map"
+            scale="36"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
+        </filter>
+      </svg>
       <figure
         className={`mb-plat-fig ${js ? "mb-plat--js" : ""}`}
         ref={ref}

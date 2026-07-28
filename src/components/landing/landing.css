@@ -3492,6 +3492,12 @@ button.mb-buyer-cta:active {
      core in screen blend, and blurring that backdrop is what turns the slab
      from tint into material. Unprefixed only — see .mb-glass. */
   backdrop-filter: blur(30px) saturate(1.9);
+  /* The one displacement-refraction showpiece, spine ONLY (founder greenlight
+     2026-07-28 "ok go"): the backdrop bends through the slab like thick glass.
+     Chromium-only — engines that cannot parse url() inside backdrop-filter
+     reject THIS declaration at parse time and keep the plain one above.
+     #mb-glass-refract lives in PlatformFlow.tsx beside its displacement map. */
+  backdrop-filter: url("#mb-glass-refract") blur(30px) saturate(1.9);
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0.17) 0%,
@@ -3563,6 +3569,14 @@ button.mb-buyer-cta:active {
   background: rgba(9, 15, 25, 0.72);
   padding: 4px 9px;
   border-radius: 999px;
+}
+
+/* The 0x0 svg that carries #mb-glass-refract — out of layout entirely. */
+.mb-plat-refract-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
 
 /* ---- edge labels ---- */
