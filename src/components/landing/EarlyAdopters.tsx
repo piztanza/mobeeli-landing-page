@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 import { useT } from "@/lib/i18n/LanguageProvider";
 
 /** Early Adopters — 3 benefit cards + the waitlist CTA (F-009: routes to /join).
@@ -41,9 +39,9 @@ export default function EarlyAdopters() {
           </div>
         </div>
         <div data-rev="1" className="mb-early-ctawrap">
-          <Link href="/join" className="mb-btn-primary-light">
+          <a href="https://company.mobeeli.com/join" className="mb-btn-primary-light">
             {t("early_cta")}
-          </Link>
+          </a>
           <div className="mb-early-note">{t("early_note")}</div>
         </div>
       </div>

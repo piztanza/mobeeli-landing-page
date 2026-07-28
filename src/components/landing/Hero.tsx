@@ -67,7 +67,7 @@ export default function Hero() {
             {/* Straight to platform registration (founder decision 2026-07-23). */}
             <a
               ref={primaryCtaRef}
-              href="https://mobilee-demo.vercel.app/platform/join"
+              href="https://company.mobeeli.com/join"
               target="_blank"
               rel="noreferrer"
               className="mb-btn-primary-dark mb-magnetic-cta"
