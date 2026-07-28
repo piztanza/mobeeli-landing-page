@@ -13,6 +13,13 @@ import { useT } from "@/lib/i18n/LanguageProvider";
 // only by case.
 import { FLOW, FLOW_LAYOUT, FLOW_VIEW } from "./platformFlowGeometry";
 
+/** Where the ribbon gradients turn from blue to verified-green, as fractions of
+ * the viewBox width — the spine's edges (565 and 715 of 1280). Between the two
+ * stops the gradient crosses INSIDE the glass core, so the colour change reads
+ * as the platform doing it. */
+const GRAD_IN_STOP = 565 / FLOW_VIEW.w;
+const GRAD_OUT_STOP = 715 / FLOW_VIEW.w;
+
 type IconKey = "brand" | "truck" | "store" | "wrench" | "car";
 
 interface Party {
@@ -45,8 +52,9 @@ const IN_CHIPS: { key: CopyKey; src: string; delay: string }[] = [
 const IN_CHIP_TOP_PCT = [8.6, 40.4, 74.5];
 
 function PartyGlyph({ icon }: { icon: IconKey }) {
-  // Stroke inherits currentColor so one glyph set serves both dark-blue source
-  // cards (white) and glass destination cards (light-accent).
+  // Stroke inherits currentColor from the icon chip that wraps it — blue on
+  // the inbound side, verified-green on the outbound side (mockup match,
+  // founder 2026-07-28). One glyph set serves both.
   const paths: Record<IconKey, React.ReactNode> = {
     brand: (
       <>
@@ -184,12 +192,32 @@ export default function PlatformFlow() {
             viewBox={`0 0 ${FLOW_VIEW.w} ${FLOW_VIEW.h}`}
             preserveAspectRatio="xMidYMid meet"
           >
-            {FLOW.ribbons.map((r) => (
+            <defs>
+              {/* userSpaceOnUse, so the packet circles sample the SAME gradient
+                  as the ribbon they ride: a packet is blue while approaching
+                  the core and green when it leaves it — no second animation
+                  needed. */}
+              {FLOW.ribbons.map((r, i) => (
+                <linearGradient
+                  key={r.key}
+                  id={`mb-rib-grad-${i}`}
+                  gradientUnits="userSpaceOnUse"
+                  x1="0"
+                  y1="0"
+                  x2={FLOW_VIEW.w}
+                  y2="0"
+                >
+                  <stop offset={GRAD_IN_STOP} stopColor={r.color} />
+                  <stop offset={GRAD_OUT_STOP} stopColor={r.outColor} />
+                </linearGradient>
+              ))}
+            </defs>
+            {FLOW.ribbons.map((r, i) => (
               <path
                 key={r.key}
                 className="mb-plat-rib"
                 d={r.path}
-                fill={r.color}
+                fill={`url(#mb-rib-grad-${i})`}
                 opacity="0.42"
                 style={{ ["--rib-delay" as string]: r.delay }}
               />
@@ -207,8 +235,10 @@ export default function PlatformFlow() {
                   key={`${r.key}-p${k}`}
                   className="mb-plat-packet"
                   r="4"
-                  fill={r.color}
+                  fill={`url(#mb-rib-grad-${i})`}
                   style={{
+                    /* the currentColor glow under the gradient-filled dot */
+                    color: r.color,
                     offsetPath: `path('${r.centerline}')`,
                     ["--pk-dur" as string]: `${7.4 + i * 0.9}s`,
                     ["--pk-delay" as string]: `${i * 0.6 + k * 3.6}s`,
@@ -259,7 +289,9 @@ export default function PlatformFlow() {
                 ["--node-delay" as string]: p.delay,
               }}
             >
-              <PartyGlyph icon={p.icon} />
+              <span className="mb-plat-ichip mb-plat-ichip--in">
+                <PartyGlyph icon={p.icon} />
+              </span>
               <span className="mb-plat-node-t">{t(p.t)}</span>
               <span className="mb-plat-node-s">{t(p.s)}</span>
             </div>
@@ -313,7 +345,9 @@ export default function PlatformFlow() {
                 ["--node-delay" as string]: p.delay,
               }}
             >
-              <PartyGlyph icon={p.icon} />
+              <span className="mb-plat-ichip mb-plat-ichip--out">
+                <PartyGlyph icon={p.icon} />
+              </span>
               <span className="mb-plat-node-t">{t(p.t)}</span>
               <span className="mb-plat-node-s">{t(p.s)}</span>
             </div>
@@ -325,7 +359,9 @@ export default function PlatformFlow() {
           <div className="mb-plat-stack-row">
             {SOURCES.map((p) => (
               <div key={p.t} className="mb-plat-scard mb-plat-scard--src">
-                <PartyGlyph icon={p.icon} />
+                <span className="mb-plat-ichip mb-plat-ichip--in">
+                  <PartyGlyph icon={p.icon} />
+                </span>
                 <span className="mb-plat-node-t">{t(p.t)}</span>
               </div>
             ))}
@@ -346,7 +382,9 @@ export default function PlatformFlow() {
           <div className="mb-plat-stack-row">
             {DESTS.map((p) => (
               <div key={p.t} className="mb-plat-scard mb-plat-scard--dst">
-                <PartyGlyph icon={p.icon} />
+                <span className="mb-plat-ichip mb-plat-ichip--out">
+                  <PartyGlyph icon={p.icon} />
+                </span>
                 <span className="mb-plat-node-t">{t(p.t)}</span>
               </div>
             ))}

@@ -34,15 +34,24 @@ const NODE_BOXES: readonly (readonly [number, number])[] = [
 const DEEP = "#1b5fd9";
 const PRIM = "#2f7df6";
 const LITE = "#5b9bf7";
+// Outbound (verified) greens — FOUNDER RULING 2026-07-28 evening: the flow
+// matches the R25 mockup fully, superseding the earlier keep-blue call. Same
+// verified-green family the catalogue chips are allowed (the semantic is
+// identical: what leaves the core is verified — see r15-catalog.test.tsx).
+const OUT_DEEP = "#0b8f66";
+const OUT_PRIM = "#10b981";
+const OUT_LITE = "#34d399";
 const META = [
-  { color: DEEP, delay: "0.05s" },
-  { color: PRIM, delay: "0.18s" },
-  { color: LITE, delay: "0.31s" },
+  { color: DEEP, outColor: OUT_DEEP, delay: "0.05s" },
+  { color: PRIM, outColor: OUT_PRIM, delay: "0.18s" },
+  { color: LITE, outColor: OUT_LITE, delay: "0.31s" },
 ] as const;
 
 export interface FlowRibbon {
   key: string;
   color: string;
+  /** Colour after the core — the verified side of the ribbon's gradient. */
+  outColor: string;
   delay: string;
   /** Closed ribbon outline, source edge → through the core → destination edge. */
   path: string;
@@ -121,6 +130,7 @@ export function computeFlowGeometry(): FlowGeometry {
   const ribbons: FlowRibbon[] = attach.map((n, i) => ({
     key: `rib-${i}`,
     color: META[i].color,
+    outColor: META[i].outColor,
     delay: META[i].delay,
     path: thru(n, slices[i]),
     centerline: thruLine(n, slices[i]),

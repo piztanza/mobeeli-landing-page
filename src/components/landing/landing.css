@@ -830,6 +830,30 @@ button.mb-buyer-cta:active {
   line-height: 1.5;
   color: #fff;
 }
+/* The mockup flanks the hinge with 147px hairlines — typographic punctuation,
+   desktop only (on phones they would push past the viewport). Anchored to the
+   first line's midpoint (0.75em = half of line-height 1.5). */
+@media (min-width: 720px) {
+  .mb-cat-bridge {
+    position: relative;
+  }
+  .mb-cat-bridge::before,
+  .mb-cat-bridge::after {
+    content: "";
+    position: absolute;
+    top: 0.75em;
+    height: 1px;
+    width: clamp(60px, 10vw, 147px);
+  }
+  .mb-cat-bridge::before {
+    right: calc(100% + 18px);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22));
+  }
+  .mb-cat-bridge::after {
+    left: calc(100% + 18px);
+    background: linear-gradient(270deg, transparent, rgba(255, 255, 255, 0.22));
+  }
+}
 
 /* Renamed from .mb-cat-h2 to avoid colliding with AiCatalogCard's .mb-cat-h2 (salvage). */
 /* R16: the `font-size: 28px` here overrode .mb-h2's clamp(38px, 4.8vw, 64px),
@@ -3215,6 +3239,10 @@ button.mb-buyer-cta:active {
     background: rgba(13, 21, 34, 0.95);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
+  .mb-plat-spine-inner {
+    backdrop-filter: none;
+    background: rgba(13, 21, 34, 0.95);
+  }
 }
 
 /* (The R13 reduced-transparency fallback that stood here is superseded — the
@@ -3263,31 +3291,25 @@ button.mb-buyer-cta:active {
 .mb-plat-node {
   position: absolute;
   box-sizing: border-box; /* there is a global reset, but pin it — the mockup broke without it */
-  border-radius: 15px;
-  padding: 16px 15px;
+  border-radius: 12px;
+  padding: 14px 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 7px;
-}
-.mb-plat-node--src {
-  color: #fff;
-  background: linear-gradient(150deg, #1f62d6, #143f8f);
-  box-shadow: 0 14px 34px rgba(3, 8, 16, 0.55);
-}
-.mb-plat-node--dst {
+  /* ONE glass material on BOTH sides — values extracted from the R25 mockup
+     DOM (founder 2026-07-28: "this section still doesnt match the mockup").
+     The solid-blue source slabs were the R20 spec's; the mockup never had
+     them. Sides now differ only by their icon chip (blue in, green out). */
   color: var(--mb-light-accent);
-  background: linear-gradient(
-    158deg,
-    rgba(255, 255, 255, 0.14) 0%,
-    rgba(255, 255, 255, 0.035) 55%,
-    rgba(91, 155, 247, 0.1) 100%
-  );
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(158deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.26),
-    0 14px 32px rgba(3, 8, 16, 0.42);
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 12px 28px rgba(3, 8, 16, 0.36);
 }
+/* .mb-plat-node--src / --dst carry no paint of their own any more — they stay
+   in the markup as the hooks the icon-chip variants and tests key off. */
 .mb-plat-node-t {
   font-size: clamp(13px, 1.25vw, 15.5px);
   font-weight: 800;
@@ -3299,15 +3321,31 @@ button.mb-buyer-cta:active {
   font-size: clamp(11px, 1vw, 12px);
   font-weight: 600;
   line-height: 1.35;
-  color: #fff;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
-}
-.mb-plat-node--dst .mb-plat-node-s {
   color: var(--mb-dark-muted);
-  text-shadow: none;
 }
 
-/* ---- spine (glass, NO backdrop-filter) ---- */
+/* 32px icon chips — the only thing that tells the two sides apart: blue tint
+   marks inbound, verified-green outbound (mockup-exact; the green pair is the
+   allowlisted verified family — see r15-catalog.test.tsx). */
+.mb-plat-ichip {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgba(47, 125, 246, 0.16);
+  border: 1px solid rgba(47, 125, 246, 0.3);
+  color: #7db4ff;
+}
+.mb-plat-ichip--out {
+  background: rgba(16, 185, 129, 0.13);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #34d399;
+}
+
+/* ---- spine (real frosted glass) ---- */
 .mb-plat-spine {
   position: absolute;
   border-radius: 21px;
@@ -3329,6 +3367,11 @@ button.mb-buyer-cta:active {
   height: 100%;
   border-radius: 20px;
   overflow: hidden;
+  /* R20 shipped this glass WITHOUT backdrop-filter. The founder's 2026-07-28
+     "best possible glassmorphism" pass adds it: the ribbons cross under the
+     core in screen blend, and blurring that backdrop is what turns the slab
+     from tint into material. Unprefixed only — see .mb-glass. */
+  backdrop-filter: blur(18px) saturate(1.5);
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0.17) 0%,
@@ -3479,12 +3522,13 @@ button.mb-buyer-cta:active {
   text-align: center;
 }
 .mb-plat-scard--src {
-  color: #fff;
-  background: linear-gradient(150deg, #1f62d6, #143f8f);
+  color: var(--mb-light-accent);
+  background: linear-gradient(158deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.16);
 }
 .mb-plat-scard--dst {
   color: var(--mb-light-accent);
-  background: linear-gradient(158deg, rgba(255, 255, 255, 0.14), rgba(91, 155, 247, 0.1));
+  background: linear-gradient(158deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 .mb-plat-hubcard {

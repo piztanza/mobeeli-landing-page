@@ -82,9 +82,15 @@ describe("R15 catalog — hardening (perf, type-safety, no green)", () => {
    * R15 banned emerald and indigo outright. FOUNDER RULING 2026-07-28 narrowed
    * that: the catalogue's success chip is green because green is what "this
    * fits" means, and the R25 design is built on it. The rule is not dropped —
-   * green is permitted ONLY on the verified chip, by exact token, and indigo
+   * green is permitted ONLY as the verified signal, by exact token, and indigo
    * stays banned entirely. Anything else green still fails, which is the point:
    * a semantic exception, not an open palette.
+   *
+   * SAME RULING, EXTENDED 2026-07-28 evening ("match the mockup fully"): the
+   * platform flow's OUTBOUND side — icon chips here, ribbon gradients in
+   * platformFlowGeometry.ts — carries the same verified-green, because what
+   * leaves the core is by definition verified. Same tokens, same semantic, so
+   * the allowlist below is unchanged.
    */
   it("permits green only as the verified-fit signal, and still bans indigo", () => {
     const combined = (src + css).toLowerCase();
