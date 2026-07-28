@@ -18,20 +18,29 @@ describe("team headshots (F-013, CHG-piztanza-10)", () => {
     </LanguageProvider>,
   );
 
-  it("renders the Salman and Ferdinansyah headshots with full-name alts", () => {
+  it("renders all three founder headshots with full-name alts", () => {
+    expect(html).toContain("yavet.jpg");
     expect(html).toContain("salman.jpg");
     expect(html).toContain("ferdinansyah.jpg");
-    expect(html).toContain(`alt="${t("en", "team_n2")}"`);
-    expect(html).toContain(`alt="${t("en", "team_n3")}"`);
+    for (const key of ["team_n1", "team_n2", "team_n3"] as const) {
+      expect(html, key).toContain(`alt="${t("en", key)}"`);
+    }
   });
 
-  it("keeps Yavet on the gradient placeholder — exactly two images in the section", () => {
-    expect(html.match(/<img/g)?.length).toBe(2);
-    expect(html).toContain("mb-team-photo--a");
-    // Yavet's placeholder stays decorative
-    const yavet = html.match(/<div[^>]*mb-team-photo--a[^>]*>/)?.[0] ?? "";
-    expect(yavet).toContain("aria-hidden");
-    expect(html).not.toContain(`alt="${t("en", "team_n1")}"`);
+  it("no founder is left on the decorative gradient placeholder", () => {
+    // This test used to assert the OPPOSITE — that Yavet stayed on the gradient
+    // and the section held exactly two images — because no photo had been
+    // supplied. The founder supplied one on 2026-07-28. The invariant worth
+    // keeping is not the count but the rule: a card either carries a real
+    // headshot WITH a name alt, or a decorative placeholder marked aria-hidden.
+    // Never a photo without an alt.
+    expect(html.match(/<img/g)?.length).toBe(3);
+    for (const cls of ["mb-team-photo--a", "mb-team-photo--b", "mb-team-photo--c"]) {
+      const wrap = html.match(new RegExp(`<div[^>]*${cls}[^>]*>`))?.[0] ?? "";
+      expect(wrap, `${cls} carries a photo, so it must not be aria-hidden`).not.toContain(
+        "aria-hidden",
+      );
+    }
   });
 
   it("slots headshots into the 1:1 area — cover fit, top position (CSS contract)", () => {
