@@ -93,7 +93,7 @@ describe.each(PAGES)(
       for (const href of [
         "/#problem",
         "/#how-it-works",
-        "https://mobilee-demo.vercel.app/platform",
+        "https://mobilee-demo.vercel.app/platform/join",
         "/team",
         "/investors",
         "/join",

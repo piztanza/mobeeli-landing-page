@@ -149,27 +149,12 @@ export default function FitmentSection() {
             suppressHydrationWarning
           >
             <div className="mb-step-badge-row">
-              <label
-                className="mb-ymm-label"
-                style={{ display: "flex", alignItems: "center", gap: "6px" }}
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  width="16"
-                  height="16"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden
-                >
-                  <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-                </svg>
-                {t("cat_filter_active")}
-              </label>
+              {/* The panel's own title. cat_filter_active ("Filter Active") sat
+                  here with a database glyph — a leftover from when this was a
+                  filter widget rather than a vehicle picker, and not what the
+                  design shows. The key stays defined and paired in copy.ts,
+                  same precedent as prot_r*. */}
+              <label className="mb-ymm-label">{t("cat_picker_title")}</label>
               {/* The count is the point of the panel: five levels, not four.
                   Trim alone does not determine fitment — the engine does. */}
               <span className="mb-ymm-levels">{t("cat_picker_levels")}</span>

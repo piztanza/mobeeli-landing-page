@@ -2541,11 +2541,15 @@ button.mb-buyer-cta:active {
   background-image:
     radial-gradient(1000px 520px at 62% -6%, rgba(47, 125, 246, 0.13), transparent 72%),
     radial-gradient(520px 360px at 14% 96%, rgba(18, 63, 158, 0.24), transparent 70%);
-  min-height: 100vh;
-  min-height: 100svh;
+  /* Founder 2026-07-28: the band was a full viewport plus 100px of padding and
+     read as dead space around a map. Shorter, and the copy now sits in the
+     upper half so the landmass reads as ground UNDER it rather than a texture
+     behind the headline. */
+  min-height: 78vh;
+  min-height: 78svh;
   display: flex;
-  align-items: center;
-  padding: 100px var(--mb-container-pad);
+  align-items: flex-start;
+  padding: 84px var(--mb-container-pad) 64px;
   overflow: hidden;
 }
 .mb-uni-inner {
@@ -2586,9 +2590,14 @@ button.mb-buyer-cta:active {
 }
 /* R4: the archipelago scene fills the entire band (founder: the visual IS the
    section), dissolving into the following light band at the bottom edge. */
+/* The scene is pushed DOWN out of the copy's band. Centred, the archipelago's
+   dense middle — and IndoGlobe's Jakarta label — landed directly on the
+   headline, which is what made the two fight. Offsetting the layer rather than
+   re-framing the 3D scene keeps the drag interaction and the camera untouched.
+   The bottom overhang lets the map bleed toward the next band as before. */
 .mb-uni-bleed {
   position: absolute;
-  inset: 0;
+  inset: 22% 0 -10% 0;
   mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
 }
@@ -3849,4 +3858,22 @@ button.mb-buyer-cta:active {
   .mb-cat-window-search {
     display: none; /* the bar is chrome; at this width the query is noise */
   }
+}
+
+/* ============================================================
+   Founder 2026-07-28 — the mark is barely visible on dark.
+   `mobeeli-logo-white.png` is only half white: the wordmark is white but the
+   M-car mark is brand blue, measured rgb(12,84,206), which is 2.77:1 on
+   --mb-ink — under even the 3:1 non-text floor, let alone legible. Brightness
+   lifts the blue while white clamps at white, so the lockup keeps its shape and
+   the mark comes forward. Measured after: ~5.1:1.
+   ============================================================ */
+.mb-nav-logo-white,
+.mb-footer-logo img,
+.mb-plat-hubcard img {
+  filter: brightness(1.6) saturate(1.05);
+}
+/* The spine mark already carries a drop-shadow; extend rather than replace it. */
+.mb-plat-mark {
+  filter: brightness(1.6) saturate(1.05) drop-shadow(0 4px 12px rgba(3, 8, 16, 0.6));
 }

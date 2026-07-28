@@ -20,7 +20,10 @@ import { useActiveSection } from "./ActiveSectionProvider";
 
 /** The live platform's partner pitch + registration surface (founder decision
  *  2026-07-23: the Early Adopters nav slot points straight at the platform). */
-export const PLATFORM_URL = "https://mobilee-demo.vercel.app/platform";
+/* Founder 2026-07-28: the Early Adopters nav link goes STRAIGHT to signup, not
+   to the platform's front door — the nav entry is a call to action, and the
+   extra hop was losing people. The hero CTA already pointed here. */
+export const PLATFORM_URL = "https://mobilee-demo.vercel.app/platform/join";
 
 // Landing anchors are /#id links so they resolve from every page, not just /
 // (CHG-piztanza-09); Team and Investors live on their own routes; the Early
