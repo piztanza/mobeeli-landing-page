@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 
 import { useT } from "@/lib/i18n/LanguageProvider";
 
-import HeroNetworkBackground from "./HeroNetworkBackground";
 import PlatformFlow from "./PlatformFlow";
 
 import { AURORA_INTENSITY } from "@/components/three/auroraIntensity";
@@ -116,7 +115,12 @@ export default function FitmentSection() {
   return (
     <section id="how-it-works" className="mb-fit3d mb-section">
       <AmbientAurora intensity={AURORA_INTENSITY} />
-      <HeroNetworkBackground />
+      {/* Founder 2026-07-28: the animated bezier-network background is OFF this
+          band — the travelling packets and the radiating node read as motion
+          for its own sake behind a panel the visitor is meant to read. The
+          band keeps AmbientAurora and .mb-fit3d's own radial washes, so it is
+          not bare. The component stays in the repo and still renders on
+          /why-mobeeli, where its test lives. */}
       <div className="mb-fit3d-inner mb-section-inner">
         {/* One headline for the whole band, full width. R16 ruling 2b: the
             simulated stat tiles (OE specs / applications / models) are gone —

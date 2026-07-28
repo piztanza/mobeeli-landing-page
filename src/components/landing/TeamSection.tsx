@@ -15,7 +15,13 @@ const FOUNDERS: readonly {
   headshot?: string;
   linkedin?: string;
 }[] = [
-  { name: "team_n1", role: "team_r1", bio: "team_c1", photo: "mb-team-photo--a" },
+  {
+    name: "team_n1",
+    role: "team_r1",
+    bio: "team_c1",
+    photo: "mb-team-photo--a",
+    headshot: "/assets/team/yavet.jpg",
+  },
   {
     name: "team_n2",
     role: "team_r2",
