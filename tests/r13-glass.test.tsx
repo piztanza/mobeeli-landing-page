@@ -49,11 +49,12 @@ describe("R16 — one glass primitive", () => {
   });
 
   it("uses the top edge-light and hairline border (not the old hard edge)", () => {
-    // Founder 2026-07-28 late pass: edge-light .22 -> .3 and border .12 -> .2 —
-    // firmer glass edge, still a TOP light source, not the retired 0.4
-    // left-corner highlight that read as a hard white edge.
-    expect(glassRule).toContain("inset 0 1px 0 rgba(255, 255, 255, 0.3)");
-    expect(glassRule).toContain("border: 1px solid rgba(255, 255, 255, 0.2)");
+    // Founder 2026-07-29 copy-exact pass: the 2026-07-28 firmer edge (.3/.2)
+    // read lighter than the R25 design, so surface values returned to the
+    // mockup's own .22/.12 — while the blur/saturation upgrade stayed. Still a
+    // TOP light source, not the retired 0.4 left-corner hard edge.
+    expect(glassRule).toContain("inset 0 1px 0 rgba(255, 255, 255, 0.22)");
+    expect(glassRule).toContain("border: 1px solid rgba(255, 255, 255, 0.12)");
     expect(glassRule).not.toContain("inset 1px 1px 0 rgba(255, 255, 255, 0.4)");
   });
 

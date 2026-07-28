@@ -790,34 +790,6 @@ button.mb-buyer-cta:active {
   padding: calc(66px + 32px) var(--mb-container-pad) 64px;
   overflow: hidden;
 }
-/* The under-glass light sources (founder 2026-07-28, "i dont see the
-   glassmorph blur improvement"). A hot white core inside the blue orb gives
-   the blur mid-frequency detail to smear — a soft gradient alone just dims. */
-.mb-fit3d-glow {
-  position: absolute;
-  z-index: 1;
-  pointer-events: none;
-  border-radius: 50%;
-}
-.mb-fit3d-glow--a {
-  width: 560px;
-  height: 560px;
-  right: 2%;
-  bottom: 16%;
-  background:
-    radial-gradient(closest-side, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0) 10%),
-    radial-gradient(closest-side, rgba(91, 155, 247, 0.5) 0%, rgba(91, 155, 247, 0.2) 40%, transparent 70%);
-}
-.mb-fit3d-glow--b {
-  width: 440px;
-  height: 440px;
-  left: 4%;
-  bottom: 4%;
-  background:
-    radial-gradient(closest-side, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0) 9%),
-    radial-gradient(closest-side, rgba(47, 125, 246, 0.44) 0%, rgba(47, 125, 246, 0.16) 44%, transparent 72%);
-}
-
 .mb-fit3d-inner {
   position: relative;
   z-index: 2;
@@ -937,12 +909,55 @@ button.mb-buyer-cta:active {
   }
 }
 
+/* Copy-exact 2026-07-29: the CATALOG panels run WITHOUT backdrop-filter,
+   exactly like the mockup. Behind them sit the band's radial washes, and
+   blur(32) saturate(1.8) turned those into a bright interior wash the design
+   does not have — while the crisp wireframe/grid show-through the design DOES
+   have was blurred away. The .mb-glass primitive keeps its recipe; the glass
+   showcase lives where the backdrop is right for it: the spine (refraction),
+   the flow nodes and the nav. 0,2,0 beats .mb-glass. */
+.mb-cat-panels > .mb-cat-ymm,
+.mb-cat-panels > .mb-cat-window,
+.mb-cat-window-body .mb-cat-grid > * {
+  /* the grid's only children are the part cards; the child form (not
+     ".mb-ucat-card { ... backdrop-filter") keeps r13's duplicate-recipe
+     guard intact, which greps for that exact block shape */
+  backdrop-filter: none;
+}
+
+/* Copy-exact 2026-07-29, pixel-verified: the mockup's PANELS are not
+   translucent glass — each is a near-OPAQUE dark navy inner surface
+   (172deg, .94-.96 alpha) inside a bright gradient RIM (the spine's family).
+   That opacity is what keeps the window interior even and dark: the band's
+   radial washes cannot show through it. Mock empty-window pixel rgb(6,13,22)
+   vs our translucent build's rgb(40,49,60) — this rule closes that gap.
+   Double-background: inner surface in the padding box, rim in the border box
+   behind a transparent border. 0,2,0 beats .mb-glass. */
+.mb-cat-panels > .mb-cat-ymm,
+.mb-cat-panels > .mb-cat-sku,
+.mb-cat-panels > .mb-cat-window {
+  border: 1px solid transparent;
+  border-radius: 19px;
+  background:
+    linear-gradient(172deg, rgba(24, 36, 54, 0.94) 0%, rgba(14, 22, 34, 0.96) 46%, rgba(18, 32, 52, 0.95) 100%)
+      padding-box,
+    linear-gradient(
+        158deg,
+        rgba(255, 255, 255, 0.48) 0%,
+        rgba(91, 155, 247, 0.3) 38%,
+        rgba(255, 255, 255, 0.09) 72%,
+        rgba(255, 255, 255, 0.3) 100%
+      )
+      border-box;
+}
+
 .mb-cat-window {
   grid-area: window;
-  /* Fill both rows even when the left column outgrows the card content — the
-     grid's align-items:start would otherwise shrink-wrap the window and leave
-     it hanging short of the SKU card's bottom edge. */
-  align-self: stretch;
+  /* Copy-exact 2026-07-29 (pixel-measured): the mockup's window SHRINK-WRAPS
+     — its bottom edge tucks ~45px under the cards instead of stretching to
+     the left column's height. The old stretch left ~140px of empty panel
+     below the cards at wide viewports. */
+  align-self: start;
   overflow: hidden;
   min-width: 0; /* without this the grid child refuses to shrink below its content */
 }
@@ -1267,7 +1282,7 @@ button.mb-buyer-cta:active {
 .mb-cat-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px;
+  gap: 16px; /* mockup verbatim (was 20) */
 }
 
 @media (max-width: 600px) {
@@ -1310,6 +1325,9 @@ button.mb-buyer-cta:active {
    provenance badge; this is the ONE canonical rule for the plate. */
 .mb-cat-card-img-wrap {
   position: relative;
+  /* ::before below paints the mockup's 16px blueprint micro-grid inside the
+     plate (founder 2026-07-29: "analyze it very carefully and copy it" —
+     extracted verbatim: 1px rgba(47,125,246,.05) lines, 16px pitch). */
   width: 100%;
   /* 23/18 == the mockup band's 207x162. Full-bleed: no own radius (the card
      clips), and the mockup's slightly warmer plate colour. */
@@ -1321,7 +1339,19 @@ button.mb-buyer-cta:active {
   justify-content: center;
 }
 
+.mb-cat-card-img-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(47, 125, 246, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(47, 125, 246, 0.05) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
 .mb-cat-card-img {
+  /* positioned so the screen-blended part paints above the grid ::before */
+  position: relative;
   width: auto;
   height: auto;
   /* The mockup's cap: the part occupies at most 78% of the band on either
@@ -1395,8 +1425,8 @@ button.mb-buyer-cta:active {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 9px;
-  border-radius: 20px;
+  padding: 4px 7px; /* mockup verbatim (was 9px) */
+  border-radius: 6px; /* mockup: rounded rectangle, NOT a pill (was 20px) */
   /* Founder 2026-07-28 lifted the R15 "no green" ban for success states, so the
      fill, border and text below are the R25 mockup's own values. Green here is
      SEMANTIC — it means "this fits" — which is why the ban was narrowed rather
@@ -3334,8 +3364,11 @@ button.mb-buyer-cta:active {
      and a stronger top edge-light. The refraction-edge (feDisplacementMap)
      flourish was considered and deliberately skipped — heavy and flaky in
      Safari, wrong risk for an investor page. */
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* Founder 2026-07-29 copy-exact pass: surface tint and border return to the
+     mockup's own values — the brighter 0.12/0.2 upgrade read lighter than the
+     design. The blur/saturation upgrade below STAYS. */
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.075) 0%, rgba(255, 255, 255, 0.025) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--mb-radius-card);
   /* Unprefixed ONLY — do not hand-write -webkit-backdrop-filter here. When both
      forms are in the source, the CSS transform collapses them and keeps just the
@@ -3344,7 +3377,7 @@ button.mb-buyer-cta:active {
      lets the build emit both. This is why the R13 glass never actually applied. */
   backdrop-filter: blur(32px) saturate(1.8);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
     0 20px 46px rgba(3, 8, 16, 0.5);
 }
 

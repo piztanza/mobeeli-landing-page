@@ -42,9 +42,12 @@ with sync_playwright() as p:
     ck("C1 SKU card sits UNDER the picker, same column",
        sku["y"] > picker["y"] and abs(sku["x"] - picker["x"]) < 3,
        f"picker=({picker['x']:.0f},{picker['y']:.0f}) sku=({sku['x']:.0f},{sku['y']:.0f})")
-    ck("C1 window spans both rows",
-       win["y"] <= sku["y"] + 1 and win["y"] + win["height"] >= sku["y"] + sku["height"] - 1,
-       f"win y={win['y']:.0f}..{win['y']+win['height']:.0f} sku ends {sku['y']+sku['height']:.0f}")
+    # 2026-07-29 copy-exact pass: the mockup's window SHRINK-WRAPS (bottom
+    # edge ~23px under the cards) rather than stretching to the left column's
+    # height — the old spans-both-rows pin asserted the pre-mockup stretch.
+    ck("C1 window starts at the picker row and shrink-wraps",
+       win["y"] <= sku["y"] + 1 and win["height"] > 300,
+       f"win y={win['y']:.0f} h={win['height']:.0f}")
 
     # --- correction 2: the head collision ---
     ck("C2 head uses .mb-ucat-head", pg.locator("#how-it-works .mb-ucat-head").count() == 1)

@@ -133,16 +133,12 @@ export default function FitmentSection() {
         <Image src="/assets/catalog-car-wireframe.jpg" alt="" fill sizes="100vw" />
       </div>
       <AmbientAurora intensity={AURORA_INTENSITY} />
-      {/* Light sources under the glass (founder 2026-07-28: "i dont see the
-          glassmorph blur improvement"). backdrop-filter only shows where the
-          backdrop has detail, and the band's ink is nearly flat behind the
-          panels — so the 32px blur was physically invisible there. These two
-          glows straddle the panel edges: the exposed part stays crisp, the
-          part under glass diffuses, and THAT contrast is what makes the
-          material legible. z-index 1 — above the wire and aurora, below the
-          z-2 content. */}
-      <span className="mb-fit3d-glow mb-fit3d-glow--a" aria-hidden />
-      <span className="mb-fit3d-glow mb-fit3d-glow--b" aria-hidden />
+      {/* The 2026-07-28 under-glass glow orbs were REMOVED by the 2026-07-29
+          copy-exact ruling: the R25 design has a quiet, even band, and on the
+          mockup's more transparent panel tint the orbs flooded the window
+          interior with light. The blur now reads through the design's own
+          texture instead: the plates' 16px micro-grid, the band wireframe and
+          the window rim. */}
       {/* Founder 2026-07-28: the animated bezier-network background is OFF this
           band — the travelling packets and the radiating node read as motion
           for its own sake behind a panel the visitor is meant to read. The
