@@ -397,7 +397,7 @@ describe("landing page render (F-001 + F-009)", () => {
 
   it("wires the nav waitlist CTA to /join and the hero shop CTA to platform registration", () => {
     expect(html).toContain('href="/join"');
-    expect(html).toContain('href="https://mobilee-demo.vercel.app/platform/join"');
+    expect(html).toContain('href="https://company.mobeeli.com/join"');
     expect(html).toContain('href="/investors"');
   });
 
@@ -405,7 +405,7 @@ describe("landing page render (F-001 + F-009)", () => {
     for (const href of [
       "/#problem",
       "/#how-it-works",
-      "https://mobilee-demo.vercel.app/platform/join",
+      "https://company.mobeeli.com/join",
       "/team",
       "/investors",
     ]) {
