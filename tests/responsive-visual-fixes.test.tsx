@@ -118,17 +118,12 @@ describe("phone catalog stage and unify map (CHG-piztanza-18)", () => {
   });
 
   it("archipelago map is full-bleed with a bottom dissolve (R4, supersedes the framed map)", () => {
-    // Founder 2026-07-28 pushed the scene DOWN out of the copy's band, so the
-    // inset is no longer a flat 0 — the map was colliding with the headline.
-    // What this test is actually protecting is that the map is not a FRAMED box:
-    // it must still span the full width and bleed past the bottom. So the
-    // horizontal edges are pinned at 0 and the vertical ones are left free.
-    expect(landingCss).toMatch(
-      /\.mb-uni-bleed \{[^}]*position: absolute;[^}]*inset: [^;]* 0 [^;]*;/s,
-    );
-    expect(landingCss, "map must not be re-framed horizontally").not.toMatch(
-      /\.mb-uni-bleed \{[^}]*(left|right): (?!0)[^;]*;/s,
-    );
+    // `inset: 0` is load-bearing, not incidental. R25 briefly offset this layer
+    // downward to stop the archipelago colliding with the headline; that put a
+    // hard horizontal seam across the band where the scene's own ground began,
+    // and the founder rejected it — "I need the map as the full section". The
+    // copy's position, not the map's, is what resolves the collision.
+    expect(landingCss).toMatch(/\.mb-uni-bleed \{[^}]*position: absolute;[^}]*inset: 0;/s);
     expect(landingCss).toMatch(/\.mb-uni-bleed \{[^}]*mask-image: linear-gradient\(to bottom/s);
     expect(landingCss).toMatch(/\.mb-uni-scene \{[^}]*height: 100%;/s);
     // The copy overlay must never intercept the scene's drag interaction.

@@ -2590,14 +2590,16 @@ button.mb-buyer-cta:active {
 }
 /* R4: the archipelago scene fills the entire band (founder: the visual IS the
    section), dissolving into the following light band at the bottom edge. */
-/* The scene is pushed DOWN out of the copy's band. Centred, the archipelago's
-   dense middle — and IndoGlobe's Jakarta label — landed directly on the
-   headline, which is what made the two fight. Offsetting the layer rather than
-   re-framing the 3D scene keeps the drag interaction and the camera untouched.
-   The bottom overhang lets the map bleed toward the next band as before. */
+/* Full-bleed, edge to edge — founder 2026-07-28: "I need the map as the full
+   section." An earlier attempt at the headline collision offset this layer
+   downward, which put a hard horizontal seam across the band where the scene's
+   own ground began. The map must cover the whole section; the collision is
+   solved by where the COPY sits (.mb-uni is align-items: flex-start, so the
+   headline rides in the upper band while the archipelago centres below it),
+   not by moving the map out from under it. */
 .mb-uni-bleed {
   position: absolute;
-  inset: 22% 0 -10% 0;
+  inset: 0;
   mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
 }
