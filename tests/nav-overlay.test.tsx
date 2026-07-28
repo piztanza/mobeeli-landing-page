@@ -62,7 +62,9 @@ describe("nav overlay variant (landing only)", () => {
 
 describe("nav overlay + hero viewport (CSS contracts)", () => {
   it("overlay bar is fixed and fully transparent until solid", () => {
-    expect(overlayBlock).toMatch(/\.mb-nav--overlay \{[^}]*position: fixed;/s);
+    // Founder 2026-07-28: the header does not stick. absolute = overlays the
+    // hero at scrollY 0 exactly as fixed did, then leaves with the page.
+    expect(overlayBlock).toMatch(/\.mb-nav--overlay \{[^}]*position: absolute;/s);
     expect(overlayBlock).toMatch(/\.mb-nav--overlay:not\(\.is-solid\) \{[^}]*background: transparent;/s);
     expect(overlayBlock).toMatch(
       /\.mb-nav--overlay:not\(\.is-solid\) \{[^}]*border-bottom-color: transparent;/s,

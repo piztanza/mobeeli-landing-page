@@ -126,9 +126,10 @@
 
 /* ---------- nav ---------- */
 
+/* Founder 2026-07-28: the header does NOT stick — it scrolls away with the
+   page. `relative` keeps the z-index stacking for the sheet/backdrop. */
 .mb-nav {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 60;
   /* Faintly cool off-white (a hint of --mb-bg) with the blur reads as a frosted
      bar rather than the generic pure-white SaaS nav (audit #30). */
@@ -143,11 +144,15 @@
   height: 66px;
   display: flex;
   align-items: center;
+  /* Anchor for the absolutely-centred menu (founder 2026-07-28). */
+  position: relative;
   gap: 26px;
 }
 .mb-nav-logo {
   display: flex;
   align-items: center;
+  /* Founder 2026-07-28: "top left with a bit of space left". */
+  margin-left: 14px;
 }
 /* Sizing only — NO `display` here. Putting display:block on the shared img
    rule (0,1,1) out-specified `.mb-nav-logo-white { display:none }` (0,1,0) and
@@ -160,10 +165,18 @@
 .mb-nav-logo-blue {
   display: block;
 }
+/* Founder 2026-07-28: the menu is CENTRED in the bar, not left-stacked after
+   the logo. Absolute centring, so it is the bar's true midpoint regardless of
+   how the logo and the CTA cluster differ in width — flex justify would centre
+   it only between them. DOM order (logo, links, spacer, toggle, CTA) means the
+   remaining flow still pins the logo left and the CTA cluster right. Absolute
+   also shrink-wraps the box, which retires the old wrap-inside-the-bar hazard. */
 .mb-nav-links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   gap: 22px;
-  flex-wrap: wrap;
   align-items: center;
   font-size: 14px;
   font-weight: 600;
@@ -230,7 +243,10 @@
   display: none;
 }
 .mb-nav--overlay {
-  position: fixed;
+  /* absolute, not fixed (founder: no sticky header) — it overlays the hero at
+     the top and scrolls away with it. The is-solid machinery still serves the
+     open mobile sheet, which forces a solid bar for contrast. */
+  position: absolute;
   left: 0;
   right: 0;
   top: 0;
