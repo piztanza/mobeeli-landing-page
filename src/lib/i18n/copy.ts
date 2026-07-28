@@ -27,7 +27,7 @@ const en = {
   /* Deck routes (F-016) — noindex pages, titles only. */
   "meta.deck.title": "Investor deck | Mobeeli",
   "meta.deckadmin.title": "Deck admin | Mobeeli",
-  "nav.cta": "Join Waitlist",
+  "nav.cta": "Join us",
   "hero.line1": "Every part,",
   "hero.line2": "verified to fit.",
   "join.title": "Join Waitlist",
@@ -39,7 +39,7 @@ const en = {
   nav_inv: "Investors",
   /* R16 ruling 1c: protection became its own band, so it needs an anchor. */
   nav_protect: "Protection",
-  nav_cta: "Join Waitlist",
+  nav_cta: "Join us",
   /* Mobile hamburger nav a11y labels (CHG-piztanza-10) — not part of the design TXT map. */
   nav_menu_open: "Open menu",
   nav_menu_close: "Close menu",
@@ -450,7 +450,7 @@ const id: Record<CopyKey, string> = {
   "meta.deckadmin.title": "Deck admin | Mobeeli",
   "meta.join.description":
     "Jadi salah satu toko pertama di Mobeeli. Ceritakan tentang bisnis Anda. Salah satu founder akan menghubungi langsung — tanpa bayar, tanpa komitmen untuk menyatakan minat.",
-  "nav.cta": "Join Waitlist",
+  "nav.cta": "Gabung",
   "hero.line1": "Setiap suku cadang,",
   "hero.line2": "dipastikan cocok.",
   "join.title": "Join Waitlist",
@@ -462,7 +462,7 @@ const id: Record<CopyKey, string> = {
   nav_inv: "Investor",
   /* R16 ruling 1c: protection became its own band, so it needs an anchor. */
   nav_protect: "Perlindungan",
-  nav_cta: "Join Waitlist",
+  nav_cta: "Gabung",
   /* Mobile hamburger nav a11y labels (CHG-piztanza-10) — not part of the design TXT map. */
   nav_menu_open: "Buka menu",
   nav_menu_close: "Tutup menu",

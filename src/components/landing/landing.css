@@ -168,8 +168,14 @@
   font-size: 14px;
   font-weight: 600;
 }
+/* Founder 2026-07-28: menu set in caps. Uppercase reads larger and tighter than
+   sentence case at the same metrics, so the size drops a notch and tracking
+   opens up — without that it crowds the bar and eats the sixth-link headroom. */
 .mb-nav-links a {
   color: #3c4654;
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 .mb-nav-links a:hover {
   color: var(--mb-deep-blue);
@@ -744,9 +750,14 @@ button.mb-buyer-cta:active {
   background: var(--mb-ink);
   /* Distinct glow geometry from the hero (audit #22): mirrored to blue
      top-left / deep bottom-right so no two dark bands share the same recipe. */
+  /* Founder 2026-07-28: "the background... exactly like this". The mockup band
+     is the SAME --mb-ink token; what made ours read lighter and bluer was these
+     two washes at 0.13/0.22 plus the WebGL aurora on top. Halved, so the band
+     sits back down at the design's near-flat ink and the panels carry the
+     contrast instead of the backdrop. */
   background-image:
-    radial-gradient(680px 460px at 18% 8%, rgba(47, 125, 246, 0.13), transparent 72%),
-    radial-gradient(600px 400px at 92% 94%, rgba(18, 63, 158, 0.22), transparent 70%);
+    radial-gradient(680px 460px at 18% 8%, rgba(47, 125, 246, 0.06), transparent 72%),
+    radial-gradient(600px 400px at 92% 94%, rgba(18, 63, 158, 0.1), transparent 70%);
   min-height: 100vh;
   min-height: 100svh;
   display: flex;
@@ -1284,9 +1295,14 @@ button.mb-buyer-cta:active {
   gap: 6px;
   padding: 6px 12px;
   border-radius: 20px;
-  background: rgba(47, 125, 246, 0.15);
-  border: 1px solid rgba(47, 125, 246, 0.3);
-  color: var(--mb-light-accent);
+  /* Founder 2026-07-28 lifted the R15 "no green" ban for success states, so the
+     fill, border and text below are the R25 mockup's own values. Green here is
+     SEMANTIC — it means "this fits" — which is why the ban was narrowed rather
+     than dropped: stray greens still fail the palette test. (That test greps the
+     raw file, so do not restate the tokens in prose.) */
+  background: rgba(16, 185, 129, 0.13);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34d399;
   font-size: 12px;
   font-weight: 700;
   width: fit-content;
@@ -3806,13 +3822,18 @@ button.mb-buyer-cta:active {
   gap: 5px;
   padding: 3px 8px;
   border-radius: 6px;
-  background: rgba(191, 122, 30, 0.9);
-  border: 1px solid rgba(233, 163, 62, 0.55);
+  /* The mockup's amber, verbatim: a translucent fill with a solid dot, not a
+     solid pill. rgba(245,158,11,.1) / border .28 / text #fbbf24 at 9.5px. */
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.28);
+  /* The mockup sets 9.5px. R8 audit #10 established a 10px floor for labels
+     after sub-legible text shipped once, and a test enforces it — so this is
+     10px. Half a pixel, against a legibility rule the founder's own audit set. */
   font-size: 10px;
   font-weight: 800;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #fff;
+  color: #fbbf24;
 }
 
 /* The rejected result. Muted, struck through, and explicitly labelled — a
@@ -3834,10 +3855,19 @@ button.mb-buyer-cta:active {
   filter: grayscale(1);
   opacity: 0.55;
 }
+.mb-ucat-card.is-unfit .mb-cat-card-name {
+  color: #a9b4c6;
+}
+/* The mockup's reject palette, verbatim. */
 .mb-cat-verified--unfit {
-  background: rgba(214, 69, 69, 0.14);
-  border-color: rgba(214, 69, 69, 0.36);
-  color: #f0a3a3;
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.32);
+  /* The mockup's chipFg is exactly this red, and the repo already tokenises it
+     (R8 audit #15 forbids the raw hex here). Same colour, correct route. */
+  color: var(--mb-danger-on-dark);
+}
+.mb-ucat-card.is-unfit {
+  border-color: rgba(239, 68, 68, 0.22);
 }
 
 /* ---- the spine's process labels ---- */

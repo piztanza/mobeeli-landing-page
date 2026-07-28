@@ -76,11 +76,38 @@ describe("R15 catalog — hardening (perf, type-safety, no green)", () => {
     expect(src).not.toContain("as any");
   });
 
-  it("introduces no banned emerald/indigo hexes", () => {
+  /**
+   * R15 banned emerald and indigo outright. FOUNDER RULING 2026-07-28 narrowed
+   * that: the catalogue's success chip is green because green is what "this
+   * fits" means, and the R25 design is built on it. The rule is not dropped —
+   * green is permitted ONLY on the verified chip, by exact token, and indigo
+   * stays banned entirely. Anything else green still fails, which is the point:
+   * a semantic exception, not an open palette.
+   */
+  it("permits green only as the verified-fit signal, and still bans indigo", () => {
     const combined = (src + css).toLowerCase();
-    expect(combined).not.toContain("#10b981");
-    expect(combined).not.toContain("#34d399");
-    expect(combined).not.toContain("#818cf8");
+
+    // Indigo was never re-litigated.
+    expect(combined, "indigo is still banned").not.toContain("#818cf8");
+
+    // Every green occurrence must sit inside the verified/unfit chip rules.
+    const allowed = [
+      "rgba(16, 185, 129, 0.13)", // verified chip fill
+      "rgba(16, 185, 129, 0.3)", // verified chip border
+      "#34d399", // verified chip text
+    ];
+    const greenHits = (css.match(/#10b981|#34d399|rgba\(16, ?185, ?129[^)]*\)/gi) ?? []).map((s) =>
+      s.toLowerCase(),
+    );
+    for (const hit of greenHits) {
+      expect(
+        allowed.some((a) => a.replace(/\s/g, "") === hit.replace(/\s/g, "")),
+        `unexpected green token ${hit} — green is reserved for the verified chip`,
+      ).toBe(true);
+    }
+    // And the component source stays free of hardcoded colour entirely.
+    expect(src).not.toContain("#10b981");
+    expect(src).not.toContain("#34d399");
   });
 });
 
