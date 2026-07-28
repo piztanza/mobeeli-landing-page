@@ -36,7 +36,9 @@ const glassRule = landingCss.match(/\.mb-glass \{[^}]*\}/s)?.[0] ?? "";
 describe("R16 — one glass primitive", () => {
   it("defines a single .mb-glass recipe", () => {
     expect(glassRule, ".mb-glass rule").not.toBe("");
-    expect(glassRule).toContain("backdrop-filter: blur(22px) saturate(1.5)");
+    // Founder 2026-07-28 late pass ("more blurred and glass"): 22px/1.5 became
+    // 32px/1.8, the 2026 liquid-glass register for premium surfaces.
+    expect(glassRule).toContain("backdrop-filter: blur(32px) saturate(1.8)");
   });
 
   // Hand-writing both forms makes the CSS transform collapse them and keep only
@@ -46,10 +48,12 @@ describe("R16 — one glass primitive", () => {
     expect(landingCss).not.toContain("-webkit-backdrop-filter");
   });
 
-  it("uses the softened specular highlight and border (not the old hard edge)", () => {
-    expect(glassRule).toContain("inset 0 1px 0 rgba(255, 255, 255, 0.22)");
-    expect(glassRule).toContain("border: 1px solid rgba(255, 255, 255, 0.12)");
-    // The 0.4 highlight read as a hard white edge down the left side.
+  it("uses the top edge-light and hairline border (not the old hard edge)", () => {
+    // Founder 2026-07-28 late pass: edge-light .22 -> .3 and border .12 -> .2 —
+    // firmer glass edge, still a TOP light source, not the retired 0.4
+    // left-corner highlight that read as a hard white edge.
+    expect(glassRule).toContain("inset 0 1px 0 rgba(255, 255, 255, 0.3)");
+    expect(glassRule).toContain("border: 1px solid rgba(255, 255, 255, 0.2)");
     expect(glassRule).not.toContain("inset 1px 1px 0 rgba(255, 255, 255, 0.4)");
   });
 
