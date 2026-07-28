@@ -16,8 +16,8 @@ export default function Footer() {
               <Image
                 src="/assets/mobeeli-logo-white.png"
                 alt="Mobeeli"
-                width={2891}
-                height={1109}
+                width={3076}
+                height={783}
               />
             </div>
             <div className="mb-footer-tag">{t("foot_tag")}</div>

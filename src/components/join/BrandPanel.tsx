@@ -38,7 +38,7 @@ export default function BrandPanel() {
         aria-hidden
       />
       <Link href="/" className="mb-jw-brand-logo">
-        <Image src="/assets/mobeeli-logo-white.png" alt="Mobeeli" width={2891} height={1109} />
+        <Image src="/assets/mobeeli-logo-white.png" alt="Mobeeli" width={3076} height={783} />
       </Link>
       <div className="mb-jw-brand-mid">
         <div className="mb-jw-offer">{t("jw_offer")}</div>

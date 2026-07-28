@@ -16,7 +16,7 @@ export const size = OG_IMAGE_SIZE;
 export const contentType = OG_IMAGE_CONTENT_TYPE;
 
 export default async function OpengraphImage() {
-  // Official dark-background logo (white wordmark, 2891×1109) inlined as a data URI.
+  // Official dark-background logo (white wordmark, 3076×783 — the 2026-07-28 larger-text lockup) inlined as a data URI.
   const logo = await readFile(path.join(process.cwd(), "public/assets/mobeeli-logo-white.png"));
   const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
 

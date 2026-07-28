@@ -193,8 +193,8 @@ export default function Nav({ overlay = false }: { overlay?: boolean }) {
             className="mb-nav-logo-blue"
             src="/assets/mobeeli-logo-blue.png"
             alt="Mobeeli"
-            width={2891}
-            height={1109}
+            width={3076}
+            height={783}
           />
           {/* Both variants carry the accessible name: only ONE is ever in the
               a11y tree (the hidden one is display:none), so the home link is
@@ -204,8 +204,8 @@ export default function Nav({ overlay = false }: { overlay?: boolean }) {
             className="mb-nav-logo-white"
             src="/assets/mobeeli-logo-white.png"
             alt="Mobeeli"
-            width={2891}
-            height={1109}
+            width={3076}
+            height={783}
           />
         </Link>
         <div className="mb-nav-links">{NAV_LINKS.map(sectionLink)}</div>
