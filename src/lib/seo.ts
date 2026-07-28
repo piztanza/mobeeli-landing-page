@@ -90,12 +90,19 @@ function pageDescription(pagePath: PagePath): string {
 }
 
 /** Per-route metadata. Next.js does not deep-merge openGraph
- *  across layout/page, so each page carries its complete OG/Twitter block; the
- *  file-convention opengraph-image/twitter-image routes append og:image /
- *  twitter:image automatically. */
+ *  across layout/page, so each page carries its complete OG/Twitter block.
+ *
+ *  The images are EXPLICIT, not left to the file-convention routes. An earlier
+ *  version of this comment assumed src/app/opengraph-image.tsx would "append
+ *  og:image automatically" to every page — measured on the deployed site, it
+ *  attaches only to the root route, so /team, /investors, /why-mobeeli and
+ *  /join declared twitter:card=summary_large_image while emitting NO image at
+ *  all: link previews of the investor-facing pages rendered without a card.
+ *  Every page now points at the root-generated image directly. */
 function pageMetadata(pagePath: PagePath): Metadata {
   const title = pageTitle(pagePath);
   const description = pageDescription(pagePath);
+  const ogImage = { url: "/opengraph-image", width: 1200, height: 630, alt: SITE_NAME };
   return {
     title,
     description,
@@ -108,11 +115,13 @@ function pageMetadata(pagePath: PagePath): Metadata {
       url: pagePath,
       title,
       description,
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [ogImage.url],
     },
   };
 }

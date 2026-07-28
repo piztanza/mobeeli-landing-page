@@ -36,8 +36,14 @@ export const PLATFORM_URL = "https://company.mobeeli.com/join";
  * breakpoint, the founder dropped "Why Mobeeli" from the bar. R18 call A cuts
  * the protection band, so the anchor goes with it — leaving FIVE links and a
  * free slot. Whether "Why Mobeeli" returns to that slot is an open founder
- * call, NOT an automatic revert: see the note in the R18 handoff. The
- * /why-mobeeli route stays live, indexed and linked from the footer either way.
+ * call, NOT an automatic revert: see the note in the R18 handoff.
+ *
+ * CORRECTED 2026-07-28: the R18 brief's original wording here claimed the
+ * /why-mobeeli route is "linked from the footer". It is not, and never was —
+ * the footer renders a logo, a tagline, a mailto and a copyright line, no nav
+ * links. The route is live and in sitemap.ts, but it has NO inbound link from
+ * any page; a visitor can only reach it by typing the URL. That orphaning is
+ * the open item, and it is why the free-slot question matters.
  */
 const NAV_LINKS: readonly (readonly [href: string, key: CopyKey])[] = [
   ["/#problem", "nav_problem"],
@@ -71,8 +77,9 @@ function LangToggle() {
 }
 
 /**
- * Sticky nav — logo, 5 section links, EN/ID pill toggle, Join Waitlist CTA (F-009: routes to
- * /join). Below 880px the links/toggle/CTA collapse into a hamburger sheet (CHG-piztanza-10):
+ * Sticky nav — logo, 5 section links, EN/ID pill toggle, "Join us" CTA (F-009: routes to
+ * /join). Below 1040px (NAV_DESKTOP_QUERY — the 880px in older comments was a
+ * previous breakpoint) the links/toggle/CTA collapse into a hamburger sheet (CHG-piztanza-10):
  * animated icon, body scroll lock, closes on link tap / outside tap / Escape (returning focus
  * to the toggle), aria-expanded + aria-controls wired to the sheet.
  *
@@ -147,8 +154,9 @@ export default function Nav({ overlay = false }: { overlay?: boolean }) {
     };
   }, [open]);
 
-  // Escape closes and returns focus to the toggle; growing past 880px closes too
-  // (so the lock never lingers after a rotate/resize back to desktop).
+  // Escape closes and returns focus to the toggle; growing past the desktop
+  // breakpoint (NAV_DESKTOP_QUERY, 1040px — not the 880px this comment used to
+  // claim) closes too, so the lock never lingers after a rotate/resize.
   useEffect(() => {
     if (!open) return;
     const onKeyDown = (event: KeyboardEvent) => {

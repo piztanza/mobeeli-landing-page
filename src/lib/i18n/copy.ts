@@ -125,6 +125,9 @@ const en = {
   /* The hand-off from the diagram to the demonstration. Deliberately short — it
      is a hinge, not a paragraph. */
   cat_bridge: "One description in. One verified listing out.",
+  /* DORMANT since the R25 full-mockup pass: the window bar now shows
+     cat_katalog_label + the query, not this title. Kept defined and paired
+     (prot_r* precedent) so restoring it is a mount, not a translation round. */
   cat_window_title: "Verified for your vehicle",
   /* R25 full-mockup pass. The catalogue result window and the five-level
      picker, matched to `mobeeli-landing-r25.html`.
@@ -153,6 +156,8 @@ const en = {
   cat_part1_name: "Iridium Spark Plug",
   cat_part2_name: "Clutch Cover Assy",
   cat_part3_name: "Gas Shock Absorber",
+  /* DORMANT since R25: the fourth card became the deliberately non-fitting
+     cat_part5_* (Ceramic Pad Set). Name and spec both kept, paired. */
   cat_part4_name: "Standard Grade Pads",
   cat_sim_tag: "(Simulation)",
   /* R16 ruling 2b: the cards show FITMENT SPECS, not simulated prices — the page

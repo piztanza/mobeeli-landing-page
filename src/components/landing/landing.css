@@ -285,7 +285,7 @@
   }
 }
 
-/* ---------- mobile nav — hamburger + sheet below 880px (CHG-piztanza-10) ---------- */
+/* ---------- mobile nav — hamburger + sheet below 1040px (NAV_DESKTOP_QUERY; CHG-piztanza-10) ---------- */
 
 .mb-nav-burger {
   display: none;

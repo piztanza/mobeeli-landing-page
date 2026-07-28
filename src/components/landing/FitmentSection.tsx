@@ -25,11 +25,18 @@ const AmbientAurora = dynamic(() => import("@/components/three/AmbientAurora"), 
 export const SCAN_DURATION_MS = 1800;
 
 /**
- * Unified catalog (R15) — the second section: a vehicle picker (YMM + plate/VIN)
- * that persists to a localStorage "garage", then a filtered catalog of real
- * part cards with honest "(Simulation)" price tags and a "verified fit" badge.
- * Replaces the 3D fitment wheel (founder-directed). All numbers are labelled
- * Simulation; all strings come from copy.ts.
+ * The merged how-it-works band (R15 catalog + R20 platform flow, merged by
+ * R25) — THIRD band in the stack, after the problem band. One headline spans
+ * both halves: the industry-scale Sankey figure (PlatformFlow) hands off via a
+ * bridge line to the per-part proof — a five-level vehicle picker (YMM +
+ * plate/VIN) persisting to a localStorage "garage", beside a catalogue result
+ * window with fitment-spec cards, one of which deliberately does not fit.
+ *
+ * (Earlier versions of this comment described "the second section" and
+ * "(Simulation) price tags" — both stale: R16 ruling 2b replaced prices with
+ * fitment specs, and R18/R25 reordered and merged the bands. The Simulation
+ * label now rides the illustrative result COUNTS, per the founder's 2026-07-28
+ * ruling, and a test asserts it renders.) All strings come from copy.ts.
  */
 export default function FitmentSection() {
   const t = useT();
