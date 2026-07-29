@@ -2665,6 +2665,233 @@ button.mb-buyer-cta:active {
 
 /* ---------- team ---------- */
 
+/* ============================================================
+   R29 — /team "Ledger stack" (CD handoff 2026-07-29, founder-
+   picked option 2a). The old .mb-team-* grid rules below stay
+   until confirmed unused on other surfaces.
+   ============================================================ */
+.mb-team2 {
+  background: var(--mb-bg);
+  padding: 92px var(--mb-container-pad) 72px;
+}
+.mb-team2-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.mb-team2-head {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 64px;
+  align-items: end;
+}
+.mb-team2-kicker {
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mb-primary-cta);
+}
+.mb-team2-h2 {
+  margin: 16px 0 0;
+  font-size: clamp(38px, 4.4vw, 56px);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  font-weight: 800;
+  color: var(--mb-ink);
+}
+.mb-team2-lede {
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--mb-muted);
+  padding-bottom: 8px;
+  text-wrap: pretty;
+}
+.mb-team2-rows {
+  margin-top: 32px;
+}
+.mb-team2-row {
+  display: grid;
+  grid-template-columns: 440px minmax(0, 1fr);
+  gap: 56px;
+  align-items: center;
+  padding: 36px 0;
+  border-top: 1px solid var(--mb-border);
+}
+.mb-team2-row:first-child {
+  border-top: 1.5px solid var(--mb-ink);
+}
+.mb-team2-row--flip {
+  grid-template-columns: minmax(0, 1fr) 440px;
+}
+.mb-team2-row--flip .mb-team2-body {
+  order: 1;
+}
+.mb-team2-row--flip .mb-team2-plate {
+  order: 2;
+}
+.mb-team2-plate {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 18px;
+  overflow: hidden;
+  background-color: #eff3f6;
+  background-image: radial-gradient(rgba(13, 21, 34, 0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.mb-team2-plate img {
+  object-fit: cover;
+  /* R29 §0.7: monochrome at rest, real colour on hover — the consistency
+     device for three clashing headshot backgrounds. */
+  filter: grayscale(1) contrast(1.06);
+  transition: filter 0.35s ease;
+}
+.mb-team2-row:hover .mb-team2-plate img {
+  filter: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mb-team2-plate img {
+    /* keep the grayscale<->colour swap, drop the motion */
+    transition: none;
+  }
+}
+.mb-team2-body {
+  position: relative; /* anchors the ghost numeral */
+}
+.mb-team2-ghost {
+  position: absolute;
+  right: 0;
+  top: -34px;
+  z-index: 0;
+  font-size: 150px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  color: transparent;
+  -webkit-text-stroke: 1.5px #dce3ed;
+  pointer-events: none;
+  user-select: none;
+}
+.mb-team2-row--flip .mb-team2-ghost {
+  right: auto;
+  left: 0;
+}
+.mb-team2-kickrow {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.mb-team2-role {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mb-primary-cta);
+  white-space: nowrap;
+}
+.mb-team2-li {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  border: 1px solid var(--mb-border);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--mb-primary-cta);
+  text-decoration: none;
+  background: transparent;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+.mb-team2-li:hover {
+  background: #1b5fd9;
+  color: #fff;
+  border-color: #1b5fd9;
+}
+/* R29 QA: >=44px effective touch target without growing the visual badge. */
+.mb-team2-li::after {
+  content: "";
+  position: absolute;
+  inset: -9px;
+}
+.mb-team2-name {
+  position: relative;
+  z-index: 1;
+  margin: 12px 0 0;
+  font-size: clamp(30px, 3vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.022em;
+  line-height: 1.05;
+  color: var(--mb-ink);
+}
+.mb-team2-bio {
+  position: relative;
+  z-index: 1;
+  margin: 18px 0 0;
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: var(--mb-muted);
+  max-width: 52ch;
+  text-wrap: pretty;
+}
+.mb-team2-quote {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--mb-border);
+  padding-top: 26px;
+}
+.mb-team2-quote-t {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--mb-ink);
+  max-width: 52ch;
+}
+.mb-team2-quote-by {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #1b5fd9;
+}
+@media (max-width: 979.98px) {
+  .mb-team2-head {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .mb-team2-lede {
+    padding-bottom: 0;
+  }
+  .mb-team2-row,
+  .mb-team2-row--flip {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .mb-team2-row--flip .mb-team2-body {
+    order: 2;
+  }
+  .mb-team2-row--flip .mb-team2-plate {
+    order: 1;
+  }
+  .mb-team2-plate {
+    max-width: 440px;
+  }
+  .mb-team2-ghost {
+    display: none;
+  }
+}
+
 .mb-team {
   background: var(--mb-surface);
   border-top: 1px solid var(--mb-border);

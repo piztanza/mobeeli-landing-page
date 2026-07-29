@@ -315,8 +315,22 @@ const en = {
   buyer_err_email: "That email doesn't look right.",
   buyer_err_fail: "Something went wrong — please try again.",
   team_kicker: "The team",
-  team_h2: "Three founders. One engine.",
-  team_n1: "Yavet Arimathea Widjaja",
+  /* R29 (CD handoff 2026-07-29, founder-directed content rulings): the engine
+     metaphor is rejected; the CEO renders as "Matheau Widjaja" everywhere; his
+     bio carries the Canada->Indonesia return, never "signed the shops" (that
+     line lives in team_quote, the STAMPED traction frame). EN drafts pending
+     stamp except where noted; ID for the NEW/CHANGED strings is the
+     founder's to write — per the brief they are NEVER machine-translated, so
+     the ID map temporarily carries the EN values. */
+  team_h2: "Meet the team.",
+  team_lede: "Set the vision. Build the platform. Move the parts. Each job has an owner.",
+  team_own1: "sets the vision",
+  team_own2: "builds the platform",
+  team_own3: "moves the parts",
+  /* STAMPED traction frame (2026-07-29 ruling) — verbatim, do not touch. */
+  team_quote: "Most of the shops we visited signed the same afternoon.",
+  team_quote_by: "Early Adopters program — Jakarta, 2026",
+  team_n1: "Matheau Widjaja",
   team_r1: "CEO & Founder",
   team_n2: "Muhammad Salman Al Hafizh",
   team_r2: "CTO & Co-Founder",
@@ -326,7 +340,8 @@ const en = {
      the small denominator undersold the real signal, which is conversion
      speed. Keep the honest fact (most shops visited signed the same
      afternoon), never a raw count. */
-  team_c1: "Signed Mobeeli's first shops in a single afternoon — runs market strategy and the seller program.",
+  team_c1:
+    "A lifetime in Canada, a career across automotive and tech e-commerce — he saw the gap in Indonesia's parts trade and came home to close it.",
   team_c2:
     "Built the platform pre-funding — the fitment engine, gated AI ingestion, the marketplace.",
   team_c3: "Runs operations and partnerships — logistics, payments, and the wholesaler pipeline.",
@@ -766,15 +781,25 @@ const id: Record<CopyKey, string> = {
   buyer_err_email: "Format email sepertinya belum benar.",
   buyer_err_fail: "Terjadi kendala — silakan coba lagi.",
   team_kicker: "Tim",
-  team_h2: "Tiga founder. Satu mesin.",
-  team_n1: "Yavet Arimathea Widjaja",
+  /* R29: ID for the new/changed team strings is the FOUNDER'S to write — the
+     brief forbids machine translation, so EN stands in here until the founder
+     supplies Indonesian. team_quote reuses the founder's own shipped ID
+     sentence from inv_p (same English sentence, same stamped frame). */
+  team_h2: "Meet the team.",
+  team_lede: "Set the vision. Build the platform. Move the parts. Each job has an owner.",
+  team_own1: "sets the vision",
+  team_own2: "builds the platform",
+  team_own3: "moves the parts",
+  team_quote: "Sebagian besar toko yang kami datangi setuju di sore yang sama.",
+  team_quote_by: "Early Adopters program — Jakarta, 2026",
+  team_n1: "Matheau Widjaja",
   team_r1: "CEO & Founder",
   team_n2: "Muhammad Salman Al Hafizh",
   team_r2: "CTO & Co-Founder",
   team_n3: "Ferdinansyah Husein",
   team_r3: "COO & Co-Founder",
   team_c1:
-    "Meneken toko-toko pertama Mobeeli dalam satu sore — memegang strategi pasar dan program penjual.",
+    "A lifetime in Canada, a career across automotive and tech e-commerce — he saw the gap in Indonesia's parts trade and came home to close it.",
   team_c2:
     "Membangun platform ini sebelum ada pendanaan — dari mesin kecocokan, ingesti AI, sampai marketplace-nya.",
   team_c3:

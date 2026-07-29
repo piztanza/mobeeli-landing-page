@@ -143,7 +143,10 @@ describe("R8 · macrostructure & copy", () => {
 
   it("localizes the ID copy slips and de-guarantees the fitment chip (audits #6, #17, #25)", () => {
     expect(t("id", "card_part_chip")).toBe("✓ Dipastikan cocok");
-    expect(t("id", "team_h2")).toBe("Tiga founder. Satu mesin.");
+    // R29 (2026-07-29): the engine heading is retired; the ID map carries the
+    // EN draft until the founder writes the Indonesian (the brief forbids
+    // machine translation). Audit #6's localization rule resumes then.
+    expect(t("id", "team_h2")).toBe("Meet the team.");
     expect(t("id", "prob_t1_v")).toBe("19,4%");
     expect(t("id", "prob_t1_v")).not.toContain(".");
     // EN "RMA" card realigned to its actual counterfeit meaning; ID unchanged.
