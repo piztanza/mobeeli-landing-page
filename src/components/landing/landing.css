@@ -1664,7 +1664,10 @@ button.mb-buyer-cta:active {
   align-items: center; /* NO gap — the overlap IS the shared track (cols 8-9) */
 }
 .mb-prob-imgwrap {
-  grid-column: 1 / 9;
+  /* Founder 2026-07-29 16:26: the teardown grows a track (8 -> 9 of 12) to
+     use more of the band; the quote stays at 8/13, so the shared-track
+     overlap deepens from one track to two — the depth design, harder. */
+  grid-column: 1 / 10;
   grid-row: 1;
   z-index: 1;
   position: relative;
@@ -1673,11 +1676,9 @@ button.mb-buyer-cta:active {
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid var(--mb-border);
-  /* Founder 2026-07-29: the landscape teardown (1.833:1) replaced CD's
-     near-square render, so the card tightened from clamp(430,42vw,540) —
-     sized so the contained image nearly fills it (~22px letterbox at 1440)
-     instead of floating in dead plate. */
-  height: clamp(360px, 36vw, 470px);
+  /* Founder 2026-07-29: sized so the contained 1.833:1 image nearly fills
+     the card. Re-raised 16:26 with the wider 9-track span (was 36vw/470). */
+  height: clamp(380px, 40vw, 520px);
   /* card plate + blueprint dot grid — neither hex has a token */
   background-color: #eff3f6;
   background-image: radial-gradient(rgba(13, 21, 34, 0.06) 1px, transparent 1px);

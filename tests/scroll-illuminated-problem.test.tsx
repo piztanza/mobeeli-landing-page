@@ -38,7 +38,9 @@ describe("R28 — problem band depth planes", () => {
     // track 8, so the row sizes to the tallest child and the planes cannot
     // collide at any content length. An absolute quote collided at mid
     // widths during design; do not "simplify" back.
-    expect(landingCss).toMatch(/\.mb-prob-imgwrap \{[^}]*grid-column: 1 \/ 9;[^}]*grid-row: 1;/s);
+    // 2026-07-29 16:26 founder: the image grew a track (1/10); the quote
+    // stays at 8/13, so the shared overlap is TWO tracks now.
+    expect(landingCss).toMatch(/\.mb-prob-imgwrap \{[^}]*grid-column: 1 \/ 10;[^}]*grid-row: 1;/s);
     expect(landingCss).toMatch(/\.mb-prob-quote \{[^}]*grid-column: 8 \/ 13;[^}]*grid-row: 1;/s);
     expect(landingCss).not.toMatch(/\.mb-prob-quote \{[^}]*position: absolute/s);
   });
