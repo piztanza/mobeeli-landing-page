@@ -54,8 +54,17 @@ with sync_playwright() as p:
       return { card: cs(card), picker: cs(pick), cards: document.querySelectorAll('.mb-ucat-card.mb-glass').length };
     }""")
     ck("glass: all 4 part cards carry .mb-glass", glass["cards"] == 4, glass["cards"])
-    ck("glass: card computes a backdrop blur", glass["card"] and "blur(22px)" in (glass["card"]["bf"] or ""), glass["card"])
-    ck("glass: picker computes a backdrop blur", glass["picker"] and "blur(22px)" in (glass["picker"]["bf"] or ""), glass["picker"])
+    # 2026-07-29 copy-exact ruling (2f4b624): the CATALOG panels deliberately
+    # run WITHOUT backdrop-filter — the R25 design's panels are opaque, and
+    # blur turned the band's radial washes into an interior wash the design
+    # does not have. The primitive still blurs elsewhere (spine, nav, flow
+    # nodes); these two checks pin the catalog exception rather than the old
+    # R16 expectation. (These pins went stale for a round because only
+    # verify_r25 ran that day — run BOTH suites after catalog changes.)
+    ck("glass: card runs with NO backdrop-filter (copy-exact ruling)",
+       glass["card"] and (glass["card"]["bf"] or "none") == "none", glass["card"])
+    ck("glass: picker runs with NO backdrop-filter (copy-exact ruling)",
+       glass["picker"] and (glass["picker"]["bf"] or "none") == "none", glass["picker"])
 
     # --- Bug A: scan line must be idle at rest ---
     rest = pg.evaluate("""() => {

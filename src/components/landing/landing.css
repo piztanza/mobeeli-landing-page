@@ -1573,6 +1573,249 @@ button.mb-buyer-cta:active {
   border-radius: var(--mb-radius-pill);
   margin-top: 14px;
 }
+/* ============================================================
+   R28 — the problem band as three depth planes (CD handoff
+   2026-07-29). Values are the brief's, verbatim; hexes mapped
+   onto tokens where one exists. Supersedes .mb-h2--prob and
+   .mb-quote for this band (rules kept below; no other band
+   uses them).
+   ============================================================ */
+.mb-prob {
+  background: var(--mb-bg);
+  padding: 120px 24px 124px;
+  overflow: hidden; /* clips the ghost numeral bleed */
+  scroll-margin-top: 84px;
+}
+.mb-prob-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.mb-prob-wrap {
+  position: relative; /* positioning context for the ghost numeral */
+}
+.mb-prob-ghost {
+  position: absolute;
+  top: -64px;
+  right: -6px;
+  z-index: 0;
+  font-size: clamp(150px, 17vw, 230px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  /* Outline-only. -webkit- prefix ONLY, per the brief: text-stroke has no
+     standard form, so this is NOT the backdrop-filter collapse trap; it
+     degrades to invisible (transparent fill) elsewhere, which is accepted. */
+  color: transparent;
+  -webkit-text-stroke: 1.5px #dce3ed;
+  pointer-events: none;
+  user-select: none;
+}
+.mb-prob-head {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 64px;
+  align-items: end;
+}
+.mb-prob-eyebrow {
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mb-primary-cta);
+}
+.mb-prob-h2 {
+  margin: 16px 0 0;
+  font-size: clamp(38px, 4.4vw, 60px);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  font-weight: 800;
+  color: var(--mb-ink);
+  text-wrap: balance;
+}
+.mb-prob-copy {
+  padding-bottom: 8px; /* optical baseline alignment with the H2 */
+}
+.mb-prob-lede {
+  font-size: 19px;
+  line-height: 1.65;
+  color: var(--mb-muted);
+  text-wrap: pretty;
+}
+.mb-prob-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--mb-primary-cta);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.mb-prob-media {
+  position: relative;
+  z-index: 1;
+  margin-top: 58px;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: center; /* NO gap — the overlap IS the shared track (cols 8-9) */
+}
+.mb-prob-imgwrap {
+  grid-column: 1 / 9;
+  grid-row: 1;
+  z-index: 1;
+  position: relative;
+}
+.mb-prob-imgcard {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--mb-border);
+  height: clamp(430px, 42vw, 540px);
+  /* card plate + blueprint dot grid — neither hex has a token */
+  background-color: #eff3f6;
+  background-image: radial-gradient(rgba(13, 21, 34, 0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.mb-prob-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.mb-prob-badge {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 13px;
+  border-radius: 8px;
+  background: rgba(13, 21, 34, 0.88);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: #c7cfdd; /* badge text — no token */
+  white-space: nowrap;
+}
+.mb-prob-badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--mb-light-accent);
+}
+.mb-prob-chip {
+  position: absolute;
+  left: 26px;
+  bottom: -20px; /* overhangs the card edge — SIBLING of the card, never child */
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  background: #fff;
+  border: 1px solid var(--mb-border);
+  border-radius: 12px;
+  padding: 13px 17px;
+  box-shadow: 0 20px 44px rgba(13, 21, 34, 0.16);
+}
+.mb-prob-chip-fig {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--mb-ink);
+  font-variant-numeric: tabular-nums;
+}
+.mb-prob-chip-fig em {
+  font-style: normal;
+  font-weight: 700;
+  color: #9aa5b3; /* muted figure — no token */
+}
+.mb-prob-chip-div {
+  width: 1px;
+  height: 26px;
+  background: var(--mb-border);
+}
+.mb-prob-chip-cap {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--mb-muted);
+  max-width: 16ch;
+}
+.mb-prob-quote {
+  grid-column: 8 / 13;
+  grid-row: 1;
+  align-self: center;
+  z-index: 2;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  background: var(--mb-ink);
+  border-radius: 18px;
+  padding: 34px 36px 30px;
+  color: #fff;
+  /* the strongest shadow in the section — it IS the depth cue */
+  box-shadow: 0 44px 88px rgba(6, 12, 22, 0.34);
+}
+.mb-prob-qmark {
+  font-size: 44px;
+  line-height: 0.6;
+  color: var(--mb-light-accent);
+  font-weight: 800;
+}
+.mb-prob-qmain {
+  margin: 18px 0 0;
+  font-size: clamp(19px, 1.8vw, 22px);
+  line-height: 1.45;
+  font-weight: 700;
+  letter-spacing: -0.008em;
+  text-wrap: pretty;
+}
+.mb-prob-qen {
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--mb-muted-2);
+  font-style: italic;
+}
+.mb-prob-qby {
+  margin-top: 22px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--mb-light-accent);
+}
+@media (max-width: 979.98px) {
+  .mb-prob-head {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .mb-prob-copy {
+    padding-bottom: 0;
+  }
+  .mb-prob-media {
+    display: block;
+  }
+  .mb-prob-imgcard {
+    height: auto;
+    aspect-ratio: 1085 / 1132;
+  }
+  .mb-prob-quote {
+    /* border-box is MANDATORY (brief gotcha 1): content-box + 72px padding
+       overflows the container by 40px and kills the auto-centering. */
+    box-sizing: border-box;
+    width: calc(100% - 32px);
+    margin: -46px auto 0;
+  }
+  .mb-prob-ghost,
+  .mb-prob-chip {
+    display: none;
+  }
+}
+
 .mb-quote {
   margin: 18px 0 0;
   background: var(--mb-ink);

@@ -105,10 +105,14 @@ describe("R8 · macrostructure & copy", () => {
   it("retires the eyebrow kicker on the front-page narrative bands (audit #1)", () => {
     const prob = render(<ProblemSection />);
     const how = render(<AiCatalogCard />);
+    // R28 (2026-07-29) reintroduced an eyebrow on the problem band BY DESIGN
+    // (.mb-prob-eyebrow, part of the depth-plane composition) — audit #1's
+    // ban continues to hold for the generic .mb-kicker treatment it was
+    // actually about.
     expect(prob).not.toContain("mb-kicker");
     expect(how).not.toContain("mb-kicker");
-    // The H2s still lead their bands.
-    expect(prob).toContain("mb-h2--prob");
+    // The H2s still lead their bands (R28 renamed the problem H2's class).
+    expect(prob).toContain("mb-prob-h2");
     expect(how).toContain(t("en", "cat_h2"));
     // The copy keys stay defined in both languages (unused, harmless).
     for (const lang of langs) {

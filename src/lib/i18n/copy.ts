@@ -111,6 +111,19 @@ const en = {
   quote_en:
     "“My shop was closed because of too many returns from COD. The platform penalized me. Not the customer.”",
   quote_by: "Shop owner, Senen Market, Jakarta — shared with permission",
+  /* R28 problem-section rebuild (CD handoff 2026-07-29). English is UNSTAMPED
+     draft per the brief — founder rules wording. The lede/link/badge/chip are
+     new; eyebrow reuses prob_kicker, headline reuses prob_h2, quote reuses
+     quote_*. */
+  prob_lede:
+    "Every part on a car has exactly one match — one year, one trim, one engine. On a listing page they all look identical. That is the whole problem.",
+  prob_link: "The numbers behind this",
+  prob_badge: "Every part, one match",
+  prob_chip_n: "4",
+  prob_chip_of: "/ 217",
+  prob_chip_cap: "listings actually fit this exact car",
+  prob_img_alt:
+    "Exploded technical view of a car, every serviceable part separated and connected by leader lines",
   how_kicker: "How it works",
   /* R25 — the how-it-works band now spans industry scale (the flow figure) and
      per-part proof (the picker + result), so it needs one headline for both and
@@ -566,6 +579,15 @@ const id: Record<CopyKey, string> = {
   quote_en:
     "“My shop was closed because of too many returns from COD. The platform penalized me. Not the customer.”",
   quote_by: "Pemilik toko, Pasar Senen, Jakarta — dibagikan seizin beliau",
+  prob_lede:
+    "Setiap onderdil punya tepat satu pasangan — satu tahun, satu trim, satu mesin. Di halaman listing semuanya terlihat sama. Itulah inti masalahnya.",
+  prob_link: "Angka di balik masalah ini",
+  prob_badge: "Satu onderdil, satu pasangan",
+  prob_chip_n: "4",
+  prob_chip_of: "/ 217",
+  prob_chip_cap: "listing yang benar-benar cocok untuk mobil ini",
+  prob_img_alt:
+    "Tampilan teknis mobil terurai, setiap onderdil terpisah dan terhubung garis penunjuk",
   how_kicker: "Cara kerja",
   /* R25. cat_kicker matches this file's own nav_how ("Cara kerja") rather than
      inventing a second phrasing for the same idea. The party names in
