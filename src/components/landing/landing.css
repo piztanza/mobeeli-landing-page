@@ -1673,7 +1673,11 @@ button.mb-buyer-cta:active {
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid var(--mb-border);
-  height: clamp(430px, 42vw, 540px);
+  /* Founder 2026-07-29: the landscape teardown (1.833:1) replaced CD's
+     near-square render, so the card tightened from clamp(430,42vw,540) —
+     sized so the contained image nearly fills it (~22px letterbox at 1440)
+     instead of floating in dead plate. */
+  height: clamp(360px, 36vw, 470px);
   /* card plate + blueprint dot grid — neither hex has a token */
   background-color: #eff3f6;
   background-image: radial-gradient(rgba(13, 21, 34, 0.06) 1px, transparent 1px);
@@ -1683,6 +1687,10 @@ button.mb-buyer-cta:active {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  /* The render ships on a white ground; multiply melts it into the plate so
+     the blueprint dot grid reads THROUGH the image — the light-surface
+     analogue of the catalog plates' screen blend. */
+  mix-blend-mode: multiply;
 }
 .mb-prob-badge {
   position: absolute;
@@ -1801,14 +1809,18 @@ button.mb-buyer-cta:active {
   }
   .mb-prob-imgcard {
     height: auto;
-    aspect-ratio: 1085 / 1132;
+    aspect-ratio: 2000 / 1091; /* the landscape teardown's own ratio */
   }
   .mb-prob-quote {
     /* border-box is MANDATORY (brief gotcha 1): content-box + 72px padding
        overflows the container by 40px and kills the auto-centering. */
     box-sizing: border-box;
     width: calc(100% - 32px);
-    margin: -46px auto 0;
+    /* -46px was tuned for CD's near-square render; on the landscape
+       teardown's much shorter mobile card that covered ~25% of the image,
+       so the overlap eases to keep the layering without eating the
+       evidence (founder 2026-07-29 "portion accordingly"). */
+    margin: -28px auto 0;
   }
   .mb-prob-ghost,
   .mb-prob-chip {

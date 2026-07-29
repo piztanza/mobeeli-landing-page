@@ -50,12 +50,17 @@ export default function ProblemSection() {
           <div className="mb-prob-media" data-rev="2">
             <div className="mb-prob-imgwrap">
               <div className="mb-prob-imgcard">
+                {/* Founder 2026-07-29 15:32: the richer landscape teardown
+                    replaces CD's near-square render (2816×1536 source,
+                    re-encoded to 2000×1091 JPEG, 281KB — the white ground is
+                    flattened and multiply-blended away in CSS so the
+                    blueprint dot grid reads through it). */}
                 <Image
                   className="mb-prob-img"
-                  src="/assets/exploded-car.png"
+                  src="/assets/exploded-car.jpg"
                   alt={t("prob_img_alt")}
-                  width={1085}
-                  height={1132}
+                  width={2000}
+                  height={1091}
                 />
                 <span className="mb-prob-badge">
                   <i className="mb-prob-badge-dot" aria-hidden />
