@@ -106,11 +106,21 @@ const en = {
   prob_t3_t: "seller fees on big marketplaces",
   prob_t3_l: "Sellers hand over up to a fifth of every sale in fees.",
   prob_t3_chip: "Mobeeli: one low, flat rate",
+  /* FOUNDER 2026-07-29 16:06: the Senen testimony leaves the callout — it was
+     seller-grievance (shop closure, "the platform penalized me") inside a
+     buyer-pain band, adversarial toward unnamed platforms, and unverifiable
+     to a reader. quote_* keys stay DEFINED (existence contract, dormant —
+     prot_r* precedent). The callout is now Mobeeli-voice mechanism: the one
+     thing worth keeping from the testimony was the COD reality. DRAFT. */
   quote_main:
     "Toko saya sampai ditutup karena terlalu banyak retur COD. Platform menghukum saya. Bukan pembelinya.",
   quote_en:
     "“My shop was closed because of too many returns from COD. The platform penalized me. Not the customer.”",
   quote_by: "Shop owner, Senen Market, Jakarta — shared with permission",
+  prob_call_h: "A wrong part ships twice: out to the buyer, and back — unpaid.",
+  prob_call_p:
+    "In a cash-on-delivery market, a part that doesn't fit is refused at the door. The shop pays the shipping both ways, and the car is still up on the lift.",
+  prob_call_tag: "Indonesia's parts trade runs on COD",
   /* R28 problem-section rebuild (CD handoff 2026-07-29). English is UNSTAMPED
      draft per the brief — founder rules wording. The lede/link/badge/chip are
      new; eyebrow reuses prob_kicker, headline reuses prob_h2, quote reuses
@@ -579,6 +589,10 @@ const id: Record<CopyKey, string> = {
   quote_en:
     "“My shop was closed because of too many returns from COD. The platform penalized me. Not the customer.”",
   quote_by: "Pemilik toko, Pasar Senen, Jakarta — dibagikan seizin beliau",
+  prob_call_h: "Onderdil yang salah dikirim dua kali: ke pembeli, lalu kembali — tanpa dibayar.",
+  prob_call_p:
+    "Di pasar COD, onderdil yang tidak cocok ditolak di depan pintu. Toko menanggung ongkir dua arah, dan mobilnya masih tertahan di bengkel.",
+  prob_call_tag: "Perdagangan onderdil Indonesia berjalan dengan COD",
   prob_lede:
     "Setiap onderdil punya tepat satu pasangan — satu tahun, satu trim, satu mesin. Di halaman listing semuanya terlihat sama. Itulah inti masalahnya.",
   prob_link: "Angka di balik masalah ini",

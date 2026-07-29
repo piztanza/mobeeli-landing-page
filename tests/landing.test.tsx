@@ -236,7 +236,7 @@ describe("landing page render (F-001 + F-009)", () => {
   it("renders the R25 band order — problem second, how-it-works third, no platform band", () => {
     const bands = [
       t("en", "hero_chip"), // hero (dark, full viewport)
-      t("en", "quote_main"), // the problem, slim (light, id="problem")
+      t("en", "prob_call_h"), // the problem (light, id="problem") — COD callout, 2026-07-29
       t("en", "cat_unified_h2"), // how it works (dark, id="how-it-works")
       t("en", "uni_h2"), // coverage / archipelago (dark, id="coverage")
       t("en", "buyer_line"), // buyer strip (id="waitlist")

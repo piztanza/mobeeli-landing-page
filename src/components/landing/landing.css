@@ -1787,7 +1787,8 @@ button.mb-buyer-cta:active {
   font-size: 14px;
   line-height: 1.6;
   color: var(--mb-muted-2);
-  font-style: italic;
+  /* italic retired with the testimony (founder 2026-07-29) — it signified
+     "translation of the quote"; the support line is plain Mobeeli voice */
 }
 .mb-prob-qby {
   margin-top: 22px;

@@ -77,14 +77,23 @@ export default function ProblemSection() {
               </div>
             </div>
 
-            <figure className="mb-prob-quote">
+            {/* FOUNDER 2026-07-29: the Senen testimony left this card — a
+                seller-grievance story inside a buyer-pain band, adversarial
+                toward unnamed platforms, and unverifiable to a reader. The
+                callout is now Mobeeli-voice MECHANISM, keeping the one thing
+                the testimony carried that nothing else on the page says:
+                Indonesia's parts trade runs on COD, so a wrong part comes
+                back refused and unpaid. An <aside>, not a <figure> — it is
+                no longer a quotation, and the 44px mark is now the 2× that
+                anchors "ships twice" (decorative, like the ghost 217). */}
+            <aside className="mb-prob-quote">
               <div className="mb-prob-qmark" aria-hidden>
-                {"“"}
+                2×
               </div>
-              <blockquote className="mb-prob-qmain">{t("quote_main")}</blockquote>
-              <div className="mb-prob-qen">{t("quote_en")}</div>
-              <figcaption className="mb-prob-qby">{t("quote_by")}</figcaption>
-            </figure>
+              <p className="mb-prob-qmain">{t("prob_call_h")}</p>
+              <div className="mb-prob-qen">{t("prob_call_p")}</div>
+              <div className="mb-prob-qby">{t("prob_call_tag")}</div>
+            </aside>
           </div>
         </div>
       </div>

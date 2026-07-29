@@ -54,10 +54,14 @@ describe("R28 — problem band depth planes", () => {
     );
   });
 
-  it("keeps the Senen quote verbatim in both locales and links the data page", () => {
-    // The Indonesian blockquote is real testimony used with permission —
-    // shipped verbatim in BOTH locales per the brief.
-    expect(copy.en.quote_main).toBe(copy.id.quote_main);
+  it("carries the COD-mechanism callout in Mobeeli's voice, and links the data page", () => {
+    // FOUNDER 2026-07-29: the Senen testimony left the callout (seller
+    // grievance in a buyer-pain band; adversarial; unverifiable). The card
+    // is Mobeeli-voice mechanism now, so NORMAL i18n applies — the locales
+    // must differ. quote_* keys stay defined, dormant (prot_r* precedent).
+    expect(html).not.toContain(copy.en.quote_main);
+    expect(copy.en.prob_call_h).not.toBe(copy.id.prob_call_h);
+    expect(t("en", "quote_main")).toBeTruthy(); // dormant, not deleted
     expect(html).toContain('href="/why-mobeeli"');
     for (const lang of ["en", "id"] as const) {
       expect(t(lang, "prob_lede")).toBeTruthy();
@@ -65,6 +69,9 @@ describe("R28 — problem band depth planes", () => {
       expect(t(lang, "prob_badge")).toBeTruthy();
       expect(t(lang, "prob_chip_cap")).toBeTruthy();
       expect(t(lang, "prob_img_alt")).toBeTruthy();
+      expect(t(lang, "prob_call_h")).toBeTruthy();
+      expect(t(lang, "prob_call_p")).toBeTruthy();
+      expect(t(lang, "prob_call_tag")).toBeTruthy();
     }
   });
 });
