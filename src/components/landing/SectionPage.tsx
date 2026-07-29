@@ -6,6 +6,7 @@ import { useScrollReveal } from "@/lib/hooks/useScrollReveal";
 import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
 
 import CareersSection from "./CareersSection";
+import ContactSection from "./ContactSection";
 import EarlyAdopters from "./EarlyAdopters";
 import Footer from "./Footer";
 import Investors from "./Investors";
@@ -45,6 +46,7 @@ const SECTIONS = {
   investors: Investors,
   "why-mobeeli": WhyDataSections,
   careers: CareersSection,
+  contact: ContactSection,
 } as const;
 
 /** Section slugs that moved off the landing page onto their own routes. */

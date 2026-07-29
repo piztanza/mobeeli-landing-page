@@ -8,7 +8,8 @@ import InvestorsPage, { metadata as investorsMetadata } from "@/app/investors/pa
 import TeamPage, { metadata as teamMetadata } from "@/app/team/page";
 import WhyMobeeliPage, { metadata as whyMobeeliMetadata } from "@/app/why-mobeeli/page";
 import sitemap from "@/app/sitemap";
-import { FOUNDER_EMAILS } from "@/components/landing/Investors";
+import ContactPage, { metadata as contactMetadata } from "@/app/contact/page";
+import { FOUNDER_EMAILS } from "@/components/landing/ContactSection";
 import { t, type CopyKey } from "@/lib/i18n";
 
 /** Escape a copy string the way React escapes text content in SSR output. */
@@ -23,7 +24,7 @@ function esc(s: string): string {
 
 /** The section pages split off the landing stack (CHG-piztanza-09 + redesign phase 3). */
 const PAGES: readonly {
-  path: "/team" | "/early-adopters" | "/investors" | "/why-mobeeli" | "/careers";
+  path: "/team" | "/early-adopters" | "/investors" | "/why-mobeeli" | "/careers" | "/contact";
   Page: () => ReactElement;
   metadata: typeof teamMetadata;
   titleKey: CopyKey;
@@ -75,6 +76,15 @@ const PAGES: readonly {
     descriptionKey: "careers_h2",
     sectionId: "careers",
     h2Key: "careers_h2",
+  },
+  {
+    path: "/contact",
+    Page: ContactPage,
+    metadata: contactMetadata,
+    titleKey: "nav_contact",
+    descriptionKey: "contact_p",
+    sectionId: "contact",
+    h2Key: "contact_h2",
   },
 ];
 
@@ -162,8 +172,14 @@ describe("section page specifics (CHG-piztanza-09)", () => {
     // (the plain footer contact mailto without the deck-request subject stays).
     expect(html).toContain(`>${esc(t("en", "inv_cta"))}</button>`);
     expect(html).not.toContain("deck%20request");
+    // FOUNDER 2026-07-29: the direct inboxes moved to /contact — /investors
+    // links there instead of listing addresses.
+    expect(html).not.toContain("mailto:matheau");
+    expect(html).toContain('href="/contact"');
+    const contactHtml = renderToStaticMarkup(<ContactPage />);
     for (const email of FOUNDER_EMAILS) {
-      expect(html).toContain(`mailto:${email}`);
+      expect(contactHtml).toContain(`mailto:${email}`);
     }
+    expect(contactHtml).toContain("mailto:info@mobeeli.com");
   });
 });

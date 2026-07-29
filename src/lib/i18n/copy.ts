@@ -350,7 +350,17 @@ const en = {
   inv_p:
     "Mobeeli is built, and Jakarta's shops are already signing on — most of the shops we visited signed the same afternoon. If you follow commerce infrastructure in Southeast Asia, we'd like to show you what's coming.",
   inv_cta: "Request the deck",
-  inv_or: "or write to the founders directly",
+  /* FOUNDER 2026-07-29 22:53: reword the direct-email block and route it to
+     the new /contact page — the founder inboxes move THERE (F-009 addresses
+     unchanged). DRAFT pending stamp. */
+  inv_or: "Prefer a direct line?",
+  inv_contact_link: "Contact Mobeeli",
+  nav_contact: "Contact",
+  contact_kicker: "Contact",
+  contact_h2: "Talk to Mobeeli.",
+  contact_p:
+    "Partnerships, press, shops, investors — one address reaches the whole founding team.",
+  contact_direct: "Or write to a founder directly:",
   /* Deck request form on /investors (F-016) — name/firm/work-email required. */
   inv_f_name: "Your name",
   inv_f_firm: "Firm / fund",
@@ -809,7 +819,14 @@ const id: Record<CopyKey, string> = {
   inv_p:
     "Mobeeli sudah jadi, dan toko-toko di Jakarta sudah mulai bergabung — sebagian besar toko yang kami datangi setuju di sore yang sama. Kalau Anda mengikuti infrastruktur commerce di Asia Tenggara, kami ingin menunjukkan apa yang kami persiapkan.",
   inv_cta: "Minta deck",
-  inv_or: "atau langsung hubungi para founder",
+  inv_or: "Ingin jalur langsung?",
+  inv_contact_link: "Hubungi Mobeeli",
+  nav_contact: "Kontak",
+  contact_kicker: "Kontak",
+  contact_h2: "Hubungi Mobeeli.",
+  contact_p:
+    "Kemitraan, media, toko, investor — satu alamat menjangkau seluruh tim pendiri.",
+  contact_direct: "Atau tulis langsung ke salah satu founder:",
   /* Deck request form on /investors (F-016) — name/firm/work-email required. */
   inv_f_name: "Nama Anda",
   inv_f_firm: "Firma / dana investasi",

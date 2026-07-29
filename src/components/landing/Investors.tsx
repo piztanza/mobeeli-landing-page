@@ -1,17 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 import { useT } from "@/lib/i18n/LanguageProvider";
 
 import DeckRequestForm from "./DeckRequestForm";
 
-/** Approved founder direct-contact addresses (F-009). */
-export const FOUNDER_EMAILS = [
-  "matheau@mobeeli.com",
-  "hafizh@mobeeli.com",
-  "ferdi@mobeeli.com",
-] as const;
+/* FOUNDER_EMAILS moved to ContactSection.tsx (founder ruling 2026-07-29):
+   the inboxes live on /contact; this page links there instead. */
 
 /**
  * Investors — dark rounded card. "Request the deck" opens the bilingual
@@ -43,11 +40,7 @@ export default function Investors() {
         <div className="mb-inv-or">
           <span>{t("inv_or")}</span>
           <div className="mb-inv-emails">
-            {FOUNDER_EMAILS.map((email) => (
-              <a key={email} href={`mailto:${email}`}>
-                {email}
-              </a>
-            ))}
+            <Link href="/contact">{t("inv_contact_link")}</Link>
           </div>
         </div>
       </div>
