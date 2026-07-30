@@ -4122,6 +4122,20 @@ button.mb-buyer-cta:active,
 .mb-vin-btn:hover {
   background: var(--mb-deep-blue);
 }
+/* Mobile pass 2026-07-30 (R4 fresh-eyes find): the fixed 220px input plus
+   the nowrap button overran the card under ~390px and clipped "Find
+   Vehicle". The input flexes, the button stays whole. This block must sit
+   BELOW the fixed-width base above — equal specificity, later source wins. */
+@media (max-width: 479.98px) {
+  .mb-vin-form {
+    width: 100%;
+  }
+  .mb-vin-input {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+  }
+}
 .mb-garage-active {
   display: flex;
   align-items: center;
