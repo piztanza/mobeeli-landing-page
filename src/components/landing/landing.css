@@ -934,8 +934,9 @@ button.mb-buyer-cta:active {
    Double-background: inner surface in the padding box, rim in the border box
    behind a transparent border. 0,2,0 beats .mb-glass. */
 .mb-cat-panels > .mb-cat-ymm,
-.mb-cat-panels > .mb-cat-sku,
 .mb-cat-panels > .mb-cat-window {
+  position: relative;
+  overflow: hidden;
   border: 1px solid transparent;
   border-radius: 19px;
   background:
@@ -949,6 +950,59 @@ button.mb-buyer-cta:active {
         rgba(255, 255, 255, 0.3) 100%
       )
       border-box;
+}
+/* Contract #7: the catalog panels' edge-light is .4 — brighter than the
+   glass system's .22 on purpose ("that rim is what reads as machined
+   metal") — plus each rim's own drop shadows. */
+.mb-cat-panels > .mb-cat-ymm {
+  box-shadow:
+    0 26px 58px rgba(3, 8, 16, 0.58),
+    0 0 44px rgba(47, 125, 246, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+}
+.mb-cat-panels > .mb-cat-window {
+  box-shadow:
+    0 34px 78px rgba(3, 8, 16, 0.66),
+    0 0 56px rgba(47, 125, 246, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+}
+/* Contract's edgelight layer: a top wash bleeding -10% past the corners,
+   clipped by the panel's own radius. Children go position:relative so paint
+   order keeps the wash UNDER the content. (The grain layer from the same
+   contract section is deliberately NOT built: CD's own correction says it
+   never rendered in their mockup — the approved look has no grain — and
+   putting it under content needs real DOM structure. Parked for a round
+   where CD renders it for real.) */
+.mb-cat-panels > .mb-cat-ymm::before,
+.mb-cat-panels > .mb-cat-window::before {
+  content: "";
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  top: 0;
+  height: 38%;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), transparent);
+}
+.mb-cat-panels > .mb-cat-window::before {
+  height: 34%;
+}
+.mb-cat-panels > .mb-cat-ymm > *,
+.mb-cat-panels > .mb-cat-window > * {
+  position: relative;
+}
+/* Contract: sku-card is NOT a rim panel — it wears its own simpler recipe.
+   (My copy-exact round put the rim on it by analogy; the authored contract
+   disagrees, and the contract wins.) */
+.mb-cat-panels > .mb-cat-sku {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  background: linear-gradient(158deg, rgba(30, 44, 66, 0.92), rgba(16, 26, 42, 0.86));
+  box-shadow:
+    0 22px 46px rgba(3, 8, 16, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
 .mb-cat-window {
@@ -965,8 +1019,8 @@ button.mb-buyer-cta:active {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 11px 14px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 13px 17px; /* contract */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* contract */
 }
 .mb-cat-window-dots {
   display: flex;
@@ -988,7 +1042,7 @@ button.mb-buyer-cta:active {
 }
 .mb-cat-window-body {
   position: relative;
-  padding: 16px;
+  padding: 18px 18px 22px; /* contract — asymmetric, 22 at the foot */
 }
 
 /* The scan is what the window DOES while it computes: an overlay on the result,
@@ -1281,7 +1335,7 @@ button.mb-buyer-cta:active {
    the container and was left over from the pre-R25 two-up layout. */
 .mb-cat-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(184px, 1fr)); /* contract: 184 */
   gap: 16px; /* mockup verbatim (was 20) */
 }
 
@@ -1311,9 +1365,13 @@ button.mb-buyer-cta:active {
 /* 0,2,0 beats .mb-glass's var(--mb-radius-card), which sits LATER in the
    file and would otherwise win the radius back to 18 (mockup: 16). Descendant
    form, not .mb-ucat-card.mb-glass — r13-glass extracts the primitive with a
-   regex that would match that compound selector first. */
+   regex that would match that compound selector first. The shadow is the
+   contract's own part-card recipe, overriding the glass primitive's. */
 .mb-cat-grid .mb-ucat-card {
   border-radius: 16px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 16px 36px rgba(3, 8, 16, 0.42);
 }
 
 /* R25 - the part image as TEXTURE, not a hero shot. mix-blend-mode: screen
@@ -3927,9 +3985,8 @@ button.mb-buyer-cta:active {
    also makes the select grid, engine row and VIN row span the panel. */
 .mb-cat-ymm {
   align-items: stretch;
-  /* The mockup insets the panel's content ~24px; without this the stretched
-     rows sit flush against the glass edge (founder 2026-07-28, third round). */
-  padding: 22px 24px 24px;
+  /* Contract: picker-surface padding is 20px (my 22/24 was an estimate). */
+  padding: 20px;
 }
 .mb-cat-ymm .mb-picker-forms {
   align-items: stretch;
@@ -3980,9 +4037,9 @@ button.mb-buyer-cta:active {
 .mb-ymm-select {
   background: rgba(13, 21, 34, 0.8);
   border: 1px solid var(--mb-hairline-subtle);
-  border-radius: var(--mb-radius-input);
+  border-radius: 9px; /* contract (was --mb-radius-input) */
   color: #fff;
-  padding: 6px 12px;
+  padding: 9px 11px; /* contract */
   font-size: 13px;
   font-family: var(--mb-font-text);
   outline: none;
@@ -4011,10 +4068,10 @@ button.mb-buyer-cta:active {
   background: var(--mb-primary-cta);
   color: #fff;
   border: none;
-  border-radius: var(--mb-radius-input);
-  padding: 0 16px;
+  border-radius: 9px; /* contract */
+  padding: 9px 15px; /* contract (was 0 16px) */
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800; /* contract */
   white-space: nowrap; /* "Find Vehicle" must not break in the padded panel */
   cursor: pointer;
 }
@@ -4902,12 +4959,13 @@ button.mb-buyer-cta:active {
   margin-top: 12px;
 }
 .mb-ymm-engine-code {
-  padding: 5px 10px;
+  padding: 6px 11px; /* contract */
   border-radius: 8px;
   background: rgba(47, 125, 246, 0.16);
   border: 1px solid rgba(47, 125, 246, 0.34);
+  color: #9dc2fa; /* contract */
   font-size: 12.5px;
-  font-weight: 800;
+  font-weight: 700; /* contract (was 800) */
   letter-spacing: 0.02em;
   color: #fff;
 }
@@ -4958,10 +5016,10 @@ button.mb-buyer-cta:active {
   gap: 8px;
   flex: 1;
   min-width: 0;
-  padding: 7px 12px;
+  padding: 6px 11px; /* contract */
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(8, 13, 20, 0.6); /* contract — a well, not a tint */
+  border: 1px solid rgba(255, 255, 255, 0.09);
   font-size: 12.5px;
   color: var(--mb-dark-muted);
   white-space: nowrap;
@@ -4981,8 +5039,9 @@ button.mb-buyer-cta:active {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 6px 8px;
-  padding: 12px 16px 0;
+  gap: 12px; /* contract */
+  font-variant-numeric: tabular-nums; /* contract */
+  margin-bottom: 18px; /* contract — the body's own padding insets it now */
   font-size: 12.5px;
   line-height: 1.5;
 }
@@ -5005,8 +5064,8 @@ button.mb-buyer-cta:active {
    up disagreeing. */
 .mb-cat-genuine {
   position: absolute;
-  top: 12px;
-  left: 12px;
+  top: 9px; /* contract: 9,9 (was my 12,12 estimate) */
+  left: 9px;
   z-index: 2;
   display: inline-flex;
   align-items: center;
@@ -5173,10 +5232,10 @@ button.mb-buyer-cta:active {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px; /* mockup: 42, was 34 */
-  height: 42px;
+  width: 40px; /* contract: 40 (the 42 was my render-measure) */
+  height: 40px;
   border-radius: 50%;
-  background: rgba(47, 125, 246, 0.22); /* mockup tint, was .16 */
+  background: rgba(47, 125, 246, 0.22);
   border: 1px solid rgba(47, 125, 246, 0.36);
   color: var(--mb-light-accent);
   flex: none;
