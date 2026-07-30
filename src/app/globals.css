@@ -51,8 +51,12 @@
 
   /* layout */
   --mb-container-max: 1280px;
-  --mb-container-pad: 24px;
-  --mb-section-y: 96px;
+  /* Mobile pass 2026-07-30: fluid rhythm. The clamp maxes ARE the previous
+     fixed values — pad is 24px from 480px up, section-y is 96px from 800px
+     up — so desktop stays pixel-identical (style contract honoured) while
+     phones compress toward 18/56. */
+  --mb-container-pad: clamp(18px, 5vw, 24px);
+  --mb-section-y: clamp(56px, 12vw, 96px);
 }
 
 /* Code-level tokens (dark-band material Q2 + motion standard Q4 + R4 font

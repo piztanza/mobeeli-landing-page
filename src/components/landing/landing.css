@@ -474,13 +474,15 @@
    transform applies. */
 .mb-nav-cta:active,
 .mb-btn-primary-light:active,
-button.mb-buyer-cta:active {
+button.mb-buyer-cta:active,
+.mb-vin-btn:active {
   transform: translateY(1px);
 }
 @media (prefers-reduced-motion: reduce) {
   .mb-nav-cta:active,
   .mb-btn-primary-light:active,
-  button.mb-buyer-cta:active {
+  button.mb-buyer-cta:active,
+  .mb-vin-btn:active {
     transform: none;
   }
 }
@@ -902,9 +904,11 @@ button.mb-buyer-cta:active {
   }
   /* ≥16px so mobile Safari never auto-zooms the picker (CHG-piztanza-10
      rule — these two were the only input family without the guarantee;
-     mobile pass 2026-07-30). Desktop keeps the contract's 13px. */
-  .mb-ymm-select,
-  .mb-vin-input {
+     mobile pass 2026-07-30). Desktop keeps the contract's 13px. Scoped
+     through the parent (0,2,0) like the grid-area resets below: the base
+     13px rules live further DOWN this file and would win unscoped. */
+  .mb-cat-panels .mb-ymm-select,
+  .mb-cat-panels .mb-vin-input {
     font-size: 16px;
   }
   /* Scoped through the parent (0,2,0) deliberately. The three `grid-area`
@@ -3431,6 +3435,11 @@ button.mb-buyer-cta:active {
 .mb-ctform-send:active {
   transform: translateY(1px);
 }
+@media (prefers-reduced-motion: reduce) {
+  .mb-ctform-send:active {
+    transform: none;
+  }
+}
 .mb-ctform-send:disabled {
   opacity: 0.7;
   cursor: default;
@@ -3781,6 +3790,8 @@ button.mb-buyer-cta:active {
    the mockup DOM. */
 .mb-footer-menu {
   display: flex;
+  /* Mobile pass 2026-07-30: columns wrap rather than squeeze at odd widths. */
+  flex-wrap: wrap;
   gap: 64px;
 }
 .mb-footer-col {
@@ -4042,6 +4053,24 @@ button.mb-buyer-cta:active {
   height: 1px;
   margin: 14px 0 12px;
   background: var(--mb-hairline-subtle);
+}
+/* Mobile pass 2026-07-30: single-column picker on small phones — two-up 1fr
+   selects fell under ~150px and truncated model names. The band's 10px
+   micro-labels step to 11px here (the R8 audit #10 10px floor is a minimum,
+   not a target; the amber fitment pill keeps its founder-ruled 10px).
+   This block must stay BELOW every base rule it overrides — equal
+   specificity, later source wins. */
+@media (max-width: 479.98px) {
+  .mb-ymm-picker {
+    grid-template-columns: 1fr;
+  }
+  .mb-ymm-field-label,
+  .mb-sim-tag,
+  .mb-ds-cod-label,
+  .mb-ds-cod-lock,
+  .mb-cat-scan-lock-t {
+    font-size: 11px;
+  }
 }
 .mb-ymm-select {
   background: rgba(13, 21, 34, 0.8);

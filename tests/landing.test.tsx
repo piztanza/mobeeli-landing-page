@@ -424,13 +424,16 @@ describe("landing page render (F-001 + F-009)", () => {
     expect(cta).toContain('aria-expanded="false"');
   });
 
-  it("pads the AI catalog band 96px top and bottom (CHG-piztanza-14, CSS contract)", () => {
+  it("pads the AI catalog band 96px on desktop, fluid on phones (CHG-piztanza-14)", () => {
     const landingCss = readFileSync(
       new URL("../src/components/landing/landing.css", import.meta.url),
       "utf8",
     );
     const globalsCss = readFileSync(new URL("../src/app/globals.css", import.meta.url), "utf8");
-    expect(globalsCss).toContain("--mb-section-y: 96px;");
+    // MOBILE PASS 2026-07-30: the fixed 96px went fluid — clamp max 96px
+    // keeps desktop pixel-identical; phones compress to 56px so seven bands
+    // stop costing eleven screens of scroll at 320px.
+    expect(globalsCss).toContain("--mb-section-y: clamp(56px, 12vw, 96px);");
     expect(landingCss).toMatch(
       /\.mb-cat-section \{[^}]*padding: var\(--mb-section-y\) var\(--mb-container-pad\);/s,
     );
