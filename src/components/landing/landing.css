@@ -3236,6 +3236,18 @@ button.mb-buyer-cta:active {
   border-color: var(--mb-primary);
   background: #f7faff;
 }
+/* Recursive pass 1 (founder 2026-07-30): the reference styles neither state,
+   so these are additive. Selected reuses the hover values — the chosen chip
+   must read chosen without the pointer on it; keyboard focus gets the form's
+   own ring at CHIP level, not just on the 16px native dot. */
+.mb-ctform-topic:has(input:checked) {
+  border-color: var(--mb-primary);
+  background: #f7faff;
+}
+.mb-ctform-topic:has(input:focus-visible) {
+  border-color: var(--mb-primary);
+  box-shadow: 0 0 0 3px rgba(47, 125, 246, 0.18);
+}
 .mb-ctform-topic input {
   width: 16px;
   height: 16px;

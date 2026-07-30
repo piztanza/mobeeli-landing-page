@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState, type ChangeEvent } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 
 import { CONTACT_TOPICS, type ContactTopic } from "@/lib/contact/schema";
 import type { CopyKey } from "@/lib/i18n";
@@ -58,6 +58,14 @@ export default function ContactSection() {
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
+  const sentRef = useRef<HTMLDivElement>(null);
+
+  /* Recursive pass 1: aria-live announces the sent panel to screen readers,
+     but keyboard users also need their focus to LAND somewhere sensible —
+     the panel itself (tabIndex -1). */
+  useEffect(() => {
+    if (success) sentRef.current?.focus();
+  }, [success]);
   const refs: Record<ErrorField, React.RefObject<HTMLInputElement | HTMLTextAreaElement | null>> = {
     name: nameRef,
     email: emailRef,
@@ -100,6 +108,10 @@ export default function ContactSection() {
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
+        /* Recursive pass 2: without a deadline a dead network leaves the
+           button on "Sending…" forever. 15s covers a slow mobile round trip;
+           an abort lands in the same retriable failure path, data kept. */
+        signal: AbortSignal.timeout(15_000),
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: fields.name.trim(),
@@ -128,6 +140,8 @@ export default function ContactSection() {
     setErrors({});
     setSubmitFailed(false);
     setSuccess(false);
+    // Next paint renders the empty form — put the keyboard at its start.
+    requestAnimationFrame(() => nameRef.current?.focus());
   };
 
   const inputClass = (field: ErrorField) => `mb-ctform-input${errors[field] ? " is-invalid" : ""}`;
@@ -168,7 +182,7 @@ export default function ContactSection() {
 
         <div className="mb-ct-card" data-rev="1">
           {success ? (
-            <div className="mb-ct-sent" role="status" aria-live="polite">
+            <div className="mb-ct-sent" role="status" aria-live="polite" tabIndex={-1} ref={sentRef}>
               <div className="mb-ct-sent-badge" aria-hidden>
                 {"✓"}
               </div>
@@ -185,6 +199,7 @@ export default function ContactSection() {
               <form
                 className="mb-ctform"
                 noValidate
+                aria-busy={submitting}
                 onSubmit={(event) => {
                   event.preventDefault();
                   setSubmitFailed(false);
@@ -201,7 +216,9 @@ export default function ContactSection() {
                     type="text"
                     maxLength={200}
                     autoComplete="name"
-                    placeholder={t("contact_ph_name")}
+                    /* FOUNDER 2026-07-30: no example-person placeholder — the
+                       reference's "Budi Santoso" read as a mockup name. The
+                       label carries the field; the input starts clean. */
                     value={fields.name}
                     onChange={setField("name")}
                     onBlur={validateOnBlur("name")}
