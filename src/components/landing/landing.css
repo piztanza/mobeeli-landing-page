@@ -3039,6 +3039,325 @@ button.mb-buyer-cta:active {
 
 /* ---------- deck request form (F-016, inside the dark investors card) ---------- */
 
+/* ============================================================
+   R30b — /contact, CD option 4a: light ledger ground, thin
+   context column, white form card. The form reuses the deck
+   form's geometry in a light skin (.mb-ctform-*) — same object,
+   two skins. Light-ground colour rule: ink / #3c4654 /
+   var(--mb-muted) only; #8b95a4 is dark-surface muted and fails
+   4.5:1 here.
+   ============================================================ */
+.mb-ct {
+  background: var(--mb-bg);
+  padding: 88px var(--mb-container-pad);
+}
+.mb-ct-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 72px;
+  align-items: start;
+}
+.mb-ct-kicker {
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mb-primary-cta);
+}
+.mb-ct-h2 {
+  margin: 16px 0 0;
+  font-size: 52px;
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  font-weight: 800;
+  color: var(--mb-ink);
+  text-wrap: balance;
+}
+.mb-ct-lede {
+  margin: 20px 0 0;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--mb-muted);
+  max-width: 42ch;
+}
+.mb-ct-next {
+  margin-top: 36px;
+  border-top: 1.5px solid var(--mb-ink);
+  padding-top: 22px;
+}
+.mb-ct-next-h {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--mb-muted);
+}
+.mb-ct-next-row {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 14px;
+  margin-top: 14px;
+}
+.mb-ct-next-i {
+  font-size: 12px;
+  font-weight: 800;
+  color: #1b5fd9;
+  font-variant-numeric: tabular-nums;
+}
+.mb-ct-next-t {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #3c4654;
+}
+.mb-ct-next-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 18px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1b5fd9;
+  text-decoration: none;
+}
+.mb-ct-ramps {
+  margin: 28px 0 0;
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--mb-muted);
+  max-width: 44ch;
+}
+.mb-ct-ramps a {
+  font-weight: 700;
+  color: #1b5fd9;
+  text-decoration: none;
+}
+.mb-ct-place {
+  margin: 18px 0 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--mb-muted);
+  max-width: 44ch;
+}
+.mb-ct-card {
+  background: #fff;
+  border: 1px solid var(--mb-border);
+  border-radius: 20px;
+  padding: 36px 38px;
+  box-shadow: 0 20px 48px rgba(13, 21, 34, 0.07);
+}
+.mb-ct-form-h {
+  margin: 0 0 26px;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--mb-ink);
+}
+.mb-ctform {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.mb-ctform-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.mb-ctform-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #3c4654;
+}
+.mb-ctform-input {
+  /* the deck form's geometry in a light skin — same object, two skins.
+     16px is the CHG-piztanza-10 no-zoom rule; do not shrink it. */
+  padding: 13px 15px;
+  border: 1.5px solid #dfe5ee;
+  border-radius: var(--mb-radius-input);
+  font-size: 16px;
+  font-family: inherit;
+  background: #fff;
+  color: var(--mb-ink);
+  width: 100%;
+  box-sizing: border-box;
+}
+.mb-ctform-input:focus {
+  outline: none;
+  border-color: var(--mb-primary);
+  box-shadow: 0 0 0 3px rgba(47, 125, 246, 0.18);
+}
+.mb-ctform-input.is-invalid {
+  border-color: var(--mb-danger);
+}
+.mb-ctform-textarea {
+  resize: none;
+}
+.mb-ctform-hint {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--mb-muted); /* 5.17:1 on white — #8b95a4 fails here */
+}
+.mb-ctform-err {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--mb-danger);
+}
+.mb-ctform-topics {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.mb-ctform-topic-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.mb-ctform-topic {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  /* 13px vertical padding measures 47px tall — 11px gives 43 and misses
+     the 44px touch floor. */
+  padding: 13px 15px;
+  border: 1.5px solid #dfe5ee;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--mb-ink);
+  cursor: pointer;
+}
+.mb-ctform-topic:hover {
+  border-color: var(--mb-primary);
+  background: #f7faff;
+}
+.mb-ctform-topic input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--mb-primary-cta);
+  margin: 0;
+}
+.mb-ctform-honeypot {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+.mb-ctform-fail {
+  background: var(--mb-danger-bg);
+  border: 1px solid rgba(185, 28, 28, 0.28);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  font-weight: 600;
+  color: var(--mb-danger);
+}
+.mb-ctform-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+.mb-ctform-send {
+  background: var(--mb-primary-cta);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 15px 30px;
+  font-size: 15px;
+  font-weight: 800;
+  font-family: inherit;
+  cursor: pointer;
+}
+.mb-ctform-send:hover {
+  background: #123f9e;
+}
+.mb-ctform-send:active {
+  transform: translateY(1px);
+}
+.mb-ctform-send:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+.mb-ctform-note {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--mb-muted);
+  max-width: 34ch;
+}
+.mb-ct-sent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+.mb-ct-sent-badge {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--mb-primary-cta); /* blue, never green — palette law */
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mb-ct-sent-h {
+  margin: 18px 0 0;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--mb-ink);
+}
+.mb-ct-sent-p {
+  margin: 12px 0 0;
+  font-size: 16.5px;
+  line-height: 1.65;
+  color: var(--mb-muted);
+  max-width: 46ch;
+}
+.mb-ct-again {
+  margin-top: 22px;
+  background: #fff;
+  border: 1px solid var(--mb-border);
+  border-radius: 999px;
+  padding: 12px 22px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: inherit;
+  color: var(--mb-ink);
+  cursor: pointer;
+}
+.mb-ct-sent-urgent {
+  margin: 16px 0 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--mb-muted);
+}
+@media (max-width: 899.98px) {
+  .mb-ct-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .mb-ct-h2 {
+    font-size: clamp(38px, 9vw, 52px);
+  }
+  .mb-ct-card {
+    padding: 28px 22px;
+  }
+  .mb-ctform-send {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 .mb-deckform {
   max-width: 620px;
   margin: 32px auto 0;
@@ -3081,6 +3400,9 @@ button.mb-buyer-cta:active {
 }
 .mb-deckform-input:focus {
   border-color: var(--mb-primary);
+  /* R30b delta 1, adopted for both forms: border-colour alone is a weak
+     indicator — the tinted ring is the real one (WCAG 2.4.11). */
+  box-shadow: 0 0 0 3px rgba(47, 125, 246, 0.18);
 }
 .mb-deckform-input.is-invalid {
   border-color: var(--mb-danger);

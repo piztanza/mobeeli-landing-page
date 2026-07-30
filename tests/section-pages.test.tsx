@@ -9,7 +9,6 @@ import TeamPage, { metadata as teamMetadata } from "@/app/team/page";
 import WhyMobeeliPage, { metadata as whyMobeeliMetadata } from "@/app/why-mobeeli/page";
 import sitemap from "@/app/sitemap";
 import ContactPage, { metadata as contactMetadata } from "@/app/contact/page";
-import { FOUNDER_EMAILS } from "@/components/landing/ContactSection";
 import { t, type CopyKey } from "@/lib/i18n";
 
 /** Escape a copy string the way React escapes text content in SSR output. */
@@ -172,14 +171,19 @@ describe("section page specifics (CHG-piztanza-09)", () => {
     // (the plain footer contact mailto without the deck-request subject stays).
     expect(html).toContain(`>${esc(t("en", "inv_cta"))}</button>`);
     expect(html).not.toContain("deck%20request");
-    // FOUNDER 2026-07-29: the direct inboxes moved to /contact — /investors
-    // links there instead of listing addresses.
+    // FOUNDER 2026-07-29: the direct inboxes left /investors for /contact —
+    // and R30b then removed them from /contact too (no address anywhere on
+    // that page; the form is the channel). /investors just links over.
     expect(html).not.toContain("mailto:matheau");
     expect(html).toContain('href="/contact"');
+    // R30b ★: the founder inboxes render nowhere on /contact (the SECTION's
+    // own no-address contract lives in contact-form.test.tsx; the page-level
+    // render includes the shared footer, whose info@ mailto is the one
+    // deliberate exception per the brief).
     const contactHtml = renderToStaticMarkup(<ContactPage />);
-    for (const email of FOUNDER_EMAILS) {
-      expect(contactHtml).toContain(`mailto:${email}`);
+    for (const inbox of ["matheau@", "hafizh@", "ferdi@"]) {
+      expect(contactHtml).not.toContain(inbox);
     }
-    expect(contactHtml).toContain("mailto:info@mobeeli.com");
+    expect(contactHtml).toContain(esc(t("en", "contact_form_h")));
   });
 });
