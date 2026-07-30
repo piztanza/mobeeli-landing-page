@@ -8,6 +8,7 @@ import InvestorsPage, { metadata as investorsMetadata } from "@/app/investors/pa
 import TeamPage, { metadata as teamMetadata } from "@/app/team/page";
 import sitemap from "@/app/sitemap";
 import ContactPage, { metadata as contactMetadata } from "@/app/contact/page";
+import PrivacyPage, { metadata as privacyMetadata } from "@/app/privacy/page";
 import { t, type CopyKey } from "@/lib/i18n";
 
 /** Escape a copy string the way React escapes text content in SSR output. */
@@ -22,7 +23,7 @@ function esc(s: string): string {
 
 /** The section pages split off the landing stack (CHG-piztanza-09 + redesign phase 3). */
 const PAGES: readonly {
-  path: "/team" | "/early-adopters" | "/investors" | "/careers" | "/contact";
+  path: "/team" | "/early-adopters" | "/investors" | "/careers" | "/contact" | "/privacy";
   Page: () => ReactElement;
   metadata: typeof teamMetadata;
   titleKey: CopyKey;
@@ -74,6 +75,15 @@ const PAGES: readonly {
     descriptionKey: "contact_p",
     sectionId: "contact",
     h2Key: "contact_h2",
+  },
+  {
+    path: "/privacy",
+    Page: PrivacyPage,
+    metadata: privacyMetadata,
+    titleKey: "nav_privacy",
+    descriptionKey: "privacy_lede",
+    sectionId: "privacy",
+    h2Key: "privacy_h2",
   },
 ];
 

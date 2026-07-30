@@ -11,6 +11,7 @@ import EarlyAdopters from "./EarlyAdopters";
 import Footer from "./Footer";
 import Investors from "./Investors";
 import Nav from "./Nav";
+import PrivacySection from "./PrivacySection";
 import SkipLink from "./SkipLink";
 import TeamSection from "./TeamSection";
 
@@ -26,6 +27,7 @@ const SECTIONS = {
   investors: Investors,
   careers: CareersSection,
   contact: ContactSection,
+  privacy: PrivacySection,
 } as const;
 
 /** Section slugs that moved off the landing page onto their own routes. */

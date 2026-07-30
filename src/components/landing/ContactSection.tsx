@@ -255,7 +255,8 @@ export default function ContactSection() {
                       (R30b §7.1 — no privacy page exists; do not link one
                       before it does). */}
                   <div id="ct-email-hint" className="mb-ctform-hint">
-                    {t("contact_email_hint")}
+                    {t("contact_email_hint")}{" "}
+                    <Link href="/privacy">{t("contact_privacy_link")}</Link>
                   </div>
                   {errors.email && (
                     <div id="ct-email-err" className="mb-ctform-err" role="alert">

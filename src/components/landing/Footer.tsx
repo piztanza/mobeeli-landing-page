@@ -52,6 +52,9 @@ export default function Footer() {
             <a className="mb-link-underline" href="mailto:info@mobeeli.com">
               info@mobeeli.com
             </a>
+            <Link className="mb-link-underline mb-footer-priv" href="/privacy">
+              {t("nav_privacy")}
+            </Link>
           </div>
           <div className="mb-footer-copy">{t("foot_copyright")}</div>
         </div>

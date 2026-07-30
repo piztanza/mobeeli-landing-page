@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 
 import CareersPage from "@/app/careers/page";
 import ContactPage from "@/app/contact/page";
+import PrivacyPage from "@/app/privacy/page";
 import EarlyAdoptersPage from "@/app/early-adopters/page";
 import InvestorsPage from "@/app/investors/page";
 import JoinPage from "@/app/join/page";
@@ -29,6 +30,7 @@ const PAGES: readonly { path: string; Page: () => ReactElement }[] = [
   { path: "/investors", Page: InvestorsPage },
   { path: "/careers", Page: CareersPage },
   { path: "/contact", Page: ContactPage },
+  { path: "/privacy", Page: PrivacyPage },
 ];
 
 describe("skip-to-content link", () => {

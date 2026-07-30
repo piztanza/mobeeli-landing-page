@@ -3039,6 +3039,71 @@ button.mb-buyer-cta:active {
 
 /* ---------- deck request form (F-016, inside the dark investors card) ---------- */
 
+/* /privacy (founder 2026-07-30) — a quiet prose page in the light ledger
+   family; every claim on it is enforced by tests/cookieless-contract. */
+.mb-priv {
+  background: var(--mb-bg);
+  padding: 88px var(--mb-container-pad) 96px;
+}
+.mb-priv-container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.mb-priv-kicker {
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mb-primary-cta);
+}
+.mb-priv-h2 {
+  margin: 16px 0 0;
+  font-size: clamp(34px, 4vw, 46px);
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+  font-weight: 800;
+  color: var(--mb-ink);
+  text-wrap: balance;
+}
+.mb-priv-lede {
+  margin: 20px 0 0;
+  font-size: 17.5px;
+  line-height: 1.65;
+  color: var(--mb-muted);
+  text-wrap: pretty;
+}
+.mb-priv-block {
+  margin-top: 34px;
+  border-top: 1px solid var(--mb-border);
+  padding-top: 22px;
+}
+.mb-priv-block:first-of-type {
+  border-top: 1.5px solid var(--mb-ink);
+}
+.mb-priv-b-h {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--mb-ink);
+}
+.mb-priv-b-p {
+  margin: 10px 0 0;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: #3c4654;
+  text-wrap: pretty;
+}
+.mb-priv-b-p a {
+  color: var(--mb-primary-cta);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.mb-footer-priv {
+  margin-left: 18px;
+}
+
 /* ============================================================
    R30b — /contact, CD option 4a: light ledger ground, thin
    context column, white form card. The form reuses the deck
@@ -3199,6 +3264,11 @@ button.mb-buyer-cta:active {
   font-size: 12.5px;
   line-height: 1.5;
   color: var(--mb-muted); /* 5.17:1 on white — #8b95a4 fails here */
+}
+.mb-ctform-hint a {
+  color: var(--mb-primary-cta);
+  font-weight: 700;
+  text-decoration: none;
 }
 .mb-ctform-err {
   font-size: 12.5px;

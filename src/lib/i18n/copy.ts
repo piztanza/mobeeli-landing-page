@@ -402,6 +402,35 @@ const en = {
     "It's with the team, and you'll get a personal reply from the person who owns your topic — not a ticket queue.",
   contact_sent_again: "Send another",
   contact_sent_urgent: "We'll write back to the address you gave us.",
+  contact_privacy_link: "Privacy",
+  /* /privacy (founder 2026-07-30, after the cookie-popup analysis): the
+     transparency page the ePrivacy exemption and UU PDP notice duty both
+     point at. Every claim below is enforced by tests/cookieless-contract —
+     if the code changes, this page must change in the same PR.
+     EN DRAFT pending founder/legal review; ID = founder writes. */
+  nav_privacy: "Privacy",
+  privacy_kicker: "Privacy",
+  privacy_h2: "What we do with your data.",
+  privacy_lede:
+    "Mobeeli is pre-launch, and this site is deliberately quiet: no cookies, no trackers, nothing loaded from third parties. This page says exactly what does happen.",
+  privacy_b1_h: "Messages you send",
+  privacy_b1_p:
+    "The contact form collects your name, email, topic and message. It is delivered to the team as an email and used only to reply to you — there is no marketing list, and messages are not stored in a database.",
+  privacy_b2_h: "Waitlist signups",
+  privacy_b2_p:
+    "Joining the Early Adopters waitlist stores the business details you provide so we can contact you about the program. They are used for nothing else.",
+  privacy_b3_h: "Deck requests",
+  privacy_b3_p:
+    "Requesting the investor deck sends your name, firm and work email to the team by email, used to follow up personally.",
+  privacy_b4_h: "On your device",
+  privacy_b4_p:
+    "This site sets no cookies. It keeps two preferences in your browser — your language and the vehicle you picked in the demo. They never leave your device.",
+  privacy_b5_h: "Third parties",
+  privacy_b5_p:
+    "Nothing on this site loads from a third party — no analytics, no embedded scripts, no external fonts. Email delivery runs through a mail provider acting on our instructions.",
+  privacy_b6_h: "Your rights",
+  privacy_b6_p:
+    "Under Indonesia's Personal Data Protection Law (UU PDP 27/2022) you can ask what we hold about you, have it corrected, or have it deleted. One address handles all of it:",
   /* Deck request form on /investors (F-016) — name/firm/work-email required. */
   inv_f_name: "Your name",
   inv_f_firm: "Firm / fund",
@@ -905,6 +934,32 @@ const id: Record<CopyKey, string> = {
     "It's with the team, and you'll get a personal reply from the person who owns your topic — not a ticket queue.",
   contact_sent_again: "Send another",
   contact_sent_urgent: "We'll write back to the address you gave us.",
+  contact_privacy_link: "Privasi",
+  /* R30-era precedent: ID for legal/sensitive strings is the FOUNDER'S to
+     write — EN stands in until then. */
+  nav_privacy: "Privasi",
+  privacy_kicker: "Privasi",
+  privacy_h2: "What we do with your data.",
+  privacy_lede:
+    "Mobeeli is pre-launch, and this site is deliberately quiet: no cookies, no trackers, nothing loaded from third parties. This page says exactly what does happen.",
+  privacy_b1_h: "Messages you send",
+  privacy_b1_p:
+    "The contact form collects your name, email, topic and message. It is delivered to the team as an email and used only to reply to you — there is no marketing list, and messages are not stored in a database.",
+  privacy_b2_h: "Waitlist signups",
+  privacy_b2_p:
+    "Joining the Early Adopters waitlist stores the business details you provide so we can contact you about the program. They are used for nothing else.",
+  privacy_b3_h: "Deck requests",
+  privacy_b3_p:
+    "Requesting the investor deck sends your name, firm and work email to the team by email, used to follow up personally.",
+  privacy_b4_h: "On your device",
+  privacy_b4_p:
+    "This site sets no cookies. It keeps two preferences in your browser — your language and the vehicle you picked in the demo. They never leave your device.",
+  privacy_b5_h: "Third parties",
+  privacy_b5_p:
+    "Nothing on this site loads from a third party — no analytics, no embedded scripts, no external fonts. Email delivery runs through a mail provider acting on our instructions.",
+  privacy_b6_h: "Your rights",
+  privacy_b6_p:
+    "Under Indonesia's Personal Data Protection Law (UU PDP 27/2022) you can ask what we hold about you, have it corrected, or have it deleted. One address handles all of it:",
   /* Deck request form on /investors (F-016) — name/firm/work-email required. */
   inv_f_name: "Nama Anda",
   inv_f_firm: "Firma / dana investasi",
