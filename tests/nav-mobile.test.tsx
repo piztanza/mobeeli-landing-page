@@ -90,8 +90,11 @@ describe("mobile hamburger nav (F-001, CHG-piztanza-10)", () => {
 describe("responsive audit CSS contracts (F-001, CHG-piztanza-10)", () => {
   it("proof bar collapses 4 → 2 → 1 at explicit breakpoints", () => {
     expect(landingCss).toMatch(/\.mb-proof-grid \{[^}]*repeat\(4, 1fr\)/s);
+    // MOBILE PASS 2026-07-30: 1023.98 → 1039.98 — the nav goes hamburger at
+    // 1039.98, and the 1024–1039 sliver showed mobile chrome over desktop
+    // content. Content cutovers now agree with the nav's.
     expect(landingCss).toMatch(
-      /@media \(max-width: 1023\.98px\) \{\s*\.mb-proof-grid \{[^}]*repeat\(2, 1fr\)/s,
+      /@media \(max-width: 1039\.98px\) \{\s*\.mb-proof-grid \{[^}]*repeat\(2, 1fr\)/s,
     );
     expect(landingCss).toMatch(
       /@media \(max-width: 559\.98px\) \{\s*\.mb-proof-grid \{[^}]*grid-template-columns: 1fr/s,

@@ -1542,13 +1542,16 @@ button.mb-buyer-cta:active,
   margin: 0 auto;
   padding: 0 var(--mb-container-pad);
 }
-/* Explicit 4 → 2 → 1 collapse (CHG-piztanza-10 responsive audit). */
+/* Explicit 4 → 2 → 1 collapse (CHG-piztanza-10 responsive audit).
+   1039.98 (not 1023.98) since the mobile pass 2026-07-30: the nav goes
+   hamburger at 1039.98, and the 1024–1039 sliver showed mobile chrome
+   over desktop content — the two cutovers now agree. */
 .mb-proof-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   background: var(--mb-surface);
 }
-@media (max-width: 1023.98px) {
+@media (max-width: 1039.98px) {
   .mb-proof-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -3883,7 +3886,10 @@ button.mb-buyer-cta:active,
 }
 
 /* ---------- responsive audit (CHG-piztanza-10) ---------- */
-/* Per-breakpoint pass at 360/390/768/1024/1280 — no horizontal overflow anywhere. */
+/* Verified matrix (mobile pass 2026-07-30): 320/360/390/430/768/1030/1280 —
+   no horizontal overflow anywhere. (The comment previously claimed 1024,
+   which was never a shipped cutover; the real ones are 479.98 / 559.98 /
+   767.98 / 959.98 / 1039.98.) */
 
 /* Phone/tablet: the AI catalog stage leaves its absolute right-side slot and
    stacks in flow above the headline, sprites scaled to fractions of the stage. */
@@ -4700,7 +4706,9 @@ button.mb-buyer-cta:active,
   background: linear-gradient(180deg, rgba(91, 155, 247, 0.7), rgba(91, 155, 247, 0.2));
 }
 
-@media (max-width: 1023.98px) {
+/* 1039.98 to match the nav's hamburger cutover (mobile pass 2026-07-30) —
+   see the proof-grid note. */
+@media (max-width: 1039.98px) {
   .mb-plat-figure {
     display: none;
   }
@@ -4916,7 +4924,7 @@ button.mb-buyer-cta:active,
   }
 }
 
-/* Below the 1023.98px cutover the ribbons are hidden and .mb-plat-stack takes
+/* Below the 1039.98px cutover the ribbons are hidden and .mb-plat-stack takes
    over — that is every phone and most tablets, i.e. the MAJORITY of traffic.
    Without motion the stack reads as three unrelated groups and the
    in → through → out argument is lost, which is the whole point of the figure.
