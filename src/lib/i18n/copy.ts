@@ -605,7 +605,7 @@ const id: Record<CopyKey, string> = {
   "nav.cta": "Gabung",
   "hero.line1": "Setiap suku cadang,",
   "hero.line2": "dipastikan cocok.",
-  "join.title": "Join Waitlist",
+  "join.title": "Gabung Waitlist",
   nav_problem: "Masalah",
   nav_how: "Cara kerja",
   nav_why: "Kenapa Mobeeli",
@@ -621,7 +621,7 @@ const id: Record<CopyKey, string> = {
   nav_menu_close: "Tutup menu",
   /* Skip-to-content link (accessibility pass) — not part of the design TXT map. */
   skip_to_content: "Langsung ke konten",
-  hero_chip: "Launching 2026 — Jakarta, Indonesia",
+  hero_chip: "Meluncur 2026 — Jakarta, Indonesia",
   hero_sub:
     "Mobeeli adalah infrastruktur kepercayaan untuk aftermarket otomotif Indonesia senilai $5,3 miliar — marketplace suku cadang tempat setiap barang dipastikan cocok sebelum checkout, penjual membawa pulang lebih banyak dari tiap transaksi, dan dua belah pihak sama-sama terlindungi.",
   /* Slim-landing hero sub (redesign phase 4) — the deck's approved thesis line
@@ -848,7 +848,7 @@ const id: Record<CopyKey, string> = {
   early_f3_t: "Satu komisi flat yang ringan",
   early_f3_d:
     "Setelah masa promo, berlaku satu tarif flat yang jauh lebih ringan dari biaya marketplace pada umumnya — transparan, mudah dihitung, dan menjaga penjual tetap untung.",
-  early_cta: "Join Waitlist",
+  early_cta: "Gabung Waitlist",
   early_note: "300 toko pertama mengunci tarif 0% — daftarnya cuma dua menit.",
   buyer_line: "Butuh onderdil? Jadi yang pertama tahu begitu Mobeeli hadir di Jakarta.",
   buyer_cta: "Kabari saya",
@@ -861,15 +861,15 @@ const id: Record<CopyKey, string> = {
   buyer_err_email: "Format email sepertinya belum benar.",
   buyer_err_fail: "Terjadi kendala — silakan coba lagi.",
   team_kicker: "Tim",
-  /* R29: ID for the new/changed team strings is the FOUNDER'S to write — the
-     brief forbids machine translation, so EN stands in here until the founder
-     supplies Indonesian. team_quote reuses the founder's own shipped ID
-     sentence from inv_p (same English sentence, same stamped frame). */
-  team_h2: "Meet the team.",
-  team_lede: "Set the vision. Build the platform. Move the parts. Each job has an owner.",
-  team_own1: "sets the vision",
-  team_own2: "builds the platform",
-  team_own3: "moves the parts",
+  /* FOUNDER DIRECTIVE 2026-07-30 ("Put all the focus on the ID translation
+     now") superseded R29's founder-writes rule: Indonesian below is DRAFT
+     for the founder's native review. team_quote reuses the founder's own
+     shipped ID sentence from inv_p. */
+  team_h2: "Kenalan dengan tim.",
+  team_lede: "Menentukan visi. Membangun platform. Menggerakkan onderdil. Setiap tugas ada pemiliknya.",
+  team_own1: "menentukan visi",
+  team_own2: "membangun platform",
+  team_own3: "menggerakkan onderdil",
   team_quote: "Sebagian besar toko yang kami datangi setuju di sore yang sama.",
   team_quote_by: "Early Adopters program — Jakarta, 2026",
   team_n1: "Matheau Widjaja",
@@ -879,7 +879,7 @@ const id: Record<CopyKey, string> = {
   team_n3: "Ferdinansyah Husein",
   team_r3: "COO & Co-Founder",
   team_c1:
-    "A lifetime in Canada, a career across automotive and tech e-commerce — he saw the gap in Indonesia's parts trade and came home to close it.",
+    "Seumur hidup di Kanada, berkarier di otomotif dan e-commerce teknologi — ia melihat celah di perdagangan onderdil Indonesia dan pulang untuk menutupnya.",
   team_c2:
     "Membangun platform ini sebelum ada pendanaan — dari mesin kecocokan, ingesti AI, sampai marketplace-nya.",
   team_c3:
@@ -892,74 +892,73 @@ const id: Record<CopyKey, string> = {
   inv_or: "Ingin jalur langsung?",
   inv_contact_link: "Hubungi Mobeeli",
   nav_contact: "Kontak",
-  /* R30b: ID for the contact strings is the FOUNDER'S to write — never
-     machine-translated (R29 precedent), so EN stands in below until then.
-     nav_contact/contact_kicker keep the shipped "Kontak". */
+  /* FOUNDER DIRECTIVE 2026-07-30: Indonesian below is DRAFT for the
+     founder's native review (supersedes the R30b founder-writes note). */
   contact_kicker: "Kontak",
-  contact_h2: "Let's build together.",
+  contact_h2: "Mari membangun bersama.",
   contact_p:
-    "Partnerships, press, suppliers, investors — send a message and you'll hear back from the person who owns it. It's a small team.",
+    "Kemitraan, media, pemasok, investor — kirim pesan dan Anda akan dibalas langsung oleh orang yang menangani topiknya. Tim kami kecil.",
   contact_direct: "Atau tulis langsung ke salah satu founder:",
-  contact_form_h: "Send us a message",
-  contact_f_name: "Your name",
+  contact_form_h: "Kirim pesan ke kami",
+  contact_f_name: "Nama Anda",
   contact_f_email: "Email",
-  contact_f_topic: "What's this about?",
-  contact_f_message: "Message",
+  contact_f_topic: "Tentang apa ini?",
+  contact_f_message: "Pesan",
   contact_ph_email: "you@company.com",
-  contact_ph_message: "A sentence or two is plenty — what do you need from us?",
-  contact_t_general: "General question",
-  contact_t_partnership: "Partnership",
-  contact_t_press: "Press & media",
-  contact_t_supplier: "Supplier or wholesaler",
+  contact_ph_message: "Satu dua kalimat sudah cukup — apa yang Anda butuhkan dari kami?",
+  contact_t_general: "Pertanyaan umum",
+  contact_t_partnership: "Kemitraan",
+  contact_t_press: "Pers & media",
+  contact_t_supplier: "Pemasok atau grosir",
   contact_t_investor: "Investor",
-  contact_f_send: "Send message",
-  contact_f_note: "No ticket number, no queue — someone on the team writes back.",
-  contact_next_h: "What happens next",
-  contact_next_1: "A person reads it — not a shared inbox, not a bot.",
-  contact_next_2: "Whoever owns your topic replies personally, from their own address.",
-  contact_next_3: "If it's a fit, the next step is a call — your timezone, not ours.",
-  contact_next_link: "See who you're writing to",
-  contact_email_hint: "Only used to reply to you — no list, nothing shared.",
+  contact_f_send: "Kirim pesan",
+  contact_f_note: "Tanpa nomor tiket, tanpa antrean — seseorang dari tim akan membalas.",
+  contact_next_h: "Apa yang terjadi selanjutnya",
+  contact_next_1: "Pesan Anda dibaca manusia — bukan inbox bersama, bukan bot.",
+  contact_next_2: "Orang yang menangani topik Anda membalas secara pribadi, dari alamatnya sendiri.",
+  contact_next_3: "Kalau cocok, langkah berikutnya adalah panggilan — mengikuti zona waktu Anda, bukan kami.",
+  contact_next_link: "Lihat siapa yang Anda hubungi",
+  contact_email_hint: "Hanya dipakai untuk membalas Anda — tanpa milis, tidak dibagikan.",
   contact_f_fail:
-    "Something went wrong sending your message. Your answers are kept — please try again.",
-  contact_err_message: "Add a line or two so we know what you need.",
-  contact_ramps_a: "A shop looking to join?",
+    "Ada yang salah saat mengirim pesan Anda. Isian Anda tersimpan — silakan coba lagi.",
+  contact_err_message: "Tulis satu dua kalimat supaya kami tahu apa yang Anda butuhkan.",
+  contact_ramps_a: "Toko yang ingin bergabung?",
   contact_ramps_a_link: "Early Adopters",
-  contact_ramps_a_end: "is the right door. ",
-  contact_ramps_b: "An investor after the deck?",
-  contact_ramps_b_link: "Investors",
-  contact_place_note: "Jakarta, Indonesia — pre-launch, so email is the whole channel.",
-  contact_sent_h: "Message sent.",
+  contact_ramps_a_end: "adalah pintunya. ",
+  contact_ramps_b: "Investor yang mencari deck?",
+  contact_ramps_b_link: "Investor",
+  contact_place_note: "Jakarta, Indonesia — masih pra-peluncuran, jadi email adalah satu-satunya kanal.",
+  contact_sent_h: "Pesan terkirim.",
   contact_sent_p:
-    "It's with the team, and you'll get a personal reply from the person who owns your topic — not a ticket queue.",
-  contact_sent_again: "Send another",
-  contact_sent_urgent: "We'll write back to the address you gave us.",
+    "Pesan Anda sudah di tangan tim, dan Anda akan menerima balasan pribadi dari orang yang menangani topiknya — bukan antrean tiket.",
+  contact_sent_again: "Kirim lagi",
+  contact_sent_urgent: "Kami akan membalas ke alamat yang Anda berikan.",
   contact_privacy_link: "Privasi",
-  /* R30-era precedent: ID for legal/sensitive strings is the FOUNDER'S to
-     write — EN stands in until then. */
+  /* FOUNDER DIRECTIVE 2026-07-30: Indonesian below is DRAFT for the
+     founder's native + legal review. */
   nav_privacy: "Privasi",
   privacy_kicker: "Privasi",
-  privacy_h2: "What we do with your data.",
+  privacy_h2: "Apa yang kami lakukan dengan data Anda.",
   privacy_lede:
-    "Mobeeli is pre-launch, and this site is deliberately quiet: no cookies, no trackers, nothing loaded from third parties. This page says exactly what does happen.",
-  privacy_b1_h: "Messages you send",
+    "Mobeeli masih pra-peluncuran, dan situs ini sengaja dibuat senyap: tanpa cookie, tanpa pelacak, tanpa apa pun yang dimuat dari pihak ketiga. Halaman ini menjelaskan persis apa yang terjadi.",
+  privacy_b1_h: "Pesan yang Anda kirim",
   privacy_b1_p:
-    "The contact form collects your name, email, topic and message. It is delivered to the team as an email and used only to reply to you — there is no marketing list, and messages are not stored in a database.",
-  privacy_b2_h: "Waitlist signups",
+    "Form kontak mengumpulkan nama, email, topik, dan pesan Anda. Semuanya dikirim ke tim sebagai email dan hanya dipakai untuk membalas Anda — tidak ada milis pemasaran, dan pesan tidak disimpan di database.",
+  privacy_b2_h: "Pendaftaran waitlist",
   privacy_b2_p:
-    "Joining the Early Adopters waitlist stores the business details you provide so we can contact you about the program. They are used for nothing else.",
-  privacy_b3_h: "Deck requests",
+    "Bergabung ke waitlist Early Adopters menyimpan detail usaha yang Anda berikan agar kami bisa menghubungi Anda soal program ini. Tidak dipakai untuk hal lain.",
+  privacy_b3_h: "Permintaan deck",
   privacy_b3_p:
-    "Requesting the investor deck sends your name, firm and work email to the team by email, used to follow up personally.",
-  privacy_b4_h: "On your device",
+    "Meminta deck investor mengirim nama, firma, dan email kerja Anda ke tim lewat email, dipakai untuk tindak lanjut secara pribadi.",
+  privacy_b4_h: "Di perangkat Anda",
   privacy_b4_p:
-    "This site sets no cookies. It keeps two preferences in your browser — your language and the vehicle you picked in the demo. They never leave your device.",
-  privacy_b5_h: "Third parties",
+    "Situs ini tidak memasang cookie. Hanya ada dua preferensi yang disimpan di browser Anda — bahasa dan kendaraan yang Anda pilih di demo. Keduanya tidak pernah meninggalkan perangkat Anda.",
+  privacy_b5_h: "Pihak ketiga",
   privacy_b5_p:
-    "Nothing on this site loads from a third party — no analytics, no embedded scripts, no external fonts. Email delivery runs through a mail provider acting on our instructions.",
-  privacy_b6_h: "Your rights",
+    "Tidak ada apa pun di situs ini yang dimuat dari pihak ketiga — tanpa analytics, tanpa skrip tertanam, tanpa font eksternal. Pengiriman email berjalan lewat penyedia email yang bekerja atas instruksi kami.",
+  privacy_b6_h: "Hak Anda",
   privacy_b6_p:
-    "Under Indonesia's Personal Data Protection Law (UU PDP 27/2022) you can ask what we hold about you, have it corrected, or have it deleted. One address handles all of it:",
+    "Berdasarkan Undang-Undang Pelindungan Data Pribadi (UU PDP 27/2022), Anda dapat menanyakan data apa yang kami simpan tentang Anda, memintanya diperbaiki, atau dihapus. Satu alamat menangani semuanya:",
   /* Deck request form on /investors (F-016) — name/firm/work-email required. */
   inv_f_name: "Nama Anda",
   inv_f_firm: "Firma / dana investasi",
