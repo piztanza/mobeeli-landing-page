@@ -152,11 +152,11 @@ h3 {
 }
 
 /* Skip-link target: <main> takes programmatic focus only — never a ring.
-   scroll-margin keeps it clear of the 66px sticky nav on every page (the
-   .mb-landing [id] rule covers only landing-scoped pages). */
+   The 84px sticky-nav clearance is RETIRED (mobile pass 2026-07-30): the
+   nav is position:absolute per the founder's no-sticky ruling, so the skip
+   target lands flush like every other anchor. */
 #main-content {
   outline: none;
-  scroll-margin-top: 84px;
 }
 
 /* Skip-to-content link — first focusable element of every page view

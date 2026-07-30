@@ -7,14 +7,19 @@
 
 import { suspendScrollspy } from "./scrollspy";
 
-/** Sticky-nav height every scroll target clears (approved 84px, landing.css). */
-export const NAV_SCROLL_OFFSET = 84;
+/**
+ * RETIRED to 0 (mobile pass 2026-07-30): the 84px value was the sticky-nav
+ * clearance approved under F-001 — but the nav has been position:absolute
+ * since the founder's no-sticky ruling (2026-07-28, .mb-nav--overlay), so
+ * every anchor was landing 84px low, measured at all seven audit widths.
+ * The constant stays exported: the scrollspy root margin derives from it.
+ */
+export const NAV_SCROLL_OFFSET = 0;
 
 /**
  * Document scroll position for a section: sections shorter than the viewport
- * are centered vertically (never closer to the top than the sticky-nav
- * offset, so the nav cannot overlap near-viewport-height sections); taller
- * sections top-align below the 84px nav. Never negative.
+ * are centered vertically; taller sections top-align flush with the viewport
+ * (nothing overlays the top any more). Never negative.
  */
 export function sectionScrollTop(section: {
   top: number;

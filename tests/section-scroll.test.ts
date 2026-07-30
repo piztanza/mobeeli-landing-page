@@ -12,26 +12,30 @@ import {
 } from "@/lib/scroll/scrollspy";
 
 describe("nav scroll math (F-001, CHG-piztanza-14)", () => {
-  it("uses the approved 84px sticky-nav offset", () => {
-    expect(NAV_SCROLL_OFFSET).toBe(84);
+  // MOBILE PASS 2026-07-30: the approved 84px was the sticky-nav clearance —
+  // but the nav has been position:absolute since the founder's no-sticky
+  // ruling (2026-07-28), so every anchor landed 84px LOW, measured at all
+  // seven audit widths. Offset is 0 now; these pins defend the fix.
+  it("carries no nav offset — the header does not stick", () => {
+    expect(NAV_SCROLL_OFFSET).toBe(0);
   });
 
-  it("top-aligns sections taller than the viewport below the nav", () => {
-    expect(sectionScrollTop({ top: 3000, height: 2000, viewportHeight: 800 })).toBe(3000 - 84);
+  it("top-aligns sections taller than the viewport flush with its top", () => {
+    expect(sectionScrollTop({ top: 3000, height: 2000, viewportHeight: 800 })).toBe(3000);
   });
 
-  it("centers sections shorter than the viewport (the #why-now case)", () => {
+  it("centers sections shorter than the viewport", () => {
     // (900 - 300) / 2 = 300px above the section — centered in the viewport.
     expect(sectionScrollTop({ top: 5000, height: 300, viewportHeight: 900 })).toBe(4700);
   });
 
-  it("never lets centering tuck a near-viewport-height section under the nav", () => {
-    // Centered offset would be 50px < 84px nav — clamp to the nav offset.
-    expect(sectionScrollTop({ top: 5000, height: 800, viewportHeight: 900 })).toBe(5000 - 84);
+  it("keeps centering for near-viewport-height sections (no clamp needed now)", () => {
+    // Centered offset is 50px; with no overlay to clear, centering stands.
+    expect(sectionScrollTop({ top: 5000, height: 800, viewportHeight: 900 })).toBe(4950);
   });
 
-  it("transitions continuously at exactly viewport height (84px offset)", () => {
-    expect(sectionScrollTop({ top: 5000, height: 900, viewportHeight: 900 })).toBe(5000 - 84);
+  it("transitions continuously at exactly viewport height (flush landing)", () => {
+    expect(sectionScrollTop({ top: 5000, height: 900, viewportHeight: 900 })).toBe(5000);
   });
 
   it("never returns a negative scroll position", () => {
@@ -44,9 +48,10 @@ describe("scrollspy (F-001, CHG-piztanza-14)", () => {
     expect(SPY_SECTION_IDS).toEqual(["problem", "how-it-works"]);
   });
 
-  it("builds the spy band root margin below the sticky nav", () => {
-    expect(spyRootMargin(NAV_SCROLL_OFFSET)).toBe("-84px 0px -45% 0px");
-    expect(spyRootMargin(0)).toBe("-0px 0px -45% 0px");
+  it("builds the spy band root margin from the (now zero) nav offset", () => {
+    expect(spyRootMargin(NAV_SCROLL_OFFSET)).toBe("-0px 0px -45% 0px");
+    // The formula still honours a non-zero offset if a sticky nav returns.
+    expect(spyRootMargin(84)).toBe("-84px 0px -45% 0px");
   });
 
   const order = SPY_SECTION_IDS;

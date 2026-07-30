@@ -21,10 +21,11 @@
   background: rgba(47, 125, 246, 0.25);
 }
 
-/* Sticky-nav anchor offset for every in-page target (approved 84px). */
-.mb-landing [id] {
-  scroll-margin-top: 84px;
-}
+/* The 84px sticky-nav anchor offset is RETIRED (mobile pass 2026-07-30):
+   the nav has been position:absolute since the founder's no-sticky ruling
+   (see .mb-nav--overlay) — every anchor was landing 84px low, measured at
+   all seven audit widths. Anchors now land flush; short sections still
+   centre via sectionScroll.ts. */
 
 /* ---------- motion primitives (all disabled under reduced motion) ---------- */
 
@@ -81,7 +82,6 @@
 /* ---------- shared ---------- */
 
 .mb-section {
-  scroll-margin-top: 84px;
   padding: var(--mb-section-y) var(--mb-container-pad);
 }
 .mb-section-inner {
@@ -379,6 +379,9 @@
     box-shadow: 0 24px 44px rgba(13, 21, 34, 0.16);
     padding: 6px var(--mb-container-pad) 20px;
     max-height: calc(100vh - 66px);
+    /* svh pair (mobile pass 2026-07-30): with the iOS URL bar expanded,
+       100vh exceeds the visible area and the sheet's tail hid below it. */
+    max-height: calc(100svh - 66px);
     overflow-y: auto;
   }
   @media (prefers-reduced-motion: no-preference) {
@@ -896,6 +899,13 @@ button.mb-buyer-cta:active {
        fights auto-placement on any future child. `none` returns the grid to
        document order — picker, SKU, window — which is the right reading order. */
     grid-template-areas: none;
+  }
+  /* ≥16px so mobile Safari never auto-zooms the picker (CHG-piztanza-10
+     rule — these two were the only input family without the guarantee;
+     mobile pass 2026-07-30). Desktop keeps the contract's 13px. */
+  .mb-ymm-select,
+  .mb-vin-input {
+    font-size: 16px;
   }
   /* Scoped through the parent (0,2,0) deliberately. The three `grid-area`
      declarations live further DOWN this file with their own rules, so an
@@ -1642,7 +1652,6 @@ button.mb-buyer-cta:active {
   background: var(--mb-bg);
   padding: 120px 24px 124px;
   overflow: hidden; /* clips the ghost numeral bleed */
-  scroll-margin-top: 84px;
 }
 .mb-prob-container {
   max-width: 1280px;
@@ -2242,7 +2251,6 @@ button.mb-buyer-cta:active {
 
 .mb-why {
   position: relative;
-  scroll-margin-top: 84px;
   background: var(--mb-deep-blue-hover);
   background-image: radial-gradient(
     680px 380px at 88% 0%,
@@ -3295,8 +3303,9 @@ button.mb-buyer-cta:active {
   color: #3c4654;
 }
 .mb-ctform-input {
-  /* the deck form's geometry in a light skin — same object, two skins.
-     16px is the CHG-piztanza-10 no-zoom rule; do not shrink it. */
+  /* The deck form's geometry in a light skin — same object, two skins.
+     ≥16px so mobile Safari never auto-zooms (CHG-piztanza-10 rule) — do
+     not shrink it. */
   padding: 13px 15px;
   border: 1.5px solid #dfe5ee;
   border-radius: var(--mb-radius-input);
@@ -5214,9 +5223,14 @@ button.mb-buyer-cta:active {
     border-color 180ms ease,
     box-shadow 180ms ease;
 }
-.mb-ucat-card:not(.is-unfit):hover {
-  transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.26);
+/* hover:hover gate (mobile pass 2026-07-30): on touch, tap made the lift
+   stick to the card until the next tap elsewhere — the classic sticky-hover.
+   Colour hovers elsewhere are harmless; only transforms are gated. */
+@media (hover: hover) {
+  .mb-ucat-card:not(.is-unfit):hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.26);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .mb-ucat-card {
@@ -5259,3 +5273,25 @@ button.mb-buyer-cta:active {
 .mb-cat-ymm {
   text-align: left;
 }
+/* Touch floor (mobile pass 2026-07-30) — first use of pointer:coarse in
+   this file; reuse this block for future touch-only affordances. 44px per
+   iOS HIG (WCAG 2.5.8's 24px is the legal floor; 44 is the defensible
+   target on an investor-facing site). Text links get padded hit areas
+   rather than 44px boxes so the footer's rhythm survives. */
+@media (pointer: coarse) {
+  .mb-ymm-select,
+  .mb-vin-btn,
+  .mb-garage-clear {
+    min-height: 44px;
+  }
+  .mb-footer-col a {
+    padding: 8px 0;
+    margin: -6px 0;
+  }
+  .mb-footer-contact a {
+    display: inline-block;
+    padding: 10px 0;
+    margin: -10px 0;
+  }
+}
+

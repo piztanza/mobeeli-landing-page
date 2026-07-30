@@ -75,10 +75,12 @@ describe("focus-visible system (CSS contract)", () => {
     expect(globalsCss).toMatch(/:focus-visible \{[^}]*outline-offset: 2px;/s);
   });
 
-  it("the skip target never shows a ring and clears the sticky nav on every page", () => {
+  it("the skip target never shows a ring and lands flush (no sticky nav)", () => {
     expect(globalsCss).toMatch(/#main-content \{[^}]*outline: none;/s);
-    // /join's main sits outside .mb-landing, so the 84px offset must live here.
-    expect(globalsCss).toMatch(/#main-content \{[^}]*scroll-margin-top: 84px;/s);
+    // MOBILE PASS 2026-07-30: the 84px clearance is retired — the nav is
+    // position:absolute (founder no-sticky ruling), so the skip target lands
+    // flush like every anchor. The pin now defends the ABSENCE.
+    expect(globalsCss).not.toMatch(/#main-content \{[^}]*scroll-margin-top/s);
   });
 
   it("no input suppresses the focus outline anymore", () => {

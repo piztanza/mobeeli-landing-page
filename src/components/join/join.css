@@ -16,6 +16,9 @@
 
 .mb-join {
   min-height: 100vh;
+  /* svh pair (mobile pass 2026-07-30) — the landing bands' established
+     pattern; bare 100vh overfills iOS Safari with the URL bar expanded. */
+  min-height: 100svh;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(440px, 100%), 1fr));
   font-family: var(--mb-font-text);
