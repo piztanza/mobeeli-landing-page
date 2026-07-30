@@ -6,7 +6,6 @@ import CareersPage, { metadata as careersMetadata } from "@/app/careers/page";
 import EarlyAdoptersPage, { metadata as earlyAdoptersMetadata } from "@/app/early-adopters/page";
 import InvestorsPage, { metadata as investorsMetadata } from "@/app/investors/page";
 import TeamPage, { metadata as teamMetadata } from "@/app/team/page";
-import WhyMobeeliPage, { metadata as whyMobeeliMetadata } from "@/app/why-mobeeli/page";
 import sitemap from "@/app/sitemap";
 import ContactPage, { metadata as contactMetadata } from "@/app/contact/page";
 import { t, type CopyKey } from "@/lib/i18n";
@@ -23,7 +22,7 @@ function esc(s: string): string {
 
 /** The section pages split off the landing stack (CHG-piztanza-09 + redesign phase 3). */
 const PAGES: readonly {
-  path: "/team" | "/early-adopters" | "/investors" | "/why-mobeeli" | "/careers" | "/contact";
+  path: "/team" | "/early-adopters" | "/investors" | "/careers" | "/contact";
   Page: () => ReactElement;
   metadata: typeof teamMetadata;
   titleKey: CopyKey;
@@ -57,15 +56,6 @@ const PAGES: readonly {
     descriptionKey: "inv_p",
     sectionId: "investors",
     h2Key: "inv_h2",
-  },
-  {
-    path: "/why-mobeeli",
-    Page: WhyMobeeliPage,
-    metadata: whyMobeeliMetadata,
-    titleKey: "nav_why",
-    descriptionKey: "why_h2",
-    sectionId: "why-now",
-    h2Key: "why_h2",
   },
   {
     path: "/careers",
@@ -158,12 +148,9 @@ describe("section page specifics (CHG-piztanza-09)", () => {
     expect(html).not.toContain(esc(t("en", "cat_h2")));
   });
 
-  it("/why-mobeeli gathers the pain tiles, search comparison and proof bar", () => {
-    const html = renderToStaticMarkup(<WhyMobeeliPage />);
-    for (const key of ["prob_t1_t", "cmp_h", "pf1_l"] as const) {
-      expect(html).toContain(esc(t("en", key)));
-    }
-  });
+  /* FOUNDER 2026-07-30: /why-mobeeli is REMOVED — numbers and figures live
+     in the pitch deck, never on the site. Its components stay in the repo,
+     unmounted (AiCatalogCard precedent). */
 
   it("/investors offers the deck-request CTA (F-016) and keeps the founder emails (F-009)", () => {
     const html = renderToStaticMarkup(<InvestorsPage />);

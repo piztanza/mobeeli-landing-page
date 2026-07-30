@@ -11,7 +11,6 @@ import InvestorsPage from "@/app/investors/page";
 import JoinPage from "@/app/join/page";
 import LandingPage from "@/app/page";
 import TeamPage from "@/app/team/page";
-import WhyMobeeliPage from "@/app/why-mobeeli/page";
 import { t } from "@/lib/i18n";
 
 const globalsCss = readFileSync(new URL("../src/app/globals.css", import.meta.url), "utf8");
@@ -28,7 +27,6 @@ const PAGES: readonly { path: string; Page: () => ReactElement }[] = [
   { path: "/team", Page: TeamPage },
   { path: "/early-adopters", Page: EarlyAdoptersPage },
   { path: "/investors", Page: InvestorsPage },
-  { path: "/why-mobeeli", Page: WhyMobeeliPage },
   { path: "/careers", Page: CareersPage },
   { path: "/contact", Page: ContactPage },
 ];

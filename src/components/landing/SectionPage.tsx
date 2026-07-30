@@ -11,40 +11,19 @@ import EarlyAdopters from "./EarlyAdopters";
 import Footer from "./Footer";
 import Investors from "./Investors";
 import Nav from "./Nav";
-import ProblemStats from "./ProblemStats";
-import ProofBar from "./ProofBar";
-import SearchComparison from "./SearchComparison";
 import SkipLink from "./SkipLink";
 import TeamSection from "./TeamSection";
-import WhyMobeeli from "./WhyMobeeli";
 
 import "./landing.css";
 
-/**
- * /why-mobeeli — the data & facts page: the why-now narrative plus every
- * stat band moved off the slim landing (pain tiles, search comparison,
- * proof bar). Keeps id="why-now" so legacy /#why-now links still resolve.
- */
-function WhyDataSections() {
-  return (
-    <>
-      <WhyMobeeli />
-      <section className="mb-section">
-        <div className="mb-section-inner">
-          <ProblemStats />
-          <SearchComparison />
-        </div>
-      </section>
-      <ProofBar />
-    </>
-  );
-}
-
+/* FOUNDER 2026-07-30: /why-mobeeli (the data & facts page) is REMOVED —
+   numbers and figures live in the pitch deck, never on the site. Its
+   components (WhyMobeeli, ProblemStats, SearchComparison, ProofBar) stay in
+   the repo unmounted, per the AiCatalogCard precedent. */
 const SECTIONS = {
   team: TeamSection,
   "early-adopters": EarlyAdopters,
   investors: Investors,
-  "why-mobeeli": WhyDataSections,
   careers: CareersSection,
   contact: ContactSection,
 } as const;

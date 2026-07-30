@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 
 import { useT } from "@/lib/i18n/LanguageProvider";
 
@@ -19,8 +18,8 @@ import { useT } from "@/lib/i18n/LanguageProvider";
  * (decorative; both hidden ≤979px). The chip is a SIBLING of the
  * overflow-hidden card — inside it, the -20px overhang gets clipped.
  *
- * The 3 pain-stat tiles stayed on /why-mobeeli (redesign phase 3); the
- * "numbers behind this" link points there.
+ * FOUNDER 2026-07-30: /why-mobeeli and the "numbers behind this" link are
+ * GONE — numbers and figures live in the pitch deck, never on the site.
  */
 export default function ProblemSection() {
   const t = useT();
@@ -40,10 +39,9 @@ export default function ProblemSection() {
             </div>
             <div className="mb-prob-copy" data-rev="1">
               <p className="mb-prob-lede">{t("prob_lede")}</p>
-              <Link href="/why-mobeeli" className="mb-prob-link">
-                {t("prob_link")}
-                <span aria-hidden>→</span>
-              </Link>
+              {/* FOUNDER 2026-07-30: "The numbers behind this" link REMOVED
+                  with the whole /why-mobeeli page — figures belong to the
+                  pitch deck, not the site. prob_link stays defined, dormant. */}
             </div>
           </div>
 

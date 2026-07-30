@@ -36,7 +36,6 @@ export default function Footer() {
               <span className="mb-footer-col-h">{t("foot_col_company")}</span>
               <Link href="/team">{t("nav_team")}</Link>
               <Link href="/investors">{t("nav_inv")}</Link>
-              <Link href="/why-mobeeli">{t("nav_why")}</Link>
               <Link href="/careers">{t("nav_careers")}</Link>
               <Link href="/contact">{t("nav_contact")}</Link>
             </div>

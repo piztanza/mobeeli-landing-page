@@ -56,7 +56,7 @@ describe("R28 — problem band depth planes", () => {
     );
   });
 
-  it("carries the COD-mechanism callout in Mobeeli's voice, and links the data page", () => {
+  it("carries the COD-mechanism callout in Mobeeli's voice, with no data-page link", () => {
     // FOUNDER 2026-07-29: the Senen testimony left the callout (seller
     // grievance in a buyer-pain band; adversarial; unverifiable). The card
     // is Mobeeli-voice mechanism now, so NORMAL i18n applies — the locales
@@ -64,7 +64,12 @@ describe("R28 — problem band depth planes", () => {
     expect(html).not.toContain(copy.en.quote_main);
     expect(copy.en.prob_call_h).not.toBe(copy.id.prob_call_h);
     expect(t("en", "quote_main")).toBeTruthy(); // dormant, not deleted
-    expect(html).toContain('href="/why-mobeeli"');
+    // FOUNDER 2026-07-30: the "numbers behind this" link is GONE with the
+    // whole /why-mobeeli page — figures live in the pitch deck, never on
+    // the site. prob_link stays defined, dormant.
+    expect(html).not.toContain("/why-mobeeli");
+    expect(html).not.toContain("mb-prob-link");
+    expect(t("en", "prob_link")).toBeTruthy();
     for (const lang of ["en", "id"] as const) {
       expect(t(lang, "prob_lede")).toBeTruthy();
       expect(t(lang, "prob_link")).toBeTruthy();

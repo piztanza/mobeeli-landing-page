@@ -69,7 +69,6 @@ const SECTION_PAGE_COPY = {
   "/team": { titleKey: "nav_team", descriptionKey: "team_h2" },
   "/early-adopters": { titleKey: "nav_early", descriptionKey: "early_h2" },
   "/investors": { titleKey: "nav_inv", descriptionKey: "inv_p" },
-  "/why-mobeeli": { titleKey: "nav_why", descriptionKey: "why_h2" },
   "/careers": { titleKey: "nav_careers", descriptionKey: "careers_h2" },
   "/contact": { titleKey: "nav_contact", descriptionKey: "contact_p" },
 } as const satisfies Record<string, { titleKey: CopyKey; descriptionKey: CopyKey }>;
