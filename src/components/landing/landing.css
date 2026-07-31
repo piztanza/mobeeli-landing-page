@@ -3885,6 +3885,29 @@ button.mb-buyer-cta:active,
   width: auto;
   display: block;
 }
+
+/* Mobile logo scale (founder 2026-07-31). The wordmark is a 3.93:1 lockup at
+   a FIXED height everywhere, so it read completely differently by screen:
+   the nav mark was 12.9% of a 1280px desktop but 42% of a 390px phone and
+   51.6% at 320 — it dominated the bar instead of sitting in it. The footer
+   mark had the same problem (12.3% desktop / 49.1% at 320).
+
+   Both now ramp with the viewport to a steady ~30-34% on phones. The clamp
+   MAXIMA are the existing values, and 8vw/7.5vw already reach them at this
+   query's own 559.98 edge (8 x 559.98 = 44.8 -> capped 42), so the boundary
+   is seamless and every width from 560px up is byte-identical to before —
+   the founder-approved 42px desktop lockup is untouched, and its test pin on
+   the base rule still holds. Floors keep ".com" legible at 320.
+   Left alone deliberately: /join's brand-panel mark, which is a different
+   context and already the smallest of the three (32px, 32% at 390). */
+@media (max-width: 559.98px) {
+  .mb-nav-logo img {
+    height: clamp(28px, 8vw, 42px);
+  }
+  .mb-footer-logo img {
+    height: clamp(27px, 7.5vw, 40px);
+  }
+}
 .mb-footer-tag {
   margin-top: 14px;
   font-size: 14.5px;

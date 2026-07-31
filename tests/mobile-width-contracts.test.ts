@@ -88,6 +88,25 @@ describe("part-card grid on phones (founder ruling 2026-07-31)", () => {
   });
 });
 
+describe("logo scales on phones (founder 2026-07-31)", () => {
+  it("nav and footer wordmarks ramp with the viewport below 560px", () => {
+    // The 3.93:1 lockup sat at a fixed height everywhere, so it was 12.9% of a
+    // 1280px desktop but 42% of a 390px phone (51.6% at 320) — it filled the
+    // bar instead of sitting in it. The clamp MAXIMA are the old fixed values
+    // and 8vw/7.5vw already hit them at this query's own 559.98 edge, so
+    // >=560px is byte-identical and the founder-approved 42px desktop lockup
+    // is untouched.
+    const block = landingCss.slice(landingCss.indexOf("@media (max-width: 559.98px)"));
+    expect(block).toMatch(/\.mb-nav-logo img \{\s*height: clamp\(28px, 8vw, 42px\);/s);
+    expect(block).toMatch(/\.mb-footer-logo img \{\s*height: clamp\(27px, 7\.5vw, 40px\);/s);
+  });
+
+  it("keeps the desktop base rules at their approved fixed heights", () => {
+    expect(landingCss).toMatch(/\.mb-nav-logo img \{\s*height: 42px;/s);
+    expect(landingCss).toMatch(/\.mb-footer-logo img \{\s*height: 40px;/s);
+  });
+});
+
 describe("/team rows cannot blow out their grid track", () => {
   it("the role kicker may wrap, and the grid items may shrink", () => {
     // .mb-team2-role is nowrap, and a grid item's automatic minimum size is
