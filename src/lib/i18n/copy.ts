@@ -174,7 +174,13 @@ const en = {
      cards. Do NOT drop the tag to tidy the line up. */
   cat_count_fit: "4 of 217 fit your car",
   cat_count_hidden: "· 213 hidden — they do not fit",
-  cat_count_ai: "· catalogue assembled by Mobeeli AI",
+  /* FOUNDER RULING 2026-08-01: nothing in user-facing copy may suggest Mobeeli
+     INGESTS, scrapes or otherwise helps itself to data. AI stays as a
+     capability claim, but every mention is anchored to a seller handing their
+     OWN file over — the AI never acts on files by itself. "assembled by
+     Mobeeli AI" read as though the AI compiled the catalogue from unstated
+     sources; the provenance is now explicit. */
+  cat_count_ai: "· built by Mobeeli AI from sellers' own catalogues",
   cat_badge_genuine: "Genuine",
   cat_chip_unfit: "Does not fit",
   cat_part5_name: "Ceramic Pad Set",
@@ -294,9 +300,12 @@ const en = {
     "In May 2026, the big marketplaces raised seller fees to roughly 17–20%. Mobeeli is the alternative built for the auto industry — verified fitment, honest economics, and protection on both sides.",
   early_kicker: "Early Adopters Program",
   early_h2: "0% platform fee for the first 300 shops.",
-  early_f1_t: "Automated catalog uploads",
+  /* "uploaded automatically by AI" read as the AI doing the uploading, from
+     somewhere unnamed. The seller sends the file; the automation does the
+     listing (founder ruling 2026-08-01). */
+  early_f1_t: "Your price list, listed automatically",
   early_f1_d:
-    "Thousands of SKUs uploaded automatically by AI — Excel files or PDFs become an online store in hours.",
+    "Send us your Excel or PDF — our AI turns your own price list into a live store in hours.",
   early_f2_t: "Fraud protection",
   early_f2_d: "Built-in protection against fraud, backed by video evidence and insurance.",
   early_f3_t: "One low, flat commission",
@@ -342,8 +351,10 @@ const en = {
      afternoon), never a raw count. */
   team_c1:
     "A lifetime in Canada, a career across automotive and tech e-commerce — he saw the gap in Indonesia's parts trade and came home to close it.",
+  /* "gated AI ingestion" retired 2026-08-01 (founder): "ingestion" describes
+     the platform swallowing data. Same system, named by whose data it is. */
   team_c2:
-    "Built the platform pre-funding — the fitment engine, gated AI ingestion, the marketplace.",
+    "Built the platform pre-funding — the fitment engine, the AI behind seller uploads, the marketplace.",
   team_c3: "Runs operations and partnerships — logistics, payments, and the wholesaler pipeline.",
   inv_kicker: "For investors",
   inv_h2: "Come see what we've built.",
@@ -465,12 +476,12 @@ const en = {
   da_never: "Never expires",
   da_copy: "Copy link",
   da_copied: "Copied ✓",
-  cat_h2: "The catalog that puts itself together.",
+  cat_h2: "One catalog, built from what sellers send.",
   cat_p:
-    "Excel sheets, PDFs, even photos of handwritten ledgers — Mobeeli's AI reads them all and builds one clean catalog, mapped to every car on the road.",
+    "Sellers send their own Excel sheets, PDFs, even photos of handwritten ledgers — Mobeeli's AI reads what they send and builds one clean catalog, mapped to every car on the road.",
   cat_pill: "✓ One catalog · 120M+ mappings (Simulation)",
-  cat_ai_read: "Mobeeli AI · reading 3 catalogs…",
-  cat_ai_done: "Mobeeli AI · catalog assembled ✓",
+  cat_ai_read: "Mobeeli AI · reading 3 seller uploads…",
+  cat_ai_done: "Mobeeli AI · seller uploads listed ✓",
   scn1: "Brake pads",
   scn2: "Oil filter",
   scn3: "Spark plugs",
@@ -515,8 +526,8 @@ const en = {
   jw_left_h: "Be one of the first shops on Mobeeli.",
   jw_left_sub:
     "Tell us about your business. A founder follows up personally — no payment, no commitment to express interest.",
-  jw_ben1_t: "Automated catalog uploads",
-  jw_ben1_s: "Excel or PDF becomes an online store in hours.",
+  jw_ben1_t: "Your price list, listed automatically",
+  jw_ben1_s: "Your own Excel or PDF — our AI lists it in hours.",
   jw_ben2_t: "Fraud protection built in",
   jw_ben2_s: "Backed by video evidence and insurance.",
   jw_ben3_t: "One low, flat commission",
@@ -723,7 +734,7 @@ const id: Record<CopyKey, string> = {
   cat_katalog_label: "Mobeeli · Katalog",
   cat_count_fit: "4 dari 217 cocok untuk mobil Anda",
   cat_count_hidden: "· 213 disembunyikan karena tidak pas",
-  cat_count_ai: "· katalog disusun oleh Mobeeli AI",
+  cat_count_ai: "· disusun Mobeeli AI dari katalog milik penjual",
   cat_badge_genuine: "Genuine",
   cat_chip_unfit: "Tidak Pas",
   cat_part5_name: "Ceramic Pad Set",
@@ -840,9 +851,9 @@ const id: Record<CopyKey, string> = {
     "Mei 2026, marketplace besar menaikkan biaya penjual hingga sekitar 17–20%. Mobeeli hadir sebagai alternatif yang memang dibangun untuk industri otomotif — kecocokan terjamin, biaya masuk akal, dan perlindungan untuk dua belah pihak.",
   early_kicker: "Program Early Adopters",
   early_h2: "Biaya platform 0% untuk 300 toko pertama.",
-  early_f1_t: "Unggah katalog serba otomatis",
+  early_f1_t: "Daftar harga Anda, tersusun otomatis",
   early_f1_d:
-    "Ribuan SKU terunggah otomatis oleh AI — dari file Excel atau PDF jadi toko online hanya dalam hitungan jam.",
+    "Kirim file Excel atau PDF Anda — AI kami mengubah daftar harga milik Anda sendiri jadi toko online dalam hitungan jam.",
   early_f2_t: "Perlindungan dari penipuan",
   early_f2_d: "Perlindungan bawaan dari penipuan, ditopang bukti video dan asuransi.",
   early_f3_t: "Satu komisi flat yang ringan",
@@ -881,7 +892,7 @@ const id: Record<CopyKey, string> = {
   team_c1:
     "Seumur hidup di Kanada, berkarier di otomotif dan e-commerce teknologi — ia melihat celah di perdagangan onderdil Indonesia dan pulang untuk menutupnya.",
   team_c2:
-    "Membangun platform ini sebelum ada pendanaan — dari mesin kecocokan, ingesti AI, sampai marketplace-nya.",
+    "Membangun platform ini sebelum ada pendanaan — dari mesin kecocokan, AI di balik unggahan penjual, sampai marketplace-nya.",
   team_c3:
     "Memegang operasional dan kemitraan — logistik, pembayaran, dan jalur distribusi grosir.",
   inv_kicker: "Untuk investor",
@@ -993,12 +1004,12 @@ const id: Record<CopyKey, string> = {
   da_never: "Never expires",
   da_copy: "Copy link",
   da_copied: "Copied ✓",
-  cat_h2: "Katalog yang menyusun dirinya sendiri.",
+  cat_h2: "Satu katalog, disusun dari yang dikirim penjual.",
   cat_p:
-    "File Excel, PDF, sampai foto catatan tulis tangan — AI Mobeeli membaca semuanya, lalu merapikannya jadi satu katalog yang terpetakan ke setiap mobil di jalanan.",
+    "Penjual mengirim file Excel, PDF, sampai foto catatan tulis tangan mereka sendiri — AI Mobeeli membaca kiriman itu, lalu merapikannya jadi satu katalog yang terpetakan ke setiap mobil di jalanan.",
   cat_pill: "✓ Satu katalog · 120 juta+ data kecocokan (Simulasi)",
-  cat_ai_read: "AI Mobeeli · sedang membaca 3 katalog…",
-  cat_ai_done: "AI Mobeeli · katalog selesai disusun ✓",
+  cat_ai_read: "AI Mobeeli · membaca 3 unggahan penjual…",
+  cat_ai_done: "AI Mobeeli · unggahan penjual selesai disusun ✓",
   scn1: "Kampas rem",
   scn2: "Filter oli",
   scn3: "Busi",
@@ -1032,8 +1043,8 @@ const id: Record<CopyKey, string> = {
   jw_left_h: "Jadi salah satu toko pertama di Mobeeli.",
   jw_left_sub:
     "Ceritakan tentang bisnis Anda. Salah satu founder akan menghubungi langsung — tanpa bayar, tanpa komitmen untuk menyatakan minat.",
-  jw_ben1_t: "Unggah katalog serba otomatis",
-  jw_ben1_s: "File Excel atau PDF jadi toko online dalam hitungan jam.",
+  jw_ben1_t: "Daftar harga Anda, tersusun otomatis",
+  jw_ben1_s: "File Excel atau PDF milik Anda — AI kami menyusunnya dalam hitungan jam.",
   jw_ben2_t: "Perlindungan penipuan bawaan",
   jw_ben2_s: "Ditopang bukti video dan asuransi.",
   jw_ben3_t: "Satu komisi flat yang ringan",

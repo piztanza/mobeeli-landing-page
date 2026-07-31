@@ -194,10 +194,12 @@ describe("catalog loop copy (F-005)", () => {
     for (const lang of langs) {
       expect(t(lang, "cat_ai_read")).not.toBe(t(lang, "cat_ai_done"));
     }
-    expect(t("en", "cat_ai_read")).toContain("reading 3 catalogs");
-    expect(t("en", "cat_ai_done")).toContain("catalog assembled ✓");
-    expect(t("id", "cat_ai_read")).toContain("membaca 3 katalog");
-    expect(t("id", "cat_ai_done")).toContain("katalog selesai disusun ✓");
+    // FOUNDER RULING 2026-08-01: no copy may imply Mobeeli ingests or scrapes
+    // data. The status line now names whose files these are — the seller's.
+    expect(t("en", "cat_ai_read")).toContain("reading 3 seller uploads");
+    expect(t("en", "cat_ai_done")).toContain("seller uploads listed ✓");
+    expect(t("id", "cat_ai_read")).toContain("membaca 3 unggahan penjual");
+    expect(t("id", "cat_ai_done")).toContain("unggahan penjual selesai disusun ✓");
   });
 });
 
