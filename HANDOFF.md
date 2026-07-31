@@ -31,6 +31,8 @@ them.
 | `WAITLIST_ALERT_TO` | Founding-team inbox (@mobeeli.com) for lead/deck-request alerts. |
 | `RESEND_AUDIENCE_ID` | `311b0b83-fb99-40a8-bcf1-36b1b79a929a` — the dedicated **Buyers** audience (see Resend notes). |
 | `DECK_SECRET` | Gates `/deck-admin` and HMAC-signs `/deck?token=…` links. Rotating it kills all outstanding links. |
+| `NOTION_TOKEN` | Optional. Internal-integration secret used to log deck requests to Notion. Unset → logging is skipped, email unaffected. |
+| `NOTION_DECK_DB_ID` | Optional. Id of the Notion **Deck Requests** database (`f609475a65e340118e320dbaf48b4524`). |
 
 ## Immediate next steps
 
@@ -76,6 +78,23 @@ Investor form → alert email with a single **Generate Deck Link** button → `/
 (gated by `DECK_SECRET` via `?key=…`, durations chosen there) → mints an HMAC-signed
 stateless `/deck?token=…` viewer link. The PDF lives in `private/deck/` — intentionally
 not in `public/`.
+
+Every accepted request is also written to the Notion **Deck Requests** database
+(Fundraise teamspace → *Fundraise — founders only*), one row per request: name, firm,
+email, message, LinkedIn, receipt time, site language, edge country, email domain and a
+work-vs-free mailbox flag. `Status` starts at **New**; `Deck link sent`, `Link expires`,
+`Owner`, `Investor` (relation into the Investors CRM) and `Notes` are filled in by hand.
+The alert email links straight to the row.
+
+Logging is **best-effort**: if Notion is down, the token is wrong or the database was
+never shared with the integration, the request still succeeds and the alert email says
+`NOT LOGGED TO NOTION — <reason>`, so nothing is lost. To (re-)connect it:
+
+1. https://www.notion.so/profile/integrations → **New internal integration** in the
+   Mobeeli workspace, capability *Insert content*; copy the secret.
+2. Open the **Deck Requests** database → `···` → **Connections** → add that integration.
+   Without this step Notion answers 404 to every write.
+3. Set `NOTION_TOKEN` and `NOTION_DECK_DB_ID` in Vercel (all environments) and redeploy.
 
 ## Database contract (summary — full rule in CLAUDE.md)
 

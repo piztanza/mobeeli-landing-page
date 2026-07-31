@@ -432,13 +432,13 @@ const en = {
     "Joining the Early Adopters waitlist stores the business details you provide so we can contact you about the program. They are used for nothing else.",
   privacy_b3_h: "Deck requests",
   privacy_b3_p:
-    "Requesting the investor deck sends your name, firm and work email to the team by email, used to follow up personally.",
+    "Requesting the investor deck sends your name, firm and work email to the team by email, used to follow up personally. The same details, plus the country the request came from, are recorded in our internal workspace so the follow-up is tracked. They go no further.",
   privacy_b4_h: "On your device",
   privacy_b4_p:
     "This site sets no cookies. It keeps two preferences in your browser — your language and the vehicle you picked in the demo. They never leave your device.",
   privacy_b5_h: "Third parties",
   privacy_b5_p:
-    "Nothing on this site loads from a third party — no analytics, no embedded scripts, no external fonts. Email delivery runs through a mail provider acting on our instructions.",
+    "Nothing on this site loads from a third party — no analytics, no embedded scripts, no external fonts. Email delivery runs through a mail provider, and deck requests are recorded in the workspace tool the team runs on; both act on our instructions.",
   privacy_b6_h: "Your rights",
   privacy_b6_p:
     "Under Indonesia's Personal Data Protection Law (UU PDP 27/2022) you can ask what we hold about you, have it corrected, or have it deleted. One address handles all of it:",
@@ -960,13 +960,13 @@ const id: Record<CopyKey, string> = {
     "Bergabung ke waitlist Early Adopters menyimpan detail usaha yang Anda berikan agar kami bisa menghubungi Anda soal program ini. Tidak dipakai untuk hal lain.",
   privacy_b3_h: "Permintaan deck",
   privacy_b3_p:
-    "Meminta deck investor mengirim nama, firma, dan email kerja Anda ke tim lewat email, dipakai untuk tindak lanjut secara pribadi.",
+    "Meminta deck investor mengirim nama, firma, dan email kerja Anda ke tim lewat email, dipakai untuk tindak lanjut secara pribadi. Detail yang sama, ditambah negara asal permintaan, dicatat di ruang kerja internal kami agar tindak lanjutnya terpantau. Tidak diteruskan ke mana pun.",
   privacy_b4_h: "Di perangkat Anda",
   privacy_b4_p:
     "Situs ini tidak memasang cookie. Hanya ada dua preferensi yang disimpan di browser Anda — bahasa dan kendaraan yang Anda pilih di demo. Keduanya tidak pernah meninggalkan perangkat Anda.",
   privacy_b5_h: "Pihak ketiga",
   privacy_b5_p:
-    "Tidak ada apa pun di situs ini yang dimuat dari pihak ketiga — tanpa analytics, tanpa skrip tertanam, tanpa font eksternal. Pengiriman email berjalan lewat penyedia email yang bekerja atas instruksi kami.",
+    "Tidak ada apa pun di situs ini yang dimuat dari pihak ketiga — tanpa analytics, tanpa skrip tertanam, tanpa font eksternal. Pengiriman email berjalan lewat penyedia email, dan permintaan deck dicatat di perangkat ruang kerja yang dipakai tim; keduanya bekerja atas instruksi kami.",
   privacy_b6_h: "Hak Anda",
   privacy_b6_p:
     "Berdasarkan Undang-Undang Pelindungan Data Pribadi (UU PDP 27/2022), Anda dapat menanyakan data apa yang kami simpan tentang Anda, memintanya diperbaiki, atau dihapus. Satu alamat menangani semuanya:",

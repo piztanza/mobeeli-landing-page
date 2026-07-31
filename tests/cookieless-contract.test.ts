@@ -86,6 +86,7 @@ describe("cookieless contract", () => {
       "www.linkedin.com", // outbound anchor targets, not resource loads
       "linkedin.com",
       "resend.com", // server-side mail API host in comments
+      "api.notion.com", // server-side deck-request logging, never client-side
       "vercel.com",
       "nextjs.org", // doc links in comments
       "www.w3.org", // SVG namespace

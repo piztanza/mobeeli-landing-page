@@ -47,7 +47,8 @@ describe("deck request alert email (F-016)", () => {
     expect(html).toContain(`href="https://mobeeli.com/deck-admin?key=${SECRET}"`);
     expect(html).toContain("Generate Deck Link");
 
-    // Exactly one link in the html body besides the details block.
+    // Exactly one link in the html body besides the details block (no Notion
+    // outcome passed here — see the Notion-line tests below).
     expect(html.match(/<a /g)).toHaveLength(1);
 
     // Plain text carries the same single link, on its own labelled line.
@@ -60,6 +61,39 @@ describe("deck request alert email (F-016)", () => {
       expect(body).not.toContain("1-hour");
       expect(body).not.toContain("Non-expiring");
       expect(body).not.toContain("Custom duration");
+    }
+  });
+
+  it("links the Notion row when the request was logged, keeping the mint CTA last", () => {
+    vi.stubEnv("NEXT_PUBLIC_SITE_URL", "");
+    const { text, html } = deckRequestAlert(request, SECRET, {
+      status: "logged",
+      url: "https://notion.so/deck-row",
+    });
+
+    expect(text).toContain("Notion row: https://notion.so/deck-row");
+    expect(html).toContain('<a href="https://notion.so/deck-row">Open the Notion row</a>');
+    // Two links now: the Notion row and the single mint CTA, still the last line.
+    expect(html.match(/<a /g)).toHaveLength(2);
+    expect(text.trimEnd().endsWith(`?key=${SECRET}`)).toBe(true);
+  });
+
+  it("says loudly when logging failed, so the email is known to be the only record", () => {
+    const { text, html } = deckRequestAlert(request, SECRET, {
+      status: "failed",
+      reason: "Notion responded 404",
+    });
+    for (const body of [text, html]) {
+      expect(body).toContain("NOT LOGGED TO NOTION");
+      expect(body).toContain("Notion responded 404");
+    }
+    // The failure notice is prose, not a link — the mint CTA stays the only one.
+    expect(html.match(/<a /g)).toHaveLength(1);
+  });
+
+  it("says nothing about Notion when logging is not configured", () => {
+    for (const body of Object.values(deckRequestAlert(request, SECRET, { status: "skipped" }))) {
+      expect(body).not.toContain("Notion");
     }
   });
 

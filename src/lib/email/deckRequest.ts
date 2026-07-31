@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 
 import type { DeckRequestPayload } from "@/lib/deck/schema";
+import type { DeckRequestLogResult } from "@/lib/notion/deckRequests";
 import { siteUrl } from "@/lib/seo";
 
 /** Sender for deck-request alerts; same shared onboarding sender as the waitlist. */
@@ -31,14 +32,31 @@ export interface DeckRequestAlert {
 }
 
 /**
- * Alert email for a deck request (F-016): the requester's details plus one
- * mint CTA — a prominent "Generate Deck Link" button pointing at the
- * DECK_SECRET-gated /deck-admin (no preset; the founder picks the duration
- * on the mint page). Pure so tests can assert the content without sending
- * anything.
+ * One line about the Notion row, so the founders can see from the email alone
+ * that the request was recorded — and, when it wasn't, that this email is the
+ * only copy of it. `skipped` (no Notion configured, e.g. local dev) prints
+ * nothing.
  */
-export function deckRequestAlert(request: DeckRequestPayload, secret: string): DeckRequestAlert {
+function notionLine(log: DeckRequestLogResult | undefined): string | null {
+  if (!log || log.status === "skipped") return null;
+  if (log.status === "logged") return log.url ? `Notion row: ${log.url}` : "Logged to Notion.";
+  return `NOT LOGGED TO NOTION — ${log.reason}. This email is the only record; add the row by hand.`;
+}
+
+/**
+ * Alert email for a deck request (F-016): the requester's details, the Notion
+ * row it was logged to, plus one mint CTA — a prominent "Generate Deck Link"
+ * button pointing at the DECK_SECRET-gated /deck-admin (no preset; the founder
+ * picks the duration on the mint page). Pure so tests can assert the content
+ * without sending anything.
+ */
+export function deckRequestAlert(
+  request: DeckRequestPayload,
+  secret: string,
+  log?: DeckRequestLogResult,
+): DeckRequestAlert {
   const adminUrl = deckAdminUrl(secret);
+  const notion = notionLine(log);
 
   const details = [
     line("Name", request.name),
@@ -54,6 +72,7 @@ export function deckRequestAlert(request: DeckRequestPayload, secret: string): D
     "New investor deck request:",
     "",
     ...details,
+    ...(notion ? ["", notion] : []),
     "",
     "Generate Deck Link:",
     adminUrl,
@@ -62,6 +81,13 @@ export function deckRequestAlert(request: DeckRequestPayload, secret: string): D
   const html = [
     "<h2>New investor deck request</h2>",
     `<p>${details.map((detail) => escapeHtml(detail)).join("<br/>")}</p>`,
+    ...(notion
+      ? [
+          log?.status === "logged" && log.url
+            ? `<p><a href="${escapeHtml(log.url)}">Open the Notion row</a></p>`
+            : `<p>${escapeHtml(notion)}</p>`,
+        ]
+      : []),
     `<p><a href="${escapeHtml(adminUrl)}" style="display:inline-block;background:#2f7df6;color:#ffffff;font-weight:800;text-decoration:none;padding:14px 28px;border-radius:999px;">Generate Deck Link</a></p>`,
   ].join("\n");
 
@@ -73,7 +99,10 @@ export function deckRequestAlert(request: DeckRequestPayload, secret: string): D
  * missing config or send failure — unlike the waitlist route there is no
  * database fallback, so the API route surfaces a 500 the client can retry.
  */
-export async function notifyDeckRequest(request: DeckRequestPayload): Promise<void> {
+export async function notifyDeckRequest(
+  request: DeckRequestPayload,
+  log?: DeckRequestLogResult,
+): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     throw new Error("RESEND_API_KEY is not set — configure it in the server environment.");
@@ -87,7 +116,7 @@ export async function notifyDeckRequest(request: DeckRequestPayload): Promise<vo
     throw new Error("DECK_SECRET is not set — configure it in the server environment.");
   }
 
-  const { subject, text, html } = deckRequestAlert(request, secret);
+  const { subject, text, html } = deckRequestAlert(request, secret, log);
   const { error } = await new Resend(apiKey).emails.send({ from: FROM, to, subject, text, html });
   if (error) {
     throw new Error(`Resend send failed: ${error.message}`);
