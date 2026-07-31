@@ -81,6 +81,36 @@ with sync_playwright() as p:
         ck(f"{label}: no page errors", not errs, "; ".join(errs[:3]))
         ctx.close()
 
+    # ---------- /join skip link vs the ONE sticky bar on the site ----------
+    # Regression guard (2026-07-31): the mobile pass retired the global 84px
+    # #main-content offset because the LANDING nav is position:absolute — but
+    # /join wraps <Nav /> in .mb-join-mobilenav { position: sticky } below
+    # 880px, so the skip target landed 67px behind that bar. Only viewports
+    # able to scroll main to the top expose it, which is why 390x844 alone
+    # missed it: these are the ones that actually reproduced.
+    for W, H in [(320, 568), (740, 360), (844, 390), (879, 500)]:
+        ctx = br.new_context(viewport={"width": W, "height": H})
+        pg = ctx.new_page()
+        pg.goto(BASE + "/join", wait_until="networkidle")
+        pg.wait_for_timeout(700)
+        pg.keyboard.press("Tab")     # skip link is the first focusable
+        pg.wait_for_timeout(200)
+        pg.keyboard.press("Enter")
+        pg.wait_for_timeout(800)
+        d = pg.evaluate("""() => {
+          const bar = document.querySelector('.mb-join-mobilenav');
+          const main = document.getElementById('main-content');
+          const cs = bar ? getComputedStyle(bar) : null;
+          const br = bar ? bar.getBoundingClientRect() : null;
+          const shown = !!(br && br.height > 0 && cs.display !== 'none');
+          return {covered: shown ? Math.round(br.bottom - main.getBoundingClientRect().top) : 0,
+                  focused: document.activeElement === main};
+        }""")
+        ck(f"join@{W}x{H}: skip target clears the sticky bar",
+           d["covered"] <= 0, f"covered={d['covered']}px")
+        ck(f"join@{W}x{H}: skip link moves focus to <main>", d["focused"])
+        ctx.close()
+
     # ---------- /join at 900 wide: the 880-1039 hamburger zone ----------
     ctx = br.new_context(viewport={"width": 900, "height": 800})
     pg = ctx.new_page()

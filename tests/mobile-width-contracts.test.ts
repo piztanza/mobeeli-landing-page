@@ -28,7 +28,15 @@ describe("dead 84px anchor offset stays dead", () => {
     // sticky-nav clearance made every anchor land 84px low.
     expect(landingCss).not.toContain("scroll-margin-top: 84px");
     expect(globalsCss).not.toContain("scroll-margin-top: 84px");
-    expect(joinCss).not.toContain("scroll-margin-top");
+    // /join is the exception and MUST keep a scoped offset: its <Nav /> sits
+    // in .mb-join-mobilenav { position: sticky } below 880px, so a flush skip
+    // target parked 67px of <main> behind that bar. Blanket-banning
+    // scroll-margin-top here (as this pin first did) is what shipped that
+    // regression — the rule is "no offset where nothing is pinned", not
+    // "no offsets".
+    expect(joinCss).toMatch(
+      /@media \(max-width: 879\.98px\) \{[^@]*\.mb-join #main-content \{\s*scroll-margin-top: 67px;/s,
+    );
   });
 });
 
@@ -57,6 +65,18 @@ describe("touch floor (pointer: coarse)", () => {
     expect(landingCss).toMatch(
       /@media \(pointer: coarse\) \{\s*\.mb-ymm-select,\s*\.mb-vin-btn,\s*\.mb-garage-clear \{\s*min-height: 44px;/s,
     );
+  });
+});
+
+describe("touch floor must not overlap its neighbours", () => {
+  it("footer column links pull back at most half the column gap", () => {
+    // .mb-footer-col is a flex column with gap: 10px, so a link's negative
+    // margin is subtracted at BOTH ends of each gap: separation = 10 + 2*m.
+    // The first version shipped -6px, i.e. a 2px OVERLAP between adjacent hit
+    // areas (measured on prod: gaps -2,-2,-2) — a boundary tap hit the wrong
+    // link, the exact failure a touch floor exists to prevent. -5px is the
+    // zero-separation value; anything below it overlaps again.
+    expect(landingCss).toMatch(/\.mb-footer-col a \{\s*padding: 8px 0;\s*margin: -5px 0;/s);
   });
 });
 

@@ -12,6 +12,18 @@
   .mb-join-mobilenav {
     display: block;
   }
+  /* Skip-link clearance for the ONE sticky bar on the site (mobile-pass
+     correction 2026-07-31). The pass retired the global 84px
+     #main-content offset because the LANDING nav is position:absolute —
+     but this view puts <Nav /> inside .mb-join-mobilenav, which is
+     position:sticky below 880px. Without a scoped offset, activating the
+     skip link parked 67px of <main> behind that bar (measured on prod at
+     320x568 and every landscape phone; harmless at 390x844 only because
+     the page cannot scroll far enough there). 67 = .mb-nav-inner's 66px
+     plus the nav's 1px bottom border. */
+  .mb-join #main-content {
+    scroll-margin-top: 67px;
+  }
 }
 
 .mb-join {

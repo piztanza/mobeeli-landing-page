@@ -2488,7 +2488,10 @@ button.mb-buyer-cta:active,
 
 /* ---------- AI catalog card (loop animation ships with F-005) ---------- */
 
-/* Between the buyer strip and Why Mobeeli with symmetric 96px padding (CHG-piztanza-14). */
+/* Symmetric top/bottom padding on the shared section rhythm (CHG-piztanza-14
+   placed this band; both neighbours have since moved). --mb-section-y is
+   fluid since the mobile pass: 96px from 800px up, compressing to 56px on
+   phones — so this is no longer a flat 96px. */
 .mb-cat-section {
   padding: var(--mb-section-y) var(--mb-container-pad);
 }
@@ -3887,9 +3890,11 @@ button.mb-buyer-cta:active,
 
 /* ---------- responsive audit (CHG-piztanza-10) ---------- */
 /* Verified matrix (mobile pass 2026-07-30): 320/360/390/430/768/1030/1280 —
-   no horizontal overflow anywhere. (The comment previously claimed 1024,
-   which was never a shipped cutover; the real ones are 479.98 / 559.98 /
-   767.98 / 959.98 / 1039.98.) */
+   no horizontal overflow anywhere. The two 1023.98 content cutovers moved to
+   1039.98 in this pass so they agree with the nav's hamburger cut; the
+   comment here used to name 1024 as a width that was audited, which read as
+   a claim that a 1024 cutover existed. Live cutovers in this file:
+   479.98 / 559.98 / 767.98 / 879.98 / 959.98 / 1039.98 (+ min-width: 1040). */
 
 /* Phone/tablet: the AI catalog stage leaves its absolute right-side slot and
    stacks in flow above the headline, sprites scaled to fractions of the stage. */
@@ -3959,8 +3964,10 @@ button.mb-buyer-cta:active,
   }
 }
 
-/* Phone: hero cards are already in-flow (<1024px block above); the biggest
-   headlines step down so nothing can overflow at 360/390px. */
+/* Phone hero: this block trims .mb-hero's padding; the headline step-down
+   that keeps 360/390px from overflowing lives in the 479.98px block below.
+   (The old note here pointed at a "<1024px block above" — no such cutover
+   exists in this file, and the hero has had no cards since R4.) */
 @media (max-width: 559.98px) {
   .mb-hero {
     padding-top: calc(66px + 24px);
@@ -4663,10 +4670,10 @@ button.mb-buyer-cta:active,
   border: 0;
 }
 
-/* ---- vertical stack (shown < 1024px) ----
+/* ---- vertical stack (shown < 1040px — the 1039.98 media query below) ----
    The spec cut over at 760px. Measured, that leaves a band where the Sankey is
    present but broken: node boxes are a PERCENTAGE of the scaling viewBox, while
-   the labels are clamp() with 13px/11px floors — so below ~1024px the boxes keep
+   the labels are clamp() with 13px/11px floors — so below ~1040px the boxes keep
    shrinking and the text does not. At 900px the EN sub-label overflows its node
    by 2px; at 790px the ID labels overflow by up to 18px ("pasang tanpa ketik
    ulang" needs 71px in a 53px box). Lowering the floors would push type under
@@ -5335,12 +5342,18 @@ button.mb-buyer-cta:active,
   .mb-garage-clear {
     min-height: 44px;
   }
+  /* -5px, not -6px: .mb-footer-col is a 10px-gap flex column, so the
+     pull-back is halved between neighbours. -6 left adjacent hit areas
+     OVERLAPPING by 2px (measured on prod) — a tap on the boundary hit the
+     wrong link, the opposite of what a touch floor is for. -5 is the exact
+     zero-separation value. */
   .mb-footer-col a {
     padding: 8px 0;
-    margin: -6px 0;
+    margin: -5px 0;
   }
+  /* No display change: .mb-footer-contact is a flex container, so these
+     anchors are blockified already — an inline-block here was inert. */
   .mb-footer-contact a {
-    display: inline-block;
     padding: 10px 0;
     margin: -10px 0;
   }

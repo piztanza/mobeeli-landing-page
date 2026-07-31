@@ -39,7 +39,7 @@ export default function ActiveSectionProvider({ children }: { children: ReactNod
 
   // Landing on /#id (nav from another page, shared link): after first paint,
   // replace the browser's native anchor jump with the approved scroll math
-  // (centered short sections, 84px offset for tall ones) — instantly.
+  // (centered short sections, flush top-align for tall ones) — instantly.
   useEffect(() => {
     const id = window.location.hash.slice(1);
     if (!id) return;

@@ -35,7 +35,7 @@ export type SectionPageId = keyof typeof SECTIONS;
 
 /**
  * Standalone page for a section split off the landing stack
- * (CHG-piztanza-09): same sticky nav, EN/ID toggle and dark footer as the
+ * (CHG-piztanza-09): same nav (in flow — it is not sticky), EN/ID toggle and dark footer as the
  * landing page wrapped around the unchanged section component. Scroll-reveal
  * runs on [data-rev] elements and is disabled under prefers-reduced-motion.
  */

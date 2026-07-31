@@ -77,7 +77,7 @@ function LangToggle() {
 }
 
 /**
- * Sticky nav — logo, 5 section links, EN/ID pill toggle, "Join us" CTA (F-009: routes to
+ * Nav — logo, 5 section links, EN/ID pill toggle, "Join us" CTA (F-009: routes to
  * /join). Below 1040px (NAV_DESKTOP_QUERY — the 880px in older comments was a
  * previous breakpoint) the links/toggle/CTA collapse into a hamburger sheet (CHG-piztanza-10):
  * animated icon, body scroll lock, closes on link tap / outside tap / Escape (returning focus

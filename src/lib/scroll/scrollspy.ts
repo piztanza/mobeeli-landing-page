@@ -12,7 +12,12 @@
  */
 const SPY_BOTTOM_EXCLUSION = "45%";
 
-/** IntersectionObserver rootMargin for the spy band: below the sticky nav, above the bottom exclusion. */
+/**
+ * IntersectionObserver rootMargin for the spy band: inset from the top by
+ * `navOffsetPx`, above the bottom exclusion. The only caller passes
+ * NAV_SCROLL_OFFSET, which is 0 since the nav stopped reserving clearance —
+ * the parameter stays so a future pinned header only has to set one number.
+ */
 export function spyRootMargin(navOffsetPx: number): string {
   return `-${navOffsetPx}px 0px -${SPY_BOTTOM_EXCLUSION} 0px`;
 }

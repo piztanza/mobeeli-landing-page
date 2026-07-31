@@ -58,5 +58,9 @@ change can overturn it deliberately rather than by accident.
 ## Measurement
 
 - A breakpoint is a measurement, not a guess. The platform-flow cutover is
-  **1023.98px** because below roughly 1024 the node boxes (percentages of a
-  scaling viewBox) shrink past the labels (`clamp()` with 13px/11px floors).
+  **1039.98px**. The measurement that set it: below roughly 1024 the node
+  boxes (percentages of a scaling viewBox) shrink past the labels (`clamp()`
+  with 13px/11px floors). It sat at 1023.98 until the mobile pass
+  (2026-07-30) raised it to 1039.98 so content and the nav's hamburger cut
+  over together — between 1024 and 1039 the page had shown mobile chrome
+  over desktop content.

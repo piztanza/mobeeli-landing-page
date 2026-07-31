@@ -92,7 +92,7 @@ describe.each(PAGES)(
   ({ path, Page, metadata, titleKey, descriptionKey, sectionId, h2Key }) => {
     const html = renderToStaticMarkup(<Page />);
 
-    it("renders the section content between the sticky nav and the footer", () => {
+    it("renders the section content between the nav and the footer", () => {
       const nav = html.indexOf('class="mb-nav"');
       const section = html.indexOf(`id="${sectionId}"`);
       const footer = html.indexOf('class="mb-footer"');

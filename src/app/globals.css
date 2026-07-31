@@ -124,7 +124,9 @@ body {
   overflow-x: clip;
 }
 
-/* Display type — GeistSans (R6 unified system). */
+/* Display type — Plus Jakarta Sans via --mb-font-display (R16 ruling 7a:
+   one family, hierarchy from weight). The R6 "GeistSans" note outlived the
+   font it named. */
 h1,
 h2,
 h3 {

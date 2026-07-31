@@ -420,7 +420,7 @@ export default function PlatformFlow() {
             {/* Square, like its desktop twin. The spec declared 52×40 for a
                   1:1 asset and gave this copy no class to correct it, so the
                   brand mark painted 30% wide — on EVERY phone, since the stack
-                  is the only rendering of this band below 1024px. */}
+                  is the only rendering of this band below 1040px. */}
             <Image src="/assets/mobeeli-mark.png" alt="Mobeeli" width={40} height={40} />
             <span className="mb-plat-hub">{t("plat_hub")}</span>
           </div>

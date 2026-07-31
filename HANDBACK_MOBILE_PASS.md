@@ -104,6 +104,48 @@ Playwright matrix: anchors flush, zero horizontal overflow everywhere,
 dominated by the animated canvases — globe/aurora/scan render different
 frames per run; the integral checks above are the desktop-identity proof.)
 
+## Round 5 — post-merge correction (branch `fix/mobile-pass-corrections`)
+
+After the merge I re-verified on production and ran an adversarial sweep
+(35 agents, every finding independently re-checked against the files; 23
+confirmed, 8 refuted and dropped). It found one regression the pass itself
+shipped, two real defects, and a run of prose the pass made false.
+
+**The regression — /join's skip link (accessibility).** Retiring the global
+`#main-content { scroll-margin-top: 84px }` was right for the landing pages,
+where the nav is `position: absolute`. But `#main-content` renders on three
+views, and `/join` wraps `<Nav />` in `.mb-join-mobilenav { position: sticky }`
+below 880px. With no offset, activating the skip link parked **67px of
+`<main>` behind that bar** — measured on production at 320×568, 740×360,
+844×390 and 879×500. It did not reproduce at 390×844 only because that page
+cannot scroll far enough to bring `<main>` to the top, which is why my first
+check passed: its tolerance was too loose. Fixed with a scoped offset in
+`join.css` under the same 879.98 query (67px = the 66px `.mb-nav-inner` plus
+its 1px border), plus permanent e2e coverage at all four reproducing
+viewports. The blanket "no `scroll-margin-top` in join.css" pin — which is
+what let this ship — now asserts the scoped rule instead. The rule is *no
+offset where nothing is pinned*, not *no offsets*.
+
+**Real defects.** The new `pointer: coarse` block used `margin: -6px` against
+a 10px flex-column gap, leaving adjacent footer hit areas **overlapping by
+2px** (measured: gaps −2, −2, −2) — a boundary tap hit the wrong link, the
+exact failure a touch floor exists to prevent. Now −5px, the zero-separation
+value (verified: gaps 0, 0, 0), pinned by a test. The `display: inline-block`
+in the same block was inert (`.mb-footer-contact` is flex, so its anchors are
+already blockified) and is gone.
+
+**Prose the pass made false**, all corrected: `ActiveSectionProvider` still
+documented an "84px offset for tall ones"; `scrollspy.ts` described the band
+as sitting "below the sticky nav"; `Nav.tsx` and `SectionPage.tsx` called the
+nav "sticky"; three landing.css notes and `PlatformFlow.tsx` still cited the
+retired 1024 cutover; `CONSTRAINTS.md` — the repo's load-bearing rules doc —
+still stated the platform-flow cutover as 1023.98px as live fact. My own R3
+audit comment was self-contradictory (it claimed 1024 "was never a shipped
+cutover", when this pass is precisely what moved it) and is rewritten.
+
+Gate: 427 vitest, ESLint clean, clean build, verify_mobile 29/29 (was 21),
+verify_r25 42/42, verify_r16 48/48, 7-width matrix unchanged from R4.
+
 ## Flagged, not shipped (rulings needed)
 
 1. **84px contract supersession** — re-approve at the merge gate (above).
@@ -121,3 +163,20 @@ frames per run; the integral checks above are the desktop-identity proof.)
 8. **Footer link hit areas are 34px** (up from ~26px) — meets WCAG 2.5.8 AA
    (24px); forcing 44px would overlap adjacent links in the column. iOS HIG
    44pt is intentionally not met here; call it out if that matters.
+9. **Scrollspy marks the wrong section after a nav click** — clicking "How it
+   works" scrolls it perfectly flush, but the URL hash and the nav's
+   `aria-current` both then say "problem". **Pre-existing, not from this
+   pass**: driving the current page into the old geometry (landing at y=84
+   with the old −84px band) reproduces it identically, so it predates the
+   84→0 change. Impact is a11y, not visual — there is no visible active
+   styling yet, but screen readers announce the wrong current item. I did
+   **not** ship a fix: the obvious one-liner (ignore zero-area intersections)
+   was refuted under review — at the failing geometry Chromium delivers no
+   entry for the preceding section at all, so the guard would never run, and
+   a section legitimately *entering* the band across its bottom edge arrives
+   with a zero-height rect and would be wrongly dropped. The real fix means
+   recomputing band membership from live geometry rather than trusting
+   accumulated observer entries, which also needs the free-scroll path
+   rethought (`onScroll` currently early-returns unless the spy is
+   suspended). That is a design round of its own — say the word and I will
+   scope it.
