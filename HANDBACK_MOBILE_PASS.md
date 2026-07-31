@@ -146,6 +146,35 @@ cutover", when this pass is precisely what moved it) and is rewritten.
 Gate: 427 vitest, ESLint clean, clean build, verify_mobile 29/29 (was 21),
 verify_r25 42/42, verify_r16 48/48, 7-width matrix unchanged from R4.
 
+## Round 6 — founder ruling: two part cards per row on phones
+
+**This supersedes the "measure only" hold on the catalog band**, on the
+founder's direct instruction (2026-07-31). `.mb-cat-grid` was single-column
+below 600px because `auto-fit` honoured the style contract's 184px column
+minimum; it is now `repeat(2, 1fr)` there, which deliberately overrides that
+minimum on phones. Desktop is untouched — above 600px `auto-fit` still runs,
+and 768/1030/1280 page heights are byte-identical.
+
+At 320px a two-up card is ~115px wide, which the mockup's 14px card inset
+could not carry: the fit chips wrapped to two lines. Fixed below 360px with a
+10px inset, 6px chip padding and `white-space: nowrap` — verified across both
+languages, where ID's "Terverifikasi" (98px) is the widest string and clears
+the card edge.
+
+**What it costs the page** (this is the number that matters for the paused
+mobile-trim commission — it is now largely answered):
+
+| Width | Page before | after | Screens before → after |
+|---|---|---|---|
+| 320×568 | 6425 | 5666 | 11.27 → **9.98** |
+| 360×800 | 6602 | 5734 | 8.22 → **7.17** |
+| 390×844 | 6707 | 5776 | 7.92 → **6.84** |
+| 430×932 | 6840 | 5791 | 7.31 → **6.21** |
+| 768 / 1030 / 1280 | — | — | unchanged |
+
+The `#how-it-works` band at 390 drops from 3407px to 2507px. It was 51% of
+the phone page; the single longest-band problem is now much smaller.
+
 ## Flagged, not shipped (rulings needed)
 
 1. **84px contract supersession** — re-approve at the merge gate (above).

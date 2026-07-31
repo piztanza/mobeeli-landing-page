@@ -1353,9 +1353,43 @@ button.mb-buyer-cta:active,
   gap: 16px; /* mockup verbatim (was 20) */
 }
 
+/* FOUNDER RULING 2026-07-31: two part cards per row on phones. This
+   deliberately overrides the contract's 184px column minimum below 600px —
+   auto-fit honouring that floor is exactly what collapsed this to ONE card
+   per row. Two-up halves the tallest band on the phone page and reads as a
+   catalogue instead of a list. Cards get narrow (~112px of content at 320px),
+   so the card internals below carry phone-specific type sizes. */
 @media (max-width: 600px) {
   .mb-cat-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* The mockup's 14px card inset was drawn for a full-width card. Two-up at
+   320px leaves 115px of card, and the "Verified Fit" chip needs 94px against
+   87px of inset content box — so it wrapped to two lines. Tightening the
+   inset to 10px here buys 8px, which puts the chip back on one line (95px
+   available) and gives the name and spec fewer wraps too. Measured: only
+   320-ish widths wrap; 360 and 390 already fit at the mockup's 14px, so this
+   deliberately stops at 359.98 rather than restyling every phone. */
+@media (max-width: 359.98px) {
+  .mb-cat-grid .mb-cat-verified {
+    margin-left: 10px;
+    margin-right: 10px;
+    /* The last half-pixel: with the 10px inset the chip needed 93.5px against
+       93px of content box, so it still wrapped. 6px side padding (from the
+       mockup's 7) buys 2px and settles it. Vertical padding, radius, colours
+       and the 11px type are all untouched. */
+    padding-left: 6px;
+    padding-right: 6px;
+    /* A chip is a label, not prose — two lines reads as broken. nowrap makes
+       this deterministic instead of per-string: "Does not fit" (97px) still
+       wrapped after the padding trim, while ID's "Terverifikasi" (98px)
+       already sat on one line. Both clear the card edge at this width. */
+    white-space: nowrap;
+  }
+  .mb-cat-grid .mb-cat-card-info {
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }
 

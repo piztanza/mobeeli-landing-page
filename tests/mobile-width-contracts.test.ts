@@ -68,6 +68,26 @@ describe("touch floor (pointer: coarse)", () => {
   });
 });
 
+describe("part-card grid on phones (founder ruling 2026-07-31)", () => {
+  it("shows two cards per row below 600px, not one", () => {
+    // This deliberately overrides the contract's 184px column minimum: auto-fit
+    // honouring that floor is what collapsed the grid to a single card per row.
+    expect(landingCss).toMatch(
+      /@media \(max-width: 600px\) \{\s*\.mb-cat-grid \{\s*grid-template-columns: repeat\(2, 1fr\);/s,
+    );
+  });
+
+  it("keeps the fit chips on one line at the narrowest width", () => {
+    // At 320px a two-up card is ~115px wide and the chips no longer fit the
+    // mockup's 14px inset — "Does not fit" wrapped to two lines, which reads
+    // as broken on a label. Measured fix: 10px inset + 6px chip padding +
+    // nowrap. ID's "Terverifikasi" is the widest string at 98px and clears it.
+    expect(landingCss).toMatch(
+      /@media \(max-width: 359\.98px\) \{[^@]*\.mb-cat-grid \.mb-cat-verified \{[^}]*white-space: nowrap;/s,
+    );
+  });
+});
+
 describe("touch floor must not overlap its neighbours", () => {
   it("footer column links pull back at most half the column gap", () => {
     // .mb-footer-col is a flex column with gap: 10px, so a link's negative
