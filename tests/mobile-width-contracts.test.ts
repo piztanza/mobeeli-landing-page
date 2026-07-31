@@ -88,6 +88,22 @@ describe("part-card grid on phones (founder ruling 2026-07-31)", () => {
   });
 });
 
+describe("/team rows cannot blow out their grid track", () => {
+  it("the role kicker may wrap, and the grid items may shrink", () => {
+    // .mb-team2-role is nowrap, and a grid item's automatic minimum size is
+    // min-content — so a role string wider than the column forced the 1fr
+    // track past the section, and the overflow-x belt CLIPPED it (measured on
+    // prod: EN cut 15px at 320; ID cut 28px at 320 and 15px at 360). Both
+    // guards must survive: wrapping fixes today's strings, min-width: 0 stops
+    // any future unbreakable string doing it again.
+    const mobileBlock = landingCss.slice(landingCss.indexOf("@media (max-width: 979.98px)"));
+    expect(mobileBlock).toMatch(/\.mb-team2-role \{\s*white-space: normal;/s);
+    expect(mobileBlock).toMatch(
+      /\.mb-team2-plate,\s*\.mb-team2-body \{\s*min-width: 0;/s,
+    );
+  });
+});
+
 describe("touch floor must not overlap its neighbours", () => {
   it("footer column links pull back at most half the column gap", () => {
     // .mb-footer-col is a flex column with gap: 10px, so a link's negative

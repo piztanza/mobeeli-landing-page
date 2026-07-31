@@ -3000,6 +3000,23 @@ button.mb-buyer-cta:active,
   .mb-team2-ghost {
     display: none;
   }
+  /* GRID BLOWOUT FIX (e2e audit 2026-07-31). .mb-team2-role is nowrap, and a
+     grid item's automatic minimum size is min-content — so once the role
+     string was wider than the column, the 1fr track could not shrink and the
+     whole row grew past the section. The overflow-x belt then CLIPPED it, so
+     it read as cut-off text rather than a scrollbar. Measured on prod:
+     EN cut 15px at 320; ID cut 28px at 320 and 15px at 360 (ID roles are the
+     longer ones, and 360 is a very common Android width).
+     Two guards: the kicker may wrap (it only ever does when it must — the
+     row is single-column here anyway), and min-width: 0 lets the track
+     shrink so no future unbreakable string can blow the layout out again. */
+  .mb-team2-role {
+    white-space: normal;
+  }
+  .mb-team2-plate,
+  .mb-team2-body {
+    min-width: 0;
+  }
 }
 
 .mb-team {
