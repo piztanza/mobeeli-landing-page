@@ -147,6 +147,26 @@
   background: var(--mb-primary-cta-hover);
 }
 
+/* Secondary to the copy button: recording in Notion is the follow-up step. */
+.mb-da-btn-notion {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.mb-da-btn-notion:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Outcome of the Notion write-back, shown after the action redirects back. */
+.mb-da-note {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-size: 14px;
+  color: var(--mb-dark-muted);
+}
+
 .mb-da-form {
   display: flex;
   align-items: flex-end;

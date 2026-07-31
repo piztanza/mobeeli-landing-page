@@ -2,10 +2,12 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { deckRequestSchema } from "@/lib/deck/schema";
 import {
+  deckLinkSentProperties,
   deckRequestNotionPage,
   emailDomain,
   emailType,
   logDeckRequestToNotion,
+  markDeckLinkSent,
   normalizeLink,
 } from "@/lib/notion/deckRequests";
 
@@ -109,7 +111,7 @@ describe("logDeckRequestToNotion is best-effort", () => {
     vi.stubEnv("NOTION_TOKEN", "secret_token");
     vi.stubEnv("NOTION_DECK_DB_ID", DB_ID);
     const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue(
-      new Response(JSON.stringify({ url: "https://notion.so/row" }), {
+      new Response(JSON.stringify({ id: "row-1", url: "https://notion.so/row" }), {
         status: 200,
         headers: { "Content-Type": "application/json" },
       }),
@@ -118,6 +120,8 @@ describe("logDeckRequestToNotion is best-effort", () => {
     await expect(logDeckRequestToNotion(request, CONTEXT)).resolves.toEqual({
       status: "logged",
       url: "https://notion.so/row",
+      // Carried into the alert email's mint link so /deck-admin can write back.
+      id: "row-1",
     });
 
     const [url, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
@@ -151,5 +155,57 @@ describe("logDeckRequestToNotion is best-effort", () => {
       status: "failed",
       reason: "socket hang up",
     });
+  });
+});
+
+describe("markDeckLinkSent writes the minted link back onto the row", () => {
+  it("fills Deck link sent, Link expires and Status in one update", () => {
+    const expiresAtMs = Date.parse("2026-08-08T10:00:00.000Z");
+    expect(
+      deckLinkSentProperties({ url: "https://mobeeli.com/deck?token=t", expiresAtMs }),
+    ).toEqual({
+      "Deck link sent": { url: "https://mobeeli.com/deck?token=t" },
+      "Link expires": { date: { start: "2026-08-08T10:00:00.000Z" } },
+      Status: { select: { name: "Link sent" } },
+    });
+  });
+
+  it("leaves Link expires empty for a non-expiring link", () => {
+    const props = deckLinkSentProperties({
+      url: "https://mobeeli.com/deck?token=t",
+      expiresAtMs: null,
+    });
+    expect(props["Link expires"]).toEqual({ date: null });
+  });
+
+  it("PATCHes the request's page and reports success", async () => {
+    vi.stubEnv("NOTION_TOKEN", "secret_token");
+    const fetchSpy = vi
+      .spyOn(globalThis, "fetch")
+      .mockResolvedValue(new Response("{}", { status: 200 }));
+
+    await expect(
+      markDeckLinkSent("row-1", { url: "https://mobeeli.com/deck?token=t", expiresAtMs: null }),
+    ).resolves.toEqual({ status: "saved" });
+
+    const [url, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
+    expect(url).toBe("https://api.notion.com/v1/pages/row-1");
+    expect(init.method).toBe("PATCH");
+  });
+
+  it("skips without a token or a row, and reports Notion errors", async () => {
+    vi.stubEnv("NOTION_TOKEN", "");
+    await expect(markDeckLinkSent("row-1", { url: "u", expiresAtMs: null })).resolves.toEqual({
+      status: "skipped",
+    });
+
+    vi.stubEnv("NOTION_TOKEN", "secret_token");
+    await expect(markDeckLinkSent("", { url: "u", expiresAtMs: null })).resolves.toEqual({
+      status: "skipped",
+    });
+
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response("nope", { status: 400 }));
+    const result = await markDeckLinkSent("row-1", { url: "u", expiresAtMs: null });
+    expect(result).toMatchObject({ status: "failed", reason: expect.stringContaining("400") });
   });
 });

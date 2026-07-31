@@ -19,7 +19,7 @@ import type { DeckRequestPayload } from "@/lib/deck/schema";
  * With either unset (local dev), logging is skipped silently.
  */
 
-/** Notion REST endpoint for page creation — server-side only, never bundled to the client. */
+/** Notion REST endpoint for pages — server-side only, never bundled to the client. */
 const NOTION_PAGES_ENDPOINT = "https://api.notion.com/v1/pages";
 
 /** Pinned REST version: the payload shape below is written against this one. */
@@ -67,8 +67,12 @@ export interface DeckRequestContext {
 }
 
 export type DeckRequestLogResult =
-  /** Row created — `url` is the Notion page, linked from the alert email. */
-  | { status: "logged"; url: string }
+  /**
+   * Row created. `url` is the Notion page (linked from the alert email) and
+   * `id` rides along in the email's mint link so /deck-admin can write the
+   * sent link back to this exact row.
+   */
+  | { status: "logged"; url: string; id: string }
   /** NOTION_TOKEN / NOTION_DECK_DB_ID unset: nothing attempted (local dev). */
   | { status: "skipped" }
   /** Attempted and failed — the reason is repeated in the alert email. */
@@ -184,13 +188,76 @@ export async function logDeckRequestToNotion(
     }
 
     const created: unknown = await response.json().catch(() => null);
-    const url =
-      created &&
-      typeof created === "object" &&
-      typeof (created as { url?: unknown }).url === "string"
-        ? (created as { url: string }).url
-        : "";
-    return { status: "logged", url };
+    const field = (name: "url" | "id"): string => {
+      const value =
+        created && typeof created === "object" ? (created as Record<string, unknown>)[name] : null;
+      return typeof value === "string" ? value : "";
+    };
+    return { status: "logged", url: field("url"), id: field("id") };
+  } catch (error) {
+    return { status: "failed", reason: error instanceof Error ? error.message : String(error) };
+  }
+}
+
+/** What /deck-admin writes back after minting a link for a request. */
+export interface DeckLinkSent {
+  /** The full /deck?token=… link that was handed to the requester. */
+  url: string;
+  /** Expiry epoch-ms, or null for a non-expiring link (column left empty). */
+  expiresAtMs: number | null;
+}
+
+export type DeckLinkSentResult =
+  { status: "saved" } | { status: "skipped" } | { status: "failed"; reason: string };
+
+/**
+ * The three columns the founders would otherwise fill in by hand. Pure, so the
+ * mapping is asserted without the network.
+ */
+export function deckLinkSentProperties(record: DeckLinkSent): Record<string, unknown> {
+  return {
+    "Deck link sent": { url: record.url },
+    "Link expires":
+      record.expiresAtMs === null
+        ? { date: null }
+        : { date: { start: new Date(record.expiresAtMs).toISOString() } },
+    Status: { select: { name: "Link sent" } },
+  };
+}
+
+/**
+ * Record a minted link on its request row (F-016 + deck-admin write-back):
+ * Deck link sent, Link expires and Status → "Link sent". Best-effort like the
+ * create path — /deck-admin reports the outcome and the founder can always
+ * type it in.
+ */
+export async function markDeckLinkSent(
+  pageId: string,
+  record: DeckLinkSent,
+): Promise<DeckLinkSentResult> {
+  const token = process.env.NOTION_TOKEN?.trim();
+  if (!token || !pageId) return { status: "skipped" };
+
+  try {
+    const response = await fetch(`${NOTION_PAGES_ENDPOINT}/${encodeURIComponent(pageId)}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Notion-Version": NOTION_VERSION,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ properties: deckLinkSentProperties(record) }),
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+    });
+
+    if (!response.ok) {
+      const detail = await response.text().catch(() => "");
+      return {
+        status: "failed",
+        reason: `Notion responded ${response.status}${detail ? `: ${detail.slice(0, 300)}` : ""}`,
+      };
+    }
+    return { status: "saved" };
   } catch (error) {
     return { status: "failed", reason: error instanceof Error ? error.message : String(error) };
   }

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import DeckLinkNotice from "@/components/deck/DeckLinkNotice";
 import DeckViewer from "@/components/deck/DeckViewer";
-import { deckSecret, verifyDeckToken } from "@/lib/deck/token";
+import { deckSecret, stripTrackingSuffix, verifyDeckToken } from "@/lib/deck/token";
 import { DEFAULT_LANG, t } from "@/lib/i18n";
 
 /** /deck is noindex and absent from the sitemap (F-016) — private, token-gated. */
@@ -22,11 +22,13 @@ export default async function DeckPage({
 }: {
   searchParams: Promise<{ token?: string | string[] }>;
 }) {
-  const { token } = await searchParams;
+  const { token: raw } = await searchParams;
   const secret = deckSecret();
-  if (!secret || typeof token !== "string" || token === "") {
+  if (!secret || typeof raw !== "string" || raw === "") {
     return <DeckLinkNotice variant="invalid" />;
   }
+  // Links mailed through an ESP come back with a click-tracking path appended.
+  const token = stripTrackingSuffix(raw);
   const verdict = verifyDeckToken(token, secret);
   if (!verdict.ok) {
     return <DeckLinkNotice variant={verdict.reason === "expired" ? "expired" : "invalid"} />;

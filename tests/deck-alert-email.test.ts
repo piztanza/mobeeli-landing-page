@@ -69,13 +69,23 @@ describe("deck request alert email (F-016)", () => {
     const { text, html } = deckRequestAlert(request, SECRET, {
       status: "logged",
       url: "https://notion.so/deck-row",
+      id: "row-1",
     });
 
     expect(text).toContain("Notion row: https://notion.so/deck-row");
     expect(html).toContain('<a href="https://notion.so/deck-row">Open the Notion row</a>');
     // Two links now: the Notion row and the single mint CTA, still the last line.
     expect(html.match(/<a /g)).toHaveLength(2);
-    expect(text.trimEnd().endsWith(`?key=${SECRET}`)).toBe(true);
+    // The row id rides along so /deck-admin can write the minted link back.
+    expect(text.trimEnd().endsWith(`?key=${SECRET}&row=row-1`)).toBe(true);
+  });
+
+  it("omits `row` when nothing was logged, so the mint page just mints", () => {
+    vi.stubEnv("NEXT_PUBLIC_SITE_URL", "");
+    expect(deckAdminUrl(SECRET)).not.toContain("row=");
+    expect(deckAdminUrl(SECRET, "row-1")).toBe(
+      `https://mobeeli.com/deck-admin?key=${SECRET}&row=row-1`,
+    );
   });
 
   it("says loudly when logging failed, so the email is known to be the only record", () => {

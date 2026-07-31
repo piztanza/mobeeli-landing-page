@@ -84,11 +84,13 @@ describe("POST /api/deck-request (F-016)", () => {
     vi.mocked(logDeckRequestToNotion).mockResolvedValue({
       status: "logged",
       url: "https://notion.so/row",
+      id: "row-1",
     });
     await post(validRequest);
     expect(notifyDeckRequest).toHaveBeenCalledWith(expect.anything(), {
       status: "logged",
       url: "https://notion.so/row",
+      id: "row-1",
     });
   });
 

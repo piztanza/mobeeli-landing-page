@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 
 import { DECK_PDF_PATH } from "@/lib/deck/pdf";
-import { deckSecret, verifyDeckToken } from "@/lib/deck/token";
+import { deckSecret, stripTrackingSuffix, verifyDeckToken } from "@/lib/deck/token";
 
 /**
  * GET /api/deck-file?token=… (F-016) — token-gated byte stream for the /deck
@@ -12,7 +12,8 @@ import { deckSecret, verifyDeckToken } from "@/lib/deck/token";
  */
 export async function GET(request: Request): Promise<Response> {
   const secret = deckSecret();
-  const token = new URL(request.url).searchParams.get("token");
+  const raw = new URL(request.url).searchParams.get("token");
+  const token = raw === null ? null : stripTrackingSuffix(raw);
   if (!secret || !token || !verifyDeckToken(token, secret).ok) {
     return Response.json({ error: "forbidden" }, { status: 403 });
   }

@@ -262,7 +262,8 @@ const en = {
   why_ds_title: "The Analog Margin Bleed.",
   why_ds_sub: "Today's B2B parts distribution network is broken for both sides.",
   why_ds_c1_t: "The 4-Tier Margin Bleed",
-  why_ds_c1_d: "Every hop (Principal → Distributor → Wholesale → Store → Garage) stacks ~15% margin.",
+  why_ds_c1_d:
+    "Every hop (Principal → Distributor → Wholesale → Store → Garage) stacks ~15% margin.",
   why_ds_c2_t: "The Counterfeit Injection",
   why_ds_c2_d: "Counterfeit OEM parts blindly infect inventory through offline WhatsApp brokers.",
   why_ds_c3_t: "The C.O.D. Chokehold",
@@ -476,6 +477,9 @@ const en = {
   da_never: "Never expires",
   da_copy: "Copy link",
   da_copied: "Copied ✓",
+  da_notion_btn: "Record in Notion",
+  da_notion_saved: "Saved to Notion: link, expiry and status updated on the request.",
+  da_notion_failed: "Could not update Notion — put the link on the row by hand.",
   cat_h2: "One catalog, built from what sellers send.",
   cat_p:
     "Sellers send their own Excel sheets, PDFs, even photos of handwritten ledgers — Mobeeli's AI reads what they send and builds one clean catalog, mapped to every car on the road.",
@@ -877,7 +881,8 @@ const id: Record<CopyKey, string> = {
      for the founder's native review. team_quote reuses the founder's own
      shipped ID sentence from inv_p. */
   team_h2: "Kenalan dengan tim.",
-  team_lede: "Menentukan visi. Membangun platform. Menggerakkan onderdil. Setiap tugas ada pemiliknya.",
+  team_lede:
+    "Menentukan visi. Membangun platform. Menggerakkan onderdil. Setiap tugas ada pemiliknya.",
   team_own1: "menentukan visi",
   team_own2: "membangun platform",
   team_own3: "menggerakkan onderdil",
@@ -926,8 +931,10 @@ const id: Record<CopyKey, string> = {
   contact_f_note: "Tanpa nomor tiket, tanpa antrean — seseorang dari tim akan membalas.",
   contact_next_h: "Apa yang terjadi selanjutnya",
   contact_next_1: "Pesan Anda dibaca manusia — bukan inbox bersama, bukan bot.",
-  contact_next_2: "Orang yang menangani topik Anda membalas secara pribadi, dari alamatnya sendiri.",
-  contact_next_3: "Kalau cocok, langkah berikutnya adalah panggilan — mengikuti zona waktu Anda, bukan kami.",
+  contact_next_2:
+    "Orang yang menangani topik Anda membalas secara pribadi, dari alamatnya sendiri.",
+  contact_next_3:
+    "Kalau cocok, langkah berikutnya adalah panggilan — mengikuti zona waktu Anda, bukan kami.",
   contact_next_link: "Lihat siapa yang Anda hubungi",
   contact_email_hint: "Hanya dipakai untuk membalas Anda — tanpa milis, tidak dibagikan.",
   contact_f_fail:
@@ -938,7 +945,8 @@ const id: Record<CopyKey, string> = {
   contact_ramps_a_end: "adalah pintunya. ",
   contact_ramps_b: "Investor yang mencari deck?",
   contact_ramps_b_link: "Investor",
-  contact_place_note: "Jakarta, Indonesia — masih pra-peluncuran, jadi email adalah satu-satunya kanal.",
+  contact_place_note:
+    "Jakarta, Indonesia — masih pra-peluncuran, jadi email adalah satu-satunya kanal.",
   contact_sent_h: "Pesan terkirim.",
   contact_sent_p:
     "Pesan Anda sudah di tangan tim, dan Anda akan menerima balasan pribadi dari orang yang menangani topiknya — bukan antrean tiket.",
@@ -1004,6 +1012,9 @@ const id: Record<CopyKey, string> = {
   da_never: "Never expires",
   da_copy: "Copy link",
   da_copied: "Copied ✓",
+  da_notion_btn: "Record in Notion",
+  da_notion_saved: "Saved to Notion: link, expiry and status updated on the request.",
+  da_notion_failed: "Could not update Notion — put the link on the row by hand.",
   cat_h2: "Satu katalog, disusun dari yang dikirim penjual.",
   cat_p:
     "Penjual mengirim file Excel, PDF, sampai foto catatan tulis tangan mereka sendiri — AI Mobeeli membaca kiriman itu, lalu merapikannya jadi satu katalog yang terpetakan ke setiap mobil di jalanan.",

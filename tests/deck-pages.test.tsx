@@ -52,6 +52,37 @@ describe("deck routes are private (F-016)", () => {
   });
 });
 
+/**
+ * Resend sends through Amazon SES; with click tracking on (mandatory on the
+ * shared onboarding@resend.dev sender) a mailed link is rewritten through a
+ * redirector that appends its tracking path to the target URL, so `key` and
+ * `token` arrive with "/1/<message-id>/<hash>=473" glued on. Before this was
+ * handled, the "Generate Deck Link" button in the alert email 404'd.
+ */
+const TRACKING_SUFFIX =
+  "/1/0100019fba91057e-6480ea29-7e32-44fd-ab1d-d16ed76a5edd-000000/_TPhU49gf8CxmEB1zm9takhVUfs=473";
+
+describe("links mangled by email click tracking still work", () => {
+  it("/deck-admin accepts a key with the tracking path appended", async () => {
+    const html = renderToStaticMarkup(
+      await DeckAdminPage(params({ key: `${SECRET}${TRACKING_SUFFIX}`, preset: "1h" })),
+    );
+    expect(html).toContain(esc(t("en", "da_link_label")));
+  });
+
+  it("/deck accepts a token with the tracking path appended", async () => {
+    const token = mintDeckToken(Date.now() + ONE_HOUR_MS, SECRET);
+    const html = renderToStaticMarkup(await DeckPage(params({ token: token + TRACKING_SUFFIX })));
+    expect(html).toContain('class="mb-deck-pages"');
+  });
+
+  it("a genuinely wrong key is still a 404, suffix or not", async () => {
+    await expect(
+      DeckAdminPage(params({ key: `not-the-secret${TRACKING_SUFFIX}` })),
+    ).rejects.toThrow();
+  });
+});
+
 describe("/deck viewer page (F-016)", () => {
   it("renders the pdfjs canvas viewer for a valid token (no native PDF embed, no download UI)", async () => {
     const token = mintDeckToken(Date.now() + ONE_HOUR_MS, SECRET);

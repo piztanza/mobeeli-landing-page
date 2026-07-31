@@ -12,6 +12,22 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 const VERSION = "v1";
 const NEVER = "never";
 
+/**
+ * Undo the click-tracking mangling ESPs apply to links in an email. Resend
+ * runs on Amazon SES, and with click tracking on (always, for the shared
+ * onboarding@resend.dev sender) a link is rewritten through a redirector that
+ * glues its own tracking path onto the end of the target URL — so
+ * `?key=SECRET` comes back as `?key=SECRET/1/<message-id>/<hash>=473` and the
+ * comparison fails with a bare 404.
+ *
+ * Dropping everything from the first "/" is safe for both values that travel
+ * this way: a deck token is `<base64url>.<base64url>`, an alphabet with no
+ * slash, and DECK_SECRET is documented as slash-free in .env.example.
+ */
+export function stripTrackingSuffix(value: string): string {
+  return value.split("/")[0];
+}
+
 /** The DECK_SECRET signing key, or null when not configured (deck routes then reject everything). */
 export function deckSecret(): string | null {
   const secret = process.env.DECK_SECRET?.trim();

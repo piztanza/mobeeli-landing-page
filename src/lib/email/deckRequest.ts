@@ -19,9 +19,14 @@ function escapeHtml(value: string): string {
     .replace(/"/g, "&quot;");
 }
 
-/** /deck-admin URL carrying the founder key — no preset; durations are chosen on the page. */
-export function deckAdminUrl(secret: string): string {
+/**
+ * /deck-admin URL carrying the founder key — no preset; durations are chosen
+ * on the page. When the request reached Notion, its row id rides along as
+ * `row` so the mint page can write the sent link straight back to that row.
+ */
+export function deckAdminUrl(secret: string, rowId?: string): string {
   const params = new URLSearchParams({ key: secret });
+  if (rowId) params.set("row", rowId);
   return `${siteUrl()}/deck-admin?${params.toString()}`;
 }
 
@@ -55,7 +60,7 @@ export function deckRequestAlert(
   secret: string,
   log?: DeckRequestLogResult,
 ): DeckRequestAlert {
-  const adminUrl = deckAdminUrl(secret);
+  const adminUrl = deckAdminUrl(secret, log?.status === "logged" ? log.id : undefined);
   const notion = notionLine(log);
 
   const details = [
