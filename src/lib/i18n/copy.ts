@@ -641,7 +641,7 @@ const id: Record<CopyKey, string> = {
   skip_to_content: "Langsung ke konten",
   hero_chip: "Meluncur 2026 — Jakarta, Indonesia",
   hero_sub:
-    "Mobeeli adalah infrastruktur kepercayaan untuk aftermarket otomotif Indonesia senilai $5,3 miliar — marketplace suku cadang tempat setiap barang dipastikan cocok sebelum checkout, penjual membawa pulang lebih banyak dari tiap transaksi, dan dua belah pihak sama-sama terlindungi.",
+    "Mobeeli adalah infrastruktur kepercayaan untuk aftermarket otomotif Indonesia senilai $5,3 miliar — marketplace suku cadang tempat kecocokan diverifikasi sebelum checkout, penjual membawa pulang lebih banyak dari tiap transaksi, dan kedua belah pihak terlindungi.",
   /* Slim-landing hero sub (redesign phase 4) — the deck's approved thesis line
      (mobeeli-site: One platform to unify Indonesia's auto industry), kept broad
      per founder direction: no market figures, no moat mechanics on the front page. */
@@ -717,7 +717,7 @@ const id: Record<CopyKey, string> = {
      2px from the screen edge; this fits with 37px to spare. "pas" over the
      more common "cocok" is deliberate: it is what the fitment chip already
      says ("Tidak Pas"), and it is the only phrasing short enough. */
-  prob_badge: "Satu onderdil, satu yang pas",
+  prob_badge: "Hanya satu yang pas",
   prob_chip_n: "4",
   prob_chip_of: "/ 217",
   prob_chip_cap: "listing yang benar-benar cocok untuk mobil ini",
@@ -730,7 +730,7 @@ const id: Record<CopyKey, string> = {
      Merek, distributor, toko — so the page names the five parties one way
      throughout. DRAFT WORDING — founder to confirm. */
   cat_kicker: "Cara kerja",
-  cat_unified_h2: "Satu listing terverifikasi per suku cadang. Siapa pun yang mendeskripsikannya.",
+  cat_unified_h2: "Satu listing terverifikasi per suku cadang. Tidak peduli siapa yang mendeskripsikannya.",
   cat_unified_p:
     "Merek, distributor, dan toko menamai suku cadang yang sama dengan sebutan berbeda-beda. Mobeeli menyatukannya menjadi satu listing, lalu mencocokkannya dengan mobil Anda sebelum Anda melihatnya.",
   cat_bridge: "Satu deskripsi masuk. Satu listing terverifikasi keluar.",
@@ -803,7 +803,7 @@ const id: Record<CopyKey, string> = {
   plat_p:
     "Saat ini suku cadang yang sama dideskripsikan lima kali oleh lima pihak yang tidak pernah saling bicara. Dari situlah salah beli berasal — bukan karena ada yang ceroboh.",
   plat_src1_t: "Merek",
-  plat_src1_s: "publikasikan sekali, benar",
+  plat_src1_s: "publikasikan sekali dengan benar",
   plat_src2_t: "Distributor",
   plat_src2_s: "kirim format apa pun",
   plat_src3_t: "Toko",
@@ -856,7 +856,7 @@ const id: Record<CopyKey, string> = {
   cmp_bad_res: "19,4% pesanan berakhir retur — 86% karena barang tidak cocok.",
   cmp_good_t: "Di Mobeeli",
   cmp_good_1: "Cukup sekali isi data mobil — tahun · merek · model · tipe.",
-  cmp_good_2: "Hasil pencarian hanya menampilkan onderdil yang pasti cocok untuk mobil Anda.",
+  cmp_good_2: "Hasil pencarian hanya menampilkan onderdil yang sudah diverifikasi cocok untuk mobil Anda.",
   cmp_good_3: "Barang tiba, langsung terpasang — memang sudah terverifikasi.",
   cmp_good_4: "Checkout terlindungi: dana cair setelah barang cocok.",
   cmp_good_res: "Sudah dipastikan cocok sebelum checkout — retur tak lagi jadi rutinitas.",
@@ -873,7 +873,7 @@ const id: Record<CopyKey, string> = {
   early_f2_d: "Perlindungan bawaan dari penipuan, ditopang bukti video dan asuransi.",
   early_f3_t: "Satu komisi flat yang ringan",
   early_f3_d:
-    "Setelah masa promo, berlaku satu tarif flat yang jauh lebih ringan dari biaya marketplace pada umumnya — transparan, mudah dihitung, dan menjaga penjual tetap untung.",
+    "Setelah masa promo, berlaku satu tarif flat yang jauh lebih ringan dari biaya marketplace pada umumnya — transparan, mudah dihitung, dan dirancang agar penjual berkualitas tetap untung.",
   early_cta: "Gabung Waitlist",
   early_note: "300 toko pertama mengunci tarif 0% — daftarnya hanya dua menit.",
   buyer_line: "Butuh onderdil? Jadi yang pertama tahu begitu Mobeeli hadir di Jakarta.",
@@ -897,7 +897,7 @@ const id: Record<CopyKey, string> = {
   team_own1: "menentukan visi",
   team_own2: "membangun platform",
   team_own3: "menyalurkan onderdil",
-  team_quote: "Sebagian besar toko yang kami datangi setuju di sore yang sama.",
+  team_quote: "Sebagian besar toko yang kami datangi langsung mendaftar sore itu juga.",
   team_quote_by: "Program Early Adopters — Jakarta, 2026",
   team_n1: "Matheau Widjaja",
   team_r1: "CEO & Founder",
@@ -914,7 +914,7 @@ const id: Record<CopyKey, string> = {
   inv_kicker: "Untuk investor",
   inv_h2: "Lihat apa yang sudah kami bangun.",
   inv_p:
-    "Mobeeli sudah jadi, dan toko-toko di Jakarta sudah mulai bergabung — sebagian besar toko yang kami datangi setuju di sore yang sama. Kalau Anda mengikuti infrastruktur commerce di Asia Tenggara, kami ingin menunjukkan apa yang kami persiapkan.",
+    "Mobeeli sudah dibangun, dan toko-toko di Jakarta sudah mulai bergabung — sebagian besar toko yang kami datangi langsung mendaftar sore itu juga. Kalau Anda mengikuti infrastruktur commerce di Asia Tenggara, kami ingin menunjukkan apa yang sedang kami siapkan.",
   inv_cta: "Minta deck",
   inv_or: "Ingin jalur langsung?",
   inv_contact_link: "Hubungi Mobeeli",
@@ -997,7 +997,7 @@ const id: Record<CopyKey, string> = {
     "Situs ini tidak memasang cookie. Hanya ada dua preferensi yang disimpan di browser Anda — bahasa dan kendaraan yang Anda pilih di demo. Keduanya tidak pernah meninggalkan perangkat Anda.",
   privacy_b5_h: "Pihak ketiga",
   privacy_b5_p:
-    "Tidak ada apa pun di situs ini yang dimuat dari pihak ketiga — tanpa analytics, tanpa skrip tertanam, tanpa font eksternal. Pengiriman email berjalan lewat penyedia email, dan permintaan deck dicatat di perangkat ruang kerja yang dipakai tim; keduanya bekerja atas instruksi kami.",
+    "Tidak ada apa pun di situs ini yang dimuat dari pihak ketiga — tanpa analytics, tanpa skrip tertanam, tanpa font eksternal. Pengiriman email berjalan lewat penyedia email, dan permintaan deck dicatat di aplikasi ruang kerja yang dipakai tim; keduanya bekerja atas instruksi kami.",
   privacy_b6_h: "Hak Anda",
   privacy_b6_p:
     "Berdasarkan Undang-Undang Pelindungan Data Pribadi (UU PDP 27/2022), Anda dapat menanyakan data apa yang kami simpan tentang Anda, memintanya diperbaiki, atau dihapus. Satu alamat menangani semuanya:",
@@ -1010,7 +1010,7 @@ const id: Record<CopyKey, string> = {
   inv_f_send: "Kirim permintaan →",
   inv_f_sending: "Mengirim…",
   inv_err_name: "Mohon isi nama Anda.",
-  inv_err_firm: "Mohon isi nama firma atau dana investasi Anda.",
+  inv_err_firm: "Mohon isi nama perusahaan atau dana investasi Anda.",
   inv_err_email: "Format email sepertinya belum benar.",
   inv_f_fail:
     "Terjadi kendala saat mengirim permintaan Anda. Jawaban Anda tersimpan — silakan coba lagi.",
@@ -1053,11 +1053,11 @@ const id: Record<CopyKey, string> = {
   uni_kicker: "Menuju seluruh Nusantara",
   uni_h2: "Dari Sabang sampai Merauke, satu katalog.",
   uni_p:
-    "100.000+ bengkel dan ribuan toko onderdil, akhirnya berbicara dalam bahasa yang sama — mulai dari Jakarta pada 2026, lalu pulau demi pulau.",
+    "100.000+ bengkel dan ribuan toko onderdil akhirnya berbicara dalam bahasa yang sama — mulai dari Jakarta pada 2026, lalu pulau demi pulau.",
   uni_drag: "Geser petanya — kami mulai dari Jakarta.",
   indo_city: "Jakarta",
   indo_note: "— pasar pertama, 2026",
-  foot_tag: "Satu platform yang menyatukan industri otomotif Indonesia.",
+  foot_tag: "Satu platform untuk menyatukan industri otomotif Indonesia.",
   foot_copyright: "Mobeeli — Jakarta, Indonesia",
   foot_menu_a11y: "Tautan situs",
   foot_col_company: "Perusahaan",
@@ -1068,7 +1068,7 @@ const id: Record<CopyKey, string> = {
   careers_p:
     "Mobeeli adalah tim pendiri kecil di Jakarta yang membangun satu katalog suku cadang terverifikasi untuk industri otomotif Indonesia. Kami belum meluncur, dan kami merekrut dengan hati-hati.",
   careers_open:
-    "Saat ini belum ada lowongan terbuka. Begitu ada posisi baru, kami akan menampilkannya di halaman ini.",
+    "Belum ada lowongan yang ditampilkan saat ini. Begitu ada posisi baru, kami akan menampilkannya di halaman ini.",
   careers_cta: "Merasa kita perlu bertemu? Tulis kepada kami.",
 
   /* Join Waitlist page (F-007) — keys mirror the Join Waitlist.dc.html TXT map, jw_-prefixed. */
@@ -1076,14 +1076,14 @@ const id: Record<CopyKey, string> = {
   jw_offer: "Biaya platform 0% · 300 toko pertama",
   jw_left_h: "Jadilah salah satu toko pertama di Mobeeli.",
   jw_left_sub:
-    "Ceritakan tentang bisnis Anda. Salah satu founder akan menghubungi Anda langsung — tanpa biaya, tanpa ikatan.",
+    "Ceritakan tentang bisnis Anda. Salah satu founder akan menghubungi Anda langsung — menyatakan minat tidak dipungut biaya dan tidak mengikat.",
   jw_ben1_t: "Daftar harga Anda, tayang otomatis",
   jw_ben1_s: "File Excel atau PDF milik Anda — AI kami menyusunnya dalam hitungan jam.",
   jw_ben2_t: "Perlindungan bawaan dari penipuan",
   jw_ben2_s: "Ditopang bukti video dan asuransi.",
   jw_ben3_t: "Satu komisi flat yang ringan",
   jw_ben3_s: "Setelah promo — jauh di bawah marketplace besar.",
-  jw_trust: "Pilot pra-peluncuran · data Anda hanya dipegang tim pendiri.",
+  jw_trust: "Pilot pra-peluncuran · detail Anda tetap di tim pendiri.",
   jw_eyebrow: "Jadi partner",
   jw_introTitle: "Gabung Mobeeli",
   jw_introBody:
@@ -1116,7 +1116,7 @@ const id: Record<CopyKey, string> = {
   jw_toolsUsed: "Tools yang dipakai sekarang (boleh beberapa)",
   jw_brands: "Brand yang Anda jual (opsional)",
   jw_brandsPh: "mis. Denso, Aspira, NGK",
-  jw_net30: "Tertarik fasilitas kredit Tempo Net-30 (jika disetujui)",
+  jw_net30: "Tertarik termin pembayaran Net-30 (jika disetujui)",
   jw_message: "Ada hal lain? (opsional)",
   jw_back: "← Kembali",
   jw_next: "Lanjut →",
