@@ -86,7 +86,10 @@ function isMissingPropertyDefinition(error: {
   message: string;
   statusCode: number | null;
 }): boolean {
-  return /propert/i.test(error.message) && /(not exist|not found|unknown|not defined)/i.test(error.message);
+  return (
+    /propert/i.test(error.message) &&
+    /(not exist|not found|unknown|not defined)/i.test(error.message)
+  );
 }
 
 /**
@@ -135,10 +138,15 @@ export async function addBuyerContact(email: string): Promise<void> {
 /**
  * Fallback alert when the contact could not be added (e.g. zero/multiple
  * audiences): email the buyer's address to WAITLIST_ALERT_TO so nothing is
- * lost. Throws on missing config or send failure — the route then surfaces a
- * retriable 500, because at that point the address really would be dropped.
+ * lost, linking the Notion row when the signup reached the Buyer Signups
+ * database. Throws on missing config or send failure — the route then decides
+ * whether the address survived anywhere else before failing the request.
  */
-export async function notifyBuyerFallback(email: string, reason: string): Promise<void> {
+export async function notifyBuyerFallback(
+  email: string,
+  reason: string,
+  notionUrl?: string,
+): Promise<void> {
   const to = process.env.WAITLIST_ALERT_TO;
   if (!to) {
     throw new Error("WAITLIST_ALERT_TO is not set — configure it in the server environment.");
@@ -150,6 +158,7 @@ export async function notifyBuyerFallback(email: string, reason: string): Promis
     `Email: ${email}`,
     `Reason: ${reason}`,
     `Received: ${new Date().toISOString()}`,
+    ...(notionUrl ? ["", `Notion row (flagged "Needs manual add"): ${notionUrl}`] : []),
     "",
     `Add them manually (property ${BUYER_SOURCE_PROPERTY}=${BUYER_SOURCE_VALUE} for the Buyers segment).`,
   ].join("\n");

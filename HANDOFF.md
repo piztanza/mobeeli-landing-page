@@ -31,8 +31,9 @@ them.
 | `WAITLIST_ALERT_TO` | Founding-team inbox (@mobeeli.com) for lead/deck-request alerts. |
 | `RESEND_AUDIENCE_ID` | `311b0b83-fb99-40a8-bcf1-36b1b79a929a` — the dedicated **Buyers** audience (see Resend notes). |
 | `DECK_SECRET` | Gates `/deck-admin` and HMAC-signs `/deck?token=…` links. Rotating it kills all outstanding links. |
-| `NOTION_TOKEN` | Optional. Internal-integration secret used to log deck requests to Notion. Unset → logging is skipped, email unaffected. |
+| `NOTION_TOKEN` | Optional. Internal-integration secret used to mirror inbound leads into Notion. Unset → logging is skipped, email/Resend unaffected. |
 | `NOTION_DECK_DB_ID` | Optional. Id of the Notion **Deck Requests** database (`f609475a65e340118e320dbaf48b4524`). |
+| `NOTION_BUYERS_DB_ID` | Optional. Id of the Notion **Buyer Signups** database (`f9130622595e4dcdaa049f97ce1b1768`). |
 
 ## Immediate next steps
 
@@ -71,6 +72,11 @@ them.
   the Resend UI first or the tag silently won't stick.
 - If `RESEND_AUDIENCE_ID` is unset, `/api/notify` auto-discovers — but that requires
   exactly one audience on the account, which is no longer true. Keep the env var set.
+- Every signup is also mirrored into the Notion **Buyer Signups** database (Mobeeli
+  Company OS → Databases), whose **Mailing list** column records whether Resend actually
+  took the address. The *Needs manual add* view is the list of buyers who would otherwise
+  silently miss the launch email — work it to empty. `/api/notify` now returns a
+  retriable 500 only when the audience, the fallback email **and** Notion all failed.
 
 ## Deck flow (investor deck)
 

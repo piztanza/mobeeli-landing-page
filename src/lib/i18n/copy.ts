@@ -434,6 +434,9 @@ const en = {
   privacy_b3_h: "Deck requests",
   privacy_b3_p:
     "Requesting the investor deck sends your name, firm and work email to the team by email, used to follow up personally. The same details, plus the country the request came from, are recorded in our internal workspace so the follow-up is tracked. They go no further.",
+  privacy_b7_h: "Launch notifications",
+  privacy_b7_p:
+    "Asking to be notified at launch stores your email with our mail provider so we can send that one announcement, and records the signup — with the country it came from — in our internal workspace. Every message carries an unsubscribe link.",
   privacy_b4_h: "On your device",
   privacy_b4_p:
     "This site sets no cookies. It keeps two preferences in your browser — your language and the vehicle you picked in the demo. They never leave your device.",
@@ -969,6 +972,9 @@ const id: Record<CopyKey, string> = {
   privacy_b3_h: "Permintaan deck",
   privacy_b3_p:
     "Meminta deck investor mengirim nama, firma, dan email kerja Anda ke tim lewat email, dipakai untuk tindak lanjut secara pribadi. Detail yang sama, ditambah negara asal permintaan, dicatat di ruang kerja internal kami agar tindak lanjutnya terpantau. Tidak diteruskan ke mana pun.",
+  privacy_b7_h: "Pemberitahuan peluncuran",
+  privacy_b7_p:
+    "Meminta diberi tahu saat peluncuran menyimpan email Anda di penyedia email kami agar kami bisa mengirim satu pengumuman itu, dan mencatat pendaftarannya — beserta negara asalnya — di ruang kerja internal kami. Setiap pesan menyertakan tautan berhenti berlangganan.",
   privacy_b4_h: "Di perangkat Anda",
   privacy_b4_p:
     "Situs ini tidak memasang cookie. Hanya ada dua preferensi yang disimpan di browser Anda — bahasa dan kendaraan yang Anda pilih di demo. Keduanya tidak pernah meninggalkan perangkat Anda.",

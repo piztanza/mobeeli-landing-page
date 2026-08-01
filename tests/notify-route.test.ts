@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { POST } from "@/app/api/notify/route";
+import { logBuyerSignupToNotion } from "@/lib/notion/buyerSignups";
 import { addBuyerContact, notifyBuyerFallback } from "@/lib/notify/audience";
 import { checkNotifyRateLimit, resetNotifyRateLimit } from "@/lib/notify/rateLimit";
 
@@ -9,14 +10,26 @@ vi.mock("@/lib/notify/audience", () => ({
   notifyBuyerFallback: vi.fn().mockResolvedValue(undefined),
 }));
 
+vi.mock("@/lib/notion/buyerSignups", () => ({
+  logBuyerSignupToNotion: vi.fn().mockResolvedValue({ status: "skipped" }),
+}));
+
 let ipCounter = 0;
 
 /** Each test gets its own IP so the per-IP rate limiter never bleeds across tests. */
-function post(body: unknown, ip = `10.3.0.${++ipCounter}`): Promise<Response> {
+function post(
+  body: unknown,
+  ip = `10.3.0.${++ipCounter}`,
+  extraHeaders: Record<string, string> = {},
+): Promise<Response> {
   return POST(
     new Request("http://localhost/api/notify", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "x-forwarded-for": ip },
+      headers: {
+        "Content-Type": "application/json",
+        "x-forwarded-for": ip,
+        ...extraHeaders,
+      },
       body: JSON.stringify(body),
     }),
   );
@@ -31,6 +44,8 @@ describe("POST /api/notify (F-015)", () => {
     vi.mocked(addBuyerContact).mockResolvedValue(undefined);
     vi.mocked(notifyBuyerFallback).mockClear();
     vi.mocked(notifyBuyerFallback).mockResolvedValue(undefined);
+    vi.mocked(logBuyerSignupToNotion).mockClear();
+    vi.mocked(logBuyerSignupToNotion).mockResolvedValue({ status: "skipped" });
   });
 
   afterEach(() => {
@@ -46,12 +61,37 @@ describe("POST /api/notify (F-015)", () => {
     expect(notifyBuyerFallback).not.toHaveBeenCalled();
   });
 
+  it("logs the signup to Notion as on-list, with the receipt time and edge country", async () => {
+    await post(validRequest, "10.9.8.7", { "x-vercel-ip-country": "ID" });
+    expect(logBuyerSignupToNotion).toHaveBeenCalledTimes(1);
+    expect(logBuyerSignupToNotion).toHaveBeenCalledWith(
+      expect.objectContaining({ email: "buyer@example.com" }),
+      expect.objectContaining({
+        country: "ID",
+        onMailingList: true,
+        receivedAtIso: expect.stringMatching(/^\d{4}-\d{2}-\d{2}T/),
+      }),
+    );
+  });
+
+  it("still returns 200 when Notion logging fails", async () => {
+    vi.mocked(logBuyerSignupToNotion).mockResolvedValue({ status: "failed", reason: "404" });
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const res = await post(validRequest);
+    expect(res.status).toBe(200);
+    expect(console.error).toHaveBeenCalledWith(
+      "notify: failed to log the buyer signup to Notion",
+      "404",
+    );
+  });
+
   it("rejects invalid payloads with 400 and never captures", async () => {
     expect((await post({ ...validRequest, email: "nope" })).status).toBe(400);
     expect((await post({ ...validRequest, email: "" })).status).toBe(400);
     expect((await post({})).status).toBe(400);
     expect((await post(null)).status).toBe(400);
     expect(addBuyerContact).not.toHaveBeenCalled();
+    expect(logBuyerSignupToNotion).not.toHaveBeenCalled();
   });
 
   it("returns a silent fake 200 for a filled honeypot without capturing", async () => {
@@ -60,6 +100,7 @@ describe("POST /api/notify (F-015)", () => {
     await expect(res.json()).resolves.toEqual({ ok: true });
     expect(addBuyerContact).not.toHaveBeenCalled();
     expect(notifyBuyerFallback).not.toHaveBeenCalled();
+    expect(logBuyerSignupToNotion).not.toHaveBeenCalled();
   });
 
   it("falls back to the alert email (still 200) when the contact cannot be added", async () => {
@@ -68,20 +109,55 @@ describe("POST /api/notify (F-015)", () => {
     const res = await post(validRequest);
     expect(res.status).toBe(200);
     await expect(res.json()).resolves.toEqual({ ok: true });
-    expect(notifyBuyerFallback).toHaveBeenCalledWith("buyer@example.com", "0 audiences");
+    expect(notifyBuyerFallback).toHaveBeenCalledWith("buyer@example.com", "0 audiences", undefined);
     expect(console.error).toHaveBeenCalledWith(
       "notify: failed to add buyer contact to the Resend audience",
       expect.anything(),
     );
   });
 
-  it("returns a retriable 500 only when the fallback ALSO fails", async () => {
+  it("flags the Notion row as needing a manual add, and links it in the fallback email", async () => {
+    vi.mocked(addBuyerContact).mockRejectedValueOnce(new Error("0 audiences"));
+    vi.mocked(logBuyerSignupToNotion).mockResolvedValue({
+      status: "logged",
+      url: "https://notion.so/buyer-row",
+      id: "row-1",
+    });
+    vi.spyOn(console, "error").mockImplementation(() => {});
+
+    await post(validRequest);
+    expect(logBuyerSignupToNotion).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({ onMailingList: false }),
+    );
+    expect(notifyBuyerFallback).toHaveBeenCalledWith(
+      "buyer@example.com",
+      "0 audiences",
+      "https://notion.so/buyer-row",
+    );
+  });
+
+  it("returns a retriable 500 when Resend fails both ways and Notion has no copy", async () => {
     vi.mocked(addBuyerContact).mockRejectedValueOnce(new Error("resend down"));
     vi.mocked(notifyBuyerFallback).mockRejectedValueOnce(new Error("alert down"));
     vi.spyOn(console, "error").mockImplementation(() => {});
     const res = await post(validRequest);
     expect(res.status).toBe(500);
     await expect(res.json()).resolves.toEqual({ error: "capture_failed" });
+  });
+
+  it("stays 200 when Resend fails both ways but the Notion row holds the address", async () => {
+    vi.mocked(addBuyerContact).mockRejectedValueOnce(new Error("resend down"));
+    vi.mocked(notifyBuyerFallback).mockRejectedValueOnce(new Error("alert down"));
+    vi.mocked(logBuyerSignupToNotion).mockResolvedValue({
+      status: "logged",
+      url: "https://notion.so/buyer-row",
+      id: "row-1",
+    });
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const res = await post(validRequest);
+    expect(res.status).toBe(200);
+    await expect(res.json()).resolves.toEqual({ ok: true });
   });
 
   it("rate-limits an IP to 10 requests per hour", async () => {

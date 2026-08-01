@@ -1,11 +1,10 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { deckRequestSchema } from "@/lib/deck/schema";
+import { emailDomain, emailType } from "@/lib/notion/client";
 import {
   deckLinkSentProperties,
   deckRequestNotionPage,
-  emailDomain,
-  emailType,
   logDeckRequestToNotion,
   markDeckLinkSent,
   normalizeLink,

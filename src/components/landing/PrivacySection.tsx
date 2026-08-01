@@ -3,10 +3,14 @@
 import type { CopyKey } from "@/lib/i18n";
 import { useT } from "@/lib/i18n/LanguageProvider";
 
+/* Reading order, not key order: what you send us, then what we keep, then
+   your rights. b7 (launch notifications) was added after b6 and slots in
+   with the other capture blocks. */
 const BLOCKS: readonly { h: CopyKey; p: CopyKey }[] = [
   { h: "privacy_b1_h", p: "privacy_b1_p" },
   { h: "privacy_b2_h", p: "privacy_b2_p" },
   { h: "privacy_b3_h", p: "privacy_b3_p" },
+  { h: "privacy_b7_h", p: "privacy_b7_p" },
   { h: "privacy_b4_h", p: "privacy_b4_p" },
   { h: "privacy_b5_h", p: "privacy_b5_p" },
   { h: "privacy_b6_h", p: "privacy_b6_p" },
