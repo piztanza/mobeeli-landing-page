@@ -77,6 +77,12 @@ them.
   took the address. The *Needs manual add* view is the list of buyers who would otherwise
   silently miss the launch email — work it to empty. `/api/notify` now returns a
   retriable 500 only when the audience, the fallback email **and** Notion all failed.
+- **There is no per-signup alert email, by design** (founder decision 2026-08-01). The
+  "Mobeeli Buyer Notify" mail is an *alarm*: it sends only when the contact create fails
+  and someone has to add the buyer by hand. A quiet inbox means every address went
+  straight onto the list. The signup list to read is the Notion *Inbox — new* view, not
+  your mail. (Deck requests are the opposite — those alert on every request, because the
+  volume is low and each one needs a human reply.)
 
 ## Deck flow (investor deck)
 
