@@ -430,7 +430,7 @@ const en = {
     "The contact form collects your name, email, topic and message. It is delivered to the team as an email and used only to reply to you — there is no marketing list, and messages are not stored in a database.",
   privacy_b2_h: "Waitlist signups",
   privacy_b2_p:
-    "Joining the Early Adopters waitlist stores the business details you provide so we can contact you about the program. They are used for nothing else.",
+    "Joining the Early Adopters waitlist stores the business details you provide, and a copy in our internal workspace, so we can contact you about the program. They are used for nothing else.",
   privacy_b3_h: "Deck requests",
   privacy_b3_p:
     "Requesting the investor deck sends your name, firm and work email to the team by email, used to follow up personally. The same details, plus the country the request came from, are recorded in our internal workspace so the follow-up is tracked. They go no further.",
@@ -968,7 +968,7 @@ const id: Record<CopyKey, string> = {
     "Form kontak mengumpulkan nama, email, topik, dan pesan Anda. Semuanya dikirim ke tim sebagai email dan hanya dipakai untuk membalas Anda — tidak ada milis pemasaran, dan pesan tidak disimpan di database.",
   privacy_b2_h: "Pendaftaran waitlist",
   privacy_b2_p:
-    "Bergabung ke waitlist Early Adopters menyimpan detail usaha yang Anda berikan agar kami bisa menghubungi Anda soal program ini. Tidak dipakai untuk hal lain.",
+    "Bergabung ke waitlist Early Adopters menyimpan detail usaha yang Anda berikan, beserta salinannya di ruang kerja internal kami, agar kami bisa menghubungi Anda soal program ini. Tidak dipakai untuk hal lain.",
   privacy_b3_h: "Permintaan deck",
   privacy_b3_p:
     "Meminta deck investor mengirim nama, firma, dan email kerja Anda ke tim lewat email, dipakai untuk tindak lanjut secara pribadi. Detail yang sama, ditambah negara asal permintaan, dicatat di ruang kerja internal kami agar tindak lanjutnya terpantau. Tidak diteruskan ke mana pun.",

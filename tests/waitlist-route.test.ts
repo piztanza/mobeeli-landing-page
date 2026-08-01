@@ -6,18 +6,31 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { POST } from "@/app/api/waitlist/route";
+import { logSellerWaitlistToNotion } from "@/lib/notion/sellerWaitlist";
 import { resetRateLimit } from "@/lib/waitlist/rateLimit";
+
+vi.mock("@/lib/notion/sellerWaitlist", () => ({
+  logSellerWaitlistToNotion: vi.fn().mockResolvedValue({ status: "skipped" }),
+}));
 
 let tempDir: string;
 let fallbackFile: string;
 let ipCounter = 0;
 
 /** Each test gets its own IP so the per-IP rate limiter never bleeds across tests. */
-function post(body: unknown, ip = `10.0.0.${++ipCounter}`): Promise<Response> {
+function post(
+  body: unknown,
+  ip = `10.0.0.${++ipCounter}`,
+  extraHeaders: Record<string, string> = {},
+): Promise<Response> {
   return POST(
     new Request("http://localhost/api/waitlist", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "x-forwarded-for": ip },
+      headers: {
+        "Content-Type": "application/json",
+        "x-forwarded-for": ip,
+        ...extraHeaders,
+      },
       body: JSON.stringify(body),
     }),
   );
@@ -49,6 +62,8 @@ describe("POST /api/waitlist", () => {
     vi.stubEnv("RESEND_API_KEY", "");
     // The route logs the (expected) email failure — keep test output clean.
     vi.spyOn(console, "error").mockImplementation(() => {});
+    vi.mocked(logSellerWaitlistToNotion).mockClear();
+    vi.mocked(logSellerWaitlistToNotion).mockResolvedValue({ status: "skipped" });
   });
 
   afterEach(async () => {
@@ -89,11 +104,36 @@ describe("POST /api/waitlist", () => {
     );
   });
 
+  it("mirrors the stored lead into Notion with the receipt time and edge country", async () => {
+    await post(validLead, "10.7.7.7", { "x-vercel-ip-country": "ID" });
+    expect(logSellerWaitlistToNotion).toHaveBeenCalledTimes(1);
+    expect(logSellerWaitlistToNotion).toHaveBeenCalledWith(
+      expect.objectContaining({ businessName: "Bengkel Sumber Rejeki", partnerType: "GARAGE" }),
+      expect.objectContaining({
+        country: "ID",
+        receivedAtIso: expect.stringMatching(/^\d{4}-\d{2}-\d{2}T/),
+      }),
+    );
+  });
+
+  it("still returns 200 when Notion logging fails — the lead is already stored", async () => {
+    vi.mocked(logSellerWaitlistToNotion).mockResolvedValue({ status: "failed", reason: "404" });
+    const res = await post(validLead);
+    expect(res.status).toBe(200);
+    await expect(res.json()).resolves.toEqual({ ok: true });
+    expect(existsSync(fallbackFile)).toBe(true);
+    expect(console.error).toHaveBeenCalledWith(
+      "waitlist: lead stored but Notion logging failed",
+      "404",
+    );
+  });
+
   it("returns a fake success for a filled _honeypot without persisting anything", async () => {
     const res = await post({ ...validLead, _honeypot: "http://spam.example" });
     expect(res.status).toBe(200);
     await expect(res.json()).resolves.toEqual({ ok: true });
     expect(existsSync(fallbackFile)).toBe(false);
+    expect(logSellerWaitlistToNotion).not.toHaveBeenCalled();
   });
 
   it("rejects malformed payloads and unknown whitelist values with 400", async () => {

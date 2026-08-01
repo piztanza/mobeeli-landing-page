@@ -34,6 +34,7 @@ them.
 | `NOTION_TOKEN` | Optional. Internal-integration secret used to mirror inbound leads into Notion. Unset → logging is skipped, email/Resend unaffected. |
 | `NOTION_DECK_DB_ID` | Optional. Id of the Notion **Deck Requests** database (`f609475a65e340118e320dbaf48b4524`). |
 | `NOTION_BUYERS_DB_ID` | Optional. Id of the Notion **Buyer Signups** database (`f9130622595e4dcdaa049f97ce1b1768`). |
+| `NOTION_SELLERS_DB_ID` | Optional. Id of the Notion **Seller Waitlist** database (`76cbd7f55cda4327a12aee08e6b56d3f`). |
 
 ## Immediate next steps
 
@@ -104,11 +105,21 @@ never shared with the integration, the request still succeeds and the alert emai
 
 1. https://www.notion.so/profile/integrations → **New internal integration** in the
    Mobeeli workspace, capability *Insert content*; copy the secret.
-2. Open the **Deck Requests** database → `···` → **Connections** → add that integration.
-   Without this step Notion answers 404 to every write.
-3. Set `NOTION_TOKEN` and `NOTION_DECK_DB_ID` in Vercel (all environments) and redeploy.
+2. Open **each** database (Deck Requests, Buyer Signups, Seller Waitlist) → `···` →
+   **Connections** → add that integration. Without this step Notion answers 404 to every
+   write, per database — connecting one does not connect the others.
+3. Set `NOTION_TOKEN` and the three `NOTION_*_DB_ID` values in Vercel (all environments)
+   and redeploy.
+
+The three inbound trackers share `src/lib/notion/client.ts`; each has its own writer
+module and its own database id.
 
 ## Database contract (summary — full rule in CLAUDE.md)
+
+Every stored lead is also mirrored into the Notion **Seller Waitlist** database — written
+only *after* the insert succeeds, so a Notion row always corresponds to a real
+`partner_signups` record and a retried signup can't leave an orphan row. `partner_signups`
+remains the system of record; the Notion row is a working copy for follow-up.
 
 `/api/waitlist` inserts into the platform's existing `partner_signups` table, mirroring
 the platform's own `/api/partners/signup` contract: uppercase `partnerType` enum,

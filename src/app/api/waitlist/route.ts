@@ -1,4 +1,5 @@
 import { notifyNewLead } from "@/lib/email/notify";
+import { logSellerWaitlistToNotion } from "@/lib/notion/sellerWaitlist";
 import { persistLead } from "@/lib/waitlist/persist";
 import { checkRateLimit } from "@/lib/waitlist/rateLimit";
 import { waitlistPayloadSchema } from "@/lib/waitlist/schema";
@@ -20,7 +21,12 @@ function clientIp(request: Request): string {
  *     DATABASE_URL) — MUST succeed before the client may show success, so a
  *     failure returns 500 (retriable);
  *  5. Resend alert to the team — failure after a successful insert is logged
- *     but still returns 200 (the lead is safe).
+ *     but still returns 200 (the lead is safe);
+ *  6. mirror the lead into the Notion Seller Waitlist database — same
+ *     post-insert position as the email and for the same reason: the row is a
+ *     convenience copy, `partner_signups` is the record. Running it only after
+ *     a successful insert also means a retried signup can't leave an orphan
+ *     Notion row behind.
  */
 export async function POST(request: Request): Promise<Response> {
   if (!checkRateLimit(clientIp(request))) {
@@ -51,6 +57,15 @@ export async function POST(request: Request): Promise<Response> {
   } catch (error) {
     // Lead is already stored — log and still report success to the client.
     console.error("waitlist: lead stored but email alert failed", error);
+  }
+
+  const log = await logSellerWaitlistToNotion(parsed.data, {
+    receivedAtIso: new Date().toISOString(),
+    // Vercel's edge geo header — no cookie, no tracker, no client script.
+    country: request.headers.get("x-vercel-ip-country") ?? undefined,
+  });
+  if (log.status === "failed") {
+    console.error("waitlist: lead stored but Notion logging failed", log.reason);
   }
 
   return Response.json({ ok: true });
