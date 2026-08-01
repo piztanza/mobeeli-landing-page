@@ -20,13 +20,17 @@ function clientIp(request: Request): string {
  *  4. drizzle insert into partner_signups (JSONL fallback without
  *     DATABASE_URL) — MUST succeed before the client may show success, so a
  *     failure returns 500 (retriable);
- *  5. Resend alert to the team — failure after a successful insert is logged
- *     but still returns 200 (the lead is safe);
- *  6. mirror the lead into the Notion Seller Waitlist database — same
- *     post-insert position as the email and for the same reason: the row is a
- *     convenience copy, `partner_signups` is the record. Running it only after
- *     a successful insert also means a retried signup can't leave an orphan
- *     Notion row behind.
+ *  5. Resend alert to the team, only when the lead was stored;
+ *  6. mirror the lead into the Notion Seller Waitlist database — ALWAYS, with
+ *     the "Platform DB" column recording whether step 4 worked.
+ *
+ * Step 6 runs even when step 4 failed, and that is the point. On 2026-08-01
+ * Neon went read-only and every /join signup evaporated: 500 to the visitor,
+ * no row, no email, nothing to replay. Now a failed insert still returns its
+ * retriable 500 — the visitor's experience is unchanged, and `partner_signups`
+ * is still the system of record — but the lead survives in Notion flagged
+ * "Not stored — replay". A visitor who retries successfully leaves a duplicate
+ * row; that is a visible, cheap merge, and strictly better than a lost lead.
  */
 export async function POST(request: Request): Promise<Response> {
   if (!checkRateLimit(clientIp(request))) {
@@ -45,27 +49,42 @@ export async function POST(request: Request): Promise<Response> {
     return Response.json({ ok: true });
   }
 
+  let stored = true;
   try {
     await persistLead(parsed.data);
   } catch (error) {
+    stored = false;
     console.error("waitlist: failed to persist lead", error);
-    return Response.json({ error: "persist_failed" }, { status: 500 });
   }
 
-  try {
-    await notifyNewLead(parsed.data);
-  } catch (error) {
-    // Lead is already stored — log and still report success to the client.
-    console.error("waitlist: lead stored but email alert failed", error);
+  if (stored) {
+    try {
+      await notifyNewLead(parsed.data);
+    } catch (error) {
+      // Lead is already stored — log and still report success to the client.
+      console.error("waitlist: lead stored but email alert failed", error);
+    }
   }
 
   const log = await logSellerWaitlistToNotion(parsed.data, {
     receivedAtIso: new Date().toISOString(),
     // Vercel's edge geo header — no cookie, no tracker, no client script.
     country: request.headers.get("x-vercel-ip-country") ?? undefined,
+    storedInPlatformDb: stored,
   });
   if (log.status === "failed") {
-    console.error("waitlist: lead stored but Notion logging failed", log.reason);
+    console.error(
+      stored
+        ? "waitlist: lead stored but Notion logging failed"
+        : "waitlist: LEAD LOST — the insert failed and Notion capture failed too",
+      log.reason,
+    );
+  }
+
+  // The insert alone decides the response: a lead that isn't in
+  // partner_signups is not a success, however well the capture went.
+  if (!stored) {
+    return Response.json({ error: "persist_failed" }, { status: 500 });
   }
 
   return Response.json({ ok: true });

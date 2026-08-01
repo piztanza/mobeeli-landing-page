@@ -9,12 +9,23 @@ import { notionCreatePage, notionToken, richText, RICH_TEXT_MAX } from "./client
  * triage columns the team manages by hand (Status, Owner, Customer relation,
  * Notes).
  *
- * This is a MIRROR, never the record. The platform's `partner_signups` table
- * stays the system of record and the route only calls this after the insert
- * has succeeded — so a Notion row always corresponds to a stored lead, and a
- * retried signup can't leave an orphan row behind. Best-effort throughout: the
- * lead is already safe by the time this runs, so a failure is logged and
- * nothing else changes.
+ * The platform's `partner_signups` table stays the system of record; this is a
+ * working copy for follow-up. The **Platform DB** column says which of the two
+ * a row is:
+ *
+ *   Stored              — the insert succeeded; this row mirrors a real record.
+ *   Not stored — replay — the insert failed and this row is the ONLY copy of
+ *                         the lead. Replay it by hand once the database takes
+ *                         writes again.
+ *
+ * The second case exists because of 2026-08-01: Neon went read-only
+ * (`cannot execute INSERT in a read-only transaction`) and every /join signup
+ * evaporated — 500 to the visitor, no row, no alert email, nothing to replay.
+ * Capturing here costs an occasional duplicate when a visitor retries
+ * successfully, which is visible and cheap to merge; losing a lead is neither.
+ *
+ * Best-effort throughout: nothing here changes what the visitor sees. A failed
+ * insert still returns its retriable 500 whether or not this row was written.
  *
  * Server-only config (both documented in .env.example):
  *   NOTION_TOKEN         integration secret, shared with ./client
@@ -24,10 +35,12 @@ import { notionCreatePage, notionToken, richText, RICH_TEXT_MAX } from "./client
 
 /** Signup-scoped facts the wizard payload doesn't carry. */
 export interface SellerWaitlistContext {
-  /** Time the lead was stored, ISO-8601 — the "Received" column. */
+  /** Time the signup reached the server, ISO-8601 — the "Received" column. */
   receivedAtIso: string;
   /** ISO country code from the edge (x-vercel-ip-country), when present. */
   country?: string;
+  /** False when the partner_signups insert failed — this row is then the only copy. */
+  storedInPlatformDb: boolean;
 }
 
 export type SellerWaitlistLogResult =
@@ -79,6 +92,9 @@ export function sellerWaitlistNotionPage(
       Message: richText(lead.message ?? ""),
       Received: { date: { start: context.receivedAtIso } },
       Status: { select: { name: "New" } },
+      "Platform DB": {
+        select: { name: context.storedInPlatformDb ? "Stored" : "Not stored — replay" },
+      },
       Country: richText(context.country ?? ""),
       Language: { select: { name: lead.lang } },
       Source: { select: { name: "Landing — /join" } },
@@ -99,8 +115,8 @@ export function sellerWaitlistNotionPage(
 
 /**
  * Create the row. Resolves with the outcome and never rejects — POST
- * /api/waitlist has already stored the lead by the time this runs, so nothing
- * here may change what the client sees.
+ * /api/waitlist decides the response from the insert alone, so nothing here
+ * may change what the client sees.
  */
 export async function logSellerWaitlistToNotion(
   lead: WaitlistPayload,

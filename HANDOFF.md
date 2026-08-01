@@ -116,10 +116,24 @@ module and its own database id.
 
 ## Database contract (summary — full rule in CLAUDE.md)
 
-Every stored lead is also mirrored into the Notion **Seller Waitlist** database — written
-only *after* the insert succeeds, so a Notion row always corresponds to a real
-`partner_signups` record and a retried signup can't leave an orphan row. `partner_signups`
-remains the system of record; the Notion row is a working copy for follow-up.
+Every lead is also captured in the Notion **Seller Waitlist** database, whose
+**Platform DB** column says which kind of row it is:
+
+- **Stored** — the insert succeeded; the row mirrors a real `partner_signups` record.
+- **Not stored — replay** — the insert failed and the Notion row is the **only** copy of
+  that lead. Replay it into the platform by hand once the database takes writes again,
+  then flip the column.
+
+`partner_signups` remains the system of record. A failed insert still returns a retriable
+500 to the visitor — the response is decided by the insert alone — so a visitor who
+retries successfully leaves one duplicate row; merge and move on.
+
+**If `/join` starts returning "Something went wrong sending your application"**, check the
+runtime logs for `waitlist: failed to persist lead`. On 2026-08-01 the cause was Neon
+answering `cannot execute INSERT in a read-only transaction` (code 25006) — the endpoint,
+not the code. Look in the Neon console for: project over plan limits (Neon flips the
+project read-only), `DATABASE_URL` pointing at a read replica, or a protected/read-only
+branch. Leads submitted during such a window sit in the *Not in platform DB* view.
 
 `/api/waitlist` inserts into the platform's existing `partner_signups` table, mirroring
 the platform's own `/api/partners/signup` contract: uppercase `partnerType` enum,

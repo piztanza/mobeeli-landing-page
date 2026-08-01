@@ -12,7 +12,11 @@ import { waitlistPayloadSchema } from "@/lib/waitlist/schema";
  */
 
 const DB_ID = "76cbd7f55cda4327a12aee08e6b56d3f";
-const CONTEXT = { receivedAtIso: "2026-08-01T09:30:00.000Z", country: "ID" };
+const CONTEXT = {
+  receivedAtIso: "2026-08-01T09:30:00.000Z",
+  country: "ID",
+  storedInPlatformDb: true,
+};
 
 const lead = waitlistPayloadSchema.parse({
   partnerType: "GARAGE",
@@ -93,6 +97,14 @@ describe("seller waitlist → Notion payload", () => {
     expect(properties.Status.select).toEqual({ name: "New" });
   });
 
+  it("records whether the lead reached partner_signups — a failed insert is flagged for replay", () => {
+    expect(properties["Platform DB"].select).toEqual({ name: "Stored" });
+
+    const lost = sellerWaitlistNotionPage(lead, { ...CONTEXT, storedInPlatformDb: false }, DB_ID)
+      .properties as Record<string, Record<string, unknown>>;
+    expect(lost["Platform DB"].select).toEqual({ name: "Not stored — replay" });
+  });
+
   it("repeats the message in the page body so the row reads on its own", () => {
     expect(JSON.stringify(page.children)).toContain("Kami butuh katalog");
   });
@@ -100,7 +112,7 @@ describe("seller waitlist → Notion payload", () => {
   it("leaves skipped fields empty — null, not an empty string", () => {
     const props = sellerWaitlistNotionPage(
       minimalLead,
-      { receivedAtIso: CONTEXT.receivedAtIso },
+      { receivedAtIso: CONTEXT.receivedAtIso, storedInPlatformDb: true },
       DB_ID,
     ).properties as Record<string, Record<string, unknown>>;
     expect(props.Email.email).toBeNull();
