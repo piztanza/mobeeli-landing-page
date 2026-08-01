@@ -28,7 +28,11 @@ describe("R5 Authorized Port #2 — AnalogDeathSpiral Problem Cards in /why-mobe
 
   it("translates problem card titles into Indonesian in ID mode via t()", () => {
     expect(t("id", "why_ds_c1_t")).toBe("Efek Domino Margin");
-    expect(t("id", "why_ds_c2_t")).toBe("Injeksi Suku Cadang KW");
+    // ID COPY PASS 2026-08-01: "Injeksi" → "Banjir". On an auto-parts page
+    // "injeksi" reads first as fuel injection (mesin injeksi, motor injeksi),
+    // so the domain collided with the figure of speech. "Banjir" (flood)
+    // carries the same volume sense without the collision.
+    expect(t("id", "why_ds_c2_t")).toBe("Banjir Suku Cadang KW");
     expect(t("id", "why_ds_c3_t")).toBe("Belenggu COD");
   });
 

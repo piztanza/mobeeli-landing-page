@@ -650,8 +650,8 @@ const id: Record<CopyKey, string> = {
   hero_cta_inv: "Untuk investor",
   hero_cta_shops: "Gabung Program Early Adopters",
   /* audit #24 — a11y pause control for the rotating hero headline. */
-  hero_pause: "Jeda judul yang berputar",
-  hero_resume: "Lanjutkan judul yang berputar",
+  hero_pause: "Jeda pergantian judul",
+  hero_resume: "Lanjutkan pergantian judul",
 
   /* R11 YMM Vehicle Picker keys */
   ymm_picker_label: "Pilih kecocokan kendaraan:",
@@ -660,7 +660,7 @@ const id: Record<CopyKey, string> = {
   ymm_model: "Model",
   ymm_trim: "Varian",
   ymm_scanning: "MEMINDAI KECOCOKAN KENDARAAN...",
-  ymm_verified: "TERVERIFIKASI COCOK: Toyota Avanza 1.5 G",
+  ymm_verified: "DIPASTIKAN COCOK: Toyota Avanza 1.5 G",
   card_part_name: "Kampas rem depan",
   card_part_sub: "As depan · keramik",
   card_part_price: "Rp 385.000",
@@ -696,7 +696,7 @@ const id: Record<CopyKey, string> = {
   prob_t3_v: "16,75–19,66%",
   prob_t3_t: "potongan biaya penjual di marketplace besar",
   prob_t3_l: "Sementara penjual harus merelakan sampai seperlima omzetnya untuk biaya platform.",
-  prob_t3_chip: "Mobeeli: satu tarif flat, ringan",
+  prob_t3_chip: "Mobeeli: satu tarif flat yang ringan",
   quote_main:
     "Toko saya sampai ditutup karena terlalu banyak retur COD. Platform menghukum saya. Bukan pembelinya.",
   quote_en:
@@ -705,11 +705,19 @@ const id: Record<CopyKey, string> = {
   prob_call_h: "Onderdil yang salah dikirim dua kali: ke pembeli, lalu kembali — tanpa dibayar.",
   prob_call_p:
     "Di pasar COD, onderdil yang tidak cocok ditolak di depan pintu. Toko menanggung ongkir dua arah, dan mobilnya masih tertahan di bengkel.",
-  prob_call_tag: "Perdagangan onderdil Indonesia berjalan dengan COD",
+  prob_call_tag: "Perdagangan onderdil di Indonesia bertumpu pada COD",
   prob_lede:
-    "Setiap onderdil punya tepat satu pasangan — satu tahun, satu trim, satu mesin. Di halaman listing semuanya terlihat sama. Itulah inti masalahnya.",
+    "Setiap onderdil hanya cocok untuk satu kombinasi — satu tahun, satu varian, satu mesin. Di halaman listing semuanya terlihat sama. Itulah inti masalahnya.",
   prob_link: "Angka di balik masalah ini",
-  prob_badge: "Satu onderdil, satu pasangan",
+  /* ID COPY PASS 2026-08-01: "pasangan" retired — it reads as partner/spouse,
+     and to a mechanic "satu pasangan" means one SET (a pair of pads). Length
+     is the constraint here: .mb-prob-badge is position:absolute and
+     content-sized, so it grows right until it overhangs its own card. Measured
+     at 320px — "Setiap onderdil, satu yang cocok" overhangs by 22px and lands
+     2px from the screen edge; this fits with 37px to spare. "pas" over the
+     more common "cocok" is deliberate: it is what the fitment chip already
+     says ("Tidak Pas"), and it is the only phrasing short enough. */
+  prob_badge: "Satu onderdil, satu yang pas",
   prob_chip_n: "4",
   prob_chip_of: "/ 217",
   prob_chip_cap: "listing yang benar-benar cocok untuk mobil ini",
@@ -724,7 +732,7 @@ const id: Record<CopyKey, string> = {
   cat_kicker: "Cara kerja",
   cat_unified_h2: "Satu listing terverifikasi per suku cadang. Siapa pun yang mendeskripsikannya.",
   cat_unified_p:
-    "Merek, distributor, dan toko menamai suku cadang yang sama dengan cara berbeda. Mobeeli menyatukannya menjadi satu listing, lalu memeriksanya terhadap mobil Anda sebelum Anda melihatnya.",
+    "Merek, distributor, dan toko menamai suku cadang yang sama dengan sebutan berbeda-beda. Mobeeli menyatukannya menjadi satu listing, lalu mencocokkannya dengan mobil Anda sebelum Anda melihatnya.",
   cat_bridge: "Satu deskripsi masuk. Satu listing terverifikasi keluar.",
   cat_window_title: "Terverifikasi untuk kendaraan Anda",
   /* R25 full-mockup pass. Where the mockup itself is already in Indonesian its
@@ -735,17 +743,17 @@ const id: Record<CopyKey, string> = {
   cat_engine_code: "2NR-VE",
   cat_engine_note: "← mesin, tingkat kelima",
   cat_sku_kicker: "Arsitektur Single-SKU",
-  cat_sku_title: "Satu listing per suku cadang. Setiap merek punya sendiri.",
+  cat_sku_title: "Satu listing per suku cadang. Setiap merek punya listing sendiri.",
   cat_sku_sub: "Ditegakkan oleh skema, bukan oleh moderator",
   cat_search_query: "kampas rem · Avanza 1.5 G CVT",
   cat_katalog_label: "Mobeeli · Katalog",
   cat_count_fit: "4 dari 217 cocok untuk mobil Anda",
   cat_count_hidden: "· 213 disembunyikan karena tidak pas",
-  cat_count_ai: "· disusun Mobeeli AI dari katalog milik penjual",
+  cat_count_ai: "· disusun AI Mobeeli dari katalog milik penjual",
   cat_badge_genuine: "Genuine",
   cat_chip_unfit: "Tidak Pas",
-  cat_part5_name: "Ceramic Pad Set",
-  cat_part5_spec: "1.3 E only — as tidak cocok",
+  cat_part5_name: "Kampas Rem Keramik",
+  cat_part5_spec: "1.3 E saja — as tidak cocok",
   cat_part1_name: "Busi Iridium",
   cat_part2_name: "Dekrup Kopling",
   cat_part3_name: "Shockbreaker Gas",
@@ -793,9 +801,9 @@ const id: Record<CopyKey, string> = {
   plat_kicker: "Di seluruh industri",
   plat_h2: "Lima pihak. Satu platform di tengah.",
   plat_p:
-    "Hari ini suku cadang yang sama dideskripsikan lima kali oleh lima pihak yang tidak pernah saling bicara. Dari situlah salah beli berasal — bukan karena ada yang ceroboh.",
+    "Saat ini suku cadang yang sama dideskripsikan lima kali oleh lima pihak yang tidak pernah saling bicara. Dari situlah salah beli berasal — bukan karena ada yang ceroboh.",
   plat_src1_t: "Merek",
-  plat_src1_s: "publikasi sekali, benar",
+  plat_src1_s: "publikasikan sekali, benar",
   plat_src2_t: "Distributor",
   plat_src2_s: "kirim format apa pun",
   plat_src3_t: "Toko",
@@ -803,7 +811,7 @@ const id: Record<CopyKey, string> = {
   plat_dst1_t: "Toko",
   plat_dst1_s: "pasang tanpa ketik ulang",
   plat_dst2_t: "Mekanik",
-  plat_dst2_s: "pesan untuk mobil di bengkel",
+  plat_dst2_s: "pesan untuk mobil yang ditangani",
   plat_dst3_t: "Pengemudi",
   plat_dst3_s: "lihat hanya yang cocok",
   plat_hub: "Platform",
@@ -820,11 +828,11 @@ const id: Record<CopyKey, string> = {
   why_ds_title: "Lingkaran Setan Analog.",
   why_ds_sub: "Jaringan distribusi suku cadang saat ini merugikan kedua belah pihak.",
   why_ds_c1_t: "Efek Domino Margin",
-  why_ds_c1_d: "Setiap pemindahan tangan membebankan tambahan marjin buta ~15%.",
-  why_ds_c2_t: "Injeksi Suku Cadang KW",
-  why_ds_c2_d: "Masuknya komponen OEM palsu merajalela melalui broker WhatsApp tanpa verifikasi.",
+  why_ds_c1_d: "Setiap kali barang berpindah tangan, margin bertambah ~15%.",
+  why_ds_c2_t: "Banjir Suku Cadang KW",
+  why_ds_c2_d: "Komponen OEM palsu diam-diam masuk ke stok toko melalui broker WhatsApp offline.",
   why_ds_c3_t: "Belenggu COD",
-  why_ds_c3_d: "Grosir konvensional membekukan modal kerja dengan memaksa bayar 100% tunai.",
+  why_ds_c3_d: "Nihilnya rasa saling percaya memaksa pembayaran 100% tunai, membekukan modal kerja.",
   /* Death-spiral mockup labels (R5 audit): keyed EN+ID, generic — no real
      manufacturer names on marketing surfaces, no hype punctuation. */
   why_ds_n_base: "Produsen",
@@ -845,20 +853,20 @@ const id: Record<CopyKey, string> = {
   cmp_bad_2: "Tanya penjual lewat WhatsApp, cocok atau tidak — dua-duanya cuma menebak.",
   cmp_bad_3: "Barang datang — beda generasi, salah tipe.",
   cmp_bad_4: "Ajukan retur, sengketa, menunggu — atau terpaksa menyimpan barang yang tak terpakai.",
-  cmp_bad_res: "19,4% pesanan berakhir retur — 86% karena salah kecocokan.",
+  cmp_bad_res: "19,4% pesanan berakhir retur — 86% karena barang tidak cocok.",
   cmp_good_t: "Di Mobeeli",
   cmp_good_1: "Cukup sekali isi data mobil — tahun · merek · model · tipe.",
   cmp_good_2: "Hasil pencarian hanya menampilkan onderdil yang pasti cocok untuk mobil Anda.",
-  cmp_good_3: "Barang tiba, langsung terpasang — sesuai janji.",
+  cmp_good_3: "Barang tiba, langsung terpasang — memang sudah terverifikasi.",
   cmp_good_4: "Checkout terlindungi: dana cair setelah barang cocok.",
   cmp_good_res: "Sudah dipastikan cocok sebelum checkout — retur tak lagi jadi rutinitas.",
   why_kicker: "Kenapa Mobeeli",
   why_h2: "Biaya naik. Kepercayaan tidak.",
   why_p:
-    "Mei 2026, marketplace besar menaikkan biaya penjual hingga sekitar 17–20%. Mobeeli hadir sebagai alternatif yang memang dibangun untuk industri otomotif — kecocokan terjamin, biaya masuk akal, dan perlindungan untuk dua belah pihak.",
+    "Pada Mei 2026, sejumlah marketplace besar menaikkan biaya penjual ke kisaran 17–20%. Mobeeli hadir sebagai alternatif yang memang dibangun untuk industri otomotif — kecocokan terverifikasi, biaya yang masuk akal, dan perlindungan untuk kedua belah pihak.",
   early_kicker: "Program Early Adopters",
   early_h2: "Biaya platform 0% untuk 300 toko pertama.",
-  early_f1_t: "Daftar harga Anda, tersusun otomatis",
+  early_f1_t: "Daftar harga Anda, tayang otomatis",
   early_f1_d:
     "Kirim file Excel atau PDF Anda — AI kami mengubah daftar harga milik Anda sendiri jadi toko online dalam hitungan jam.",
   early_f2_t: "Perlindungan dari penipuan",
@@ -867,7 +875,7 @@ const id: Record<CopyKey, string> = {
   early_f3_d:
     "Setelah masa promo, berlaku satu tarif flat yang jauh lebih ringan dari biaya marketplace pada umumnya — transparan, mudah dihitung, dan menjaga penjual tetap untung.",
   early_cta: "Gabung Waitlist",
-  early_note: "300 toko pertama mengunci tarif 0% — daftarnya cuma dua menit.",
+  early_note: "300 toko pertama mengunci tarif 0% — daftarnya hanya dua menit.",
   buyer_line: "Butuh onderdil? Jadi yang pertama tahu begitu Mobeeli hadir di Jakarta.",
   buyer_cta: "Kabari saya",
   /* Buyer notify capture (F-015, CHG-piztanza-13) — inline email field in the buyer strip. */
@@ -883,14 +891,14 @@ const id: Record<CopyKey, string> = {
      now") superseded R29's founder-writes rule: Indonesian below is DRAFT
      for the founder's native review. team_quote reuses the founder's own
      shipped ID sentence from inv_p. */
-  team_h2: "Kenalan dengan tim.",
+  team_h2: "Kenali tim kami.",
   team_lede:
-    "Menentukan visi. Membangun platform. Menggerakkan onderdil. Setiap tugas ada pemiliknya.",
+    "Menentukan visi. Membangun platform. Menyalurkan onderdil. Setiap tugas ada pemiliknya.",
   team_own1: "menentukan visi",
   team_own2: "membangun platform",
-  team_own3: "menggerakkan onderdil",
+  team_own3: "menyalurkan onderdil",
   team_quote: "Sebagian besar toko yang kami datangi setuju di sore yang sama.",
-  team_quote_by: "Early Adopters program — Jakarta, 2026",
+  team_quote_by: "Program Early Adopters — Jakarta, 2026",
   team_n1: "Matheau Widjaja",
   team_r1: "CEO & Founder",
   team_n2: "Muhammad Salman Al Hafizh",
@@ -923,7 +931,7 @@ const id: Record<CopyKey, string> = {
   contact_f_email: "Email",
   contact_f_topic: "Tentang apa ini?",
   contact_f_message: "Pesan",
-  contact_ph_email: "you@company.com",
+  contact_ph_email: "nama@perusahaan.com",
   contact_ph_message: "Satu dua kalimat sudah cukup — apa yang Anda butuhkan dari kami?",
   contact_t_general: "Pertanyaan umum",
   contact_t_partnership: "Kemitraan",
@@ -937,7 +945,7 @@ const id: Record<CopyKey, string> = {
   contact_next_2:
     "Orang yang menangani topik Anda membalas secara pribadi, dari alamatnya sendiri.",
   contact_next_3:
-    "Kalau cocok, langkah berikutnya adalah panggilan — mengikuti zona waktu Anda, bukan kami.",
+    "Kalau cocok, langkah berikutnya adalah panggilan telepon — mengikuti zona waktu Anda, bukan kami.",
   contact_next_link: "Lihat siapa yang Anda hubungi",
   contact_email_hint: "Hanya dipakai untuk membalas Anda — tanpa milis, tidak dibagikan.",
   contact_f_fail:
@@ -945,7 +953,7 @@ const id: Record<CopyKey, string> = {
   contact_err_message: "Tulis satu dua kalimat supaya kami tahu apa yang Anda butuhkan.",
   contact_ramps_a: "Toko yang ingin bergabung?",
   contact_ramps_a_link: "Early Adopters",
-  contact_ramps_a_end: "adalah pintunya. ",
+  contact_ramps_a_end: "adalah pintu masuknya. ",
   contact_ramps_b: "Investor yang mencari deck?",
   contact_ramps_b_link: "Investor",
   contact_place_note:
@@ -968,13 +976,22 @@ const id: Record<CopyKey, string> = {
     "Form kontak mengumpulkan nama, email, topik, dan pesan Anda. Semuanya dikirim ke tim sebagai email dan hanya dipakai untuk membalas Anda — tidak ada milis pemasaran, dan pesan tidak disimpan di database.",
   privacy_b2_h: "Pendaftaran waitlist",
   privacy_b2_p:
-    "Bergabung ke waitlist Early Adopters menyimpan detail usaha yang Anda berikan, beserta salinannya di ruang kerja internal kami, agar kami bisa menghubungi Anda soal program ini. Tidak dipakai untuk hal lain.",
+    /* MERGE 2026-08-02: the Notion/workspace disclosures landed on main while
+       the ID copy pass was open. Both sides kept: their disclosure content is
+       load-bearing (it is what the page discloses), the ID copy pass supplies
+       the grammar. The recurring defect fixed here is the English
+       gerund-subject calque — "Bergabung ... menyimpan ...", "Meminta ...
+       mengirim ..." — which in Indonesian makes the ACT the agent of a
+       transitive verb, so privacy_b3_p literally read as the deck doing the
+       sending. Recast as "Saat Anda ...". Applied to privacy_b7_p too: it
+       arrived with the same construction. */
+    "Saat Anda bergabung ke waitlist Early Adopters, kami menyimpan detail usaha yang Anda berikan, beserta salinannya di ruang kerja internal kami, agar bisa menghubungi Anda soal program ini. Data itu tidak dipakai untuk hal lain.",
   privacy_b3_h: "Permintaan deck",
   privacy_b3_p:
-    "Meminta deck investor mengirim nama, firma, dan email kerja Anda ke tim lewat email, dipakai untuk tindak lanjut secara pribadi. Detail yang sama, ditambah negara asal permintaan, dicatat di ruang kerja internal kami agar tindak lanjutnya terpantau. Tidak diteruskan ke mana pun.",
+    "Saat Anda meminta deck investor, nama, firma, dan email kerja Anda dikirim ke tim lewat email dan dipakai untuk tindak lanjut secara pribadi. Detail yang sama, ditambah negara asal permintaan, dicatat di ruang kerja internal kami agar tindak lanjutnya terpantau. Tidak diteruskan ke mana pun.",
   privacy_b7_h: "Pemberitahuan peluncuran",
   privacy_b7_p:
-    "Meminta diberi tahu saat peluncuran menyimpan email Anda di penyedia email kami agar kami bisa mengirim satu pengumuman itu, dan mencatat pendaftarannya — beserta negara asalnya — di ruang kerja internal kami. Setiap pesan menyertakan tautan berhenti berlangganan.",
+    "Saat Anda meminta pemberitahuan peluncuran, email Anda disimpan di penyedia email kami agar kami bisa mengirim satu pengumuman itu, dan pendaftarannya — beserta negara asalnya — dicatat di ruang kerja internal kami. Setiap pesan menyertakan tautan berhenti berlangganan.",
   privacy_b4_h: "Di perangkat Anda",
   privacy_b4_p:
     "Situs ini tidak memasang cookie. Hanya ada dua preferensi yang disimpan di browser Anda — bahasa dan kendaraan yang Anda pilih di demo. Keduanya tidak pernah meninggalkan perangkat Anda.",
@@ -986,7 +1003,7 @@ const id: Record<CopyKey, string> = {
     "Berdasarkan Undang-Undang Pelindungan Data Pribadi (UU PDP 27/2022), Anda dapat menanyakan data apa yang kami simpan tentang Anda, memintanya diperbaiki, atau dihapus. Satu alamat menangani semuanya:",
   /* Deck request form on /investors (F-016) — name/firm/work-email required. */
   inv_f_name: "Nama Anda",
-  inv_f_firm: "Firma / dana investasi",
+  inv_f_firm: "Perusahaan / dana investasi",
   inv_f_email: "Email kerja",
   inv_f_linkedin: "LinkedIn atau situs web (opsional)",
   inv_f_message: "Ada hal lain? (opsional)",
@@ -998,7 +1015,7 @@ const id: Record<CopyKey, string> = {
   inv_f_fail:
     "Terjadi kendala saat mengirim permintaan Anda. Jawaban Anda tersimpan — silakan coba lagi.",
   inv_success_h: "Permintaan diterima.",
-  inv_success_p: "Terima kasih — salah satu founder akan menindaklanjuti langsung dengan deck-nya.",
+  inv_success_p: "Terima kasih — salah satu founder akan menghubungi Anda secara pribadi dan mengirimkan deck.",
   /* Hosted deck viewer + expired-link page (F-016). */
   deck_loading: "Memuat deck…",
   deck_error: "Deck gagal dimuat. Muat ulang halaman atau minta tautan baru.",
@@ -1036,7 +1053,7 @@ const id: Record<CopyKey, string> = {
   uni_kicker: "Menuju seluruh Nusantara",
   uni_h2: "Dari Sabang sampai Merauke, satu katalog.",
   uni_p:
-    "100.000+ bengkel dan ribuan toko onderdil, akhirnya bicara dalam bahasa katalog yang sama — mulai dari Jakarta di 2026, lalu pulau demi pulau.",
+    "100.000+ bengkel dan ribuan toko onderdil, akhirnya berbicara dalam bahasa yang sama — mulai dari Jakarta pada 2026, lalu pulau demi pulau.",
   uni_drag: "Geser petanya — kami mulai dari Jakarta.",
   indo_city: "Jakarta",
   indo_note: "— pasar pertama, 2026",
@@ -1047,22 +1064,22 @@ const id: Record<CopyKey, string> = {
   foot_col_product: "Produk",
   foot_coverage: "Jangkauan",
   careers_kicker: "Karier",
-  careers_h2: "Ikut membangun tulang punggung suku cadang.",
+  careers_h2: "Ikut membangun tulang punggung industri suku cadang.",
   careers_p:
     "Mobeeli adalah tim pendiri kecil di Jakarta yang membangun satu katalog suku cadang terverifikasi untuk industri otomotif Indonesia. Kami belum meluncur, dan kami merekrut dengan hati-hati.",
   careers_open:
-    "Belum ada lowongan yang dibuka saat ini. Saat lowongan dibuka, lowongan itu akan tampil di halaman ini.",
+    "Saat ini belum ada lowongan terbuka. Begitu ada posisi baru, kami akan menampilkannya di halaman ini.",
   careers_cta: "Merasa kita perlu bertemu? Tulis kepada kami.",
 
   /* Join Waitlist page (F-007) — keys mirror the Join Waitlist.dc.html TXT map, jw_-prefixed. */
   jw_back_home: "← Kembali ke Mobeeli",
   jw_offer: "Biaya platform 0% · 300 toko pertama",
-  jw_left_h: "Jadi salah satu toko pertama di Mobeeli.",
+  jw_left_h: "Jadilah salah satu toko pertama di Mobeeli.",
   jw_left_sub:
-    "Ceritakan tentang bisnis Anda. Salah satu founder akan menghubungi langsung — tanpa bayar, tanpa komitmen untuk menyatakan minat.",
-  jw_ben1_t: "Daftar harga Anda, tersusun otomatis",
+    "Ceritakan tentang bisnis Anda. Salah satu founder akan menghubungi Anda langsung — tanpa biaya, tanpa ikatan.",
+  jw_ben1_t: "Daftar harga Anda, tayang otomatis",
   jw_ben1_s: "File Excel atau PDF milik Anda — AI kami menyusunnya dalam hitungan jam.",
-  jw_ben2_t: "Perlindungan penipuan bawaan",
+  jw_ben2_t: "Perlindungan bawaan dari penipuan",
   jw_ben2_s: "Ditopang bukti video dan asuransi.",
   jw_ben3_t: "Satu komisi flat yang ringan",
   jw_ben3_s: "Setelah promo — jauh di bawah marketplace besar.",
@@ -1070,9 +1087,9 @@ const id: Record<CopyKey, string> = {
   jw_eyebrow: "Jadi partner",
   jw_introTitle: "Gabung Mobeeli",
   jw_introBody:
-    "Ceritakan sedikit tentang bisnis Anda lewat beberapa langkah singkat. Salah satu founder akan menghubungi langsung lewat WhatsApp atau email.",
+    "Ceritakan sedikit tentang bisnis Anda dalam beberapa langkah singkat. Salah satu founder akan menghubungi Anda langsung lewat WhatsApp atau email.",
   jw_start: "Mulai →",
-  jw_minutes: "Cuma sekitar satu menit.",
+  jw_minutes: "Hanya sekitar satu menit.",
   jw_stepType: "Siapa Anda",
   jw_stepBusiness: "Bisnis Anda",
   jw_stepContact: "Cara menghubungi",
@@ -1084,7 +1101,7 @@ const id: Record<CopyKey, string> = {
   jw_typeStore: "Toko / Penjual",
   jw_typeStoreSub: "Jual onderdil online",
   jw_typeGarage: "Bengkel",
-  jw_typeGarageSub: "Beli untuk mobil di lift",
+  jw_typeGarageSub: "Beli untuk mobil pelanggan",
   jw_typeDist: "Distributor",
   jw_typeDistSub: "Grosir ke bengkel",
   jw_contactName: "Nama kontak (opsional)",
@@ -1115,7 +1132,7 @@ const id: Record<CopyKey, string> = {
   jw_errPhone: "Format nomor sepertinya belum benar.",
   jw_successTitle: "Pendaftaran Anda diterima.",
   jw_succBody:
-    "Terima kasih, {n}. Salah satu founder akan menghubungi langsung lewat email. Ingin ngobrol lebih cepat? Email kami sekarang.",
+    "Terima kasih, {n}. Salah satu founder akan menghubungi Anda langsung lewat email. Ingin terhubung lebih cepat? Email kami sekarang.",
   jw_emailCta: "Email kami",
   jw_homeCta: "Kembali ke Mobeeli",
   /* Design-hardcoded visible strings promoted to keys (identical in both languages). */

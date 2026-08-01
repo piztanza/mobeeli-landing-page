@@ -146,11 +146,17 @@ describe("R8 · macrostructure & copy", () => {
     // 2026-07-30 founder directive put the ID translations in: audit #6's
     // localization rule resumes — the ID heading is Indonesian again (DRAFT
     // pending the founder's native review).
-    expect(t("id", "team_h2")).toBe("Kenalan dengan tim.");
+    // ID COPY PASS 2026-08-01: still Indonesian, so audit #6's rule is intact
+    // — only the register changed. "Kenalan" is the colloquial/spoken form
+    // (KBBI marks it informal for "berkenalan") and clashed with the site's
+    // formal "Anda" voice; "Kenali tim kami." is the formal imperative.
+    expect(t("id", "team_h2")).toBe("Kenali tim kami.");
     expect(t("id", "prob_t1_v")).toBe("19,4%");
     expect(t("id", "prob_t1_v")).not.toContain(".");
     // EN "RMA" card realigned to its actual counterfeit meaning; ID unchanged.
     expect(t("en", "why_ds_c2_t")).not.toContain("RMA");
-    expect(t("id", "why_ds_c2_t")).toBe("Injeksi Suku Cadang KW");
+    // See analog-deathspiral-port.test.tsx: "injeksi" collided with fuel
+    // injection on an auto-parts page.
+    expect(t("id", "why_ds_c2_t")).toBe("Banjir Suku Cadang KW");
   });
 });
