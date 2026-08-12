@@ -3,7 +3,14 @@ import path from "node:path";
 
 import { ImageResponse } from "next/og";
 
-import { OG_IMAGE_CONTENT_TYPE, OG_IMAGE_SIZE, THEME_COLOR, ogImageAlt, ogTagline } from "@/lib/seo";
+import {
+  OG_IMAGE_CONTENT_TYPE,
+  OG_IMAGE_SIZE,
+  OG_LOGO_DRAW_SIZE,
+  THEME_COLOR,
+  ogImageAlt,
+  ogTagline,
+} from "@/lib/seo";
 
 /**
  * Brand OG image (F-010): 1200×630, official dark-bg (white) logo centered on
@@ -35,7 +42,7 @@ export default async function OpengraphImage() {
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element -- satori canvas, not the DOM */}
-        <img src={logoSrc} width={620} height={238} alt="" />
+        <img src={logoSrc} width={OG_LOGO_DRAW_SIZE.width} height={OG_LOGO_DRAW_SIZE.height} alt="" />
         <div style={{ color: "#eaf1ff", fontSize: 44, fontWeight: 600 }}>{ogTagline()}</div>
       </div>
     ),

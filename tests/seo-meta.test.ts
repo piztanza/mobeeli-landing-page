@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
+
 import { renderToStaticMarkup } from "react-dom/server";
 import { createElement } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -14,6 +17,8 @@ import {
   DEFAULT_SITE_URL,
   FAVICON_SIZES,
   OG_IMAGE_SIZE,
+  OG_LOGO_DRAW_SIZE,
+  SITE_NAME,
   THEME_COLOR,
   ogImageAlt,
   ogTagline,
@@ -102,6 +107,24 @@ describe("OG image spec (F-010)", () => {
     expect(OG_IMAGE_SIZE).toEqual({ width: 1200, height: 630 });
     expect(ogTagline()).toBe(`${t("en", "hero.line1")} ${t("en", "hero.line2")}`);
     expect(ogImageAlt()).toBe(t("en", "meta.title"));
+  });
+
+  it("every page attaches exactly one explicit OG image and a Twitter image", () => {
+    // Exactly one og:image: WhatsApp's handling of multiple entries is
+    // inconsistent across client versions (first vs last), so a second image
+    // can silently replace the large card.
+    const ogImage = { url: "/opengraph-image", width: 1200, height: 630, alt: SITE_NAME };
+    for (const metadata of [landingPageMetadata, joinPageMetadata]) {
+      expect(metadata.openGraph?.images).toEqual([ogImage]);
+      expect(metadata.twitter?.images).toEqual([ogImage.url]);
+    }
+  });
+
+  it("draws the logo aspect-true to the source asset (no stretch)", () => {
+    const png = readFileSync(path.join(process.cwd(), "public/assets/mobeeli-logo-white.png"));
+    const sourceWidth = png.readUInt32BE(16);
+    const sourceHeight = png.readUInt32BE(20);
+    expect(OG_LOGO_DRAW_SIZE.width / OG_LOGO_DRAW_SIZE.height).toBeCloseTo(sourceWidth / sourceHeight, 1);
   });
 });
 

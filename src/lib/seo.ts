@@ -22,6 +22,12 @@ export const THEME_COLOR = "#0d1522";
 export const OG_IMAGE_SIZE = { width: 1200, height: 630 } as const;
 export const OG_IMAGE_CONTENT_TYPE = "image/png";
 
+/** Draw box for the dark-bg logo on the OG canvas. Must stay aspect-true to
+ *  the 3076×783 source (public/assets/mobeeli-logo-white.png) — satori
+ *  stretches to fill both dimensions, and a mismatched box distorts the
+ *  lockup (the brand forbids stretching it). Covered by tests/seo-meta. */
+export const OG_LOGO_DRAW_SIZE = { width: 707, height: 180 } as const;
+
 /** Favicon sizes per Google guidelines (CHG-piztanza-07): 48×48 + 192×192. */
 export const FAVICON_SIZES = [
   { width: 48, height: 48 },
