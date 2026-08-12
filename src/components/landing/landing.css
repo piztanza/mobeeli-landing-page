@@ -823,13 +823,22 @@ button.mb-buyer-cta:active,
      washes (top-left blue, bottom-right deep), and the 44px blueprint grid as
      two 1px line gradients. The earlier "halve the washes" guess is superseded
      — the design is darker AND more textured than plain ink, not flatter. */
+  /* CONTENT SCRIM (founder 2026-08-02) — first layer, so it sits OVER the
+     washes and the grid. With the car blueprint unmounted the band could have
+     gone flat; instead the texture is kept at the edges and quieted through
+     the middle, where the flow diagram and the hub card actually live. The
+     ribbons and node cards then read against calm ground rather than against
+     grid lines. Same radial vocabulary the rest of the band already uses, so
+     it reads as depth rather than as a panel. */
   background-image:
+    radial-gradient(1150px 640px at 50% 50%, rgba(8, 13, 21, 0.58), transparent 74%),
     linear-gradient(rgba(10, 17, 25, 0.62), rgba(10, 17, 25, 0.62)),
     radial-gradient(900px 480px at 30% 22%, rgba(47, 125, 246, 0.15), transparent 70%),
     radial-gradient(700px 500px at 96% 100%, rgba(18, 63, 158, 0.26), transparent 70%),
     linear-gradient(rgba(47, 125, 246, 0.043) 1px, transparent 1px),
     linear-gradient(90deg, rgba(47, 125, 246, 0.043) 1px, transparent 1px);
   background-size:
+    auto,
     auto,
     auto,
     auto,

@@ -121,17 +121,22 @@ export default function FitmentSection() {
 
   return (
     <section id="how-it-works" className="mb-fit3d mb-section">
-      {/* The mockup's car blueprint: a full-band wireframe, screen-blended so
-          its black plate vanishes into the washes. Extracted from the design
-          file itself (it ships the image as a blob), so this is the exact
-          artwork, not a redrawing. Mounted BEFORE the aurora deliberately —
-          screen-blending on top of the WebGL canvas flared the lines far past
-          the design's whisper (caught on the first screenshot); under it, the
-          wire blends only with the flat washes, as it does in the mockup,
-          which has no aurora on this band at all. */}
-      <div className="mb-fit3d-wire" aria-hidden>
-        <Image src="/assets/catalog-car-wireframe.jpg" alt="" fill sizes="100vw" />
-      </div>
+      {/* THE CAR BLUEPRINT IS UNMOUNTED, NOT DELETED (founder 2026-08-02:
+          "make this background a more clean background and not the car ...
+          make the front layer more visible and readable").
+
+          It was the R25 mockup's own artwork, extracted from the design file
+          rather than redrawn, and it stays in the repo — asset at
+          /assets/catalog-car-wireframe.jpg, styling at .mb-fit3d-wire — so
+          restoring it is a one-line change. The reason it goes: at full-band
+          scale its lines run straight through the Sankey ribbons and the node
+          cards, and two sets of thin strokes competing in the same space is
+          what made the front layer hard to read. The band keeps its depth from
+          the washes and the 44px blueprint grid, which carry the same
+          technical-drawing idea without crossing the diagram.
+
+          NOTE: this is a deliberate deviation from the R25 mockup, which does
+          ship the wireframe. Founder ruling supersedes mockup fidelity here. */}
       <AmbientAurora intensity={AURORA_INTENSITY} />
       {/* The 2026-07-28 under-glass glow orbs were REMOVED by the 2026-07-29
           copy-exact ruling: the R25 design has a quiet, even band, and on the
