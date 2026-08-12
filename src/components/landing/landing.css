@@ -153,6 +153,53 @@
   align-items: center;
   /* Founder 2026-07-28: "top left with a bit of space left". */
   margin-left: 14px;
+  /* anchors the dark-surface mark lift below */
+  position: relative;
+}
+
+/* ---------------------------------------------------------------------------
+   DARK-SURFACE MARK LIFT (founder 2026-08-02)
+
+   The M mark is a vertical gradient — #0F62F1 at the top down to #0241A2 at
+   the base (measured from the shipped PNG). On the dark nav that base sits at
+   2.03:1 against the ink while the top reads 3.60:1, so the lower half of the
+   mark sinks and the lockup looks half-drawn.
+
+   WHY THIS IS A BACKDROP POOL AND NOT A `filter` ON THE IMAGE: the mark and
+   the wordmark are ONE PNG (the mark is the fixed left 33.2%, then a gap, then
+   the wordmark). A filter follows the whole element's alpha, so a drop-shadow
+   would halo the WHITE wordmark too — measured, and at the strength needed to
+   help the mark it reads as neon, which is exactly what we were asked to
+   avoid. The mark's share of the lockup is fixed by the 3.93:1 ratio, so a
+   pool clipped to that share is a true mark-only lift.
+
+   The artwork is untouched: no recolour, no gradient flattening, no
+   brightness/saturate filter (the R6 brightness(1.6) treatment was already
+   retired by founder ruling "keep the logo colors"). This only lifts the
+   BACKGROUND behind the mark, so the mark's own pixels still read exactly the
+   brand values.
+   --------------------------------------------------------------------------- */
+.mb-nav--overlay:not(.is-solid) .mb-nav-logo > img {
+  position: relative;
+  z-index: 1;
+}
+.mb-nav--overlay:not(.is-solid) .mb-nav-logo::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  /* the mark is the left third; the box is inset generously so the pool falls
+     off well before the wordmark starts */
+  left: -6%;
+  top: -14%;
+  width: 44%;
+  height: 128%;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 42% 62%,
+    rgba(91, 155, 247, 0.28) 0%,
+    rgba(91, 155, 247, 0.15) 42%,
+    transparent 72%
+  );
 }
 /* Sizing only — NO `display` here. Putting display:block on the shared img
    rule (0,1,1) out-specified `.mb-nav-logo-white { display:none }` (0,1,0) and
@@ -3880,10 +3927,35 @@ button.mb-buyer-cta:active,
   }
 }
 
+/* Same dark-surface mark lift as the nav — the footer runs the identical
+   white-wordmark lockup on ink, so the mark's base fades the same way. See the
+   long note at .mb-nav-logo::before for why this is a backdrop pool rather
+   than a filter on the image. */
+.mb-footer-logo {
+  position: relative;
+}
 .mb-footer-logo img {
   height: 40px;
   width: auto;
   display: block;
+  position: relative;
+  z-index: 1;
+}
+.mb-footer-logo::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: -6%;
+  top: -14%;
+  width: 44%;
+  height: 128%;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 42% 62%,
+    rgba(91, 155, 247, 0.28) 0%,
+    rgba(91, 155, 247, 0.15) 42%,
+    transparent 72%
+  );
 }
 
 /* Mobile logo scale (founder 2026-07-31). The wordmark is a 3.93:1 lockup at
