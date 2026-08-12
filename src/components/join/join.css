@@ -101,29 +101,6 @@
   height: 32px;
   width: auto;
   display: block;
-  position: relative;
-  z-index: 1;
-}
-/* Dark-surface mark lift (founder 2026-08-02) — the brand panel runs the same
-   white-wordmark lockup on ink, so the M's #0241A2 base sinks here too. A
-   backdrop pool clipped to the mark's fixed left third, NOT a filter: the mark
-   and wordmark share one PNG, so a filter would halo the white wordmark. The
-   artwork itself is untouched. See .mb-nav-logo::before in landing.css. */
-.mb-jw-brand-logo::before {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  left: -6%;
-  top: -16%;
-  width: 44%;
-  height: 132%;
-  pointer-events: none;
-  background: radial-gradient(
-    ellipse at 42% 62%,
-    rgba(91, 155, 247, 0.26) 0%,
-    rgba(91, 155, 247, 0.14) 42%,
-    transparent 72%
-  );
 }
 
 .mb-jw-brand-mid {
