@@ -70,16 +70,16 @@ describe("GET /api/deck-file (F-016)", () => {
     expect(DECK_PDF_PATH.replaceAll("\\", "/")).not.toContain("public/");
   });
 
-  it("the served deck opens in pdfjs with all 20 pages, 16:9 (what /deck renders on canvases)", async () => {
+  it("the served deck opens in pdfjs with all 22 pages, 16:9 (what /deck renders on canvases)", async () => {
     const res = await get(mintDeckToken(null, SECRET));
     const data = new Uint8Array(await res.arrayBuffer());
     // Same engine as the viewer, node-friendly legacy build.
     const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
     const loadingTask = pdfjs.getDocument({ data });
     const doc = await loadingTask.promise;
-    // v8 of the deck (2026-08-01): 20 slides, authored 16:9 at 960×540 —
+    // v11 of the deck (2026-08-12): 22 slides, authored 16:9 at 960×540 —
     // exactly the viewer's MAX_PAGE_WIDTH, so pages render unscaled.
-    expect(doc.numPages).toBe(20);
+    expect(doc.numPages).toBe(22);
     const { width, height } = (await doc.getPage(1)).getViewport({ scale: 1 });
     expect(width / height).toBeCloseTo(16 / 9, 2);
     await loadingTask.destroy();
