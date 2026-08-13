@@ -77,7 +77,7 @@ describe("GET /api/deck-file (F-016)", () => {
     const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
     const loadingTask = pdfjs.getDocument({ data });
     const doc = await loadingTask.promise;
-    // v11 of the deck (2026-08-12): 22 slides, authored 16:9 at 960×540 —
+    // Current deck (refreshed 2026-08-13): 22 slides, authored 16:9 at 960×540 —
     // exactly the viewer's MAX_PAGE_WIDTH, so pages render unscaled.
     expect(doc.numPages).toBe(22);
     const { width, height } = (await doc.getPage(1)).getViewport({ scale: 1 });
