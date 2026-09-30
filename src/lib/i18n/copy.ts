@@ -344,7 +344,7 @@ const en = {
   team_r1: "CEO & Founder",
   team_n2: "Muhammad Salman Al Hafizh",
   team_r2: "CTO & Co-Founder",
-  team_n3: "Ferdinansyah Husein",
+  team_n3: "Ghany Widito Baskoro",
   team_r3: "COO & Co-Founder",
   /* FOUNDER RULING 2026-07-29: the "9 of 14" count is retired everywhere —
      the small denominator undersold the real signal, which is conversion
@@ -903,7 +903,7 @@ const id: Record<CopyKey, string> = {
   team_r1: "CEO & Founder",
   team_n2: "Muhammad Salman Al Hafizh",
   team_r2: "CTO & Co-Founder",
-  team_n3: "Ferdinansyah Husein",
+  team_n3: "Ghany Widito Baskoro",
   team_r3: "COO & Co-Founder",
   team_c1:
     "Seumur hidup di Kanada, berkarier di otomotif dan e-commerce teknologi — ia melihat celah di perdagangan onderdil Indonesia dan pulang untuk menutupnya.",

@@ -178,7 +178,7 @@ describe("section page specifics (CHG-piztanza-09)", () => {
     // render includes the shared footer, whose info@ mailto is the one
     // deliberate exception per the brief).
     const contactHtml = renderToStaticMarkup(<ContactPage />);
-    for (const inbox of ["matheau@", "hafizh@", "ferdi@"]) {
+    for (const inbox of ["matheau@", "hafizh@", "ghany@"]) {
       expect(contactHtml).not.toContain(inbox);
     }
     expect(contactHtml).toContain(esc(t("en", "contact_form_h")));

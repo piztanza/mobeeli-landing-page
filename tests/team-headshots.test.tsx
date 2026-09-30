@@ -28,7 +28,8 @@ describe("R29 /team ledger stack", () => {
     expect(html).toContain("matheau.jpg");
     expect(html).not.toContain("yavet.jpg");
     expect(html).toContain("salman.jpg");
-    expect(html).toContain("ferdinansyah.jpg");
+    expect(html).toContain("ghany.jpg");
+    expect(html).not.toContain("ferdinansyah.jpg");
     expect(html.match(/<img/g)?.length).toBe(3);
     for (const [n, r] of [
       ["team_n1", "team_r1"],
@@ -59,7 +60,7 @@ describe("R29 /team ledger stack", () => {
     expect(html.match(/class="mb-team2-li"/g)?.length).toBe(3);
     expect(html.match(/<a[^>]*mb-team2-li/g)?.length).toBe(2);
     expect(html).toContain("linkedin.com/in/msalmanalhafizh");
-    expect(html).toContain("linkedin.com/in/ferdinansyah-h-864134157");
+    expect(html).toContain("linkedin.com/in/ghany-widito-baskoro-462221191");
     // The inert badge must never ship as a dead anchor.
     expect(html).not.toContain('href="#"');
   });

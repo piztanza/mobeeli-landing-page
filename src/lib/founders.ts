@@ -8,5 +8,5 @@
 export const FOUNDER_EMAILS = [
   "matheau@mobeeli.com",
   "hafizh@mobeeli.com",
-  "ferdi@mobeeli.com",
+  "ghany@mobeeli.com",
 ] as const;

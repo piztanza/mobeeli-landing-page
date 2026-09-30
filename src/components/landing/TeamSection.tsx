@@ -53,9 +53,9 @@ const FOUNDERS: readonly {
     role: "team_r3",
     own: "team_own3",
     bio: "team_c3",
-    headshot: "/assets/team/ferdinansyah.jpg",
+    headshot: "/assets/team/ghany.jpg",
     objPos: "50% 18%",
-    linkedin: "https://www.linkedin.com/in/ferdinansyah-h-864134157/",
+    linkedin: "https://www.linkedin.com/in/ghany-widito-baskoro-462221191/",
   },
 ];
 
