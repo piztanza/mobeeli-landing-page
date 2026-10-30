@@ -74,14 +74,14 @@ const en = {
   card_part_sub: "Front axle · ceramic",
   card_part_price: "Rp 385.000",
   card_part_chip: "✓ Verified fit",
-  card_fit: "✓ Fits: Toyota Avanza 1.5 G 2019",
+  card_fit: "✓ Fits: Toyota Avanza 1.5 G 2024",
   card_video_cap: "One platform. Five links.",
   /* Fitment band kicker (R4) — verbatim fragment of the approved hero.line2. */
   fit3d_kicker: "Verified to fit",
   /* Stage chip (R5, audit-fixed): honest demo label — never fake telemetry. */
   fit3d_chip: "Interactive 3D demo",
   fit3d_pcd_t: "Bolt pattern · PCD",
-  fit3d_pcd_v: "4 × 100",
+  fit3d_pcd_v: "5 × 100",
   fit3d_bore_t: "Center bore",
   fit3d_bore_v: "⌀ 54.1 mm",
   fit3d_auth_t: "Authenticity",
@@ -210,14 +210,19 @@ const en = {
   cat_filter_active: "Filter Active",
   cat_car_alt: "Catalog vehicle blueprint",
   /* R16 §8 (ruling 4a): the scan's measurement callouts. The bore value reuses
-     fit3d_bore_v rather than duplicating it. These read the same illustrative
-     Avanza the catalogue cards above already describe (cat_part1_spec is
-     "2NR-VE"), so the whole readout stays one coherent vehicle — per-model
-     geometry is real data nobody has stamped.
+     fit3d_bore_v rather than duplicating it. These read the same Avanza the
+     catalogue cards above already describe (cat_part1_spec is "2NR-VE"), so
+     the whole readout stays one coherent vehicle.
+     2026-10-31: the readout claimed PCD 4 × 100 on a "2019" Avanza. No Avanza
+     generation uses 4 × 100, and no 2019 Avanza had a CVT. It now reads the car
+     the picker defaults to, a 2024 (W100) Avanza 1.5 G CVT: 5 × 100 (Otomotifnet,
+     22 Aug 2025, and the fitment databases below), ⌀ 54.1 mm and ET 45 on the
+     OE 6Jx16 (tirewheelguide.com and koleso.ee W100 pages — databases only, so
+     medium confidence). fit3d_pcd_v and card_fit carry the same car.
      DRAFT WORDING — founder to confirm EN and ID before this is treated as final. */
-  cat_scan_pcd: "PCD 4 × 100",
+  cat_scan_pcd: "PCD 5 × 100",
   cat_scan_offset: "offset ET 45",
-  cat_scan_lock: "2019 Avanza 1.5 G · 2NR-VE",
+  cat_scan_lock: "2024 Avanza 1.5 G · 2NR-VE",
   garage_plate_label: "Or enter Plate / VIN",
   garage_plate_placeholder: "B 1234 CD or VIN",
   garage_plate_btn: "Find Vehicle",
@@ -665,14 +670,14 @@ const id: Record<CopyKey, string> = {
   card_part_sub: "As depan · keramik",
   card_part_price: "Rp 385.000",
   card_part_chip: "✓ Dipastikan cocok",
-  card_fit: "✓ Cocok: Toyota Avanza 1.5 G 2019",
+  card_fit: "✓ Cocok: Toyota Avanza 1.5 G 2024",
   card_video_cap: "Satu platform. Lima mata rantai.",
   /* Fitment band kicker (R4) — verbatim fragment of the approved hero.line2. */
   fit3d_kicker: "Dipastikan cocok",
   /* Stage chip (R5, audit-fixed): honest demo label — never fake telemetry. */
   fit3d_chip: "Demo 3D interaktif",
   fit3d_pcd_t: "Pola baut · PCD",
-  fit3d_pcd_v: "4 × 100",
+  fit3d_pcd_v: "5 × 100",
   fit3d_bore_t: "Lubang tengah",
   fit3d_bore_v: "⌀ 54,1 mm",
   fit3d_auth_t: "Keaslian",
@@ -780,11 +785,12 @@ const id: Record<CopyKey, string> = {
      that do not translate: "PCD", "ET" and the engine code 2NR-VE are used
      as-is in Indonesian workshop parlance, exactly as cat_part3_spec already
      ships "ET 45" in the ID map. The bore callout reuses fit3d_bore_v, which
-     already carries the comma decimal ("⌀ 54,1 mm").
+     already carries the comma decimal ("⌀ 54,1 mm"). 2026-10-31: PCD and year
+     corrected together with the EN map — the note there gives the sources.
      DRAFT WORDING — founder to confirm before this is treated as final. */
-  cat_scan_pcd: "PCD 4 × 100",
+  cat_scan_pcd: "PCD 5 × 100",
   cat_scan_offset: "offset ET 45",
-  cat_scan_lock: "2019 Avanza 1.5 G · 2NR-VE",
+  cat_scan_lock: "2024 Avanza 1.5 G · 2NR-VE",
   garage_plate_label: "Atau masukkan Plat / Noka",
   garage_plate_placeholder: "B 1234 CD",
   garage_plate_btn: "Cari",

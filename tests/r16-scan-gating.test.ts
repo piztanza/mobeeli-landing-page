@@ -294,9 +294,27 @@ describe("§8 — copy and accessibility", () => {
     expect(t("id", "fit3d_bore_v"), "ID comma decimal").toContain("54,1");
   });
 
+  it("reads one real car — the picker's default — with its sourced wheel specs", () => {
+    // 2026-10-31: the readout claimed PCD 4 × 100 on a "2019" Avanza. No Avanza
+    // generation uses 4 × 100, and the picker's 1.5 G CVT trim only exists from
+    // the 2021 W100 generation on. Sources are in the note above cat_scan_pcd.
+    const year = component.match(/\[year, setYear\] = useState\("(\d{4})"\)/)?.[1];
+    expect(year, "picker default year").toBeTruthy();
+    for (const lang of langs) {
+      expect(t(lang, "cat_scan_pcd"), `${lang}.cat_scan_pcd`).toContain("5 × 100");
+      expect(t(lang, "cat_scan_offset"), `${lang}.cat_scan_offset`).toContain("ET 45");
+      expect(t(lang, "cat_scan_lock"), `${lang}.cat_scan_lock`).toBe(
+        `${year} Avanza 1.5 G · 2NR-VE`,
+      );
+    }
+    expect(t("en", "fit3d_bore_v")).toContain("54.1");
+    // The plate/VIN shortcut fills in the same car the readout names.
+    expect(component).toContain(`setYear("${year}")`);
+  });
+
   it("hardcodes no callout copy in the component", () => {
     const jsx = component.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*/g, "");
-    expect(jsx).not.toContain("PCD 4");
+    expect(jsx).not.toContain("PCD 5");
     expect(jsx).not.toContain("ET 45");
     expect(jsx).not.toContain("2NR-VE");
   });
