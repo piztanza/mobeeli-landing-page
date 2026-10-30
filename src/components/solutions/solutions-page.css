@@ -967,9 +967,12 @@
 .mb-sol-sub + .mb-sol-sub {
   border-left: 1px solid var(--mb-border);
 }
+/* An h4: globals.css gives only h1–h3 the display weight, so it is set here to
+   match the build card's and the services' titles. */
 .mb-sol-sub-t {
   margin: 0;
   font-size: 20px;
+  font-weight: 800;
   line-height: 1.25;
   letter-spacing: -0.012em;
   color: var(--mb-ink);
@@ -1083,9 +1086,11 @@
 /* ---------- forced colours ----------
    The selected car and part are told apart by a tinted background and border,
    both of which the system palette flattens to one colour. A heavier border in
-   the system's own Highlight colour keeps the selection visible. */
+   the system's own Highlight colour keeps the selection visible. (0,3,1), so
+   it out-ranks the tinted rules' border-colour (0,3,0) — a bare `+ label`
+   lost it, and only the width landed. */
 @media (forced-colors: active) {
-  .mb-sol-radio:checked + label {
+  .mb-sol-radio:checked + label:is(.mb-sol-car-l, .mb-sol-tile) {
     border: 2px solid Highlight;
   }
 }

@@ -52,6 +52,14 @@ export const RESOLVE: readonly (readonly [atMs: number, stage: Stage])[] = [
   [800, 3],
 ];
 
+/** The run a part pick plays. Mid car run — before it reaches the store at
+ *  stage 3 — the pick re-solves inside that run, so the new car's results
+ *  still land with link b; a part run there would drop the store's car-run
+ *  holds at once (review, 2026-10-31). After it, only the engine re-solves. */
+export function partPickRun(current: RunKind, stage: Stage): RunKind {
+  return current === "car" && stage < 3 ? "car" : "part";
+}
+
 const CHECK_LABEL: Record<CheckId, CopyKey> = {
   pcd: "sol_fx_ck_pcd",
   bore: "sol_fx_ck_bore",
@@ -322,7 +330,7 @@ export default function FitmentFlow() {
 
   const choosePart = (id: string) => {
     setPartId(id);
-    play("part", 1, RESOLVE);
+    play(partPickRun(runKind, stage), 1, RESOLVE);
   };
 
   return (

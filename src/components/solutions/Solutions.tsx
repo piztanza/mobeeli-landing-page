@@ -303,7 +303,7 @@ export default function Solutions() {
           </table>
 
           <div data-rev="0" className="mb-sol-cta">
-            <div className="mb-sol-cta-copy">
+            <div>
               <h2 className="mb-sol-cta-h">{t("sol_cta_h")}</h2>
               <p className="mb-sol-cta-p">{t("sol_cta_p")}</p>
             </div>

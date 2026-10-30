@@ -3,16 +3,16 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
-import FitmentFlow, { RESOLVE, RUN } from "@/components/solutions/FitmentFlow";
+import FitmentFlow, { RESOLVE, RUN, partPickRun } from "@/components/solutions/FitmentFlow";
 import { DEMO_PARTS, DEMO_VEHICLES, defaultPartFor } from "@/components/solutions/fitmentDemo";
 import { checkPart } from "@/components/solutions/fitmentSolver";
 import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
 import { langs, t } from "@/lib/i18n";
 
 /**
- * The /solutions fitment-flow explainer (2026-10-31): manufacturer catalogs +
- * the Indonesian vehicle data API → the fitment engine → a live storefront and
- * My Garage verification. Three layers of contract:
+ * The /solutions fitment-flow explainer (2026-10-31, three panels): the car
+ * from Mobeeli's Indonesian vehicle data → the fitment engine → the store, with
+ * the shopper's car in My Garage. Three layers of contract:
  *   1. the demo catalogue always shows BOTH outcomes, from computed verdicts;
  *   2. the server render is the complete, resolved figure (no-JS and reduced
  *      motion see everything; motion only ever arms a start state on top);
@@ -192,9 +192,21 @@ describe("motion contract — gated by useReducedMotion and the media query", ()
     }
   });
 
-  // A part pick re-solves the engine and the garage verdict only. The store's
-  // verdicts depend on the car alone, so hiding them on a part pick blanked the
-  // whole panel for over a second (review, 2026-10-31).
+  // A part picked while a car run is still playing re-solves INSIDE that run:
+  // a part run would drop the store's car-run holds at once, so the new car's
+  // verdicts landed before the engine had solved and link b never ran
+  // (review, 2026-10-31). Once the run has reached the store, only the engine
+  // re-solves.
+  it("keeps a part pick inside a car run that has not reached the store", () => {
+    for (const stage of [0, 1, 2] as const)
+      expect(partPickRun("car", stage), `${stage}`).toBe("car");
+    expect(partPickRun("car", 3)).toBe("part");
+    for (const stage of [0, 1, 2, 3] as const) expect(partPickRun("part", stage)).toBe("part");
+  });
+
+  // A part pick re-solves the engine only. The store's verdicts depend on the
+  // car alone, so hiding them on a part pick blanked the whole panel for over a
+  // second (review, 2026-10-31).
   it("holds back the storefront only on a full car run", () => {
     const storeHolds = motionRules().filter(
       ({ sel, body }) => /mb-sol-count|mb-sol-tile/.test(sel) && /opacity:\s*[01];/.test(body),
@@ -235,11 +247,18 @@ describe("motion contract — gated by useReducedMotion and the media query", ()
 
 describe("material + palette contract", () => {
   // In forced colours the selected car or part was told apart only by a tinted
-  // background and border, both of which the system palette flattens.
-  it("marks the selected car and part in forced-colours mode", () => {
-    expect(css).toMatch(
-      /@media \(forced-colors: active\) \{[^}]*\.mb-sol-radio:checked \+ label \{[^}]*Highlight/s,
+  // background and border, both of which the system palette flattens. The
+  // Highlight rule must also OUT-RANK the tinted selection rules (0,3,0): a
+  // bare `+ label` (0,2,1) lost them the border-colour, so only the 2px width
+  // landed and Highlight never showed (review, 2026-10-31). (0,3,1) wins
+  // wherever the rules sit in the file.
+  it("marks the selected car and part in forced-colours mode, out-ranking the tint", () => {
+    const block = css.slice(css.indexOf("@media (forced-colors: active)"));
+    expect(block).toMatch(
+      /^@media \(forced-colors: active\) \{\s*\.mb-sol-radio:checked \+ label:is\(\.mb-sol-car-l, \.mb-sol-tile\) \{[^}]*border: 2px solid Highlight;/,
     );
+    expect(css).toContain(".mb-sol-radio:checked + .mb-sol-car-l {");
+    expect(css).toContain(".mb-sol-radio:checked + .mb-sol-tile {");
   });
 
   it("ships no class without a rule (the rail's old is-active)", () => {
