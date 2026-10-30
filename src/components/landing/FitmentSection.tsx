@@ -83,13 +83,15 @@ export default function FitmentSection() {
     e.preventDefault();
     if (!vin) return;
     setIsScanning(true);
-    setYear("2019");
+    // The same car the scan readout names (cat_scan_lock). It was 2019 — a year
+    // the 1.5 G CVT trim did not exist in, and one the year select never offered.
+    setYear("2024");
     setMake("Toyota");
     setModel("Avanza");
     setTrim("1.5 G CVT");
     setTimeout(() => {
       setIsScanning(false);
-      saveGarage("Toyota Avanza 1.5 G CVT 2019");
+      saveGarage("Toyota Avanza 1.5 G CVT 2024");
       setVin("");
     }, SCAN_DURATION_MS);
   };
