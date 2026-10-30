@@ -9,6 +9,7 @@ import TeamPage, { metadata as teamMetadata } from "@/app/team/page";
 import sitemap from "@/app/sitemap";
 import ContactPage, { metadata as contactMetadata } from "@/app/contact/page";
 import PrivacyPage, { metadata as privacyMetadata } from "@/app/privacy/page";
+import SolutionsPage, { metadata as solutionsMetadata } from "@/app/solutions/page";
 import { t, type CopyKey } from "@/lib/i18n";
 
 /** Escape a copy string the way React escapes text content in SSR output. */
@@ -23,7 +24,14 @@ function esc(s: string): string {
 
 /** The section pages split off the landing stack (CHG-piztanza-09 + redesign phase 3). */
 const PAGES: readonly {
-  path: "/team" | "/early-adopters" | "/investors" | "/careers" | "/contact" | "/privacy";
+  path:
+    | "/team"
+    | "/early-adopters"
+    | "/investors"
+    | "/careers"
+    | "/contact"
+    | "/privacy"
+    | "/solutions";
   Page: () => ReactElement;
   metadata: typeof teamMetadata;
   titleKey: CopyKey;
@@ -85,6 +93,17 @@ const PAGES: readonly {
     sectionId: "privacy",
     h2Key: "privacy_h2",
   },
+  {
+    // The flagship product page (2026-10-31). Its heading is the page's one
+    // h1, so h2Key here names the title rather than a literal <h2>.
+    path: "/solutions",
+    Page: SolutionsPage,
+    metadata: solutionsMetadata,
+    titleKey: "nav_solutions",
+    descriptionKey: "sol_lede",
+    sectionId: "solutions",
+    h2Key: "sol_h1",
+  },
 ];
 
 describe.each(PAGES)(
@@ -112,6 +131,7 @@ describe.each(PAGES)(
       for (const href of [
         "/#problem",
         "/#how-it-works",
+        "/solutions",
         "https://company.mobeeli.com/join",
         "/team",
         "/investors",

@@ -42,6 +42,9 @@ const en = {
   nav_careers: "Careers",
   /* R16 ruling 1c: protection became its own band, so it needs an anchor. */
   nav_protect: "Protection",
+  /* /solutions (2026-10-31) takes the nav slot R18 call A freed.
+     DRAFT WORDING — founder approves EN and confirms ID. */
+  nav_solutions: "Solutions",
   nav_cta: "Join us",
   /* Mobile hamburger nav a11y labels (CHG-piztanza-10) — not part of the design TXT map. */
   nav_menu_open: "Open menu",
@@ -258,6 +261,150 @@ const en = {
      sentence is what a screen reader announces for the figure. */
   plat_a11y:
     "Brands, distributors and stores send parts data in any format to the Mobeeli platform, which verifies it. Stores, mechanics and drivers then receive one clean, verified catalog.",
+
+  /* /solutions (2026-10-31) — the flagship product page: what Mobeeli provides
+     as an automotive e-commerce technology company. Four pillars in the brief's
+     order (vehicle data API, fitment search, catalogs, storefronts) plus the
+     fitment-flow explainer. Copy rules held throughout: no fee, no marketplace
+     or competitor names, no guarantee wording (the badge is "verified fit"),
+     catalogs are always handed over by their owners (founder ruling
+     2026-08-01), and every figure in the explainer carries cat_sim_tag.
+     DRAFT WORDING — founder approves EN and confirms ID. */
+  sol_kicker: "Solutions",
+  sol_h1: "Fitment technology for Indonesia's auto parts trade.",
+  sol_lede:
+    "Vehicle data for the cars on Indonesian roads, a search engine that checks every part against them, and the catalogs and storefronts that carry the result to buyers.",
+  sol_cta_talk: "Talk to our team",
+  sol_cta_flow: "See how it connects",
+  sol_index_h: "What Mobeeli provides",
+  sol_for_label: "Built for",
+  sol_p1_t: "Indonesian vehicle data API",
+  sol_p1_short: "Year, make, model and trim, with OE fitment specs",
+  sol_p1_d:
+    "The cars sold and driven in Indonesia, with the fitment specs behind each one — including the local trims, imports and new EVs that vehicle databases built for North America leave out.",
+  sol_p1_for: "Storefronts, marketplaces and workshop systems",
+  sol_p1_c1_t: "Built for this market",
+  sol_p1_c1_d:
+    "Domestic best-sellers, JDM and European imports, MPVs and 4x4s, as they are sold here.",
+  sol_p1_c2_t: "New EVs, as they arrive",
+  sol_p1_c2_d:
+    "2025–2026 Chinese and Korean electric models from BYD, Denza, AION, XPeng, Chery, Wuling and Hyundai.",
+  sol_p1_c3_t: "OE fitment, per trim",
+  sol_p1_c3_d:
+    "Verified bolt pattern (PCD), center bore, offset and OE tire sizes for every variant.",
+  sol_p1_c4_t: "One API",
+  sol_p1_c4_d:
+    "Query by year, make, model and trim from a storefront, a catalog or workshop software.",
+  sol_p2_t: "Fitment search and solver",
+  sol_p2_short: "My Garage, verified-fit badges and the wheel and tire math",
+  sol_p2_d:
+    "Search that narrows by vehicle, size and part type as the shopper types, with every fit checked before a result is shown.",
+  sol_p2_for: "Parts stores and marketplaces selling online",
+  sol_p2_c1_t: "My Garage",
+  sol_p2_c1_d:
+    "A vehicle selector that remembers the shopper's car, so every visit starts with results that fit.",
+  sol_p2_c2_t: "Verified-fit badges",
+  sol_p2_c2_d:
+    "A clear fit signal on every listing and product page, checked against the car in the garage.",
+  sol_p2_c3_t: "Wheel and tire solver",
+  sol_p2_c3_d:
+    "Bolt pattern, center bore, offset, overall diameter and load index, checked before a set is offered.",
+  sol_p2_c4_t: "Suspension checks",
+  sol_p2_c4_d: "Lift and lowering kits matched against the wheels and tires they have to clear.",
+  sol_p3_t: "Digital catalogs for brands and distributors",
+  sol_p3_short: "Wheel, tire, suspension and brake catalogs, mapped to Indonesian cars",
+  sol_p3_d:
+    "Wheel, tire, suspension and brake catalogs in one standard structure, with each product mapped to the Indonesian vehicles it fits.",
+  sol_p3_for: "Manufacturers, brands and distributors",
+  sol_p3_c1_t: "Your files, as they are",
+  sol_p3_c1_d:
+    "Send your price lists and spec sheets in the format you already keep. The catalog stays yours.",
+  sol_p3_c2_t: "One standard per product line",
+  sol_p3_c2_d: "Sizes, specs, part numbers and images, structured the same way for every brand.",
+  sol_p3_c3_t: "Mapped to vehicles",
+  sol_p3_c3_d: "Each product linked to every year, make, model and trim it fits.",
+  sol_p3_c4_t: "Publish once",
+  sol_p3_c4_d:
+    "Every storefront and partner reads the same record, so one correction reaches all of them.",
+  sol_p4_t: "Storefronts for parts sellers",
+  sol_p4_short: "Complete online stores with fitment built in",
+  sol_p4_d:
+    "A complete online store for a parts business, with fitment search built in from the first day.",
+  sol_p4_for: "Parts stores, distributors and workshop chains",
+  sol_p4_c1_t: "Your brand, ready to sell",
+  sol_p4_c1_d:
+    "Your own storefront on your catalog, with My Garage and verified-fit badges included.",
+  sol_p4_c2_t: "Workshop bay booking",
+  sol_p4_c2_d:
+    "Buyers order the part and book a fitting slot at a partner workshop in the same checkout.",
+  sol_p4_c3_t: "Every branch in one view",
+  sol_p4_c3_d:
+    "Stock across all your locations, so each order goes to the branch that has the part.",
+  sol_p4_c4_t: "Counter and website, one stock",
+  sol_p4_c4_d:
+    "The same catalog and the same stock count behind your shop counter and your online store.",
+  sol_flow_kicker: "How it connects",
+  sol_flow_h2: "Catalog data meets vehicle data. Only what fits goes live.",
+  sol_flow_p:
+    "Brands hand over their catalogs; Mobeeli describes each car down to its wheel bolts. The fitment engine checks one against the other, so the storefront shows only what fits, and My Garage shows the shopper the verdict for their own car.",
+  sol_pillars_kicker: "What we provide",
+  sol_pillars_h2: "Four products on one vehicle database.",
+  sol_pillars_p: "Use them together, or plug one into what you already run.",
+  sol_cta_h: "Start with one product line.",
+  sol_cta_p: "Send us your catalog or tell us about your store. A founder follows up personally.",
+  /* The fitment-flow explainer. The panel names follow the founder brief's own
+     terms (manufacturer catalogs, vehicle data API, fitment engine, storefront,
+     My Garage); the verdict chips reuse cat_part_verified / cat_chip_unfit so
+     the site says "fits" one way everywhere. {fit}, {total} and {car} are
+     filled in by FitmentFlow. */
+  sol_fx_try: "Try it with a car",
+  sol_fx_sample: "Sample vehicles and parts",
+  sol_fx_replay: "Replay",
+  sol_fx_cat_t: "Manufacturer catalogs",
+  sol_fx_cat_s: "Handed over by each brand, standardized",
+  sol_fx_veh_t: "Vehicle data API",
+  sol_fx_veh_s: "The record for the car in the garage",
+  sol_fx_v_tire: "OE tire",
+  sol_fx_eng_t: "Fitment engine",
+  sol_fx_eng_checking: "Checking",
+  sol_fx_col_check: "Check",
+  sol_fx_col_part: "Part",
+  sol_fx_col_car: "Car",
+  sol_fx_col_result: "Result",
+  sol_fx_ck_pcd: "Bolt pattern",
+  sol_fx_ck_bore: "Center bore",
+  sol_fx_ck_offset: "Offset",
+  sol_fx_ck_rim: "Rim size",
+  sol_fx_ck_od: "Overall diameter",
+  sol_fx_ck_load: "Load index",
+  sol_fx_pass: "Pass",
+  sol_fx_fail: "Fail",
+  sol_fx_ring_short: "Pass, with a hub ring",
+  sol_fx_ring_note: "Fits with a hub-centric ring",
+  sol_fx_store_t: "Live storefront",
+  /* The store panel lists every part so the filter can be seen working; its
+     subtitle and count say the dimmed rows are hidden from shoppers, which is
+     what keeps sol_flow_h2's "only what fits goes live" true of the figure. */
+  sol_fx_store_s: "Shoppers see only what fits; pick any part for its checks",
+  sol_fx_count: "{fit} of {total} fit the {car} · {hidden} hidden from shoppers",
+  sol_fx_garage_fit: "Verified fit for your {car}",
+  sol_fx_garage_unfit: "Does not fit your {car}",
+  sol_fx_st1: "Catalogs standardized",
+  sol_fx_st2: "Vehicle matched",
+  sol_fx_st3: "Fit solved",
+  sol_fx_st4: "Verified in store",
+  sol_fx_a11y:
+    "Manufacturers' catalogs and Mobeeli's Indonesian vehicle data flow into the fitment engine, which checks every part against the chosen car. Only the parts that fit go live in the storefront, and the shopper's saved car shows a verified-fit badge on the product page.",
+  /* Sample vehicles: real Indonesian-market trims whose specs are sourced in
+     fitmentDemo.ts. Proper nouns, identical in both maps (team_n* precedent). */
+  sol_fx_v_atto3: "BYD Atto 3 Superior",
+  sol_fx_v_seal: "BYD Seal Premium",
+  sol_fx_v_ioniq5: "Hyundai Ioniq 5 Prime",
+  /* Sample parts: generic and unbranded on purpose. */
+  sol_fx_p_w18: "Cast alloy wheel",
+  sol_fx_p_w19: "Flow-formed wheel",
+  sol_fx_p_t18: "Touring tire",
+  sol_fx_p_t19: "Comfort tire",
 
   why_ds_title: "The Analog Margin Bleed.",
   why_ds_sub: "Today's B2B parts distribution network is broken for both sides.",
@@ -633,6 +780,7 @@ const id: Record<CopyKey, string> = {
   nav_careers: "Karier",
   /* R16 ruling 1c: protection became its own band, so it needs an anchor. */
   nav_protect: "Perlindungan",
+  nav_solutions: "Solusi",
   nav_cta: "Gabung",
   /* Mobile hamburger nav a11y labels (CHG-piztanza-10) — not part of the design TXT map. */
   nav_menu_open: "Buka menu",
@@ -824,6 +972,141 @@ const id: Record<CopyKey, string> = {
   plat_out: "terverifikasi",
   plat_a11y:
     "Merek, distributor, dan toko mengirim data suku cadang dalam format apa pun ke platform Mobeeli, yang memverifikasinya. Toko, mekanik, dan pengemudi kemudian menerima satu katalog terverifikasi yang bersih.",
+
+  /* /solutions (2026-10-31). Vocabulary follows this map's own precedents:
+     "suku cadang" (the formal register plat_* uses for the industry), "Garasi
+     Saya" (garage_chip_label), "terverifikasi" (cat_part_verified), "Pola
+     baut" / "Lubang tengah" (fit3d_*), "varian" for trim (ymm_trim), and the
+     engineering tokens PCD, ET and OE as-is. "Fitment" stays the loanword
+     Indonesian modifiers already use for wheel fitment.
+     DRAFT WORDING — founder to confirm. */
+  sol_kicker: "Solusi",
+  sol_h1: "Teknologi fitment untuk perdagangan suku cadang otomotif Indonesia.",
+  sol_lede:
+    "Data kendaraan untuk mobil-mobil di jalanan Indonesia, mesin pencari yang mencocokkan setiap suku cadang dengan mobil-mobil tersebut, serta katalog dan toko online yang membawa hasilnya ke pembeli.",
+  sol_cta_talk: "Bicara dengan tim kami",
+  sol_cta_flow: "Lihat alurnya",
+  sol_index_h: "Yang Mobeeli sediakan",
+  sol_for_label: "Untuk",
+  sol_p1_t: "API data kendaraan Indonesia",
+  sol_p1_short: "Tahun, merek, model, dan varian, lengkap dengan spesifikasi fitment OE",
+  sol_p1_d:
+    "Mobil yang dijual dan dipakai di Indonesia, lengkap dengan spesifikasi fitment-nya — termasuk varian lokal, mobil impor, dan EV baru yang terlewat oleh basis data kendaraan buatan Amerika Utara.",
+  sol_p1_for: "Toko online, marketplace, dan sistem bengkel",
+  sol_p1_c1_t: "Dibangun untuk pasar ini",
+  sol_p1_c1_d:
+    "Mobil terlaris dalam negeri, impor JDM dan Eropa, MPV, dan 4x4, sesuai yang dijual di sini.",
+  sol_p1_c2_t: "EV baru, begitu masuk",
+  sol_p1_c2_d:
+    "Model listrik Tiongkok dan Korea 2025–2026 dari BYD, Denza, AION, XPeng, Chery, Wuling, dan Hyundai.",
+  sol_p1_c3_t: "Fitment OE per varian",
+  sol_p1_c3_d:
+    "Pola baut (PCD), lubang tengah, offset, dan ukuran ban OE yang terverifikasi untuk setiap varian.",
+  sol_p1_c4_t: "Satu API",
+  sol_p1_c4_d:
+    "Cari berdasarkan tahun, merek, model, dan varian dari toko online, katalog, atau software bengkel.",
+  sol_p2_t: "Pencarian dan pencocokan fitment",
+  sol_p2_short: "Garasi Saya, lencana dipastikan cocok, serta hitungan velg dan ban",
+  sol_p2_d:
+    "Pencarian yang menyaring berdasarkan kendaraan, ukuran, dan jenis suku cadang sambil pembeli mengetik, dengan setiap kecocokan dicek sebelum hasil ditampilkan.",
+  sol_p2_for: "Toko suku cadang dan marketplace yang berjualan online",
+  sol_p2_c1_t: "Garasi Saya",
+  sol_p2_c1_d:
+    "Pemilih kendaraan yang mengingat mobil pembeli, jadi setiap kunjungan langsung dimulai dengan hasil yang cocok.",
+  sol_p2_c2_t: "Lencana dipastikan cocok",
+  sol_p2_c2_d:
+    "Tanda kecocokan yang jelas di setiap listing dan halaman produk, dicek terhadap mobil di garasi.",
+  sol_p2_c3_t: "Pencocok velg dan ban",
+  sol_p2_c3_d:
+    "Pola baut, lubang tengah, offset, diameter total, dan indeks beban, dicek sebelum satu set ditawarkan.",
+  sol_p2_c4_t: "Cek suspensi",
+  sol_p2_c4_d:
+    "Kit lift dan lowering dicocokkan dengan velg dan ban yang harus muat di ruang roda.",
+  sol_p3_t: "Katalog digital untuk merek dan distributor",
+  sol_p3_short: "Katalog velg, ban, suspensi, dan rem, dipetakan ke mobil Indonesia",
+  sol_p3_d:
+    "Katalog velg, ban, suspensi, dan rem dalam satu struktur standar, dengan setiap produk dipetakan ke kendaraan Indonesia yang cocok.",
+  sol_p3_for: "Pabrikan, merek, dan distributor",
+  sol_p3_c1_t: "File Anda, apa adanya",
+  sol_p3_c1_d:
+    "Kirim daftar harga dan lembar spesifikasi Anda dalam format yang sudah Anda pakai. Katalognya tetap milik Anda.",
+  sol_p3_c2_t: "Satu standar per lini produk",
+  sol_p3_c2_d:
+    "Ukuran, spesifikasi, nomor part, dan foto, disusun dengan cara yang sama untuk setiap merek.",
+  sol_p3_c3_t: "Dipetakan ke kendaraan",
+  sol_p3_c3_d: "Setiap produk terhubung ke semua tahun, merek, model, dan varian yang cocok.",
+  sol_p3_c4_t: "Terbitkan sekali",
+  sol_p3_c4_d:
+    "Setiap toko online dan mitra membaca data yang sama, jadi satu koreksi sampai ke semuanya.",
+  sol_p4_t: "Toko online untuk penjual suku cadang",
+  sol_p4_short: "Toko online lengkap dengan fitment bawaan",
+  sol_p4_d:
+    "Toko online lengkap untuk bisnis suku cadang, dengan pencarian fitment sudah terpasang sejak hari pertama.",
+  sol_p4_for: "Toko suku cadang, distributor, dan jaringan bengkel",
+  sol_p4_c1_t: "Merek Anda, siap berjualan",
+  sol_p4_c1_d:
+    "Toko online sendiri di atas katalog Anda, sudah termasuk Garasi Saya dan lencana dipastikan cocok.",
+  sol_p4_c2_t: "Booking bay bengkel",
+  sol_p4_c2_d:
+    "Pembeli memesan suku cadang dan memilih jadwal pemasangan di bengkel mitra dalam satu checkout.",
+  sol_p4_c3_t: "Semua cabang dalam satu tampilan",
+  sol_p4_c3_d:
+    "Stok di semua lokasi Anda, jadi setiap pesanan dikirim dari cabang yang punya barangnya.",
+  sol_p4_c4_t: "Satu stok untuk etalase dan website",
+  sol_p4_c4_d: "Katalog dan jumlah stok yang sama di balik meja toko dan toko online Anda.",
+  sol_flow_kicker: "Cara semuanya terhubung",
+  sol_flow_h2: "Data katalog bertemu data kendaraan. Hanya yang cocok yang tayang.",
+  sol_flow_p:
+    "Merek menyerahkan katalog mereka; Mobeeli menjabarkan setiap mobil sampai ke baut rodanya. Mesin fitment mencocokkan keduanya, jadi toko online hanya menampilkan yang cocok, dan Garasi Saya menunjukkan hasilnya untuk mobil pembeli sendiri.",
+  sol_pillars_kicker: "Yang kami sediakan",
+  sol_pillars_h2: "Empat produk di atas satu basis data kendaraan.",
+  sol_pillars_p:
+    "Pakai semuanya sekaligus, atau pasang salah satunya ke sistem yang sudah Anda jalankan.",
+  sol_cta_h: "Mulai dari satu lini produk.",
+  sol_cta_p:
+    "Kirim katalog Anda atau ceritakan tentang toko Anda. Salah satu founder akan menghubungi Anda langsung.",
+  sol_fx_try: "Coba dengan mobil",
+  sol_fx_sample: "Contoh kendaraan dan suku cadang",
+  sol_fx_replay: "Putar ulang",
+  sol_fx_cat_t: "Katalog pabrikan",
+  sol_fx_cat_s: "Diserahkan tiap merek, lalu distandarkan",
+  sol_fx_veh_t: "API data kendaraan",
+  sol_fx_veh_s: "Data untuk mobil di garasi",
+  sol_fx_v_tire: "Ban OE",
+  sol_fx_eng_t: "Mesin fitment",
+  sol_fx_eng_checking: "Mengecek",
+  sol_fx_col_check: "Pengecekan",
+  sol_fx_col_part: "Part",
+  sol_fx_col_car: "Mobil",
+  sol_fx_col_result: "Hasil",
+  sol_fx_ck_pcd: "Pola baut",
+  sol_fx_ck_bore: "Lubang tengah",
+  sol_fx_ck_offset: "Offset",
+  sol_fx_ck_rim: "Ukuran velg",
+  sol_fx_ck_od: "Diameter total",
+  sol_fx_ck_load: "Indeks beban",
+  sol_fx_pass: "Lolos",
+  sol_fx_fail: "Gagal",
+  sol_fx_ring_short: "Lolos, dengan hub ring",
+  sol_fx_ring_note: "Cocok dengan ring hub-centric",
+  sol_fx_store_t: "Toko online",
+  sol_fx_store_s: "Pembeli hanya melihat yang cocok; pilih part mana pun untuk pengecekannya",
+  sol_fx_count: "{fit} dari {total} cocok untuk {car} · {hidden} disembunyikan dari pembeli",
+  sol_fx_garage_fit: "Dipastikan cocok untuk {car} Anda",
+  sol_fx_garage_unfit: "Tidak pas untuk {car} Anda",
+  sol_fx_st1: "Katalog distandarkan",
+  sol_fx_st2: "Kendaraan dicocokkan",
+  sol_fx_st3: "Fitment dihitung",
+  sol_fx_st4: "Terverifikasi di toko",
+  sol_fx_a11y:
+    "Katalog pabrikan dan data kendaraan Indonesia dari Mobeeli masuk ke mesin fitment, yang mengecek setiap suku cadang terhadap mobil yang dipilih. Hanya suku cadang yang cocok yang tayang di toko online, dan mobil tersimpan pembeli menampilkan lencana dipastikan cocok di halaman produk.",
+  sol_fx_v_atto3: "BYD Atto 3 Superior",
+  sol_fx_v_seal: "BYD Seal Premium",
+  sol_fx_v_ioniq5: "Hyundai Ioniq 5 Prime",
+  sol_fx_p_w18: "Velg alloy cast",
+  sol_fx_p_w19: "Velg flow-forming",
+  sol_fx_p_t18: "Ban touring",
+  sol_fx_p_t19: "Ban comfort",
 
   why_ds_title: "Lingkaran Setan Analog.",
   why_ds_sub: "Jaringan distribusi suku cadang saat ini merugikan kedua belah pihak.",

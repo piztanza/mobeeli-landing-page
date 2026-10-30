@@ -41,6 +41,7 @@ export default function Footer() {
             </div>
             <div className="mb-footer-col">
               <span className="mb-footer-col-h">{t("foot_col_product")}</span>
+              <Link href="/solutions">{t("nav_solutions")}</Link>
               <Link href="/#how-it-works">{t("nav_how")}</Link>
               <Link href="/#coverage">{t("foot_coverage")}</Link>
               <Link href="/join">{t("nav_cta")}</Link>
