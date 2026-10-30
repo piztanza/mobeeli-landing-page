@@ -27,34 +27,30 @@ import {
 import { checkPart, type CheckId, type CheckState, type FitResult } from "./fitmentSolver";
 
 /**
- * Run stages. 0 is armed (nothing resolved yet); 1 catalogs standardized;
- * 2 vehicle matched; 3 fit solved; 4 verified in store. The server renders 4 —
- * the complete figure — and only a client with motion allowed ever steps back
- * to 0 to play the sequence forward.
+ * Run stages. 0 is armed (nothing resolved yet); 1 the car matched; 2 the fit
+ * solved; 3 verified in the store. The server renders 3 — the complete figure
+ * — and only a client with motion allowed ever steps back to play it forward.
  */
-type Stage = 0 | 1 | 2 | 3 | 4;
+type Stage = 0 | 1 | 2 | 3;
 
 /** What a run re-plays: a new car re-runs the whole flow; a new part only
- *  re-solves the engine and the garage verdict — the storefront's verdicts
- *  depend on the car alone, so it stays as it is (data-run on the figure). */
+ *  re-solves the engine — the store's verdicts depend on the car alone, so it
+ *  stays as it is (data-run on the figure). */
 type RunKind = "car" | "part";
 
-/** When stages 1–4 land after a full car run starts (ms). Stage 3's rows then
- *  tick on their own CSS stagger inside the 940ms before stage 4. */
+/** When stages 1–3 land after a full car run starts (ms). Stage 2's rows then
+ *  tick on their own CSS stagger inside the 800ms before stage 3. */
 export const RUN: readonly (readonly [atMs: number, stage: Stage])[] = [
   [90, 1],
-  [760, 2],
-  [1440, 3],
-  [2380, 4],
+  [700, 2],
+  [1500, 3],
 ];
 
-/** A part pick starts at stage 2: the engine re-checks, then the garage updates. */
+/** A part pick starts at stage 1: the engine re-checks, then the run settles. */
 export const RESOLVE: readonly (readonly [atMs: number, stage: Stage])[] = [
-  [40, 3],
-  [900, 4],
+  [40, 2],
+  [800, 3],
 ];
-
-const STAGE_LABELS: readonly CopyKey[] = ["sol_fx_st1", "sol_fx_st2", "sol_fx_st3", "sol_fx_st4"];
 
 const CHECK_LABEL: Record<CheckId, CopyKey> = {
   pcd: "sol_fx_ck_pcd",
@@ -118,18 +114,10 @@ function PartGlyph({ part, size }: { part: DemoPart; size: number }) {
   );
 }
 
-type NodeIcon = "catalog" | "data" | "store";
+type NodeIcon = "data" | "store";
 
 function NodeGlyph({ icon }: { icon: NodeIcon }) {
   const paths: Record<NodeIcon, ReactNode> = {
-    catalog: (
-      <>
-        <path d="M8 3.5h9.5l2.5 2.5v13.5H8z" />
-        <path d="M17.5 3.5V6H20" />
-        <path d="M4.5 7v13.5h12" />
-        <path d="M11 10h6M11 13.5h6M11 17h3.5" />
-      </>
-    ),
     data: (
       <>
         <ellipse cx="12" cy="5.8" rx="7" ry="2.6" />
@@ -163,13 +151,17 @@ function NodeGlyph({ icon }: { icon: NodeIcon }) {
   );
 }
 
+/** A panel head: the step number, an icon chip, the title and one line under it.
+ *  The numbers are real sequence — the car, then the engine, then the store. */
 function NodeHead({
+  step,
   icon,
   id,
   title,
   sub,
   out = false,
 }: {
+  step: number;
   icon: NodeIcon;
   id?: string;
   title: string;
@@ -182,6 +174,9 @@ function NodeHead({
         <NodeGlyph icon={icon} />
       </span>
       <h3 id={id} className="mb-sol-nh-t">
+        <span className="mb-sol-step" aria-hidden>
+          {step}
+        </span>
         {title}
       </h3>
       <p className="mb-sol-nh-s">{sub}</p>
@@ -202,19 +197,18 @@ function VerdictDot({ state }: { state: CheckState | "fit" | "unfit" }) {
 }
 
 /**
- * A connector between two grid cells, drawn in a 100×100 box stretched to the
- * cell (preserveAspectRatio none; the stroke stays crisp via non-scaling-stroke).
- * Rows are equal height (1fr 1fr), so a panel's centre sits at y=50 of its
- * cell and the engine's centre at the row boundary (y=0 or y=100).
+ * A connector between two panels in the single figure row, drawn in a 100×100
+ * box stretched to its grid cell (preserveAspectRatio none; non-scaling-stroke
+ * keeps it crisp). The panels sit centred in the row, so the line runs at y=50.
  */
-function Connector({ which, d }: { which: "a" | "b" | "c" | "d"; d: string }) {
+function Connector({ which }: { which: "a" | "b" }) {
   return (
     <div className={`mb-sol-link mb-sol-link--${which}`} aria-hidden>
       <svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
-        <path className="mb-sol-link-base" d={d} vectorEffect="non-scaling-stroke" />
+        <path className="mb-sol-link-base" d="M0 50H100" vectorEffect="non-scaling-stroke" />
         <path
           className="mb-sol-link-flow"
-          d={d}
+          d="M0 50H100"
           pathLength={100}
           vectorEffect="non-scaling-stroke"
         />
@@ -224,22 +218,22 @@ function Connector({ which, d }: { which: "a" | "b" | "c" | "d"; d: string }) {
 }
 
 /**
- * The /solutions fitment-flow explainer (2026-10-31). Manufacturer catalogs and
- * the Indonesian vehicle data API feed the fitment engine, which checks every
- * catalogue part against the chosen car; the live storefront then shows only
- * what fits and My Garage carries the verdict for the part being inspected.
+ * The /solutions fitment-flow explainer (2026-10-31, cut to three panels the
+ * same day). (1) The car, as Mobeeli's Indonesian vehicle data describes it;
+ * (2) the fitment engine checking the inspected part against it; (3) the store,
+ * with the shopper's car in My Garage and a verdict on every part.
  *
- * Interaction: pick a car (re-runs the whole flow), or pick a storefront part
- * (re-solves just that part: the engine and the garage verdict). Every verdict
- * is computed by fitmentSolver.ts; every string by fitmentFormat.ts.
+ * Interaction: pick a car (re-runs the whole flow), or pick a part in the store
+ * (re-solves just the engine). Every verdict is computed by fitmentSolver.ts;
+ * every string by fitmentFormat.ts.
  *
  * Motion, progressive-enhancement + in-view gated (PlatformFlow's contract):
- *   • the server renders stage 4 — the whole resolved figure — so no-JS and
+ *   • the server renders stage 3 — the whole resolved figure — so no-JS and
  *     reduced-motion visitors get everything, and all state CSS lives inside
  *     `screen and (prefers-reduced-motion: no-preference)`;
  *   • with motion allowed, an IntersectionObserver arms stage 0 while the
  *     figure is off screen and plays the sequence once it is in view;
- *   • under reduced motion the displayed stage is pinned to 4 and every choice
+ *   • under reduced motion the displayed stage is pinned to 3 and every choice
  *     resolves instantly — the timers are never started.
  * The rendered stage, not a timer, drives every state: data-stage and data-run
  * on the figure.
@@ -254,10 +248,10 @@ export default function FitmentFlow() {
 
   const [vehicleId, setVehicleId] = useState(DEMO_VEHICLES[0].id);
   const [partId, setPartId] = useState(() => defaultPartFor(DEMO_VEHICLES[0]));
-  const [stage, setStage] = useState<Stage>(4);
+  const [stage, setStage] = useState<Stage>(3);
   const [runKind, setRunKind] = useState<RunKind>("car");
   const [live, setLive] = useState(false);
-  const shown: Stage = reduced ? 4 : stage;
+  const shown: Stage = reduced ? 3 : stage;
 
   const clearTimers = useCallback(() => {
     for (const id of timers.current) window.clearTimeout(id);
@@ -283,8 +277,8 @@ export default function FitmentFlow() {
   // First run on arrival. Off screen, the figure is armed at stage 0; once it
   // reaches the upper three quarters of the viewport, it plays. A pixel-edge
   // margin rather than an area threshold: a figure taller than the viewport
-  // (the stacked phone layout) could never show 20% of itself at once, and
-  // would have waited at stage 0 forever. Never under reduced motion — the
+  // (the stacked phone layout) could never show a fixed share of itself at
+  // once, and would wait at stage 0 forever. Never under reduced motion — the
   // effect does not even observe.
   useEffect(() => {
     const el = figRef.current;
@@ -328,7 +322,7 @@ export default function FitmentFlow() {
 
   const choosePart = (id: string) => {
     setPartId(id);
-    play("part", 2, RESOLVE);
+    play("part", 1, RESOLVE);
   };
 
   return (
@@ -391,25 +385,8 @@ export default function FitmentFlow() {
       </div>
 
       <div className="mb-sol-fig-grid">
-        <div className="mb-sol-node mb-sol-node--cat mb-glass">
-          <NodeHead icon="catalog" title={t("sol_fx_cat_t")} sub={t("sol_fx_cat_s")} />
-          <ul className="mb-sol-recs">
-            {DEMO_PARTS.map((p, i) => (
-              <li
-                key={p.id}
-                className={`mb-sol-rec${p.id === inspected.part.id ? " is-current" : ""}`}
-                style={{ "--i": i } as CSSProperties}
-              >
-                <PartGlyph part={p} size={18} />
-                <span className="mb-sol-rec-n">{t(p.name)}</span>
-                <span className="mb-sol-rec-s">{partLine(p, lang)}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
         <div className="mb-sol-node mb-sol-node--veh mb-glass">
-          <NodeHead icon="data" title={t("sol_fx_veh_t")} sub={t("sol_fx_veh_s")} />
+          <NodeHead step={1} icon="data" title={t("sol_fx_veh_t")} sub={t("sol_fx_veh_s")} />
           <div className="mb-sol-vrec">
             <div className="mb-sol-vrec-name">
               <span>{carName}</span>
@@ -436,8 +413,7 @@ export default function FitmentFlow() {
           </div>
         </div>
 
-        <Connector which="a" d="M0 50C55 50 45 100 100 100" />
-        <Connector which="b" d="M0 50C55 50 45 0 100 0" />
+        <Connector which="a" />
 
         <div className="mb-sol-engine mb-glass">
           <div className="mb-sol-engine-head">
@@ -450,7 +426,12 @@ export default function FitmentFlow() {
               width={40}
               height={40}
             />
-            <h3 className="mb-sol-engine-t">{t("sol_fx_eng_t")}</h3>
+            <h3 className="mb-sol-engine-t">
+              <span className="mb-sol-step" aria-hidden>
+                2
+              </span>
+              {t("sol_fx_eng_t")}
+            </h3>
           </div>
           <p className="mb-sol-engine-checking">
             {t("sol_fx_eng_checking")} <strong>{t(inspected.part.name)}</strong>{" "}
@@ -510,17 +491,23 @@ export default function FitmentFlow() {
           </div>
         </div>
 
-        <Connector which="c" d="M0 100C55 100 45 50 100 50" />
-        <Connector which="d" d="M0 0C55 0 45 50 100 50" />
+        <Connector which="b" />
 
         <div className="mb-sol-node mb-sol-node--store mb-glass">
           <NodeHead
+            step={3}
             icon="store"
             id={`${uid}-store`}
             title={t("sol_fx_store_t")}
             sub={t("sol_fx_store_s")}
             out
           />
+          <div className="mb-sol-garage-chip">
+            <span className="mb-sol-garage-badge">{t("garage_chip_label")}</span>
+            <span className="mb-sol-garage-val">
+              {carName} <span className="mb-sol-car-y">{vehicle.year}</span>
+            </span>
+          </div>
           <div className="mb-sol-tiles" role="radiogroup" aria-labelledby={`${uid}-store`}>
             {results.map(({ part, result }) => {
               const why = result.checks.find((c) => c.state === "fail");
@@ -567,42 +554,9 @@ export default function FitmentFlow() {
           </p>
         </div>
 
-        <div className="mb-sol-node mb-sol-node--garage mb-glass">
-          <div className="mb-sol-garage-chip">
-            <span className="mb-sol-garage-badge">{t("garage_chip_label")}</span>
-            <span className="mb-sol-garage-val">
-              {carName} <span className="mb-sol-car-y">{vehicle.year}</span>
-            </span>
-          </div>
-          <div className="mb-sol-pdp">
-            <PartGlyph part={inspected.part} size={36} />
-            <div className="mb-sol-pdp-body">
-              <div className="mb-sol-pdp-n">{t(inspected.part.name)}</div>
-              <div className="mb-sol-pdp-s">{partLine(inspected.part, lang)}</div>
-              <div className={`mb-sol-pdp-verdict${inspected.result.fits ? "" : " is-unfit"}`}>
-                <VerdictDot state={inspected.result.fits ? "fit" : "unfit"} />
-                {t(inspected.result.fits ? "sol_fx_garage_fit" : "sol_fx_garage_unfit").replace(
-                  "{car}",
-                  carName,
-                )}
-              </div>
-              {ring && <div className="mb-sol-pdp-note">{t("sol_fx_ring_note")}</div>}
-            </div>
-          </div>
-        </div>
-
         <span className="mb-sol-arrow mb-sol-arrow--in" aria-hidden />
         <span className="mb-sol-arrow mb-sol-arrow--out" aria-hidden />
       </div>
-
-      <ol className="mb-sol-rail">
-        {STAGE_LABELS.map((key, i) => (
-          <li key={key} className={`mb-sol-rail-step${shown > i ? " is-done" : ""}`}>
-            <span className="mb-sol-rail-n">{i + 1}</span>
-            {t(key)}
-          </li>
-        ))}
-      </ol>
 
       <figcaption className="mb-sol-sr">{t("sol_fx_a11y")}</figcaption>
     </figure>

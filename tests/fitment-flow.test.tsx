@@ -99,9 +99,22 @@ describe("server render — the resolved figure", () => {
     expect(html).toContain(esc(t("en", "sol_fx_a11y")));
   });
 
-  it("ships fully resolved: data-stage 4, every stage of the rail complete", () => {
-    expect(html).toContain('data-stage="4"');
-    expect(html.match(/mb-sol-rail-step is-done/g)?.length).toBe(4);
+  it("ships fully resolved: the last stage, 3", () => {
+    expect(html).toContain('data-stage="3"');
+  });
+
+  // Decongested (2026-10-31): three numbered panels — the car, the fitment
+  // engine, the store with My Garage. The catalogue and garage panels and the
+  // progress rail are gone; their jobs moved into the three that remain.
+  it("draws exactly three panels, in flow order", () => {
+    const order = ["mb-sol-node--veh", "mb-sol-engine", "mb-sol-node--store"].map((c) =>
+      html.indexOf(c),
+    );
+    for (const at of order) expect(at).toBeGreaterThan(0);
+    expect(order).toEqual([...order].sort((a, b) => a - b));
+    for (const gone of ["mb-sol-node--cat", "mb-sol-node--garage", "mb-sol-rail"]) {
+      expect(html, gone).not.toContain(gone);
+    }
   });
 
   it("offers each demo car as a native radio, the first one checked", () => {
@@ -149,10 +162,11 @@ describe("server render — the resolved figure", () => {
     expect(html).toContain('data-run="car"');
   });
 
-  it("names the saved car in My Garage with the verdict for the inspected part", () => {
+  it("names the saved car in the store's My Garage chip", () => {
     const car = DEMO_VEHICLES[0];
-    expect(html).toContain(esc(t("en", "garage_chip_label")));
-    expect(html).toContain(esc(t("en", "sol_fx_garage_fit").replace("{car}", t("en", car.name))));
+    const store = html.slice(html.indexOf("mb-sol-node--store"));
+    expect(store).toContain(esc(t("en", "garage_chip_label")));
+    expect(store).toContain(esc(t("en", car.name)));
   });
 
   it("labels the sample data as a simulation (honesty contract)", () => {
@@ -170,9 +184,9 @@ describe("motion contract — gated by useReducedMotion and the media query", ()
     expect(src).toContain("useReducedMotion");
   });
 
-  it("ends every run, full or part, at the resolved stage 4", () => {
+  it("ends every run, full or part, at the resolved stage 3", () => {
     for (const steps of [RUN, RESOLVE]) {
-      expect(steps[steps.length - 1][1]).toBe(4);
+      expect(steps[steps.length - 1][1]).toBe(3);
       const times = steps.map(([at]) => at);
       expect(times, "steps in time order").toEqual([...times].sort((a, b) => a - b));
     }

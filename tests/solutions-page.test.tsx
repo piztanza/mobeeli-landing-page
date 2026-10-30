@@ -7,11 +7,11 @@ import sitemap from "@/app/sitemap";
 import { copy, langs, t, type CopyKey } from "@/lib/i18n";
 
 /**
- * /solutions — what Mobeeli provides (2026-10-31). The flagship product page:
- * an intro with a product index, the interactive fitment-flow explainer, the
- * four product pillars and a closing CTA. These assertions read the rendered
- * page, not source strings, so a pillar that stops rendering fails here even
- * if its copy keys survive.
+ * /solutions — Mobeeli's SaaS page (redesigned 2026-10-31, decongested): a
+ * short hero, six services, the three-panel fitment explainer, and pricing (a
+ * one-time store build, three subscriptions and a price chart). These
+ * assertions read the rendered page, not source strings, so a section that
+ * stops rendering fails here even if its copy keys survive.
  */
 
 /** Escape a copy string the way React escapes text content in SSR output. */
@@ -26,13 +26,22 @@ function esc(s: string): string {
 
 const html = renderToStaticMarkup(<SolutionsPage />);
 
-/** Product anchors in the brief's order: data API, fitment engine, catalogs, storefronts. */
-const PILLARS = [
-  { id: "vehicle-data", title: "sol_p1_t" },
-  { id: "fitment-search", title: "sol_p2_t" },
-  { id: "catalogs", title: "sol_p3_t" },
-  { id: "storefronts", title: "sol_p4_t" },
-] as const satisfies readonly { id: string; title: CopyKey }[];
+/** The slice of the page between one id and the next band. */
+function section(id: string): string {
+  const start = html.indexOf(`id="${id}"`);
+  const next = html.indexOf("<section", start + 1);
+  return html.slice(start, next === -1 ? undefined : next);
+}
+
+/** The six services, in the order the founder settled (only what is ready). */
+const SERVICES = [
+  "sol_svc1_t",
+  "sol_svc2_t",
+  "sol_svc3_t",
+  "sol_svc4_t",
+  "sol_svc5_t",
+  "sol_svc6_t",
+] as const satisfies readonly CopyKey[];
 
 describe("/solutions page structure", () => {
   it("has exactly one h1, the page title, inside <main>", () => {
@@ -41,50 +50,94 @@ describe("/solutions page structure", () => {
     expect(main).toContain(esc(t("en", "sol_h1")));
   });
 
-  it("renders the four pillars in the brief's order, each with its own anchor", () => {
-    let last = -1;
-    for (const { id, title } of PILLARS) {
-      const at = html.indexOf(`id="${id}"`);
-      expect(at, `#${id}`).toBeGreaterThan(last);
-      expect(html.indexOf(esc(t("en", title)), at), `${title} inside #${id}`).toBeGreaterThan(at);
-      last = at;
+  it("runs hero → services → explainer → pricing, in that order", () => {
+    const order = ["solutions", "services", "fitment-flow", "pricing"].map((id) =>
+      html.indexOf(`id="${id}"`),
+    );
+    for (const at of order) expect(at).toBeGreaterThan(0);
+    expect(order).toEqual([...order].sort((a, b) => a - b));
+  });
+
+  it("offers the two hero actions: talk to the team, or jump to pricing", () => {
+    const hero = section("solutions");
+    expect(hero).toContain('href="/contact"');
+    expect(hero).toContain('href="#pricing"');
+    expect(hero).toContain(esc(t("en", "sol_cta_pricing")));
+  });
+
+  it("lists the six services, each with its one-line description", () => {
+    const services = section("services");
+    for (const key of SERVICES) {
+      expect(services, key).toContain(esc(t("en", key)));
+      const d = key.replace(/_t$/, "_d") as CopyKey;
+      expect(services, d).toContain(esc(t("en", d)));
     }
+    expect(services.match(/class="mb-sol-svc"/g)?.length).toBe(SERVICES.length);
   });
 
-  it("indexes every pillar from the intro, before the explainer", () => {
-    const flow = html.indexOf('id="fitment-flow"');
-    expect(flow).toBeGreaterThan(0);
-    for (const { id } of PILLARS) {
-      const link = html.indexOf(`href="#${id}"`);
-      expect(link, `index link to #${id}`).toBeGreaterThan(0);
-      expect(link, `#${id} index link precedes the explainer`).toBeLessThan(flow);
-    }
+  it("mounts the interactive explainer inside its own band", () => {
+    const flow = section("fitment-flow");
+    expect(flow).toContain('class="mb-sol-fig"');
+    expect(flow).toContain(esc(t("en", "sol_fx_a11y")));
   });
 
-  it("places the explainer between the intro and the pillars", () => {
-    const intro = html.indexOf('id="solutions"');
-    const flow = html.indexOf('id="fitment-flow"');
-    const firstPillar = html.indexOf('id="vehicle-data"');
-    expect(intro).toBeGreaterThan(0);
-    expect(flow).toBeGreaterThan(intro);
-    expect(firstPillar).toBeGreaterThan(flow);
-    expect(html).toContain(esc(t("en", "sol_flow_h2")));
-  });
-
-  it("mounts the interactive explainer inside the flow band", () => {
-    const flow = html.indexOf('id="fitment-flow"');
-    const figure = html.indexOf('class="mb-sol-fig"');
-    expect(figure, "the explainer figure").toBeGreaterThan(flow);
-    expect(figure).toBeLessThan(html.indexOf('id="vehicle-data"'));
-    expect(html).toContain(esc(t("en", "sol_fx_a11y")));
-  });
-
-  it("routes the CTAs to the contact form, the explainer and the Early Adopters signup", () => {
+  it("closes on the contact CTA and the Early Adopters signup", () => {
     const main = html.slice(html.indexOf("<main"), html.indexOf("</main>"));
-    expect(main).toContain('href="/contact"');
-    expect(main).toContain('href="#fitment-flow"');
-    expect(main).toContain('href="https://company.mobeeli.com/join"');
     expect(main).toContain(esc(t("en", "sol_cta_h")));
+    expect(main).toContain('href="https://company.mobeeli.com/join"');
+  });
+});
+
+describe("/solutions pricing (founder decisions, 2026-10-31)", () => {
+  const pricing = section("pricing");
+
+  it("prices the store build as a one-time flat fee, quoted per store", () => {
+    expect(pricing).toContain(esc(t("en", "sol_build_t")));
+    expect(pricing).toContain(esc(t("en", "sol_build_billing")));
+    expect(pricing).toContain(esc(t("en", "sol_build_price")));
+  });
+
+  it("lists what the build includes and the optional extras", () => {
+    for (const key of [
+      "sol_build_i1",
+      "sol_build_i2",
+      "sol_build_i3",
+      "sol_build_i4",
+      "sol_build_i5",
+      "sol_build_e1",
+      "sol_build_e2",
+    ] as const) {
+      expect(pricing, key).toContain(esc(t("en", key)));
+    }
+  });
+
+  it("sells maintenance, SEO and the APIs as monthly subscriptions", () => {
+    for (const key of ["sol_sub1_t", "sol_sub2_t", "sol_sub3_t"] as const) {
+      expect(pricing, key).toContain(esc(t("en", key)));
+    }
+    expect(pricing.match(/class="mb-sol-sub"/g)?.length).toBe(3);
+    expect(pricing).toContain(esc(t("en", "sol_sub_billing")));
+  });
+
+  it("charts all six offerings with their billing and price", () => {
+    const chart = pricing.match(/<table class="mb-sol-chart">[\s\S]*?<\/table>/)?.[0] ?? "";
+    expect(chart, "the price chart").not.toBe("");
+    const rows = chart.slice(chart.indexOf("<tbody")).match(/<tr[\s>]/g) ?? [];
+    expect(rows.length).toBe(6);
+    expect(chart).toContain(esc(t("en", "sol_bill_once")));
+    expect(chart).toContain(esc(t("en", "sol_bill_month")));
+  });
+
+  // No price figure anywhere: the build is "quoted per store" and every
+  // subscription is "talk to our team" — which also keeps CLAUDE.md's rule
+  // that Mobeeli's fees are never stated on the site.
+  it("states no price amount in either language", () => {
+    for (const lang of langs) {
+      for (const [key, value] of Object.entries(copy[lang])) {
+        if (!key.startsWith("sol_")) continue;
+        expect(value, `${lang}.${key}`).not.toMatch(/\b(?:Rp|IDR|USD)\s?\d|\$\s?\d/i);
+      }
+    }
   });
 });
 
@@ -151,6 +204,14 @@ describe("/solutions copy rules (CLAUDE.md rule 2 + the design contract)", () =>
   it("names no marketplace and no competitor", () => {
     expect(
       offenders(/tokopedia|shopee|lazada|bukalapak|monotaro|blibli|convermax|x-?cart/i),
+    ).toEqual([]);
+  });
+
+  // SEO is sold as a service, never as a result: no copy may promise a rank,
+  // a first page or a placement in an AI answer.
+  it("promises no ranking or AI placement", () => {
+    expect(
+      offenders(/\brank|first page|page one|top of google|halaman pertama|peringkat/i),
     ).toEqual([]);
   });
 
