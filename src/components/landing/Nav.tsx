@@ -44,10 +44,18 @@ export const PLATFORM_URL = "https://company.mobeeli.com/join";
  * links. The route is live and in sitemap.ts, but it has NO inbound link from
  * any page; a visitor can only reach it by typing the URL. That orphaning is
  * the open item, and it is why the free-slot question matters.
+ *
+ * 2026-10-31: the free slot goes to /solutions, the product page, placed after
+ * "How it works" so the bar reads problem → mechanism → what we provide. Six
+ * links did NOT fit as they stood: measured, the English labels wrapped onto two
+ * lines from 1040 to 1240px. `.mb-nav-links` in landing.css now sizes the row to
+ * its labels and tightens it below 1200px — see the measurements recorded there
+ * before adding a seventh.
  */
 const NAV_LINKS: readonly (readonly [href: string, key: CopyKey])[] = [
   ["/#problem", "nav_problem"],
   ["/#how-it-works", "nav_how"],
+  ["/solutions", "nav_solutions"],
   [PLATFORM_URL, "nav_early"],
   ["/team", "nav_team"],
   ["/investors", "nav_inv"],
@@ -77,7 +85,7 @@ function LangToggle() {
 }
 
 /**
- * Nav — logo, 5 section links, EN/ID pill toggle, "Join us" CTA (F-009: routes to
+ * Nav — logo, 6 section links, EN/ID pill toggle, "Join us" CTA (F-009: routes to
  * /join). Below 1040px (NAV_DESKTOP_QUERY — the 880px in older comments was a
  * previous breakpoint) the links/toggle/CTA collapse into a hamburger sheet (CHG-piztanza-10):
  * animated icon, body scroll lock, closes on link tap / outside tap / Escape (returning focus

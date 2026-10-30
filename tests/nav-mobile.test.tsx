@@ -13,10 +13,12 @@ const landingCss = readFileSync(
 );
 const joinCss = readFileSync(new URL("../src/components/join/join.css", import.meta.url), "utf8");
 
-/** The 5 nav links + Join CTA every viewport must offer (CHG-piztanza-10, R18 call A). */
+/** The 6 nav links + Join CTA every viewport must offer (CHG-piztanza-10, R18 call A;
+ *  /solutions took the slot R18 freed, 2026-10-31). */
 const NAV_HREFS = [
   "/#problem",
   "/#how-it-works",
+  "/solutions",
   "https://company.mobeeli.com/join",
   "/team",
   "/investors",
@@ -44,7 +46,7 @@ describe("mobile hamburger nav (F-001, CHG-piztanza-10)", () => {
     }
   });
 
-  it("ships the sheet hidden by default with the 5 links, EN/ID toggle and Join CTA", () => {
+  it("ships the sheet hidden by default with the 6 links, EN/ID toggle and Join CTA", () => {
     const sheetAt = html.indexOf('id="mb-nav-sheet"');
     expect(sheetAt).toBeGreaterThanOrEqual(0);
     const sheet = html.slice(sheetAt);
@@ -66,6 +68,23 @@ describe("mobile hamburger nav (F-001, CHG-piztanza-10)", () => {
     }
     expect(bar).toContain('href="/join"');
     expect(bar).toContain(">EN</button>");
+  });
+
+  // 2026-10-31, the sixth link. The menu is absolutely centred (left: 50%),
+  // which shrink-wraps it to at most HALF the bar — measured in EN, six labels
+  // wrapped onto two lines from 1040px all the way to 1240px (five had wrapped
+  // only at 1040). max-content keeps each label on one line; below 1200px the
+  // gap and tracking tighten so the row still clears the logo and the EN/ID
+  // toggle at the 1040px cutover (measured with a 15px scrollbar, EN: 28px and
+  // 20px of clearance).
+  it("keeps every menu label on one line, tightening the row below 1200px", () => {
+    expect(landingCss).toMatch(/\.mb-nav-links \{[^}]*width: max-content;/s);
+    const band =
+      landingCss.match(
+        /@media \(min-width: 1040px\) and \(max-width: 1199\.98px\) \{([\s\S]*?)\r?\n\}/,
+      )?.[1] ?? "";
+    expect(band, "the tightening band").toMatch(/\.mb-nav-links \{[^}]*gap: 12px;/);
+    expect(band).toMatch(/\.mb-nav-links a \{[^}]*letter-spacing: 0\.05em;/);
   });
 
   it("collapses at ~1040px and never leaks the sheet into the desktop nav (CSS contract)", () => {

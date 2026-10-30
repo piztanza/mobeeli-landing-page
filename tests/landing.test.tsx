@@ -307,12 +307,17 @@ describe("landing page render (F-001 + F-009)", () => {
     expect(landingCss).not.toMatch(/^\.mb-plat \{[^}]*border-top:/ms);
   });
 
-  it("keeps the desktop nav at five links (R18 call A freed a slot)", () => {
+  // R18 call A freed a slot (the protection anchor left); /solutions takes it
+  // (2026-10-31). Six only fit once the menu was sized to its labels and
+  // tightened below 1200px (measured; landing.css and nav-mobile.test.tsx carry
+  // the numbers). A seventh needs a new measurement, not a bigger number.
+  it("keeps the desktop nav at six links, the freed slot taken by /solutions", () => {
     const bar = html.match(/<div class="mb-nav-links">.*?<\/div>/s)?.[0] ?? "";
     expect(bar, "nav-links container").not.toBe("");
     // Count hrefs rather than tags: Link renders as <a>, but the external
     // platform link is a plain <a>, so an element-name regex is brittle.
-    expect((bar.match(/href=/g) ?? []).length).toBe(5);
+    expect((bar.match(/href=/g) ?? []).length).toBe(6);
+    expect(bar).toContain('href="/solutions"');
   });
 
   // R20 band 2a, embedded by R25. The diagram argues convergence; the geometry

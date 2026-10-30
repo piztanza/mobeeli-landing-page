@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 
 import { useScrollReveal } from "@/lib/hooks/useScrollReveal";
 import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
@@ -38,9 +38,16 @@ export type SectionPageId = keyof typeof SECTIONS;
  * (CHG-piztanza-09): same nav (in flow — it is not sticky), EN/ID toggle and dark footer as the
  * landing page wrapped around the unchanged section component. Scroll-reveal
  * runs on [data-rev] elements and is disabled under prefers-reduced-motion.
+ *
+ * A page that is not one of the mapped sections passes its content as children
+ * instead (2026-10-31, /solutions). Everything in SECTIONS is imported here and
+ * so ships with every section page; a children page brings its own bundle, so
+ * the product page's explainer and stylesheet stay on /solutions.
  */
-export default function SectionPage({ section }: { section: SectionPageId }) {
-  const Section = SECTIONS[section];
+export default function SectionPage(
+  props: { section: SectionPageId; children?: never } | { section?: never; children: ReactNode },
+) {
+  const Section = props.section ? SECTIONS[props.section] : null;
   const rootRef = useRef<HTMLDivElement>(null);
   useScrollReveal(rootRef);
   return (
@@ -49,7 +56,7 @@ export default function SectionPage({ section }: { section: SectionPageId }) {
         <SkipLink />
         <Nav />
         <main id="main-content" tabIndex={-1}>
-          <Section />
+          {Section ? <Section /> : props.children}
         </main>
         <Footer />
       </div>

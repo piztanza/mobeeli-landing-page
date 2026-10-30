@@ -181,6 +181,12 @@
   align-items: center;
   font-size: 14px;
   font-weight: 600;
+  /* 2026-10-31, the sixth link (/solutions). left: 50% leaves an absolute box
+     only the RIGHT half of the bar to shrink-wrap into, so six labels wrapped
+     onto two lines below ~1280px (measured, EN: wrapped from 1040 to 1240px;
+     five links had wrapped only at 1040). max-content sizes the row to its
+     labels; the band below keeps it clear of the logo and the EN/ID toggle. */
+  width: max-content;
 }
 /* Founder 2026-07-28: menu set in caps. Uppercase reads larger and tighter than
    sentence case at the same metrics, so the size drops a notch and tracking
@@ -193,6 +199,21 @@
 }
 .mb-nav-links a:hover {
   color: var(--mb-deep-blue);
+}
+/* The tightening band: between the 1040px cutover and 1200px the row is wider
+   than the space between the logo and the toggle at full spacing (measured at a
+   1040px viewport with a 15px classic scrollbar, EN: it overran the toggle).
+   A 12px gap and a hair less tracking leave 28px of clearance to the logo and
+   20px to the toggle (ID: 78px and 61px); above 1200px the full spacing fits
+   with room (EN at 1200: 72px and 64px). It sits AFTER the base link rules on
+   purpose: same specificity, so source order decides. */
+@media (min-width: 1040px) and (max-width: 1199.98px) {
+  .mb-nav-links {
+    gap: 12px;
+  }
+  .mb-nav-links a {
+    letter-spacing: 0.05em;
+  }
 }
 .mb-nav-spacer {
   flex: 1;
