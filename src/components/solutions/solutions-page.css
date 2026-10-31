@@ -1,5 +1,5 @@
 /*
- * /solutions (2026-10-31) — the product page.
+ * /solutions (2026-10-31, decongested the same day) — the SaaS page.
  *
  * Built only from the existing system: the brand tokens in globals.css, the
  * shared .mb-kicker / .mb-h2 / .mb-section-inner and button classes, and the
@@ -7,35 +7,35 @@
  * new name). This file adds layout and the explainer's own parts, never a new
  * material. Namespace .mb-sol-*, grep-checked against landing.css.
  *
+ * Bands: hero (light) → services (white) → how it works (dark) → pricing
+ * (light). One idea per band.
+ *
  * Link colours are written as `.mb-landing .x` on purpose: landing.css resets
  * `.mb-landing a { color: inherit }` at 0,1,1, which a bare class loses to.
  */
 
-/* ---------- intro (light) ---------- */
+/* ---------- hero (light) ---------- */
 
-.mb-sol-intro {
+.mb-sol-hero {
   background: var(--mb-bg);
-  padding: clamp(36px, 6vw, 72px) var(--mb-container-pad) var(--mb-section-y);
+  padding: clamp(40px, 7vw, 96px) var(--mb-container-pad) clamp(56px, 8vw, 104px);
 }
-.mb-sol-intro-grid {
+.mb-sol-hero-inner {
   max-width: var(--mb-container-max);
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: clamp(40px, 6vw, 88px);
-  align-items: end;
 }
 .mb-sol-h1 {
   margin: 16px 0 0;
-  max-width: 15ch;
+  max-width: 18ch;
   font-size: clamp(40px, 5.4vw, 72px);
-  line-height: 1.02;
+  line-height: 1.03;
   letter-spacing: -0.026em;
   color: var(--mb-ink);
+  text-wrap: balance;
 }
 .mb-sol-lede {
-  margin: 22px 0 0;
-  max-width: 52ch;
+  margin: 24px 0 0;
+  max-width: 56ch;
   font-size: 18px;
   line-height: 1.65;
   color: var(--mb-muted);
@@ -46,7 +46,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 14px 28px;
-  margin-top: 32px;
+  margin-top: 34px;
 }
 .mb-landing .mb-sol-textlink {
   padding: 3px 0;
@@ -55,83 +55,85 @@
   color: var(--mb-deep-blue);
 }
 
-/* The product index — the /contact form card's surface, so the intro reads as
-   the same family of page. A table of contents, not a feature list: each row
-   is a link to its pillar and carries that pillar's map glyph. */
-.mb-sol-index {
-  background: var(--mb-surface);
-  border: 1px solid var(--mb-border);
-  border-radius: 20px;
-  padding: 26px 28px 12px;
-  box-shadow: 0 20px 48px rgba(13, 21, 34, 0.07);
+/* ---------- shared band header ---------- */
+
+.mb-sol-head {
+  max-width: 820px;
+  margin-bottom: clamp(36px, 5vw, 56px);
 }
-.mb-sol-index-h {
-  margin: 0 0 4px;
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: -0.015em;
+.mb-sol-h2 {
+  max-width: 20ch;
   color: var(--mb-ink);
+  text-wrap: balance;
 }
-.mb-sol-index-list {
+.mb-sol-head-p {
+  margin: 18px 0 0;
+  max-width: 52ch;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--mb-muted);
+}
+
+/* ---------- services (white) ---------- */
+
+.mb-sol-services {
+  background: var(--mb-surface);
+  border-top: 1px solid var(--mb-border);
+  padding: var(--mb-section-y) var(--mb-container-pad);
+}
+/* Six services as one ruled sheet, not six cards: the /contact ink rule on top,
+   hairlines between. The outer columns sit flush with the header text. */
+.mb-sol-svc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin: 0;
   padding: 0;
   list-style: none;
+  border-top: 1.5px solid var(--mb-ink);
 }
-.mb-sol-index-row {
-  display: grid;
-  grid-template-columns: 58px minmax(0, 1fr);
-  grid-template-rows: auto auto;
-  column-gap: 16px;
-  row-gap: 3px;
-  align-items: center;
-  padding: 15px 0;
-  border-top: 1px solid var(--mb-border-soft);
+.mb-sol-svc {
+  padding: 30px 32px 36px;
+  border-top: 1px solid var(--mb-border);
 }
-.mb-sol-index-list li:first-child .mb-sol-index-row {
+.mb-sol-svc:nth-child(-n + 3) {
   border-top: 0;
 }
-.mb-sol-index-row .mb-sol-map {
-  grid-row: 1 / 3;
-  width: 58px;
+.mb-sol-svc:nth-child(3n + 1) {
+  padding-left: 0;
 }
-.mb-sol-index-t {
-  font-size: 15.5px;
-  font-weight: 800;
-  line-height: 1.3;
-  color: var(--mb-ink);
+.mb-sol-svc:nth-child(3n) {
+  padding-right: 0;
 }
-.mb-sol-index-s {
-  font-size: 13.5px;
-  line-height: 1.45;
-  color: var(--mb-muted);
+.mb-sol-svc:not(:nth-child(3n + 1)) {
+  border-left: 1px solid var(--mb-border);
 }
-.mb-sol-index-row:hover .mb-sol-index-t {
+.mb-sol-svc-i {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--mb-tint);
   color: var(--mb-deep-blue);
 }
-
-/* ---------- the map glyph (where a product sits in the flow) ---------- */
-
-.mb-sol-map {
-  display: block;
-  height: auto;
-  overflow: visible;
+.mb-sol-svc-t {
+  margin: 20px 0 0;
+  font-size: 18.5px;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--mb-ink);
 }
-.mb-sol-map-link {
-  fill: none;
-  stroke: #c7cfdd;
-  stroke-width: 1.2;
-}
-.mb-sol-map-node {
-  fill: var(--mb-surface);
-  stroke: #c7cfdd;
-  stroke-width: 1.2;
-}
-.mb-sol-map-node.is-lit {
-  fill: var(--mb-primary);
-  stroke: var(--mb-primary);
+.mb-sol-svc-d {
+  margin: 8px 0 0;
+  max-width: 40ch;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #3c4654;
+  text-wrap: pretty;
 }
 
-/* ---------- the fitment-flow band (dark) ---------- */
+/* ---------- how it works (dark) ---------- */
 
 /* The .mb-fit3d material — ink, veil, two washes and the 44px blueprint grid —
    with the washes MIRRORED (blue top-right, deep bottom-left): audit #22, no
@@ -163,11 +165,13 @@
   max-width: var(--mb-container-max);
   margin: 0 auto;
 }
+/* Wide enough that the Indonesian headline sets in three lines, not four. */
 .mb-sol-flow-head {
-  max-width: 800px;
+  max-width: 920px;
 }
 .mb-sol-flow-h2 {
   color: #fff;
+  text-wrap: balance;
 }
 .mb-sol-flow-p {
   margin: 18px 0 0;
@@ -205,7 +209,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 14px 28px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 .mb-sol-cars {
   display: flex;
@@ -297,35 +301,23 @@
   color: var(--mb-light-accent);
 }
 
-/* inputs | link | engine | link | outputs. The rows are 1fr 1fr: with an
-   indefinite height both resolve to the taller row, so the engine (spanning
-   both) is centred exactly on the row boundary, where the links meet it.
-   Panels take their vertical gap as margin, never row-gap, so the boundary
-   stays the true midpoint. */
+/* One row, in flow order: the car | link | the engine | link | the store. Each
+   panel is centred in the row, so its middle is the row's middle — where its
+   link meets it (y = 50 of the link box). */
 .mb-sol-fig-grid {
-  --mb-sol-link-w: clamp(36px, 4.4vw, 72px);
+  --mb-sol-link-w: clamp(28px, 3.6vw, 56px);
   display: grid;
   grid-template-columns:
-    minmax(0, 0.96fr) var(--mb-sol-link-w) minmax(0, 1.04fr) var(--mb-sol-link-w)
-    minmax(0, 1.1fr);
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas:
-    "cat la eng lc store"
-    "veh lb eng ld garage";
+    minmax(0, 0.92fr) var(--mb-sol-link-w) minmax(0, 1.08fr) var(--mb-sol-link-w)
+    minmax(0, 1fr);
+  grid-template-areas: "veh la eng lb store";
+  align-items: center;
 }
-/* Content-height and centred in the row: the panel's middle IS the row's
-   middle, which is where its link starts (y = 50 of the link box) — so the
-   empty space of the shorter panel falls outside the glass, never inside it. */
 .mb-sol-node {
   display: flex;
   flex-direction: column;
-  align-self: center;
   min-width: 0;
-  margin-block: 9px;
   padding: 18px 18px 16px;
-}
-.mb-sol-node--cat {
-  grid-area: cat;
 }
 .mb-sol-node--veh {
   grid-area: veh;
@@ -333,13 +325,10 @@
 .mb-sol-node--store {
   grid-area: store;
 }
-.mb-sol-node--garage {
-  grid-area: garage;
-}
 
-/* Panel head: an icon chip, the title, one line of what it holds. Blue on the
-   inbound side, the verified-green on the outbound side — PlatformFlow's
-   semantic and tokens: what leaves the engine is verified. */
+/* Panel head: an icon chip, the step and title, one line of what it holds.
+   Blue on the inbound side, the verified-green on the outbound side —
+   PlatformFlow's semantic and tokens: what leaves the engine is verified. */
 .mb-sol-nh {
   display: grid;
   grid-template-columns: 34px minmax(0, 1fr);
@@ -373,48 +362,24 @@
   line-height: 1.4;
   color: var(--mb-dark-muted);
 }
-
-/* Catalogue records — each brand's own rows, in one standard shape. */
-.mb-sol-recs {
-  display: grid;
-  gap: 6px;
-  margin: 14px 0 0;
-  padding: 0;
-  list-style: none;
-}
-.mb-sol-rec {
-  display: grid;
-  grid-template-columns: 18px minmax(0, 1fr);
-  column-gap: 10px;
-  align-items: center;
-  padding: 8px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.035);
-}
-.mb-sol-rec .mb-sol-glyph {
-  grid-row: 1 / 3;
-  color: #8fb8f8;
-}
-.mb-sol-rec-n {
-  font-size: 12.5px;
-  font-weight: 700;
-  line-height: 1.3;
-  color: #fff;
-}
-.mb-sol-rec-s {
-  font-size: 11.5px;
-  line-height: 1.35;
+/* The panels ARE a sequence (car, engine, store), so they carry its number. */
+.mb-sol-step {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 50%;
+  font-size: 10.5px;
+  font-weight: 800;
   font-variant-numeric: tabular-nums;
+  line-height: 1;
+  vertical-align: 1px;
   color: var(--mb-dark-muted);
 }
-/* The record under inspection, mirrored from the storefront selection. */
-.mb-sol-rec.is-current {
-  border-color: rgba(91, 155, 247, 0.45);
-  background: rgba(47, 125, 246, 0.1);
-}
 
-/* The vehicle record the API returns for the chosen car. */
+/* The vehicle record the data returns for the chosen car. */
 .mb-sol-vrec {
   margin-top: 14px;
   padding: 12px 12px 4px;
@@ -464,6 +429,7 @@
    PlatformFlow ribbons' semantic at hairline weight. */
 .mb-sol-link {
   position: relative;
+  align-self: stretch;
   min-width: 0;
 }
 .mb-sol-link--a {
@@ -471,12 +437,6 @@
 }
 .mb-sol-link--b {
   grid-area: lb;
-}
-.mb-sol-link--c {
-  grid-area: lc;
-}
-.mb-sol-link--d {
-  grid-area: ld;
 }
 .mb-sol-link svg {
   position: absolute;
@@ -499,13 +459,11 @@
   stroke-dashoffset: 16;
   opacity: 0;
 }
-.mb-sol-link--c .mb-sol-link-base,
-.mb-sol-link--d .mb-sol-link-base {
+.mb-sol-link--b .mb-sol-link-base {
   stroke: #10b981;
   stroke-opacity: 0.6;
 }
-.mb-sol-link--c .mb-sol-link-flow,
-.mb-sol-link--d .mb-sol-link-flow {
+.mb-sol-link--b .mb-sol-link-flow {
   stroke: #34d399;
 }
 
@@ -513,7 +471,6 @@
    load after this file. */
 .mb-sol-engine.mb-glass {
   grid-area: eng;
-  align-self: center;
   min-width: 0;
   padding: 20px 18px 18px;
   border-color: rgba(91, 155, 247, 0.42);
@@ -549,8 +506,11 @@
   font-weight: 700;
   color: #fff;
 }
+/* One unit: a narrow engine wraps the spec onto its own line rather than
+   splitting "5 × 114.3" across two. */
 .mb-sol-engine-spec {
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 .mb-sol-checks {
   width: 100%;
@@ -643,14 +603,37 @@
   color: var(--mb-dark-muted);
 }
 
-/* The storefront: the catalogue as a filtered results list, one selectable
-   row per part — glyph, name over spec, and the verdict on the right with its
-   reason under it. A list, not a product grid: it reads as a search result and
-   keeps this panel the height of its neighbours, so the rows stay balanced. */
+/* The store: the shopper's car in My Garage (the homepage garage chip), then
+   the catalogue as a filtered results list — one selectable row per part,
+   glyph, name over spec, the verdict on the right with its reason under it. */
+.mb-sol-garage-chip {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-self: flex-start;
+  gap: 4px 10px;
+  margin-top: 14px;
+  padding: 7px 14px;
+  border: 1px solid rgba(47, 125, 246, 0.3);
+  border-radius: var(--mb-radius-pill);
+  background: rgba(47, 125, 246, 0.1);
+}
+.mb-sol-garage-badge {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--mb-light-accent);
+}
+.mb-sol-garage-val {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
 .mb-sol-tiles {
   display: grid;
   gap: 6px;
-  margin-top: 14px;
+  margin-top: 12px;
 }
 .mb-sol-tile-w {
   position: relative;
@@ -724,136 +707,23 @@
   color: #fff;
 }
 
-/* My Garage — the homepage garage chip, then the product page's verdict. */
-.mb-sol-garage-chip {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  align-self: flex-start;
-  gap: 4px 10px;
-  padding: 7px 14px;
-  border: 1px solid rgba(47, 125, 246, 0.3);
-  border-radius: var(--mb-radius-pill);
-  background: rgba(47, 125, 246, 0.1);
-}
-.mb-sol-garage-badge {
-  font-size: 10.5px;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--mb-light-accent);
-}
-.mb-sol-garage-val {
-  font-size: 13px;
-  font-weight: 700;
-  color: #fff;
-}
-.mb-sol-pdp {
-  display: grid;
-  grid-template-columns: 36px minmax(0, 1fr);
-  gap: 12px;
-  align-items: start;
-  margin-top: 14px;
-  padding: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 12px;
-  background: rgba(8, 13, 20, 0.45);
-}
-.mb-sol-pdp .mb-sol-glyph {
-  color: #c6dafc;
-}
-.mb-sol-pdp-n {
-  font-size: 13px;
-  font-weight: 700;
-  color: #fff;
-}
-.mb-sol-pdp-s {
-  margin-top: 2px;
-  font-size: 11.5px;
-  font-variant-numeric: tabular-nums;
-  color: var(--mb-dark-muted);
-}
-.mb-sol-pdp-verdict {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin-top: 10px;
-  font-size: 12.5px;
-  font-weight: 700;
-  line-height: 1.35;
-  color: #34d399;
-}
-.mb-sol-pdp-verdict.is-unfit {
-  color: var(--mb-danger-on-dark);
-}
-.mb-sol-pdp-note {
-  margin-top: 4px;
-  font-size: 11.5px;
-  color: var(--mb-dark-muted);
-}
-
-/* Arrows between the stacked stages — below the cutover only. */
+/* Arrows between the stacked panels — below the cutover only. */
 .mb-sol-arrow {
   display: none;
-}
-
-/* The stage rail: the run's four steps. It IS a sequence, so it is numbered. */
-.mb-sol-rail {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-  margin: 24px 0 0;
-  padding: 0;
-  list-style: none;
-}
-.mb-sol-rail-step {
-  position: relative;
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  padding-top: 14px;
-  font-size: 12.5px;
-  font-weight: 700;
-  line-height: 1.35;
-  color: var(--mb-dark-muted);
-}
-.mb-sol-rail-step::before,
-.mb-sol-rail-step::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  border-radius: 2px;
-}
-.mb-sol-rail-step::before {
-  background: rgba(255, 255, 255, 0.1);
-}
-.mb-sol-rail-step::after {
-  background: var(--mb-primary);
-  transform: scaleX(0);
-  transform-origin: left;
-}
-.mb-sol-rail-step.is-done {
-  color: #fff;
-}
-.mb-sol-rail-step.is-done::after {
-  transform: scaleX(1);
-}
-.mb-sol-rail-n {
-  font-variant-numeric: tabular-nums;
-  color: #8fb8f8;
 }
 
 /* ---------- the run — motion allowed, on screen only ----------
    Everything that moves, and every state that holds something back until its
    stage, lives in this one block. Under reduced motion none of it exists: the
-   figure is the resolved stage-4 render and every choice swaps instantly.
+   figure is the resolved stage-3 render and every choice swaps instantly.
    `screen` because a page printed before the figure scrolled into view would
-   otherwise print the armed stage 0, verdicts hidden. */
+   otherwise print the armed stage 0, verdicts hidden.
+
+   Stages: 0 armed · 1 the car matched (link a runs) · 2 the engine solves
+   (rows tick, edge pulses) · 3 verified in the store (link b runs). A part
+   pick replays 1 → 3 and re-solves only the engine: the store's verdicts
+   depend on the car alone. */
 @media screen and (prefers-reduced-motion: no-preference) {
-  .mb-sol-rec,
   .mb-sol-vrec,
   .mb-sol-check,
   .mb-sol-verdict,
@@ -862,18 +732,25 @@
   .mb-sol-tile-n,
   .mb-sol-tile-why,
   .mb-sol-count,
-  .mb-sol-pdp-verdict,
-  .mb-sol-pdp-note,
   .mb-sol-link-base {
     transition:
       opacity var(--mb-duration-entrance) var(--mb-ease-entrance),
       transform var(--mb-duration-entrance) var(--mb-ease-entrance);
   }
-  .mb-sol-rec {
-    transition-delay: calc(var(--i, 0) * var(--mb-stagger-entrance));
-  }
   .mb-sol-check {
     transition-delay: calc(var(--i, 0) * 110ms);
+  }
+  /* The verdict lands after the four rows, and the store's results as link b's
+     dash reaches the store — not the moment each stage begins. */
+  .mb-sol-verdict {
+    transition-delay: 440ms;
+  }
+  .mb-sol-tile .mb-sol-chip,
+  .mb-sol-tile .mb-sol-glyph,
+  .mb-sol-tile-n,
+  .mb-sol-tile-why,
+  .mb-sol-count {
+    transition-delay: 420ms;
   }
   .mb-sol-car-l,
   .mb-sol-tile,
@@ -883,82 +760,63 @@
       background-color 0.2s var(--mb-ease-standard),
       color 0.2s var(--mb-ease-standard);
   }
-  .mb-sol-rail-step::after {
-    transition: transform 600ms var(--mb-ease-entrance);
-  }
 
-  /* The held-back states below. Each one cuts in INSTANTLY (duration 0) and
-     only the reveal animates: a transition runs on the state being entered, so
-     a fading-out verdict would otherwise show the NEW car's result for half a
-     second before the engine has "solved" it. */
+  /* The held-back states below. Each one cuts in INSTANTLY (duration and delay
+     0) and only the reveal animates: a transition runs on the state being
+     entered, so a fading-out verdict would otherwise show the NEW car's result
+     for half a second before the engine has "solved" it. */
 
-  /* Stage 0, armed: the catalogue rows are not standardized yet. */
-  .mb-sol-fig[data-stage="0"] .mb-sol-rec {
-    opacity: 0.3;
-    transform: translateX(-6px);
-    transition-duration: 0s;
-    transition-delay: 0s;
-  }
-  /* Stages 0–1: the vehicle record has not come back from the API. */
-  .mb-sol-fig:is([data-stage="0"], [data-stage="1"]) .mb-sol-vrec {
+  /* Stage 0, armed: the vehicle record has not come back. */
+  .mb-sol-fig[data-stage="0"] .mb-sol-vrec {
     opacity: 0.3;
     transition-duration: 0s;
   }
-  /* Stages 0–2: the engine has not solved. */
-  .mb-sol-fig:is([data-stage="0"], [data-stage="1"], [data-stage="2"]) .mb-sol-check {
+  /* Stages 0–1, either run: the engine has not solved. */
+  .mb-sol-fig:is([data-stage="0"], [data-stage="1"]) .mb-sol-check {
     opacity: 0;
     transform: translateY(4px);
     transition-duration: 0s;
     transition-delay: 0s;
   }
-  .mb-sol-fig:is([data-stage="0"], [data-stage="1"], [data-stage="2"]) .mb-sol-verdict {
+  .mb-sol-fig:is([data-stage="0"], [data-stage="1"]) .mb-sol-verdict {
     opacity: 0;
     transition-duration: 0s;
+    transition-delay: 0s;
   }
-  /* Stages 0–3 of a CAR run: nothing is live in the store yet — no verdicts
+  /* Stages 0–2 of a CAR run: nothing is live in the store yet — no verdicts
      and no greying, so the result cannot be read before it is solved. A part
      pick (data-run="part") leaves the store alone: its verdicts depend on the
      car only, and blanking them re-told nothing (review, 2026-10-31). */
-  .mb-sol-fig[data-run="car"]:not([data-stage="4"])
+  .mb-sol-fig[data-run="car"]:not([data-stage="3"])
     :is(.mb-sol-tile .mb-sol-chip, .mb-sol-tile-why, .mb-sol-count) {
     opacity: 0;
     transition-duration: 0s;
+    transition-delay: 0s;
   }
-  .mb-sol-fig[data-run="car"]:not([data-stage="4"])
+  .mb-sol-fig[data-run="car"]:not([data-stage="3"])
     .mb-sol-tile.is-unfit
     :is(.mb-sol-glyph, .mb-sol-tile-n) {
     opacity: 1;
     transition-duration: 0s;
+    transition-delay: 0s;
   }
-  /* Either run: the garage verdict waits for the engine. */
-  .mb-sol-fig:not([data-stage="4"]) :is(.mb-sol-pdp-verdict, .mb-sol-pdp-note) {
-    opacity: 0;
-    transition-duration: 0s;
-  }
-  /* Each link lights when its stage lands: a (catalogs) at 1, b (the vehicle)
-     at 2, c and d (the outputs) at 4 — and on a part pick only d, the path from
-     the engine to the garage verdict, re-lights. */
+  /* Each link lights when its stage lands: a (car → engine) at 1, b (engine →
+     store) at 3. A part pick changes neither end of either link. */
   .mb-sol-fig[data-stage="0"] .mb-sol-link-base,
-  .mb-sol-fig[data-stage="1"]
-    :is(.mb-sol-link--b, .mb-sol-link--c, .mb-sol-link--d)
-    .mb-sol-link-base,
-  .mb-sol-fig[data-run="car"]:is([data-stage="2"], [data-stage="3"])
-    .mb-sol-link--c
-    .mb-sol-link-base,
-  .mb-sol-fig:is([data-stage="2"], [data-stage="3"]) .mb-sol-link--d .mb-sol-link-base {
+  .mb-sol-fig[data-run="car"]:is([data-stage="1"], [data-stage="2"])
+    .mb-sol-link--b
+    .mb-sol-link-base {
     opacity: 0.25;
     transition-duration: 0s;
   }
   /* The flow: one bright dash runs the length of a link as its stage lands —
      only once a run has started (data-live), never on the server render. */
-  .mb-sol-fig[data-live][data-stage="1"] .mb-sol-link--a .mb-sol-link-flow,
-  .mb-sol-fig[data-live][data-run="car"][data-stage="2"] .mb-sol-link--b .mb-sol-link-flow,
-  .mb-sol-fig[data-live][data-run="car"][data-stage="4"] .mb-sol-link--c .mb-sol-link-flow,
-  .mb-sol-fig[data-live][data-stage="4"] .mb-sol-link--d .mb-sol-link-flow {
+  .mb-sol-fig[data-live][data-run="car"][data-stage="1"] .mb-sol-link--a .mb-sol-link-flow,
+  .mb-sol-fig[data-live][data-run="car"][data-stage="3"] .mb-sol-link--b .mb-sol-link-flow {
     animation: mbSolFlow 900ms var(--mb-ease-standard) both;
   }
-  /* Stage 3: the engine's edge brightens once while it solves. */
-  .mb-sol-fig[data-live][data-stage="3"] .mb-sol-engine.mb-glass {
+  /* Stage 2, either run: the engine's edge brightens once while it solves. */
+  .mb-sol-fig[data-live][data-stage="2"] .mb-sol-engine.mb-glass {
     animation: mbSolSolve 940ms var(--mb-ease-standard) both;
   }
 }
@@ -987,97 +845,204 @@
   }
 }
 
-/* ---------- pillars (light) ---------- */
+/* ---------- pricing (light) ---------- */
 
-.mb-sol-pillars {
+.mb-sol-pricing {
   background: var(--mb-bg);
   padding: var(--mb-section-y) var(--mb-container-pad);
+  scroll-margin-top: 16px;
 }
-.mb-sol-pillars-head {
-  max-width: 760px;
-}
-.mb-sol-pillars-h2 {
-  color: var(--mb-ink);
-}
-.mb-sol-pillars-p {
-  margin: 18px 0 0;
-  max-width: 52ch;
-  font-size: 18px;
-  line-height: 1.65;
-  color: var(--mb-muted);
-}
-/* One pillar per ruled row: the /contact "what happens next" rule (1.5px ink)
-   over a 5/7 split — the same split the /contact columns use. */
-.mb-sol-pillar {
+/* What a plan holds: a blue check for included, a muted plus for an extra. */
+.mb-sol-plan-list {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: clamp(32px, 5vw, 72px);
-  margin-top: clamp(48px, 7vw, 84px);
-  padding-top: 28px;
-  border-top: 1.5px solid var(--mb-ink);
-  scroll-margin-top: 24px;
-}
-.mb-sol-pillar-head .mb-sol-map {
-  width: 74px;
-}
-.mb-sol-pillar-t {
-  margin: 20px 0 0;
-  font-size: clamp(26px, 2.6vw, 34px);
-  line-height: 1.12;
-  letter-spacing: -0.02em;
-  color: var(--mb-ink);
-}
-.mb-sol-pillar-d {
-  margin: 14px 0 0;
-  max-width: 44ch;
-  font-size: 17px;
-  line-height: 1.65;
-  color: var(--mb-muted);
-  text-wrap: pretty;
-}
-.mb-sol-pillar-for {
-  margin: 18px 0 0;
-  font-size: 14px;
-  line-height: 1.55;
-  color: #3c4654;
-}
-.mb-sol-pillar-for-l {
-  font-weight: 800;
-  color: var(--mb-deep-blue);
-}
-.mb-sol-caps {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: clamp(24px, 3vw, 44px);
   align-content: start;
-  margin: 0;
+  gap: 10px;
+  margin: 14px 0 0;
   padding: 0;
   list-style: none;
 }
-.mb-sol-cap {
-  padding: 20px 0 24px;
-  border-top: 1px solid var(--mb-border);
-}
-/* The first row sits directly under the pillar's ink rule — a second hairline
-   there would double it. */
-.mb-sol-cap:nth-child(-n + 2) {
-  padding-top: 0;
-  border-top: 0;
-}
-.mb-sol-cap-t {
-  margin: 0;
-  font-size: 16.5px;
-  font-weight: 800;
-  line-height: 1.3;
-  letter-spacing: -0.005em;
+.mb-sol-plan-list li {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr);
+  column-gap: 11px;
+  align-items: start;
+  font-size: 15px;
+  line-height: 1.5;
   color: var(--mb-ink);
 }
-.mb-sol-cap-d {
-  margin: 8px 0 0;
+.mb-sol-plan-list svg {
+  margin-top: 4px;
+  color: var(--mb-deep-blue);
+}
+.mb-sol-plan-list--extra svg {
+  color: var(--mb-muted);
+}
+/* How a thing is billed, under its name — the same line on the build and on
+   every subscription, so the two kinds read apart at a glance. */
+.mb-sol-bill {
+  margin: 6px 0 0;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--mb-deep-blue);
+}
+.mb-sol-list-h {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--mb-ink);
+}
+
+/* The store build — the one priced thing, so the one raised card: the /contact
+   form card's surface and shadow. Name, billing and price on the left; what it
+   includes on the right. */
+.mb-sol-build {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  background: var(--mb-surface);
+  border: 1px solid var(--mb-border);
+  border-radius: 24px;
+  box-shadow: 0 20px 48px rgba(13, 21, 34, 0.07);
+}
+.mb-sol-build-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(28px, 3.4vw, 44px);
+}
+/* The name sits a step under the price line, as on any price card: the price
+   is what the eye should land on. */
+.mb-sol-build-t {
+  margin: 0;
+  font-size: clamp(22px, 2vw, 26px);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--mb-ink);
+}
+/* Where a figure would stand — the founders quote each store. */
+.mb-sol-build-price {
+  margin: 26px 0 0;
+  font-size: clamp(30px, 3.4vw, 42px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  color: var(--mb-ink);
+}
+.mb-sol-build-main .mb-btn-primary-light {
+  margin-top: 30px;
+}
+.mb-sol-build-lists {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: 28px clamp(24px, 3vw, 40px);
+  align-content: start;
+  padding: clamp(28px, 3.4vw, 44px);
+  border-left: 1px solid var(--mb-border);
+}
+
+/* Subscriptions — three columns of one flat sheet, hairlines between: flat
+   beside the raised build card, because they are what runs after it. */
+.mb-sol-subs-h {
+  margin: clamp(56px, 7vw, 88px) 0 18px;
+  font-size: clamp(22px, 2.2vw, 28px);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--mb-ink);
+}
+.mb-sol-subs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--mb-surface);
+  border: 1px solid var(--mb-border);
+  border-radius: 24px;
+}
+.mb-sol-sub {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(26px, 2.8vw, 36px);
+}
+.mb-sol-sub + .mb-sol-sub {
+  border-left: 1px solid var(--mb-border);
+}
+/* An h4: globals.css gives only h1–h3 the display weight, so it is set here to
+   match the build card's and the services' titles. */
+.mb-sol-sub-t {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+  color: var(--mb-ink);
+}
+.mb-sol-sub-d {
+  margin: 14px 0 0;
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.55;
   color: #3c4654;
-  text-wrap: pretty;
+}
+.mb-sol-sub .mb-sol-plan-list {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--mb-border-soft);
+  align-self: stretch;
+}
+.mb-sol-sub .mb-sol-textlink {
+  margin-top: auto;
+  padding-top: 26px;
+}
+
+/* The price chart: every offering on one ruled list, its billing and its
+   price. The /contact ink rule under the column names. */
+.mb-sol-chart {
+  width: 100%;
+  margin-top: clamp(56px, 7vw, 88px);
+  border-collapse: collapse;
+  font-size: 15.5px;
+}
+.mb-sol-chart caption {
+  padding-bottom: 18px;
+  caption-side: top;
+  text-align: left;
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--mb-ink);
+}
+.mb-sol-chart th,
+.mb-sol-chart td {
+  padding: 16px 20px 16px 0;
+  border-bottom: 1px solid var(--mb-border);
+  text-align: left;
+  vertical-align: top;
+}
+.mb-sol-chart thead th {
+  padding-top: 0;
+  padding-bottom: 12px;
+  border-bottom: 1.5px solid var(--mb-ink);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--mb-muted);
+}
+.mb-sol-chart thead th:first-child {
+  width: 50%;
+}
+.mb-sol-chart thead th:nth-child(2) {
+  width: 20%;
+}
+.mb-sol-chart tbody th {
+  font-weight: 800;
+  color: var(--mb-ink);
+}
+.mb-sol-chart tbody td {
+  color: #3c4654;
+}
+.mb-sol-chart tbody td:last-child {
+  font-weight: 700;
+  color: var(--mb-ink);
 }
 
 /* The closing card — the /investors card's material with its glow mirrored to
@@ -1121,9 +1086,11 @@
 /* ---------- forced colours ----------
    The selected car and part are told apart by a tinted background and border,
    both of which the system palette flattens to one colour. A heavier border in
-   the system's own Highlight colour keeps the selection visible. */
+   the system's own Highlight colour keeps the selection visible. (0,3,1), so
+   it out-ranks the tinted rules' border-colour (0,3,0) — a bare `+ label`
+   lost it, and only the width landed. */
 @media (forced-colors: active) {
-  .mb-sol-radio:checked + label {
+  .mb-sol-radio:checked + label:is(.mb-sol-car-l, .mb-sol-tile) {
     border: 2px solid Highlight;
   }
 }
@@ -1131,34 +1098,38 @@
 /* ---------- responsive ---------- */
 
 /* The site's measured cutover (CONSTRAINTS: 1039.98px, nav + content together).
-   Below it the figure stops being a diagram and becomes a column that reads in
-   flow order — inputs, engine, outputs — joined by arrows instead of links. */
+   Below it the figure becomes a column that reads in flow order — car, engine,
+   store — joined by arrows instead of links; the services drop to two columns;
+   the build card stacks; each subscription becomes a row. */
 @media (max-width: 1039.98px) {
-  .mb-sol-intro-grid,
-  .mb-sol-pillar,
-  .mb-sol-cta {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .mb-sol-intro-grid {
-    align-items: start;
-  }
-  .mb-sol-fig-grid {
+  .mb-sol-svc-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: none;
-    grid-template-areas:
-      "cat veh"
-      "in in"
-      "eng eng"
-      "out out"
-      "store garage";
-    column-gap: 16px;
+  }
+  .mb-sol-svc:nth-child(3) {
+    border-top: 1px solid var(--mb-border);
+  }
+  .mb-sol-svc:nth-child(3n + 1),
+  .mb-sol-svc:nth-child(3n) {
+    padding-inline: 32px;
+  }
+  .mb-sol-svc:not(:nth-child(3n + 1)) {
+    border-left: 0;
+  }
+  .mb-sol-svc:nth-child(odd) {
+    padding-left: 0;
+  }
+  .mb-sol-svc:nth-child(even) {
+    padding-right: 0;
+    border-left: 1px solid var(--mb-border);
+  }
+
+  .mb-sol-fig-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "veh" "in" "eng" "out" "store";
+    align-items: stretch;
   }
   .mb-sol-link {
     display: none;
-  }
-  .mb-sol-node,
-  .mb-sol-engine.mb-glass {
-    align-self: stretch;
   }
   .mb-sol-arrow {
     position: relative;
@@ -1166,7 +1137,7 @@
     justify-self: center;
     width: 2px;
     height: 30px;
-    margin: 4px 0;
+    margin: 6px 0;
     background: linear-gradient(rgba(91, 155, 247, 0.15), rgba(91, 155, 247, 0.7));
   }
   .mb-sol-arrow::after {
@@ -1191,27 +1162,123 @@
   .mb-sol-arrow--out::after {
     border-color: #10b981;
   }
-  .mb-sol-rail {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 18px;
+
+  .mb-sol-build {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mb-sol-build-lists {
+    border-top: 1px solid var(--mb-border);
+    border-left: 0;
+  }
+  .mb-sol-subs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mb-sol-sub + .mb-sol-sub {
+    border-top: 1px solid var(--mb-border);
+    border-left: 0;
+  }
+  /* A row is wide here: name, billing, line and link on the left, the list on
+     the right, so a subscription does not become a long thin column. */
+  .mb-sol-sub {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-areas:
+      "t list"
+      "bill list"
+      "d list"
+      "link list";
+    grid-template-rows: auto auto auto 1fr;
+    column-gap: 36px;
+    align-items: start;
+  }
+  .mb-sol-sub-t {
+    grid-area: t;
+  }
+  .mb-sol-sub .mb-sol-bill {
+    grid-area: bill;
+  }
+  .mb-sol-sub-d {
+    grid-area: d;
+  }
+  .mb-sol-sub .mb-sol-plan-list {
+    grid-area: list;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+  .mb-sol-sub .mb-sol-textlink {
+    grid-area: link;
+    justify-self: start;
+    align-self: end;
+  }
+
+  .mb-sol-cta {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
+
 @media (max-width: 639.98px) {
-  .mb-sol-caps {
+  .mb-sol-svc-grid {
     grid-template-columns: minmax(0, 1fr);
   }
-  .mb-sol-cap:nth-child(2) {
-    padding-top: 20px;
+  .mb-sol-svc:nth-child(n) {
+    padding: 26px 0 30px;
+    border-left: 0;
+  }
+  .mb-sol-svc:nth-child(n + 2) {
     border-top: 1px solid var(--mb-border);
   }
-  .mb-sol-index {
-    padding: 22px 20px 8px;
-  }
-  .mb-sol-fig-grid {
+
+  .mb-sol-build-lists {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "cat" "veh" "in" "eng" "out" "store" "garage";
   }
-  .mb-sol-rail {
-    grid-template-columns: minmax(0, 1fr);
+  .mb-sol-sub {
+    display: flex;
+  }
+  .mb-sol-sub .mb-sol-plan-list {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--mb-border-soft);
+  }
+  .mb-sol-sub .mb-sol-textlink {
+    align-self: flex-start;
+  }
+
+  /* A billing column wide enough that "One-time" never breaks at its hyphen. */
+  .mb-sol-chart {
+    font-size: 13.5px;
+  }
+  .mb-sol-chart th,
+  .mb-sol-chart td {
+    padding-right: 12px;
+  }
+  .mb-sol-chart thead th:first-child {
+    width: 40%;
+  }
+  .mb-sol-chart thead th:nth-child(2) {
+    width: 24%;
+  }
+
+  /* Full-width actions, each on one line: the Early Adopters label is the
+     longest on the page and otherwise wraps inside its pill. */
+  .mb-sol-cta {
+    padding: 36px 24px;
+  }
+  .mb-sol-cta-btns > a {
+    display: flex;
+    flex: 1 1 100%;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding-inline: 16px;
+    text-align: center;
+  }
+}
+
+/* The homepage hero's small-phone step (landing.css, 479.98px: .mb-hero-h1
+   32px, .mb-h2 29px), so the Indonesian title stays at four lines. */
+@media (max-width: 479.98px) {
+  .mb-sol-h1 {
+    font-size: 32px;
   }
 }

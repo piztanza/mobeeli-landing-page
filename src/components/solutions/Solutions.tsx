@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 import { PLATFORM_URL } from "@/components/landing/Nav";
 import type { CopyKey } from "@/lib/i18n";
@@ -12,171 +13,205 @@ import FitmentFlow from "./FitmentFlow";
 // the CONSTRAINTS "Modules" trap in waiting on a case-insensitive filesystem.
 import "./solutions-page.css";
 
-/** The five places in the fitment flow a product can occupy — the same five
- *  nodes the explainer draws, so each pillar's map glyph points at its node. */
-type FlowNode = "cat" | "veh" | "eng" | "store" | "garage";
+type ServiceIcon = "store" | "catalog" | "link" | "plugin" | "data" | "search";
 
-interface Pillar {
-  id: string;
-  title: CopyKey;
-  short: CopyKey;
-  desc: CopyKey;
-  audience: CopyKey;
-  caps: readonly (readonly [title: CopyKey, desc: CopyKey])[];
-  lit: readonly FlowNode[];
-}
+/** The services a parts business can buy today — only what is ready (founder
+ *  2026-10-31). Fitment and the vehicle data stay the thread through all six. */
+const SERVICES: readonly { title: CopyKey; desc: CopyKey; icon: ServiceIcon }[] = [
+  { title: "sol_svc1_t", desc: "sol_svc1_d", icon: "store" },
+  { title: "sol_svc2_t", desc: "sol_svc2_d", icon: "catalog" },
+  { title: "sol_svc3_t", desc: "sol_svc3_d", icon: "link" },
+  { title: "sol_svc4_t", desc: "sol_svc4_d", icon: "plugin" },
+  { title: "sol_svc5_t", desc: "sol_svc5_d", icon: "data" },
+  { title: "sol_svc6_t", desc: "sol_svc6_d", icon: "search" },
+];
 
-/** The founder brief's order: the data first, because everything else reads it. */
-const PILLARS: readonly Pillar[] = [
+const BUILD_INCLUDED: readonly CopyKey[] = [
+  "sol_build_i1",
+  "sol_build_i2",
+  "sol_build_i3",
+  "sol_build_i4",
+  "sol_build_i5",
+];
+
+const BUILD_EXTRAS: readonly CopyKey[] = ["sol_build_e1", "sol_build_e2"];
+
+/** Monthly subscriptions. The API card names the three API services by their
+ *  own titles, so the page calls each thing one way throughout. */
+const SUBSCRIPTIONS: readonly { title: CopyKey; desc: CopyKey; items: readonly CopyKey[] }[] = [
   {
-    id: "vehicle-data",
-    title: "sol_p1_t",
-    short: "sol_p1_short",
-    desc: "sol_p1_d",
-    audience: "sol_p1_for",
-    caps: [
-      ["sol_p1_c1_t", "sol_p1_c1_d"],
-      ["sol_p1_c2_t", "sol_p1_c2_d"],
-      ["sol_p1_c3_t", "sol_p1_c3_d"],
-      ["sol_p1_c4_t", "sol_p1_c4_d"],
-    ],
-    lit: ["veh"],
+    title: "sol_sub1_t",
+    desc: "sol_sub1_d",
+    items: ["sol_sub1_i1", "sol_sub1_i2", "sol_sub1_i3", "sol_sub1_i4"],
   },
+  { title: "sol_sub2_t", desc: "sol_sub2_d", items: ["sol_sub2_i1", "sol_sub2_i2", "sol_sub2_i3"] },
   {
-    id: "fitment-search",
-    title: "sol_p2_t",
-    short: "sol_p2_short",
-    desc: "sol_p2_d",
-    audience: "sol_p2_for",
-    caps: [
-      ["sol_p2_c1_t", "sol_p2_c1_d"],
-      ["sol_p2_c2_t", "sol_p2_c2_d"],
-      ["sol_p2_c3_t", "sol_p2_c3_d"],
-      ["sol_p2_c4_t", "sol_p2_c4_d"],
-    ],
-    lit: ["eng", "garage"],
-  },
-  {
-    id: "catalogs",
-    title: "sol_p3_t",
-    short: "sol_p3_short",
-    desc: "sol_p3_d",
-    audience: "sol_p3_for",
-    caps: [
-      ["sol_p3_c1_t", "sol_p3_c1_d"],
-      ["sol_p3_c2_t", "sol_p3_c2_d"],
-      ["sol_p3_c3_t", "sol_p3_c3_d"],
-      ["sol_p3_c4_t", "sol_p3_c4_d"],
-    ],
-    lit: ["cat"],
-  },
-  {
-    id: "storefronts",
-    title: "sol_p4_t",
-    short: "sol_p4_short",
-    desc: "sol_p4_d",
-    audience: "sol_p4_for",
-    caps: [
-      ["sol_p4_c1_t", "sol_p4_c1_d"],
-      ["sol_p4_c2_t", "sol_p4_c2_d"],
-      ["sol_p4_c3_t", "sol_p4_c3_d"],
-      ["sol_p4_c4_t", "sol_p4_c4_d"],
-    ],
-    lit: ["store"],
+    title: "sol_sub3_t",
+    desc: "sol_sub3_d",
+    items: ["sol_svc3_t", "sol_svc4_t", "sol_svc5_t", "sol_sub3_i4"],
   },
 ];
 
-/** Node boxes of the map glyph (viewBox 0 0 88 36): two inputs, the engine, two outputs. */
-const MAP_NODES: Record<FlowNode, { x: number; y: number; w: number; h: number }> = {
-  cat: { x: 1, y: 4, w: 17, h: 10 },
-  veh: { x: 1, y: 22, w: 17, h: 10 },
-  eng: { x: 35.5, y: 7, w: 17, h: 22 },
-  store: { x: 70, y: 4, w: 17, h: 10 },
-  garage: { x: 70, y: 22, w: 17, h: 10 },
-};
+/** The price chart: every offering, how it is billed, and its price. No
+ *  figures — the build is quoted per store and the rest is "talk to our team"
+ *  (founder 2026-10-31), which also keeps CLAUDE.md's no-fee rule. */
+const CHART: readonly (readonly [service: CopyKey, billing: CopyKey, price: CopyKey])[] = [
+  ["sol_build_t", "sol_bill_once", "sol_build_price"],
+  ["sol_sub1_t", "sol_bill_month", "sol_cta_talk"],
+  ["sol_sub2_t", "sol_bill_month", "sol_cta_talk"],
+  ["sol_svc3_t", "sol_bill_month", "sol_cta_talk"],
+  ["sol_svc4_t", "sol_bill_month", "sol_cta_talk"],
+  ["sol_svc5_t", "sol_bill_month", "sol_cta_talk"],
+];
 
-/**
- * Where a product sits in the fitment flow — a thumbnail of the explainer's
- * own topology with the product's node(s) lit. Information, not ornament: it is
- * how a pillar points back at the figure. Decorative to assistive tech, since
- * the pillar's heading already names the product.
- */
-function FlowMap({ lit }: { lit: readonly FlowNode[] }) {
+/** Line icons on the 24-unit grid, stroke from currentColor (PlatformFlow's set). */
+function ServiceGlyph({ icon }: { icon: ServiceIcon }) {
+  const paths: Record<ServiceIcon, ReactNode> = {
+    store: (
+      <>
+        <path d="M4 9h16v11H4z" />
+        <path d="M4 9 6 4h12l2 5" />
+        <path d="M10 20v-5h4v5" />
+      </>
+    ),
+    catalog: (
+      <>
+        <path d="M8 3.5h9.5l2.5 2.5v13.5H8z" />
+        <path d="M17.5 3.5V6H20" />
+        <path d="M4.5 7v13.5h12" />
+        <path d="M11 10h6M11 13.5h6M11 17h3.5" />
+      </>
+    ),
+    link: (
+      <>
+        <path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1" />
+        <path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1" />
+      </>
+    ),
+    plugin: (
+      <>
+        <path d="M9 3v5M15 3v5" />
+        <path d="M6 8h12v3a6 6 0 0 1-12 0z" />
+        <path d="M12 17v4" />
+      </>
+    ),
+    data: (
+      <>
+        <ellipse cx="12" cy="5.8" rx="7" ry="2.6" />
+        <path d="M5 5.8v12.4c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6V5.8" />
+        <path d="M5 12c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6" />
+      </>
+    ),
+    search: (
+      <>
+        <circle cx="11" cy="11" r="6.5" />
+        <path d="m20 20-4.2-4.2" />
+      </>
+    ),
+  };
   return (
-    <svg className="mb-sol-map" viewBox="0 0 88 36" aria-hidden focusable="false">
-      <path
-        className="mb-sol-map-link"
-        d="M18 9C27 9 26.5 18 35.5 18M18 27C27 27 26.5 18 35.5 18M52.5 18C61.5 18 61 9 70 9M52.5 18C61.5 18 61 27 70 27"
-      />
-      {(Object.keys(MAP_NODES) as FlowNode[]).map((node) => {
-        const box = MAP_NODES[node];
-        return (
-          <rect
-            key={node}
-            className={`mb-sol-map-node${lit.includes(node) ? " is-lit" : ""}`}
-            x={box.x}
-            y={box.y}
-            width={box.w}
-            height={box.h}
-            rx={node === "eng" ? 4 : 2.5}
-          />
-        );
-      })}
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+      focusable="false"
+    >
+      {paths[icon]}
     </svg>
   );
 }
 
+/** A list of what a plan holds: a check for included, a plus for an extra. */
+function PlanList({ items, extra = false }: { items: readonly CopyKey[]; extra?: boolean }) {
+  const t = useT();
+  return (
+    <ul className={`mb-sol-plan-list${extra ? " mb-sol-plan-list--extra" : ""}`}>
+      {items.map((key) => (
+        <li key={key}>
+          <svg
+            viewBox="0 0 16 16"
+            width="14"
+            height="14"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+            focusable="false"
+          >
+            {extra ? <path d="M8 3.5v9M3.5 8h9" /> : <path d="m3.5 8.4 2.9 2.9 6-6.3" />}
+          </svg>
+          {t(key)}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /**
- * /solutions — what Mobeeli provides (2026-10-31). Three bands in the site's
- * light → dark → light rhythm: the intro with a product index, the dark
- * fitment-flow band (the page's one orchestrated motion moment), and the four
- * pillars closing on a dark CTA card (the /investors card's pattern).
- *
- * The pillars are typographic rows under a ruled head — the /contact page's
- * "what happens next" vocabulary — not another set of cards: the glass and the
- * motion are spent on the explainer, and everything around it stays quiet.
+ * /solutions — Mobeeli's SaaS page (2026-10-31, decongested the same day).
+ * Four bands in the site's light → dark → light rhythm: a short centred hero;
+ * six services in one ruled panel; the dark fitment-flow band (the page's one
+ * orchestrated motion moment); and pricing — the one-time store build, three
+ * monthly subscriptions and a price chart — closing on the /investors card's
+ * pattern. One idea per band, one sentence per service: the first version
+ * stacked an index card, a five-panel figure and sixteen capability blurbs,
+ * and read as congested.
  */
 export default function Solutions() {
   const t = useT();
   return (
     <>
-      <section id="solutions" className="mb-sol-intro">
-        <div className="mb-sol-intro-grid">
-          <div className="mb-sol-intro-main">
-            <div data-rev="0" className="mb-kicker">
-              {t("sol_kicker")}
-            </div>
-            <h1 data-rev="1" className="mb-sol-h1">
-              {t("sol_h1")}
-            </h1>
-            <p data-rev="2" className="mb-sol-lede">
-              {t("sol_lede")}
-            </p>
-            <div data-rev="3" className="mb-sol-ctas">
-              <Link href="/contact" className="mb-btn-primary-light mb-btn-spring">
-                {t("sol_cta_talk")}
-              </Link>
-              <a href="#fitment-flow" className="mb-sol-textlink mb-link-underline">
-                {t("sol_cta_flow")}
-              </a>
-            </div>
+      <section id="solutions" className="mb-sol-hero">
+        <div className="mb-sol-hero-inner">
+          <div data-rev="0" className="mb-kicker">
+            {t("sol_kicker")}
           </div>
-          <nav data-rev="2" className="mb-sol-index" aria-labelledby="mb-sol-index-h">
-            <h2 id="mb-sol-index-h" className="mb-sol-index-h">
-              {t("sol_index_h")}
+          <h1 data-rev="1" className="mb-sol-h1">
+            {t("sol_h1")}
+          </h1>
+          <p data-rev="2" className="mb-sol-lede">
+            {t("sol_lede")}
+          </p>
+          <div data-rev="3" className="mb-sol-ctas">
+            <Link href="/contact" className="mb-btn-primary-light mb-btn-spring">
+              {t("sol_cta_talk")}
+            </Link>
+            <a href="#pricing" className="mb-sol-textlink mb-link-underline">
+              {t("sol_cta_pricing")}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" className="mb-sol-services" aria-labelledby="mb-sol-svc-h">
+        <div className="mb-section-inner">
+          <header className="mb-sol-head">
+            <div data-rev="0" className="mb-kicker">
+              {t("sol_svc_kicker")}
+            </div>
+            <h2 id="mb-sol-svc-h" data-rev="1" className="mb-h2 mb-sol-h2">
+              {t("sol_svc_h2")}
             </h2>
-            <ul className="mb-sol-index-list">
-              {PILLARS.map((p) => (
-                <li key={p.id}>
-                  <a href={`#${p.id}`} className="mb-sol-index-row">
-                    <FlowMap lit={p.lit} />
-                    <span className="mb-sol-index-t">{t(p.title)}</span>
-                    <span className="mb-sol-index-s">{t(p.short)}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          </header>
+          <ul data-rev="2" className="mb-sol-svc-grid">
+            {SERVICES.map((s) => (
+              <li key={s.title} className="mb-sol-svc">
+                <span className="mb-sol-svc-i">
+                  <ServiceGlyph icon={s.icon} />
+                </span>
+                <h3 className="mb-sol-svc-t">{t(s.title)}</h3>
+                <p className="mb-sol-svc-d">{t(s.desc)}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -197,45 +232,78 @@ export default function Solutions() {
         </div>
       </section>
 
-      <section className="mb-sol-pillars" aria-labelledby="mb-sol-pillars-h">
+      <section id="pricing" className="mb-sol-pricing" aria-labelledby="mb-sol-price-h">
         <div className="mb-section-inner">
-          <header className="mb-sol-pillars-head">
+          <header className="mb-sol-head">
             <div data-rev="0" className="mb-kicker">
-              {t("sol_pillars_kicker")}
+              {t("sol_price_kicker")}
             </div>
-            <h2 id="mb-sol-pillars-h" data-rev="1" className="mb-h2 mb-sol-pillars-h2">
-              {t("sol_pillars_h2")}
+            <h2 id="mb-sol-price-h" data-rev="1" className="mb-h2 mb-sol-h2">
+              {t("sol_price_h2")}
             </h2>
-            <p data-rev="2" className="mb-sol-pillars-p">
-              {t("sol_pillars_p")}
+            <p data-rev="2" className="mb-sol-head-p">
+              {t("sol_price_p")}
             </p>
           </header>
 
-          {PILLARS.map((p) => (
-            <article key={p.id} id={p.id} className="mb-sol-pillar" aria-labelledby={`${p.id}-t`}>
-              <div data-rev="0" className="mb-sol-pillar-head">
-                <FlowMap lit={p.lit} />
-                <h3 id={`${p.id}-t`} className="mb-sol-pillar-t">
-                  {t(p.title)}
-                </h3>
-                <p className="mb-sol-pillar-d">{t(p.desc)}</p>
-                <p className="mb-sol-pillar-for">
-                  <span className="mb-sol-pillar-for-l">{t("sol_for_label")}</span> {t(p.audience)}
-                </p>
+          <div data-rev="0" className="mb-sol-build">
+            <div className="mb-sol-build-main">
+              <h3 className="mb-sol-build-t">{t("sol_build_t")}</h3>
+              <p className="mb-sol-bill">{t("sol_build_billing")}</p>
+              <p className="mb-sol-build-price">{t("sol_build_price")}</p>
+              <Link href="/contact" className="mb-btn-primary-light mb-btn-spring">
+                {t("sol_cta_talk")}
+              </Link>
+            </div>
+            <div className="mb-sol-build-lists">
+              <div>
+                <h4 className="mb-sol-list-h">{t("sol_build_inc_h")}</h4>
+                <PlanList items={BUILD_INCLUDED} />
               </div>
-              <ul data-rev="1" className="mb-sol-caps">
-                {p.caps.map(([capT, capD]) => (
-                  <li key={capT} className="mb-sol-cap">
-                    <h4 className="mb-sol-cap-t">{t(capT)}</h4>
-                    <p className="mb-sol-cap-d">{t(capD)}</p>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
+              <div>
+                <h4 className="mb-sol-list-h">{t("sol_build_ext_h")}</h4>
+                <PlanList items={BUILD_EXTRAS} extra />
+              </div>
+            </div>
+          </div>
+
+          <h3 className="mb-sol-subs-h">{t("sol_sub_h")}</h3>
+          <ul data-rev="0" className="mb-sol-subs">
+            {SUBSCRIPTIONS.map((sub) => (
+              <li key={sub.title} className="mb-sol-sub">
+                <h4 className="mb-sol-sub-t">{t(sub.title)}</h4>
+                <p className="mb-sol-bill">{t("sol_sub_billing")}</p>
+                <p className="mb-sol-sub-d">{t(sub.desc)}</p>
+                <PlanList items={sub.items} />
+                <Link href="/contact" className="mb-sol-textlink mb-link-underline">
+                  {t("sol_cta_talk")}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <table className="mb-sol-chart">
+            <caption>{t("sol_chart_h")}</caption>
+            <thead>
+              <tr>
+                <th scope="col">{t("sol_chart_col_svc")}</th>
+                <th scope="col">{t("sol_chart_col_bill")}</th>
+                <th scope="col">{t("sol_chart_col_price")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {CHART.map(([service, billing, price]) => (
+                <tr key={service}>
+                  <th scope="row">{t(service)}</th>
+                  <td>{t(billing)}</td>
+                  <td>{t(price)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
           <div data-rev="0" className="mb-sol-cta">
-            <div className="mb-sol-cta-copy">
+            <div>
               <h2 className="mb-sol-cta-h">{t("sol_cta_h")}</h2>
               <p className="mb-sol-cta-p">{t("sol_cta_p")}</p>
             </div>
