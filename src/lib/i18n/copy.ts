@@ -267,22 +267,34 @@ const en = {
   plat_a11y:
     "Brands, distributors and stores send parts data in any format to the Mobeeli platform, which verifies it. Stores, mechanics and drivers then receive one clean, verified catalog.",
 
-  /* /solutions (2026-10-31, decongested the same day) — Mobeeli's SaaS page:
-     what a parts business can buy, how fitment works, and how it is priced.
-     Founder decisions behind the copy: only services that are ready today; a
-     store build is a one-time flat fee, quoted per store; maintenance, SEO and
-     the APIs are monthly subscriptions with no prices shown ("talk to our
-     team"); SaaS stores list their stock on the Mobeeli marketplace by default;
-     API access is lookups only, set up by Mobeeli — the database never leaves
-     it. Copy rules held: no fee figures, no marketplace or competitor names, no
-     guarantee or ranking promises, catalogs are always the seller's own files.
+  /* /solutions (2026-10-31) — Mobeeli's SaaS page: what a parts business can
+     buy, how fitment works, and the packages it comes in. Founder decisions
+     behind the copy: only services that are ready today; store builds come in
+     three packages by size and NEVER show a price ("talk to our team");
+     maintenance, SEO and the APIs are monthly subscriptions, also unpriced; SaaS
+     stores list their stock on the Mobeeli marketplace by default; API access is
+     lookups only, set up by Mobeeli — the database never leaves it. Copy rules
+     held: no fee figures, no marketplace or competitor names, no guarantee or
+     ranking promises, catalogs are always the seller's own files.
      DRAFT WORDING — founder approves EN and confirms ID. */
   sol_kicker: "Solutions",
   sol_h1: "Your auto parts store, built and run by Mobeeli.",
   sol_lede:
     "A dedicated store with Indonesian fitment data built in, kept running by our team — plus catalog connections, SEO and APIs as you grow.",
   sol_cta_talk: "Talk to our team",
-  sol_cta_pricing: "See pricing",
+  sol_cta_packages: "See packages",
+  /* The hero's sample store: a composite of the store UI and the parts
+     cut-outs, read out as one image (sol_art_label) and tagged as a sample. The
+     car is the homepage demo's own 2024 Avanza; part names are generic. */
+  sol_art_label:
+    "A sample Mobeeli store: the shopper's car is saved in My Garage, and every part shows that it fits.",
+  sol_art_tag: "Sample store",
+  sol_art_search: "Search parts for your car",
+  sol_art_car: "Avanza 1.5 G 2024",
+  sol_art_p1: "Brake disc",
+  sol_art_p2: "Oil filter",
+  sol_art_p3: "Spark plug",
+  sol_art_check: "Checked against your car",
   sol_svc_kicker: "Services",
   sol_svc_h2: "One vehicle database behind every service.",
   sol_svc1_t: "Dedicated auto stores",
@@ -306,13 +318,29 @@ const en = {
   sol_flow_h2: "Every part is checked against the car before a shopper sees it.",
   sol_flow_p:
     "Pick a car, then a part. The fitment engine runs the same checks your store runs for every shopper.",
-  sol_price_kicker: "Pricing",
-  sol_price_h2: "Build once. Subscribe to the rest.",
-  sol_price_p: "Every store is quoted for the business it serves.",
-  sol_build_t: "Store build",
-  sol_build_billing: "One-time flat fee",
-  sol_build_price: "Quoted per store",
-  sol_build_inc_h: "Included",
+  /* Packages: three store tiers by size (founder, 2026-10-31). Each card names
+     who it is for, its catalog allowance and what it adds; the comparison table
+     below lists every feature (sol_build_i*, sol_build_e*, sol_cmp_terms). */
+  sol_pkg_kicker: "Packages",
+  sol_pkg_h2: "A store package for every size of parts business.",
+  sol_pkg_p:
+    "Every package is built by our team and quoted for your catalog. Tell us what you sell and we'll send the quote.",
+  sol_tier_bill: "One-time store build",
+  sol_tier_base: "The full store, including",
+  sol_tier_plus: "Everything in {tier}, plus",
+  sol_tier1_t: "Starter",
+  sol_tier1_for: "For one store going online.",
+  sol_tier1_cat: "Up to about 500 parts",
+  sol_tier1_l3: "Orders, quotes, promotions and courier rates",
+  sol_tier2_t: "Growth",
+  sol_tier2_for: "For bigger catalogs and stores with a workshop.",
+  sol_tier2_cat: "Up to about 5,000 parts",
+  sol_tier3_t: "Scale",
+  sol_tier3_for: "For distributors and brands.",
+  sol_tier3_cat: "Large catalogs, quoted by size",
+  sol_tier3_l3: "Stock across branches, by arrangement",
+  sol_pkg_note:
+    "Every store runs on a monthly Maintenance subscription: hosting, security, catalog upkeep and support.",
   sol_build_i1: "A dedicated store on your brand",
   sol_build_i2: "Catalog setup from your own files",
   sol_build_i3: "Fitment search, My Garage and verified-fit badges",
@@ -325,34 +353,56 @@ const en = {
   sol_build_i8: "Courier rates at checkout, with pickup and tracking",
   sol_build_i9: "Sales and stock reports",
   sol_build_i10: "Team accounts for your staff",
-  sol_build_ext_h: "Optional extras",
   sol_build_e1: "Workshop bay booking",
   sol_build_e2: "Stock across every branch",
   sol_sub_h: "Subscriptions",
   sol_sub_billing: "Monthly subscription",
   sol_sub1_t: "Maintenance",
   sol_sub1_d: "Keeps your store running and current.",
-  sol_sub1_i1: "Hosting and security",
-  sol_sub1_i2: "Catalog upkeep: new products, prices and fitment",
-  sol_sub1_i3: "Support on WhatsApp and email",
-  sol_sub1_i4: "New features as they ship",
+  sol_sub1_lv1_t: "Standard",
+  sol_sub1_lv1_d:
+    "Hosting and security, catalog upkeep, support on WhatsApp and email, and new features as they ship.",
+  sol_sub1_lv2_t: "Plus",
+  sol_sub1_lv2_d:
+    "For bigger catalogs and branches: more catalog updates each month and priority support.",
   sol_sub2_t: "SEO and AI SEO",
   sol_sub2_d: "Helps buyers find your store.",
-  sol_sub2_i1: "Pages structured for search engines",
-  sol_sub2_i2: "Answers AI assistants can read and cite",
-  sol_sub2_i3: "Built around your brand, area and catalog",
+  sol_sub2_lv1_t: "SEO",
+  sol_sub2_lv1_d: "Pages structured for search engines, built around your brand, area and catalog.",
+  sol_sub2_lv2_t: "SEO and AI SEO",
+  sol_sub2_lv2_d:
+    "Everything in SEO, plus answers AI assistants can read and cite, tracked against a starting baseline.",
   sol_sub3_t: "APIs",
-  sol_sub3_d: "Connections set up and managed by our team.",
+  sol_sub3_d: "Connections set up and managed by our team, tiered by monthly lookups.",
   sol_sub3_i4: "Lookups only: the database stays with Mobeeli",
-  sol_chart_h: "Price chart",
-  sol_chart_col_svc: "Service",
-  sol_chart_col_bill: "Billing",
-  sol_chart_col_price: "Price",
-  sol_bill_once: "One-time",
-  sol_bill_month: "Monthly",
+  sol_cmp_h: "Compare packages",
+  sol_cmp_col: "Feature",
+  sol_cmp_yes: "Included",
+  sol_cmp_no: "Not included",
+  sol_cmp_arr: "By arrangement",
+  sol_cmp_terms: "Payment terms for workshops and business buyers",
   sol_cta_h: "Tell us about your store.",
   sol_cta_p:
     "Send us your catalog or tell us what you sell. A founder follows up personally with a quote.",
+  /* The FAQ answers what the page leaves open — why no prices, what to send —
+     and restates two founder rules: marketplace listing on by default, and API
+     access as lookups only. */
+  sol_faq_h2: "Questions before you start.",
+  sol_faq1_q: "Why are there no prices on this page?",
+  sol_faq1_a:
+    "Every store is different: how many parts you sell, how your stock is recorded and how many branches you run. Tell us about your business and a founder sends you a quote for the package that fits.",
+  sol_faq2_q: "What do I need to send you to start?",
+  sol_faq2_a:
+    "Whatever you already use: price lists, spec sheets, Excel files or photos of your ledger. We turn them into a catalog mapped to Indonesian cars.",
+  sol_faq3_q: "Do my products also show on the Mobeeli marketplace?",
+  sol_faq3_a:
+    "Yes, from the start. Your store's stock is listed on the Mobeeli marketplace too, so shoppers there can find it.",
+  sol_faq4_q: "I already have a website. Can you add fitment search to it?",
+  sol_faq4_a:
+    "Yes. The fitment search plugin adds My Garage and verified-fit badges to a store built elsewhere, and our team sets up the connection.",
+  sol_faq5_q: "Who keeps the vehicle data?",
+  sol_faq5_a:
+    "Mobeeli does. Stores and partners get lookups only; the vehicle database itself never leaves Mobeeli.",
   /* The fitment-flow explainer, three panels: the car (from the vehicle data),
      the fitment engine, and the store with My Garage. The verdict chips reuse
      cat_part_verified / cat_chip_unfit so the site says "fits" one way
@@ -979,7 +1029,16 @@ const id: Record<CopyKey, string> = {
   sol_lede:
     "Toko khusus dengan data fitment Indonesia di dalamnya, dirawat oleh tim kami — ditambah koneksi katalog, SEO, dan API seiring bisnis Anda tumbuh.",
   sol_cta_talk: "Bicara dengan tim kami",
-  sol_cta_pricing: "Lihat harga",
+  sol_cta_packages: "Lihat paket",
+  sol_art_label:
+    "Contoh toko Mobeeli: mobil pembeli tersimpan di Garasi Saya, dan setiap suku cadang menunjukkan bahwa ia cocok.",
+  sol_art_tag: "Contoh toko",
+  sol_art_search: "Cari suku cadang untuk mobil Anda",
+  sol_art_car: "Avanza 1.5 G 2024",
+  sol_art_p1: "Cakram rem",
+  sol_art_p2: "Filter oli",
+  sol_art_p3: "Busi",
+  sol_art_check: "Dicek terhadap mobil Anda",
   sol_svc_kicker: "Layanan",
   sol_svc_h2: "Satu basis data kendaraan di balik setiap layanan.",
   sol_svc1_t: "Toko otomotif khusus",
@@ -1003,13 +1062,28 @@ const id: Record<CopyKey, string> = {
   sol_flow_h2: "Setiap suku cadang dicek terhadap mobilnya sebelum pembeli melihatnya.",
   sol_flow_p:
     "Pilih mobil, lalu suku cadang. Mesin fitment menjalankan pengecekan yang sama dengan yang dijalankan toko Anda untuk setiap pembeli.",
-  sol_price_kicker: "Harga",
-  sol_price_h2: "Bangun sekali. Sisanya berlangganan.",
-  sol_price_p: "Setiap toko dihitung sesuai bisnis yang dilayaninya.",
-  sol_build_t: "Pembuatan toko",
-  sol_build_billing: "Biaya tetap, sekali bayar",
-  sol_build_price: "Dihitung per toko",
-  sol_build_inc_h: "Sudah termasuk",
+  /* Package names stay English (Starter, Growth, Scale), as Indonesian SaaS
+     plans commonly do; "tempo" is the trade's own word for payment terms. */
+  sol_pkg_kicker: "Paket",
+  sol_pkg_h2: "Paket toko untuk setiap skala bisnis suku cadang.",
+  sol_pkg_p:
+    "Setiap paket dibangun oleh tim kami dan dihitung sesuai katalog Anda. Ceritakan apa yang Anda jual, dan kami kirimkan penawarannya.",
+  sol_tier_bill: "Pembuatan toko, sekali bayar",
+  sol_tier_base: "Toko lengkap, termasuk",
+  sol_tier_plus: "Semua di {tier}, ditambah",
+  sol_tier1_t: "Starter",
+  sol_tier1_for: "Untuk satu toko yang mulai berjualan online.",
+  sol_tier1_cat: "Hingga sekitar 500 suku cadang",
+  sol_tier1_l3: "Pesanan, penawaran harga, promo, dan tarif kurir",
+  sol_tier2_t: "Growth",
+  sol_tier2_for: "Untuk katalog yang lebih besar dan toko yang punya bengkel.",
+  sol_tier2_cat: "Hingga sekitar 5.000 suku cadang",
+  sol_tier3_t: "Scale",
+  sol_tier3_for: "Untuk distributor dan merek.",
+  sol_tier3_cat: "Katalog besar, dihitung sesuai ukurannya",
+  sol_tier3_l3: "Stok di berbagai cabang, sesuai kesepakatan",
+  sol_pkg_note:
+    "Setiap toko berjalan dengan langganan Pemeliharaan bulanan: hosting, keamanan, perawatan katalog, dan dukungan.",
   sol_build_i1: "Toko khusus dengan merek Anda",
   sol_build_i2: "Penyusunan katalog dari file Anda sendiri",
   sol_build_i3: "Pencarian fitment, Garasi Saya, dan lencana dipastikan cocok",
@@ -1020,34 +1094,55 @@ const id: Record<CopyKey, string> = {
   sol_build_i8: "Tarif kurir saat checkout, dengan penjemputan paket dan pelacakan",
   sol_build_i9: "Laporan penjualan dan stok",
   sol_build_i10: "Akun tim untuk staf Anda",
-  sol_build_ext_h: "Tambahan opsional",
   sol_build_e1: "Booking bay bengkel",
   sol_build_e2: "Stok di semua cabang",
   sol_sub_h: "Langganan",
   sol_sub_billing: "Langganan bulanan",
   sol_sub1_t: "Pemeliharaan",
   sol_sub1_d: "Menjaga toko Anda tetap berjalan dan mutakhir.",
-  sol_sub1_i1: "Hosting dan keamanan",
-  sol_sub1_i2: "Perawatan katalog: produk baru, harga, dan fitment",
-  sol_sub1_i3: "Dukungan lewat WhatsApp dan email",
-  sol_sub1_i4: "Fitur baru begitu dirilis",
+  sol_sub1_lv1_t: "Standar",
+  sol_sub1_lv1_d:
+    "Hosting dan keamanan, perawatan katalog, dukungan lewat WhatsApp dan email, serta fitur baru begitu dirilis.",
+  sol_sub1_lv2_t: "Plus",
+  sol_sub1_lv2_d:
+    "Untuk katalog dan cabang yang lebih banyak: lebih banyak pembaruan katalog setiap bulan dan dukungan prioritas.",
   sol_sub2_t: "SEO dan AI SEO",
   sol_sub2_d: "Membantu pembeli menemukan toko Anda.",
-  sol_sub2_i1: "Halaman yang tersusun untuk mesin pencari",
-  sol_sub2_i2: "Jawaban yang bisa dibaca dan dikutip asisten AI",
-  sol_sub2_i3: "Disusun dari merek, wilayah, dan katalog Anda",
+  sol_sub2_lv1_t: "SEO",
+  sol_sub2_lv1_d:
+    "Halaman yang tersusun untuk mesin pencari, disusun dari merek, wilayah, dan katalog Anda.",
+  sol_sub2_lv2_t: "SEO dan AI SEO",
+  sol_sub2_lv2_d:
+    "Semua di SEO, ditambah jawaban yang bisa dibaca dan dikutip asisten AI, dipantau dari titik awal yang disepakati.",
   sol_sub3_t: "API",
-  sol_sub3_d: "Koneksi dipasang dan dikelola oleh tim kami.",
+  sol_sub3_d:
+    "Koneksi dipasang dan dikelola oleh tim kami, bertingkat sesuai jumlah pencarian per bulan.",
   sol_sub3_i4: "Hanya pencarian: basis data tetap di Mobeeli",
-  sol_chart_h: "Daftar harga",
-  sol_chart_col_svc: "Layanan",
-  sol_chart_col_bill: "Penagihan",
-  sol_chart_col_price: "Harga",
-  sol_bill_once: "Sekali bayar",
-  sol_bill_month: "Bulanan",
+  sol_cmp_h: "Bandingkan paket",
+  sol_cmp_col: "Fitur",
+  sol_cmp_yes: "Termasuk",
+  sol_cmp_no: "Tidak termasuk",
+  sol_cmp_arr: "Sesuai kesepakatan",
+  sol_cmp_terms: "Pembayaran tempo untuk bengkel dan pembeli bisnis",
   sol_cta_h: "Ceritakan tentang toko Anda.",
   sol_cta_p:
     "Kirim katalog Anda atau ceritakan apa yang Anda jual. Salah satu founder akan menghubungi Anda langsung dengan penawaran.",
+  sol_faq_h2: "Pertanyaan sebelum memulai.",
+  sol_faq1_q: "Mengapa tidak ada harga di halaman ini?",
+  sol_faq1_a:
+    "Setiap toko berbeda: berapa banyak suku cadang yang Anda jual, bagaimana stok Anda dicatat, dan berapa cabang yang Anda kelola. Ceritakan tentang bisnis Anda, dan salah satu founder akan mengirim penawaran untuk paket yang sesuai.",
+  sol_faq2_q: "Apa yang perlu saya kirim untuk memulai?",
+  sol_faq2_a:
+    "Apa pun yang sudah Anda pakai: daftar harga, lembar spesifikasi, file Excel, atau foto buku catatan Anda. Kami ubah menjadi katalog yang dipetakan ke mobil Indonesia.",
+  sol_faq3_q: "Apakah produk saya juga tampil di marketplace Mobeeli?",
+  sol_faq3_a:
+    "Ya, sejak awal. Stok toko Anda juga tayang di marketplace Mobeeli, sehingga pembeli di sana bisa menemukannya.",
+  sol_faq4_q: "Saya sudah punya website. Bisakah pencarian fitment ditambahkan?",
+  sol_faq4_a:
+    "Bisa. Plugin pencarian fitment menambahkan Garasi Saya dan lencana dipastikan cocok ke toko yang dibangun di tempat lain, dan tim kami yang memasang koneksinya.",
+  sol_faq5_q: "Siapa yang memegang data kendaraan?",
+  sol_faq5_a:
+    "Mobeeli. Toko dan mitra hanya mendapat akses pencarian; basis data kendaraannya sendiri tidak pernah keluar dari Mobeeli.",
   sol_fx_try: "Coba dengan mobil",
   sol_fx_sample: "Contoh kendaraan dan suku cadang",
   sol_fx_replay: "Putar ulang",

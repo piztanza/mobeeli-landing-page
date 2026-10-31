@@ -18,16 +18,21 @@
 
 .mb-sol-hero {
   background: var(--mb-bg);
-  padding: clamp(40px, 7vw, 96px) var(--mb-container-pad) clamp(56px, 8vw, 104px);
+  padding: clamp(40px, 6vw, 88px) var(--mb-container-pad) clamp(56px, 7vw, 96px);
 }
+/* Copy left, the sample store right; they stack below the cutover. */
 .mb-sol-hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+  gap: clamp(40px, 5vw, 80px);
+  align-items: center;
   max-width: var(--mb-container-max);
   margin: 0 auto;
 }
 .mb-sol-h1 {
   margin: 16px 0 0;
-  max-width: 18ch;
-  font-size: clamp(40px, 5.4vw, 72px);
+  max-width: 16ch;
+  font-size: clamp(40px, 4.8vw, 66px);
   line-height: 1.03;
   letter-spacing: -0.026em;
   color: var(--mb-ink);
@@ -35,7 +40,7 @@
 }
 .mb-sol-lede {
   margin: 24px 0 0;
-  max-width: 56ch;
+  max-width: 52ch;
   font-size: 18px;
   line-height: 1.65;
   color: var(--mb-muted);
@@ -53,6 +58,123 @@
   font-size: 15px;
   font-weight: 700;
   color: var(--mb-deep-blue);
+}
+
+/* The sample store: a dark store window — the explainer's own store UI and the
+   homepage catalog's material — on the light band, with one light card off its
+   lower-left corner. The inset leaves room for that card. */
+.mb-sol-art {
+  position: relative;
+  padding: 0 0 30px 26px;
+}
+.mb-sol-art-win {
+  padding: 16px;
+  border-radius: 20px;
+  background: var(--mb-ink);
+  background-image: radial-gradient(
+    560px 320px at 88% 0%,
+    rgba(47, 125, 246, 0.22),
+    transparent 70%
+  );
+  box-shadow:
+    0 30px 70px rgba(13, 21, 34, 0.26),
+    0 0 0 1px rgba(13, 21, 34, 0.05);
+  color: #fff;
+}
+.mb-sol-art-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.mb-sol-art-dots {
+  display: inline-flex;
+  gap: 6px;
+}
+.mb-sol-art-dots span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+}
+.mb-sol-art-tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--mb-dark-muted);
+}
+.mb-sol-art-garage {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  padding: 7px 14px;
+  border: 1px solid rgba(47, 125, 246, 0.3);
+  border-radius: var(--mb-radius-pill);
+  background: rgba(47, 125, 246, 0.1);
+}
+.mb-sol-art-car {
+  font-size: 13px;
+  font-weight: 700;
+}
+.mb-sol-art-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 11px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 13px;
+  color: var(--mb-dark-muted);
+}
+.mb-sol-art-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.mb-sol-art-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+  padding: 10px 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+}
+/* The clay renders on a light product ground, as a store's photos sit. */
+.mb-sol-art-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  background: linear-gradient(160deg, var(--mb-bg) 0%, #dde3ec 100%);
+}
+.mb-sol-art-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.mb-sol-art-float {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 16px;
+  border: 1px solid var(--mb-border);
+  border-radius: 14px;
+  background: var(--mb-surface);
+  box-shadow: 0 16px 36px rgba(13, 21, 34, 0.14);
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--mb-ink);
 }
 
 /* ---------- shared band header ---------- */
@@ -845,14 +967,14 @@
   }
 }
 
-/* ---------- pricing (light) ---------- */
+/* ---------- packages (light) ---------- */
 
-.mb-sol-pricing {
+.mb-sol-packages {
   background: var(--mb-bg);
   padding: var(--mb-section-y) var(--mb-container-pad);
   scroll-margin-top: 16px;
 }
-/* What a plan holds: a blue check for included, a muted plus for an extra. */
+/* What a plan holds, each line with a blue check. */
 .mb-sol-plan-list {
   display: grid;
   align-content: start;
@@ -874,11 +996,8 @@
   margin-top: 4px;
   color: var(--mb-deep-blue);
 }
-.mb-sol-plan-list--extra svg {
-  color: var(--mb-muted);
-}
-/* How a thing is billed, under its name — the same line on the build and on
-   every subscription, so the two kinds read apart at a glance. */
+/* How a thing is billed, under its name — the same line on every package and
+   every subscription, so one-time and monthly read apart at a glance. */
 .mb-sol-bill {
   margin: 6px 0 0;
   font-size: 13.5px;
@@ -892,66 +1011,67 @@
   color: var(--mb-ink);
 }
 
-/* The store build — the one priced thing, so the one raised card: the /contact
-   form card's surface and shadow. Name, billing and price on the left; what it
-   includes on the right. */
-.mb-sol-build {
+/* The store packages: three equal raised cards (the /contact form card's
+   surface and shadow), smallest first. Each says who it is for, then only what
+   it adds. The cards share six rows (subgrid) — name, who it is for, billing,
+   list heading, list, CTA — so each line sits level across the three whatever
+   its length in either language. No price anywhere (founder, 2026-10-31). */
+.mb-sol-tiers {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  background: var(--mb-surface);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mb-sol-tier {
+  display: grid;
+  grid-row: span 6;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+  padding: clamp(26px, 2.8vw, 36px);
   border: 1px solid var(--mb-border);
   border-radius: 24px;
-  box-shadow: 0 20px 48px rgba(13, 21, 34, 0.07);
+  background: var(--mb-surface);
+  box-shadow: 0 20px 48px rgba(13, 21, 34, 0.06);
 }
-.mb-sol-build-main {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: clamp(28px, 3.4vw, 44px);
-}
-/* The name sits a step under the price line, as on any price card: the price
-   is what the eye should land on. */
-.mb-sol-build-t {
+.mb-sol-tier-t {
   margin: 0;
-  font-size: clamp(22px, 2vw, 26px);
-  line-height: 1.2;
-  letter-spacing: -0.015em;
+  font-size: clamp(24px, 2.2vw, 28px);
+  line-height: 1.15;
+  letter-spacing: -0.018em;
   color: var(--mb-ink);
 }
-/* Where a figure would stand — the founders quote each store. */
-.mb-sol-build-price {
-  margin: 26px 0 0;
-  font-size: clamp(30px, 3.4vw, 42px);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.022em;
-  color: var(--mb-ink);
+.mb-sol-tier-for {
+  margin: 8px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #3c4654;
 }
-.mb-sol-build-main .mb-btn-primary-light {
-  margin-top: 30px;
+.mb-sol-tier .mb-sol-bill {
+  margin-top: 14px;
 }
-/* Included first — the store, then running it, as two whole lists side by
-   side — and the optional extras under a hairline, on the same two columns. */
-.mb-sol-build-lists {
-  display: grid;
-  gap: 24px;
-  align-content: start;
-  padding: clamp(28px, 3.4vw, 44px);
-  border-left: 1px solid var(--mb-border);
-}
-.mb-sol-build-inc,
-.mb-sol-build-ext .mb-sol-plan-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: clamp(24px, 3vw, 40px);
-}
-.mb-sol-build-ext {
-  padding-top: 22px;
+.mb-sol-tier .mb-sol-list-h {
+  margin-top: 22px;
+  padding-top: 20px;
   border-top: 1px solid var(--mb-border-soft);
+}
+.mb-sol-tier .mb-sol-plan-list {
+  margin: 12px 0 30px;
+}
+.mb-sol-tier .mb-btn-primary-light {
+  justify-self: start;
+  align-self: end;
+}
+.mb-sol-pkg-note {
+  margin: 20px 0 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--mb-muted);
 }
 
 /* Subscriptions — three columns of one flat sheet, hairlines between: flat
-   beside the raised build card, because they are what runs after it. */
+   beside the raised package cards, because they are what runs after them. */
 .mb-sol-subs-h {
   margin: clamp(56px, 7vw, 88px) 0 18px;
   font-size: clamp(22px, 2.2vw, 28px);
@@ -979,7 +1099,7 @@
   border-left: 1px solid var(--mb-border);
 }
 /* An h4: globals.css gives only h1–h3 the display weight, so it is set here to
-   match the build card's and the services' titles. */
+   match the package cards' and the services' titles. */
 .mb-sol-sub-t {
   margin: 0;
   font-size: 20px;
@@ -994,26 +1114,45 @@
   line-height: 1.55;
   color: #3c4654;
 }
-.mb-sol-sub .mb-sol-plan-list {
+.mb-sol-sub :is(.mb-sol-plan-list, .mb-sol-levels) {
+  align-self: stretch;
   margin-top: 18px;
   padding-top: 18px;
   border-top: 1px solid var(--mb-border-soft);
-  align-self: stretch;
+}
+/* A subscription's levels: each name over the one line of what it holds. */
+.mb-sol-levels {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  margin-bottom: 0;
+}
+.mb-sol-levels dt {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--mb-ink);
+}
+.mb-sol-levels dd {
+  margin: 3px 0 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #3c4654;
 }
 .mb-sol-sub .mb-sol-textlink {
   margin-top: auto;
   padding-top: 26px;
 }
 
-/* The price chart: every offering on one ruled list, its billing and its
-   price. The /contact ink rule under the column names. */
-.mb-sol-chart {
+/* The comparison: every feature down the side, the three packages across, and
+   a tick, a dash or a short text in each cell. The /contact ink rule under the
+   package names. */
+.mb-sol-compare {
   width: 100%;
   margin-top: clamp(56px, 7vw, 88px);
   border-collapse: collapse;
-  font-size: 15.5px;
+  font-size: 15px;
 }
-.mb-sol-chart caption {
+.mb-sol-compare caption {
   padding-bottom: 18px;
   caption-side: top;
   text-align: left;
@@ -1023,37 +1162,127 @@
   letter-spacing: -0.015em;
   color: var(--mb-ink);
 }
-.mb-sol-chart th,
-.mb-sol-chart td {
-  padding: 16px 20px 16px 0;
+.mb-sol-compare th,
+.mb-sol-compare td {
+  padding: 14px 16px;
   border-bottom: 1px solid var(--mb-border);
-  text-align: left;
-  vertical-align: top;
+  text-align: center;
+  vertical-align: middle;
 }
-.mb-sol-chart thead th {
+.mb-sol-compare thead th {
   padding-top: 0;
   padding-bottom: 12px;
   border-bottom: 1.5px solid var(--mb-ink);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--mb-ink);
+}
+.mb-sol-compare :is(thead, tbody) th:first-child {
+  padding-left: 0;
+  text-align: left;
+}
+.mb-sol-compare thead th:first-child {
+  width: 46%;
   font-size: 13px;
   font-weight: 700;
   color: var(--mb-muted);
 }
-.mb-sol-chart thead th:first-child {
-  width: 50%;
-}
-.mb-sol-chart thead th:nth-child(2) {
-  width: 20%;
-}
-.mb-sol-chart tbody th {
-  font-weight: 800;
+.mb-sol-compare tbody th {
+  font-weight: 600;
+  line-height: 1.4;
   color: var(--mb-ink);
 }
-.mb-sol-chart tbody td {
+.mb-sol-compare td {
+  font-size: 14px;
+  line-height: 1.4;
   color: #3c4654;
 }
-.mb-sol-chart tbody td:last-child {
-  font-weight: 700;
+.mb-sol-cmp-yes,
+.mb-sol-cmp-no {
+  vertical-align: middle;
+}
+.mb-sol-cmp-yes {
+  color: var(--mb-deep-blue);
+}
+/* --mb-muted, not --mb-muted-2: the dash carries meaning, so it keeps 3:1. */
+.mb-sol-cmp-no {
+  color: var(--mb-muted);
+}
+
+/* ---------- FAQ (white) ---------- */
+
+.mb-sol-faq {
+  background: var(--mb-surface);
+  border-top: 1px solid var(--mb-border);
+  padding: var(--mb-section-y) var(--mb-container-pad);
+}
+/* The /contact 5/7 split: the heading left, the questions right. */
+.mb-sol-faq-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+/* A step under the band headings: the FAQ supports the page, it does not
+   open a new idea. 0,2,0, because .mb-h2 (0,1,0) sits in landing.css, which
+   can load after this file. */
+.mb-sol-faq-grid .mb-sol-faq-h2 {
+  margin-top: 0;
+  font-size: clamp(32px, 3.4vw, 46px);
+}
+.mb-sol-faq-list {
+  border-top: 1.5px solid var(--mb-ink);
+}
+.mb-sol-faq-item {
+  border-bottom: 1px solid var(--mb-border);
+}
+/* The native disclosure with its marker replaced by a plus that becomes a
+   minus when open. Nothing moves, so there is nothing to gate. */
+.mb-sol-faq-q {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 0;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.4;
   color: var(--mb-ink);
+  list-style: none;
+  cursor: pointer;
+}
+.mb-sol-faq-q::-webkit-details-marker {
+  display: none;
+}
+.mb-sol-faq-q::after {
+  content: "";
+  flex: none;
+  width: 14px;
+  height: 14px;
+  margin-top: 5px;
+  background:
+    linear-gradient(var(--mb-deep-blue), var(--mb-deep-blue)) center / 14px 2px no-repeat,
+    linear-gradient(var(--mb-deep-blue), var(--mb-deep-blue)) center / 2px 14px no-repeat;
+}
+.mb-sol-faq-item[open] > .mb-sol-faq-q::after {
+  background: linear-gradient(var(--mb-deep-blue), var(--mb-deep-blue)) center / 14px 2px no-repeat;
+}
+.mb-sol-faq-q:hover {
+  color: var(--mb-deep-blue);
+}
+.mb-sol-faq-q:focus-visible {
+  outline: 2px solid var(--mb-focus-ring);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+.mb-sol-faq-a {
+  max-width: 62ch;
+  margin: 0;
+  padding: 0 34px 22px 0;
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: #3c4654;
+  text-wrap: pretty;
 }
 
 /* The closing card — the /investors card's material with its glow mirrored to
@@ -1109,10 +1338,19 @@
 /* ---------- responsive ---------- */
 
 /* The site's measured cutover (CONSTRAINTS: 1039.98px, nav + content together).
-   Below it the figure becomes a column that reads in flow order — car, engine,
-   store — joined by arrows instead of links; the services drop to two columns;
-   the build card stacks; each subscription becomes a row. */
+   Below it the hero stacks; the figure becomes a column that reads in flow
+   order — car, engine, store — joined by arrows instead of links; the services
+   drop to two columns; each package and each subscription becomes a wide row;
+   the FAQ stacks under its heading. */
 @media (max-width: 1039.98px) {
+  .mb-sol-hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mb-sol-art {
+    width: 100%;
+    max-width: 560px;
+  }
+
   .mb-sol-svc-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1174,13 +1412,50 @@
     border-color: #10b981;
   }
 
-  .mb-sol-build {
+  /* A package row: name, who it is for, billing and the CTA on the left, what
+     it adds on the right — three readable rows, not three narrow cards. */
+  .mb-sol-tiers {
     grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
   }
-  .mb-sol-build-lists {
-    border-top: 1px solid var(--mb-border);
-    border-left: 0;
+  .mb-sol-tier {
+    grid-row: auto;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-areas:
+      "t head"
+      "for list"
+      "bill list"
+      "cta list";
+    grid-template-rows: auto auto auto 1fr;
+    column-gap: 36px;
+    align-items: start;
   }
+  .mb-sol-tier-t {
+    grid-area: t;
+  }
+  .mb-sol-tier-for {
+    grid-area: for;
+  }
+  .mb-sol-tier .mb-sol-bill {
+    grid-area: bill;
+  }
+  .mb-sol-tier .mb-sol-list-h {
+    grid-area: head;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+  .mb-sol-tier .mb-sol-plan-list {
+    grid-area: list;
+    margin: 12px 0 0;
+  }
+  .mb-sol-tier .mb-btn-primary-light {
+    grid-area: cta;
+    justify-self: start;
+    align-self: end;
+    margin-top: 24px;
+  }
+
   .mb-sol-subs {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1211,7 +1486,7 @@
   .mb-sol-sub-d {
     grid-area: d;
   }
-  .mb-sol-sub .mb-sol-plan-list {
+  .mb-sol-sub :is(.mb-sol-plan-list, .mb-sol-levels) {
     grid-area: list;
     margin-top: 0;
     padding-top: 0;
@@ -1223,6 +1498,7 @@
     align-self: end;
   }
 
+  .mb-sol-faq-grid,
   .mb-sol-cta {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1240,18 +1516,55 @@
     border-top: 1px solid var(--mb-border);
   }
 
-  .mb-sol-build-inc,
-  .mb-sol-build-ext .mb-sol-plan-list {
-    grid-template-columns: minmax(0, 1fr);
+  /* The sample store tightens: smaller tiles and chips, so three still fit. */
+  .mb-sol-art {
+    padding: 0 0 26px 14px;
   }
-  /* Stacked, the two included lists read as one: the item gap between them. */
-  .mb-sol-build-inc .mb-sol-plan-list + .mb-sol-plan-list {
-    margin-top: 10px;
+  .mb-sol-art-win {
+    padding: 12px;
   }
+  .mb-sol-art-grid {
+    gap: 8px;
+  }
+  .mb-sol-art-tile {
+    padding: 8px 8px 10px;
+  }
+  .mb-sol-art-name {
+    font-size: 11.5px;
+  }
+  .mb-sol-art-tile .mb-sol-chip {
+    gap: 4px;
+    padding: 3px 5px;
+    font-size: 10px;
+  }
+  .mb-sol-art-float {
+    padding: 10px 13px;
+    font-size: 12.5px;
+  }
+
+  /* Packages and subscriptions return to single columns. */
+  .mb-sol-tier,
   .mb-sol-sub {
     display: flex;
   }
-  .mb-sol-sub .mb-sol-plan-list {
+  .mb-sol-tier {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .mb-sol-tier .mb-sol-list-h {
+    align-self: stretch;
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid var(--mb-border-soft);
+  }
+  .mb-sol-tier .mb-sol-plan-list {
+    margin: 12px 0 28px;
+  }
+  .mb-sol-tier .mb-btn-primary-light {
+    align-self: flex-start;
+    margin-top: auto;
+  }
+  .mb-sol-sub :is(.mb-sol-plan-list, .mb-sol-levels) {
     margin-top: 18px;
     padding-top: 18px;
     border-top: 1px solid var(--mb-border-soft);
@@ -1260,19 +1573,30 @@
     align-self: flex-start;
   }
 
-  /* A billing column wide enough that "One-time" never breaks at its hyphen. */
-  .mb-sol-chart {
+  /* The comparison keeps its four columns: a narrower feature column and
+     tighter cells. */
+  .mb-sol-compare {
     font-size: 13.5px;
   }
-  .mb-sol-chart th,
-  .mb-sol-chart td {
-    padding-right: 12px;
+  .mb-sol-compare th,
+  .mb-sol-compare td {
+    padding: 12px 6px;
   }
-  .mb-sol-chart thead th:first-child {
+  .mb-sol-compare thead th {
+    font-size: 13px;
+  }
+  .mb-sol-compare thead th:first-child {
     width: 40%;
   }
-  .mb-sol-chart thead th:nth-child(2) {
-    width: 24%;
+  .mb-sol-compare td {
+    font-size: 12.5px;
+  }
+
+  .mb-sol-faq-q {
+    font-size: 16px;
+  }
+  .mb-sol-faq-a {
+    padding-right: 0;
   }
 
   /* Full-width actions, each on one line: the Early Adopters label is the
@@ -1292,9 +1616,17 @@
 }
 
 /* The homepage hero's small-phone step (landing.css, 479.98px: .mb-hero-h1
-   32px, .mb-h2 29px), so the Indonesian title stays at four lines. */
+   32px, .mb-h2 29px), so the Indonesian title stays at four lines. The sample
+   store shows two tiles here: three cannot hold their verdict chip on one
+   line. */
 @media (max-width: 479.98px) {
   .mb-sol-h1 {
     font-size: 32px;
+  }
+  .mb-sol-art-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .mb-sol-art-tile:nth-child(n + 3) {
+    display: none;
   }
 }

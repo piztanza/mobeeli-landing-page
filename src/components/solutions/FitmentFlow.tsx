@@ -192,8 +192,9 @@ function NodeHead({
   );
 }
 
-/** The verdict disc: a check on a pass, a cross on a fail (colour from CSS). */
-function VerdictDot({ state }: { state: CheckState | "fit" | "unfit" }) {
+/** The verdict disc: a check on a pass, a cross on a fail (colour from CSS).
+ *  Exported for the hero's sample store, which says "fits" the same way. */
+export function VerdictDot({ state }: { state: CheckState | "fit" | "unfit" }) {
   const bad = state === "fail" || state === "unfit";
   return (
     <span className={`mb-sol-dot${bad ? " is-bad" : ""}`} aria-hidden>
