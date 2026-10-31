@@ -7,11 +7,12 @@ import sitemap from "@/app/sitemap";
 import { copy, langs, t, type CopyKey } from "@/lib/i18n";
 
 /**
- * /solutions — Mobeeli's SaaS page (redesigned 2026-10-31, decongested): a
- * short hero, six services, the three-panel fitment explainer, and pricing (a
- * one-time store build, three subscriptions and a price chart). These
- * assertions read the rendered page, not source strings, so a section that
- * stops rendering fails here even if its copy keys survive.
+ * /solutions — Mobeeli's SaaS page (redesigned 2026-10-31): a hero with a
+ * sample store, six services, the three-panel fitment explainer, packages (three
+ * store tiers by size, monthly subscriptions with levels, a comparison table —
+ * never a price) and an FAQ. These assertions read the rendered page, not
+ * source strings, so a section that stops rendering fails here even if its copy
+ * keys survive.
  */
 
 /** Escape a copy string the way React escapes text content in SSR output. */
@@ -50,19 +51,31 @@ describe("/solutions page structure", () => {
     expect(main).toContain(esc(t("en", "sol_h1")));
   });
 
-  it("runs hero → services → explainer → pricing, in that order", () => {
-    const order = ["solutions", "services", "fitment-flow", "pricing"].map((id) =>
+  it("runs hero → services → explainer → packages → FAQ, in that order", () => {
+    const order = ["solutions", "services", "fitment-flow", "packages", "faq"].map((id) =>
       html.indexOf(`id="${id}"`),
     );
     for (const at of order) expect(at).toBeGreaterThan(0);
     expect(order).toEqual([...order].sort((a, b) => a - b));
   });
 
-  it("offers the two hero actions: talk to the team, or jump to pricing", () => {
+  it("offers the two hero actions: talk to the team, or jump to the packages", () => {
     const hero = section("solutions");
     expect(hero).toContain('href="/contact"');
-    expect(hero).toContain('href="#pricing"');
-    expect(hero).toContain(esc(t("en", "sol_cta_pricing")));
+    expect(hero).toContain('href="#packages"');
+    expect(hero).toContain(esc(t("en", "sol_cta_packages")));
+  });
+
+  // The hero's sample store is one image to a screen reader: a named role="img"
+  // over a decorative composite of the parts cut-outs, tagged as a sample.
+  it("shows a sample store beside the hero copy, named for screen readers", () => {
+    const hero = section("solutions");
+    expect(hero).toContain(
+      `class="mb-sol-art" role="img" aria-label="${esc(t("en", "sol_art_label"))}"`,
+    );
+    const art = hero.slice(hero.indexOf('class="mb-sol-art"'));
+    expect(art).toContain(esc(t("en", "sol_art_tag")));
+    expect(art.match(/<img /g)?.length).toBe(3);
   });
 
   it("lists the six services, each with its one-line description", () => {
@@ -88,56 +101,100 @@ describe("/solutions page structure", () => {
   });
 });
 
-describe("/solutions pricing (founder decisions, 2026-10-31)", () => {
-  const pricing = section("pricing");
+/** The three store packages, smallest first. */
+const TIERS = [
+  { name: "sol_tier1_t", forWhom: "sol_tier1_for", catalog: "sol_tier1_cat" },
+  { name: "sol_tier2_t", forWhom: "sol_tier2_for", catalog: "sol_tier2_cat" },
+  { name: "sol_tier3_t", forWhom: "sol_tier3_for", catalog: "sol_tier3_cat" },
+] as const satisfies readonly { name: CopyKey; forWhom: CopyKey; catalog: CopyKey }[];
 
-  it("prices the store build as a one-time flat fee, quoted per store", () => {
-    expect(pricing).toContain(esc(t("en", "sol_build_t")));
-    expect(pricing).toContain(esc(t("en", "sol_build_billing")));
-    expect(pricing).toContain(esc(t("en", "sol_build_price")));
+/** Every row of the comparison: the store features the platform already has,
+ *  then what the bigger packages add (capability map, 2026-10-31). */
+const COMPARED = [
+  "sol_build_i1",
+  "sol_build_i2",
+  "sol_build_i3",
+  "sol_build_i4",
+  "sol_build_i5",
+  "sol_build_i6",
+  "sol_build_i7",
+  "sol_build_i8",
+  "sol_build_i9",
+  "sol_build_i10",
+  "sol_build_e1",
+  "sol_cmp_terms",
+  "sol_svc3_t",
+  "sol_build_e2",
+] as const satisfies readonly CopyKey[];
+
+// Founder, 2026-10-31: packages and tiers by size, never prices — every package
+// ends in "Talk to our team".
+describe("/solutions packages (founder decisions, 2026-10-31)", () => {
+  const packages = section("packages");
+  const tiers = packages.split('<li class="mb-sol-tier"').slice(1);
+
+  it("offers three store packages by size, smallest first", () => {
+    expect(tiers.length).toBe(TIERS.length);
+    TIERS.forEach((tier, i) => {
+      for (const key of [tier.name, tier.forWhom, tier.catalog]) {
+        expect(tiers[i], key).toContain(esc(t("en", key)));
+      }
+    });
   });
 
-  // i1–i5 are the store itself; i6–i10 are running it — features the platform
-  // already has (capability map against the platform repo, 2026-10-31).
-  it("lists what the build includes and the optional extras", () => {
+  it("ends every package in a talk-to-our-team link", () => {
+    for (const tier of tiers) {
+      expect(tier).toContain('href="/contact"');
+      expect(tier).toContain(esc(t("en", "sol_cta_talk")));
+      expect(tier).toContain(esc(t("en", "sol_tier_bill")));
+    }
+  });
+
+  it("builds each package on the one before it", () => {
+    for (const i of [1, 2]) {
+      const plus = t("en", "sol_tier_plus").replace("{tier}", t("en", TIERS[i - 1].name));
+      expect(tiers[i]).toContain(esc(plus));
+    }
+  });
+
+  it("says every store runs on a Maintenance subscription", () => {
+    expect(packages).toContain(esc(t("en", "sol_pkg_note")));
+  });
+
+  it("sells maintenance, SEO and the APIs as monthly subscriptions, with levels", () => {
+    expect(packages.match(/class="mb-sol-sub"/g)?.length).toBe(3);
+    expect(packages).toContain(esc(t("en", "sol_sub_billing")));
+    expect(packages.match(/class="mb-sol-levels"/g)?.length).toBe(2);
     for (const key of [
-      "sol_build_i1",
-      "sol_build_i2",
-      "sol_build_i3",
-      "sol_build_i4",
-      "sol_build_i5",
-      "sol_build_i6",
-      "sol_build_i7",
-      "sol_build_i8",
-      "sol_build_i9",
-      "sol_build_i10",
-      "sol_build_e1",
-      "sol_build_e2",
+      "sol_sub1_lv1_t",
+      "sol_sub1_lv2_t",
+      "sol_sub2_lv1_t",
+      "sol_sub2_lv2_t",
     ] as const) {
-      expect(pricing, key).toContain(esc(t("en", key)));
+      expect(packages, key).toContain(esc(t("en", key)));
     }
   });
 
-  it("sells maintenance, SEO and the APIs as monthly subscriptions", () => {
-    for (const key of ["sol_sub1_t", "sol_sub2_t", "sol_sub3_t"] as const) {
-      expect(pricing, key).toContain(esc(t("en", key)));
-    }
-    expect(pricing.match(/class="mb-sol-sub"/g)?.length).toBe(3);
-    expect(pricing).toContain(esc(t("en", "sol_sub_billing")));
+  it("compares the three packages feature by feature", () => {
+    const table = packages.match(/<table class="mb-sol-compare">[\s\S]*?<\/table>/)?.[0] ?? "";
+    expect(table, "the comparison table").not.toBe("");
+    const head = table.slice(0, table.indexOf("</thead>"));
+    for (const tier of TIERS) expect(head).toContain(esc(t("en", tier.name)));
+    const rows = table.slice(table.indexOf("<tbody")).match(/<tr[\s>]/g) ?? [];
+    expect(rows.length).toBe(COMPARED.length);
+    for (const key of COMPARED) expect(table, key).toContain(esc(t("en", key)));
   });
 
-  it("charts all six offerings with their billing and price", () => {
-    const chart = pricing.match(/<table class="mb-sol-chart">[\s\S]*?<\/table>/)?.[0] ?? "";
-    expect(chart, "the price chart").not.toBe("");
-    const rows = chart.slice(chart.indexOf("<tbody")).match(/<tr[\s>]/g) ?? [];
-    expect(rows.length).toBe(6);
-    expect(chart).toContain(esc(t("en", "sol_bill_once")));
-    expect(chart).toContain(esc(t("en", "sol_bill_month")));
+  // Stock across branches is only partly built in the platform: it is offered
+  // "by arrangement", never as a tick.
+  it("offers stock across branches by arrangement, not as a tick", () => {
+    const table = packages.match(/<table class="mb-sol-compare">[\s\S]*?<\/table>/)?.[0] ?? "";
+    const row = table.slice(table.indexOf(esc(t("en", "sol_build_e2"))));
+    expect(row.slice(0, row.indexOf("</tr>"))).toContain(esc(t("en", "sol_cmp_arr")));
   });
 
-  // No price figure anywhere: the build is "quoted per store" and every
-  // subscription is "talk to our team" — which also keeps CLAUDE.md's rule
-  // that Mobeeli's fees are never stated on the site.
+  // No price figure anywhere — which also keeps CLAUDE.md's rule that
+  // Mobeeli's fees are never stated on the site.
   it("states no price amount in either language", () => {
     for (const lang of langs) {
       for (const [key, value] of Object.entries(copy[lang])) {
@@ -145,6 +202,22 @@ describe("/solutions pricing (founder decisions, 2026-10-31)", () => {
         expect(value, `${lang}.${key}`).not.toMatch(/\b(?:Rp|IDR|USD)\s?\d|\$\s?\d/i);
       }
     }
+  });
+});
+
+describe("/solutions FAQ", () => {
+  // Native <details>: keyboard and screen-reader support with no script, and
+  // collapsed by default so five answers do not lengthen the page.
+  it("answers five questions in native disclosures", () => {
+    const items = section("faq").split('<details class="mb-sol-faq-item"').slice(1);
+    expect(items.length).toBe(5);
+    items.forEach((item, i) => {
+      const q = esc(t("en", `sol_faq${i + 1}_q` as CopyKey));
+      expect(item).toMatch(
+        new RegExp(`<summary[^>]*>[\\s\\S]*${q.replace(/[.?*+^$()|[\]\\]/g, "\\$&")}`),
+      );
+      expect(item).toContain(esc(t("en", `sol_faq${i + 1}_a` as CopyKey)));
+    });
   });
 });
 

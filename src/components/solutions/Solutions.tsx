@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -7,7 +8,7 @@ import { PLATFORM_URL } from "@/components/landing/Nav";
 import type { CopyKey } from "@/lib/i18n";
 import { useT } from "@/lib/i18n/LanguageProvider";
 
-import FitmentFlow from "./FitmentFlow";
+import FitmentFlow, { VerdictDot } from "./FitmentFlow";
 
 // Not "./solutions.css": a stylesheet named like this module but for case is
 // the CONSTRAINTS "Modules" trap in waiting on a case-insensitive filesystem.
@@ -26,36 +27,64 @@ const SERVICES: readonly { title: CopyKey; desc: CopyKey; icon: ServiceIcon }[] 
   { title: "sol_svc6_t", desc: "sol_svc6_d", icon: "search" },
 ];
 
-/** What the store build includes, as two whole lists: the store itself, then
- *  running it — the seller tools the platform already has (capability map
- *  against the platform repo, 2026-10-31). */
-const BUILD_STORE: readonly CopyKey[] = [
-  "sol_build_i1",
-  "sol_build_i2",
-  "sol_build_i3",
-  "sol_build_i4",
-  "sol_build_i5",
+/** The hero's sample store: the landing page's own parts cut-outs (680×680
+ *  transparent PNGs), named generically. */
+const HERO_PARTS: readonly { src: string; name: CopyKey }[] = [
+  { src: "/assets/parts/disc.png", name: "sol_art_p1" },
+  { src: "/assets/parts/filter.png", name: "sol_art_p2" },
+  { src: "/assets/parts/plug.png", name: "sol_art_p3" },
 ];
 
-const BUILD_RUNNING: readonly CopyKey[] = [
-  "sol_build_i6",
-  "sol_build_i7",
-  "sol_build_i8",
-  "sol_build_i9",
-  "sol_build_i10",
+/** The store packages, by size (founder 2026-10-31: tiers, never prices). Each
+ *  lists only what it adds; the comparison table carries every feature. */
+const TIERS: readonly {
+  name: CopyKey;
+  forWhom: CopyKey;
+  /** The package this one builds on; the first lists the full store instead. */
+  plusOf?: CopyKey;
+  items: readonly CopyKey[];
+}[] = [
+  {
+    name: "sol_tier1_t",
+    forWhom: "sol_tier1_for",
+    items: ["sol_tier1_cat", "sol_build_i3", "sol_tier1_l3", "sol_build_i5"],
+  },
+  {
+    name: "sol_tier2_t",
+    forWhom: "sol_tier2_for",
+    plusOf: "sol_tier1_t",
+    items: ["sol_tier2_cat", "sol_build_e1", "sol_cmp_terms"],
+  },
+  {
+    name: "sol_tier3_t",
+    forWhom: "sol_tier3_for",
+    plusOf: "sol_tier2_t",
+    items: ["sol_tier3_cat", "sol_svc3_t", "sol_tier3_l3"],
+  },
 ];
 
-const BUILD_EXTRAS: readonly CopyKey[] = ["sol_build_e1", "sol_build_e2"];
-
-/** Monthly subscriptions. The API card names the three API services by their
- *  own titles, so the page calls each thing one way throughout. */
-const SUBSCRIPTIONS: readonly { title: CopyKey; desc: CopyKey; items: readonly CopyKey[] }[] = [
+/** Monthly subscriptions. Maintenance and SEO come in two levels; the API card
+ *  names the three API services by their own titles, so the page calls each
+ *  thing one way throughout. */
+const SUBSCRIPTIONS: readonly ({ title: CopyKey; desc: CopyKey } & (
+  { levels: readonly (readonly [name: CopyKey, desc: CopyKey])[] } | { items: readonly CopyKey[] }
+))[] = [
   {
     title: "sol_sub1_t",
     desc: "sol_sub1_d",
-    items: ["sol_sub1_i1", "sol_sub1_i2", "sol_sub1_i3", "sol_sub1_i4"],
+    levels: [
+      ["sol_sub1_lv1_t", "sol_sub1_lv1_d"],
+      ["sol_sub1_lv2_t", "sol_sub1_lv2_d"],
+    ],
   },
-  { title: "sol_sub2_t", desc: "sol_sub2_d", items: ["sol_sub2_i1", "sol_sub2_i2", "sol_sub2_i3"] },
+  {
+    title: "sol_sub2_t",
+    desc: "sol_sub2_d",
+    levels: [
+      ["sol_sub2_lv1_t", "sol_sub2_lv1_d"],
+      ["sol_sub2_lv2_t", "sol_sub2_lv2_d"],
+    ],
+  },
   {
     title: "sol_sub3_t",
     desc: "sol_sub3_d",
@@ -63,16 +92,37 @@ const SUBSCRIPTIONS: readonly { title: CopyKey; desc: CopyKey; items: readonly C
   },
 ];
 
-/** The price chart: every offering, how it is billed, and its price. No
- *  figures — the build is quoted per store and the rest is "talk to our team"
- *  (founder 2026-10-31), which also keeps CLAUDE.md's no-fee rule. */
-const CHART: readonly (readonly [service: CopyKey, billing: CopyKey, price: CopyKey])[] = [
-  ["sol_build_t", "sol_bill_once", "sol_build_price"],
-  ["sol_sub1_t", "sol_bill_month", "sol_cta_talk"],
-  ["sol_sub2_t", "sol_bill_month", "sol_cta_talk"],
-  ["sol_svc3_t", "sol_bill_month", "sol_cta_talk"],
-  ["sol_svc4_t", "sol_bill_month", "sol_cta_talk"],
-  ["sol_svc5_t", "sol_bill_month", "sol_cta_talk"],
+/** A comparison cell: included, not included, or a short text of its own. */
+type Cell = "yes" | "no" | CopyKey;
+
+/** The package comparison: every store feature the platform already has, then
+ *  what the bigger packages add (capability map against the platform repo,
+ *  2026-10-31). Stock across branches is only partly built there, so it is "by
+ *  arrangement", never a tick. */
+const COMPARE: readonly (readonly [feature: CopyKey, starter: Cell, growth: Cell, scale: Cell])[] =
+  [
+    ["sol_build_i1", "yes", "yes", "yes"],
+    ["sol_build_i2", "sol_tier1_cat", "sol_tier2_cat", "sol_tier3_cat"],
+    ["sol_build_i3", "yes", "yes", "yes"],
+    ["sol_build_i4", "yes", "yes", "yes"],
+    ["sol_build_i5", "yes", "yes", "yes"],
+    ["sol_build_i6", "yes", "yes", "yes"],
+    ["sol_build_i7", "yes", "yes", "yes"],
+    ["sol_build_i8", "yes", "yes", "yes"],
+    ["sol_build_i9", "yes", "yes", "yes"],
+    ["sol_build_i10", "yes", "yes", "yes"],
+    ["sol_build_e1", "no", "yes", "yes"],
+    ["sol_cmp_terms", "no", "yes", "yes"],
+    ["sol_svc3_t", "no", "no", "yes"],
+    ["sol_build_e2", "no", "no", "sol_cmp_arr"],
+  ];
+
+const FAQ: readonly (readonly [question: CopyKey, answer: CopyKey])[] = [
+  ["sol_faq1_q", "sol_faq1_a"],
+  ["sol_faq2_q", "sol_faq2_a"],
+  ["sol_faq3_q", "sol_faq3_a"],
+  ["sol_faq4_q", "sol_faq4_a"],
+  ["sol_faq5_q", "sol_faq5_a"],
 ];
 
 /** Line icons on the 24-unit grid, stroke from currentColor (PlatformFlow's set). */
@@ -138,11 +188,11 @@ function ServiceGlyph({ icon }: { icon: ServiceIcon }) {
   );
 }
 
-/** A list of what a plan holds: a check for included, a plus for an extra. */
-function PlanList({ items, extra = false }: { items: readonly CopyKey[]; extra?: boolean }) {
+/** A list of what a plan holds, each line with a check. */
+function PlanList({ items }: { items: readonly CopyKey[] }) {
   const t = useT();
   return (
-    <ul className={`mb-sol-plan-list${extra ? " mb-sol-plan-list--extra" : ""}`}>
+    <ul className="mb-sol-plan-list">
       {items.map((key) => (
         <li key={key}>
           <svg
@@ -157,7 +207,7 @@ function PlanList({ items, extra = false }: { items: readonly CopyKey[]; extra?:
             aria-hidden
             focusable="false"
           >
-            {extra ? <path d="M8 3.5v9M3.5 8h9" /> : <path d="m3.5 8.4 2.9 2.9 6-6.3" />}
+            <path d="m3.5 8.4 2.9 2.9 6-6.3" />
           </svg>
           {t(key)}
         </li>
@@ -167,14 +217,111 @@ function PlanList({ items, extra = false }: { items: readonly CopyKey[]; extra?:
 }
 
 /**
- * /solutions — Mobeeli's SaaS page (2026-10-31, decongested the same day).
- * Four bands in the site's light → dark → light rhythm: a short centred hero;
- * six services in one ruled panel; the dark fitment-flow band (the page's one
- * orchestrated motion moment); and pricing — the one-time store build, three
- * monthly subscriptions and a price chart — closing on the /investors card's
- * pattern. One idea per band, one sentence per service: the first version
- * stacked an index card, a five-panel figure and sixteen capability blurbs,
- * and read as congested.
+ * The hero's sample store: the store UI as the explainer draws it — My Garage,
+ * search, part tiles with their verdicts — around the landing page's parts
+ * cut-outs, with one floating card. A single image to a screen reader (a named
+ * role="img"; the composite inside is hidden), and tagged as a sample on screen.
+ * Static: the explainer below is the page's one motion moment.
+ */
+function HeroArt() {
+  const t = useT();
+  return (
+    <div data-rev="2" className="mb-sol-art" role="img" aria-label={t("sol_art_label")}>
+      <div className="mb-sol-art-win" aria-hidden="true">
+        <div className="mb-sol-art-bar">
+          <span className="mb-sol-art-dots">
+            <span />
+            <span />
+            <span />
+          </span>
+          <span className="mb-sol-art-tag">{t("sol_art_tag")}</span>
+        </div>
+        <div className="mb-sol-art-garage">
+          <span className="mb-sol-garage-badge">{t("garage_chip_label")}</span>
+          <span className="mb-sol-art-car">{t("sol_art_car")}</span>
+        </div>
+        <div className="mb-sol-art-search">
+          <svg
+            viewBox="0 0 24 24"
+            width="15"
+            height="15"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            focusable="false"
+          >
+            <circle cx="11" cy="11" r="6.5" />
+            <path d="m20 20-4.2-4.2" />
+          </svg>
+          {t("sol_art_search")}
+        </div>
+        <ul className="mb-sol-art-grid">
+          {HERO_PARTS.map((part) => (
+            <li key={part.src} className="mb-sol-art-tile">
+              {/* Intrinsic 680×680 from the files (CONSTRAINTS: never the
+                  display size); CSS paints them into the tile. */}
+              <Image
+                className="mb-sol-art-img"
+                src={part.src}
+                alt=""
+                width={680}
+                height={680}
+                sizes="(max-width: 639.98px) 30vw, 160px"
+              />
+              <span className="mb-sol-art-name">{t(part.name)}</span>
+              <span className="mb-sol-chip">
+                <VerdictDot state="fit" />
+                {t("cat_part_verified")}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="mb-sol-art-float" aria-hidden="true">
+        <VerdictDot state="fit" />
+        {t("sol_art_check")}
+      </div>
+    </div>
+  );
+}
+
+/** One comparison cell: a tick or a dash with its word for screen readers, or
+ *  a short text of its own. */
+function CompareCell({ cell }: { cell: Cell }) {
+  const t = useT();
+  if (cell === "yes" || cell === "no") {
+    return (
+      <>
+        <svg
+          className={cell === "yes" ? "mb-sol-cmp-yes" : "mb-sol-cmp-no"}
+          viewBox="0 0 16 16"
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden
+          focusable="false"
+        >
+          {cell === "yes" ? <path d="m3.5 8.4 2.9 2.9 6-6.3" /> : <path d="M4.5 8h7" />}
+        </svg>
+        <span className="mb-sol-sr">{t(cell === "yes" ? "sol_cmp_yes" : "sol_cmp_no")}</span>
+      </>
+    );
+  }
+  return <>{t(cell)}</>;
+}
+
+/**
+ * /solutions — Mobeeli's SaaS page (2026-10-31). Five bands in the site's
+ * light → dark → light rhythm: a split hero with a sample store; six services
+ * in one ruled sheet; the dark fitment-flow band (the page's one orchestrated
+ * motion moment); packages — three store tiers by size, monthly subscriptions
+ * with levels and a comparison table, never a price (founder, 2026-10-31); and
+ * an FAQ closing on the /investors card's pattern.
  */
 export default function Solutions() {
   const t = useT();
@@ -182,23 +329,26 @@ export default function Solutions() {
     <>
       <section id="solutions" className="mb-sol-hero">
         <div className="mb-sol-hero-inner">
-          <div data-rev="0" className="mb-kicker">
-            {t("sol_kicker")}
+          <div className="mb-sol-hero-copy">
+            <div data-rev="0" className="mb-kicker">
+              {t("sol_kicker")}
+            </div>
+            <h1 data-rev="1" className="mb-sol-h1">
+              {t("sol_h1")}
+            </h1>
+            <p data-rev="2" className="mb-sol-lede">
+              {t("sol_lede")}
+            </p>
+            <div data-rev="3" className="mb-sol-ctas">
+              <Link href="/contact" className="mb-btn-primary-light mb-btn-spring">
+                {t("sol_cta_talk")}
+              </Link>
+              <a href="#packages" className="mb-sol-textlink mb-link-underline">
+                {t("sol_cta_packages")}
+              </a>
+            </div>
           </div>
-          <h1 data-rev="1" className="mb-sol-h1">
-            {t("sol_h1")}
-          </h1>
-          <p data-rev="2" className="mb-sol-lede">
-            {t("sol_lede")}
-          </p>
-          <div data-rev="3" className="mb-sol-ctas">
-            <Link href="/contact" className="mb-btn-primary-light mb-btn-spring">
-              {t("sol_cta_talk")}
-            </Link>
-            <a href="#pricing" className="mb-sol-textlink mb-link-underline">
-              {t("sol_cta_pricing")}
-            </a>
-          </div>
+          <HeroArt />
         </div>
       </section>
 
@@ -243,43 +393,39 @@ export default function Solutions() {
         </div>
       </section>
 
-      <section id="pricing" className="mb-sol-pricing" aria-labelledby="mb-sol-price-h">
+      <section id="packages" className="mb-sol-packages" aria-labelledby="mb-sol-pkg-h">
         <div className="mb-section-inner">
           <header className="mb-sol-head">
             <div data-rev="0" className="mb-kicker">
-              {t("sol_price_kicker")}
+              {t("sol_pkg_kicker")}
             </div>
-            <h2 id="mb-sol-price-h" data-rev="1" className="mb-h2 mb-sol-h2">
-              {t("sol_price_h2")}
+            <h2 id="mb-sol-pkg-h" data-rev="1" className="mb-h2 mb-sol-h2">
+              {t("sol_pkg_h2")}
             </h2>
             <p data-rev="2" className="mb-sol-head-p">
-              {t("sol_price_p")}
+              {t("sol_pkg_p")}
             </p>
           </header>
 
-          <div data-rev="0" className="mb-sol-build">
-            <div className="mb-sol-build-main">
-              <h3 className="mb-sol-build-t">{t("sol_build_t")}</h3>
-              <p className="mb-sol-bill">{t("sol_build_billing")}</p>
-              <p className="mb-sol-build-price">{t("sol_build_price")}</p>
-              <Link href="/contact" className="mb-btn-primary-light mb-btn-spring">
-                {t("sol_cta_talk")}
-              </Link>
-            </div>
-            <div className="mb-sol-build-lists">
-              <div>
-                <h4 className="mb-sol-list-h">{t("sol_build_inc_h")}</h4>
-                <div className="mb-sol-build-inc">
-                  <PlanList items={BUILD_STORE} />
-                  <PlanList items={BUILD_RUNNING} />
-                </div>
-              </div>
-              <div className="mb-sol-build-ext">
-                <h4 className="mb-sol-list-h">{t("sol_build_ext_h")}</h4>
-                <PlanList items={BUILD_EXTRAS} extra />
-              </div>
-            </div>
-          </div>
+          <ul data-rev="0" className="mb-sol-tiers">
+            {TIERS.map((tier) => (
+              <li key={tier.name} className="mb-sol-tier">
+                <h3 className="mb-sol-tier-t">{t(tier.name)}</h3>
+                <p className="mb-sol-tier-for">{t(tier.forWhom)}</p>
+                <p className="mb-sol-bill">{t("sol_tier_bill")}</p>
+                <p className="mb-sol-list-h">
+                  {tier.plusOf
+                    ? t("sol_tier_plus").replace("{tier}", t(tier.plusOf))
+                    : t("sol_tier_base")}
+                </p>
+                <PlanList items={tier.items} />
+                <Link href="/contact" className="mb-btn-primary-light mb-btn-spring">
+                  {t("sol_cta_talk")}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="mb-sol-pkg-note">{t("sol_pkg_note")}</p>
 
           <h3 className="mb-sol-subs-h">{t("sol_sub_h")}</h3>
           <ul data-rev="0" className="mb-sol-subs">
@@ -288,7 +434,18 @@ export default function Solutions() {
                 <h4 className="mb-sol-sub-t">{t(sub.title)}</h4>
                 <p className="mb-sol-bill">{t("sol_sub_billing")}</p>
                 <p className="mb-sol-sub-d">{t(sub.desc)}</p>
-                <PlanList items={sub.items} />
+                {"levels" in sub ? (
+                  <dl className="mb-sol-levels">
+                    {sub.levels.map(([name, desc]) => (
+                      <div key={name}>
+                        <dt>{t(name)}</dt>
+                        <dd>{t(desc)}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                ) : (
+                  <PlanList items={sub.items} />
+                )}
                 <Link href="/contact" className="mb-sol-textlink mb-link-underline">
                   {t("sol_cta_talk")}
                 </Link>
@@ -296,25 +453,49 @@ export default function Solutions() {
             ))}
           </ul>
 
-          <table className="mb-sol-chart">
-            <caption>{t("sol_chart_h")}</caption>
+          <table className="mb-sol-compare">
+            <caption>{t("sol_cmp_h")}</caption>
             <thead>
               <tr>
-                <th scope="col">{t("sol_chart_col_svc")}</th>
-                <th scope="col">{t("sol_chart_col_bill")}</th>
-                <th scope="col">{t("sol_chart_col_price")}</th>
+                <th scope="col">{t("sol_cmp_col")}</th>
+                {TIERS.map((tier) => (
+                  <th key={tier.name} scope="col">
+                    {t(tier.name)}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              {CHART.map(([service, billing, price]) => (
-                <tr key={service}>
-                  <th scope="row">{t(service)}</th>
-                  <td>{t(billing)}</td>
-                  <td>{t(price)}</td>
+              {COMPARE.map(([feature, ...cells]) => (
+                <tr key={feature}>
+                  <th scope="row">{t(feature)}</th>
+                  {cells.map((cell, i) => (
+                    <td key={TIERS[i].name}>
+                      <CompareCell cell={cell} />
+                    </td>
+                  ))}
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+      </section>
+
+      <section id="faq" className="mb-sol-faq" aria-labelledby="mb-sol-faq-h">
+        <div className="mb-section-inner">
+          <div className="mb-sol-faq-grid">
+            <h2 id="mb-sol-faq-h" data-rev="0" className="mb-h2 mb-sol-h2 mb-sol-faq-h2">
+              {t("sol_faq_h2")}
+            </h2>
+            <div data-rev="1" className="mb-sol-faq-list">
+              {FAQ.map(([question, answer]) => (
+                <details key={question} className="mb-sol-faq-item">
+                  <summary className="mb-sol-faq-q">{t(question)}</summary>
+                  <p className="mb-sol-faq-a">{t(answer)}</p>
+                </details>
+              ))}
+            </div>
+          </div>
 
           <div data-rev="0" className="mb-sol-cta">
             <div>
