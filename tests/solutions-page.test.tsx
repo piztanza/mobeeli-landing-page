@@ -88,6 +88,27 @@ describe("/solutions page structure", () => {
     expect(services.match(/class="mb-sol-svc"/g)?.length).toBe(SERVICES.length);
   });
 
+  // Interim duotone icons (2026-10-31), drawn in code until the commissioned
+  // set lands: one per service, each built from its tint, fill and line layers
+  // so the site can recolour them.
+  it("draws every service as its own duotone icon", () => {
+    const icons = section("services").split('<svg class="mb-sol-duo"').slice(1);
+    expect(icons.map((icon) => icon.match(/^ data-icon="([a-z]+)"/)?.[1])).toEqual([
+      "store",
+      "catalog",
+      "link",
+      "plugin",
+      "data",
+      "search",
+    ]);
+    for (const icon of icons) {
+      const svg = icon.slice(0, icon.indexOf("</svg>"));
+      for (const layer of ["mb-sol-duo-bg", "mb-sol-duo-fill", "mb-sol-duo-line"]) {
+        expect(svg, layer).toContain(`class="${layer}"`);
+      }
+    }
+  });
+
   it("mounts the interactive explainer inside its own band", () => {
     const flow = section("fitment-flow");
     expect(flow).toContain('class="mb-sol-fig"');
@@ -140,6 +161,12 @@ describe("/solutions packages (founder decisions, 2026-10-31)", () => {
         expect(tiers[i], key).toContain(esc(t("en", key)));
       }
     });
+  });
+
+  it("gives every package its own duotone icon", () => {
+    expect(
+      tiers.map((tier) => tier.match(/<svg class="mb-sol-duo" data-icon="([a-z]+)"/)?.[1]),
+    ).toEqual(["starter", "growth", "scale"]);
   });
 
   it("ends every package in a talk-to-our-team link", () => {
