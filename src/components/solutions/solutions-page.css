@@ -930,13 +930,24 @@
 .mb-sol-build-main .mb-btn-primary-light {
   margin-top: 30px;
 }
+/* Included first — the store, then running it, as two whole lists side by
+   side — and the optional extras under a hairline, on the same two columns. */
 .mb-sol-build-lists {
   display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
-  gap: 28px clamp(24px, 3vw, 40px);
+  gap: 24px;
   align-content: start;
   padding: clamp(28px, 3.4vw, 44px);
   border-left: 1px solid var(--mb-border);
+}
+.mb-sol-build-inc,
+.mb-sol-build-ext .mb-sol-plan-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(24px, 3vw, 40px);
+}
+.mb-sol-build-ext {
+  padding-top: 22px;
+  border-top: 1px solid var(--mb-border-soft);
 }
 
 /* Subscriptions — three columns of one flat sheet, hairlines between: flat
@@ -1229,8 +1240,13 @@
     border-top: 1px solid var(--mb-border);
   }
 
-  .mb-sol-build-lists {
+  .mb-sol-build-inc,
+  .mb-sol-build-ext .mb-sol-plan-list {
     grid-template-columns: minmax(0, 1fr);
+  }
+  /* Stacked, the two included lists read as one: the item gap between them. */
+  .mb-sol-build-inc .mb-sol-plan-list + .mb-sol-plan-list {
+    margin-top: 10px;
   }
   .mb-sol-sub {
     display: flex;

@@ -97,6 +97,8 @@ describe("/solutions pricing (founder decisions, 2026-10-31)", () => {
     expect(pricing).toContain(esc(t("en", "sol_build_price")));
   });
 
+  // i1–i5 are the store itself; i6–i10 are running it — features the platform
+  // already has (capability map against the platform repo, 2026-10-31).
   it("lists what the build includes and the optional extras", () => {
     for (const key of [
       "sol_build_i1",
@@ -104,6 +106,11 @@ describe("/solutions pricing (founder decisions, 2026-10-31)", () => {
       "sol_build_i3",
       "sol_build_i4",
       "sol_build_i5",
+      "sol_build_i6",
+      "sol_build_i7",
+      "sol_build_i8",
+      "sol_build_i9",
+      "sol_build_i10",
       "sol_build_e1",
       "sol_build_e2",
     ] as const) {

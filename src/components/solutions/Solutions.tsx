@@ -26,12 +26,23 @@ const SERVICES: readonly { title: CopyKey; desc: CopyKey; icon: ServiceIcon }[] 
   { title: "sol_svc6_t", desc: "sol_svc6_d", icon: "search" },
 ];
 
-const BUILD_INCLUDED: readonly CopyKey[] = [
+/** What the store build includes, as two whole lists: the store itself, then
+ *  running it — the seller tools the platform already has (capability map
+ *  against the platform repo, 2026-10-31). */
+const BUILD_STORE: readonly CopyKey[] = [
   "sol_build_i1",
   "sol_build_i2",
   "sol_build_i3",
   "sol_build_i4",
   "sol_build_i5",
+];
+
+const BUILD_RUNNING: readonly CopyKey[] = [
+  "sol_build_i6",
+  "sol_build_i7",
+  "sol_build_i8",
+  "sol_build_i9",
+  "sol_build_i10",
 ];
 
 const BUILD_EXTRAS: readonly CopyKey[] = ["sol_build_e1", "sol_build_e2"];
@@ -258,9 +269,12 @@ export default function Solutions() {
             <div className="mb-sol-build-lists">
               <div>
                 <h4 className="mb-sol-list-h">{t("sol_build_inc_h")}</h4>
-                <PlanList items={BUILD_INCLUDED} />
+                <div className="mb-sol-build-inc">
+                  <PlanList items={BUILD_STORE} />
+                  <PlanList items={BUILD_RUNNING} />
+                </div>
               </div>
-              <div>
+              <div className="mb-sol-build-ext">
                 <h4 className="mb-sol-list-h">{t("sol_build_ext_h")}</h4>
                 <PlanList items={BUILD_EXTRAS} extra />
               </div>
