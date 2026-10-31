@@ -229,14 +229,31 @@
 .mb-sol-svc:not(:nth-child(3n + 1)) {
   border-left: 1px solid var(--mb-border);
 }
+/* The duotone icon carries its own tint disc, so the slot is just its size. */
 .mb-sol-svc-i {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: var(--mb-tint);
+  display: block;
+  width: 88px;
+  height: 88px;
+  margin-left: -6px;
+}
+
+/* ---------- interim duotone icons ----------
+   Drawn in code (DuoIcon.tsx, 2026-10-31) until the commissioned set lands: a
+   tint disc, second-tone fills and deep-blue outlines on a 48-unit grid. The
+   colours live here, not in the SVGs, so a section can re-tone them. */
+.mb-sol-duo {
+  display: block;
+  overflow: visible;
   color: var(--mb-deep-blue);
+}
+.mb-sol-duo-bg {
+  fill: var(--mb-tint);
+}
+.mb-sol-duo-fill {
+  fill: rgba(47, 125, 246, 0.3);
+}
+.mb-sol-duo-paper {
+  fill: var(--mb-surface);
 }
 .mb-sol-svc-t {
   margin: 20px 0 0;
@@ -1035,7 +1052,12 @@
   background: var(--mb-surface);
   box-shadow: 0 20px 48px rgba(13, 21, 34, 0.06);
 }
+/* The package's icon above its name, one grid row together. */
 .mb-sol-tier-t {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
   margin: 0;
   font-size: clamp(24px, 2.2vw, 28px);
   line-height: 1.15;

@@ -2,23 +2,21 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
 
 import { PLATFORM_URL } from "@/components/landing/Nav";
 import type { CopyKey } from "@/lib/i18n";
 import { useT } from "@/lib/i18n/LanguageProvider";
 
+import DuoIcon, { type DuoIconName } from "./DuoIcon";
 import FitmentFlow, { VerdictDot } from "./FitmentFlow";
 
 // Not "./solutions.css": a stylesheet named like this module but for case is
 // the CONSTRAINTS "Modules" trap in waiting on a case-insensitive filesystem.
 import "./solutions-page.css";
 
-type ServiceIcon = "store" | "catalog" | "link" | "plugin" | "data" | "search";
-
 /** The services a parts business can buy today — only what is ready (founder
  *  2026-10-31). Fitment and the vehicle data stay the thread through all six. */
-const SERVICES: readonly { title: CopyKey; desc: CopyKey; icon: ServiceIcon }[] = [
+const SERVICES: readonly { title: CopyKey; desc: CopyKey; icon: DuoIconName }[] = [
   { title: "sol_svc1_t", desc: "sol_svc1_d", icon: "store" },
   { title: "sol_svc2_t", desc: "sol_svc2_d", icon: "catalog" },
   { title: "sol_svc3_t", desc: "sol_svc3_d", icon: "link" },
@@ -39,6 +37,7 @@ const HERO_PARTS: readonly { src: string; name: CopyKey }[] = [
  *  lists only what it adds; the comparison table carries every feature. */
 const TIERS: readonly {
   name: CopyKey;
+  icon: DuoIconName;
   forWhom: CopyKey;
   /** The package this one builds on; the first lists the full store instead. */
   plusOf?: CopyKey;
@@ -46,17 +45,20 @@ const TIERS: readonly {
 }[] = [
   {
     name: "sol_tier1_t",
+    icon: "starter",
     forWhom: "sol_tier1_for",
     items: ["sol_tier1_cat", "sol_build_i3", "sol_tier1_l3", "sol_build_i5"],
   },
   {
     name: "sol_tier2_t",
+    icon: "growth",
     forWhom: "sol_tier2_for",
     plusOf: "sol_tier1_t",
     items: ["sol_tier2_cat", "sol_build_e1", "sol_cmp_terms"],
   },
   {
     name: "sol_tier3_t",
+    icon: "scale",
     forWhom: "sol_tier3_for",
     plusOf: "sol_tier2_t",
     items: ["sol_tier3_cat", "sol_svc3_t", "sol_tier3_l3"],
@@ -124,69 +126,6 @@ const FAQ: readonly (readonly [question: CopyKey, answer: CopyKey])[] = [
   ["sol_faq4_q", "sol_faq4_a"],
   ["sol_faq5_q", "sol_faq5_a"],
 ];
-
-/** Line icons on the 24-unit grid, stroke from currentColor (PlatformFlow's set). */
-function ServiceGlyph({ icon }: { icon: ServiceIcon }) {
-  const paths: Record<ServiceIcon, ReactNode> = {
-    store: (
-      <>
-        <path d="M4 9h16v11H4z" />
-        <path d="M4 9 6 4h12l2 5" />
-        <path d="M10 20v-5h4v5" />
-      </>
-    ),
-    catalog: (
-      <>
-        <path d="M8 3.5h9.5l2.5 2.5v13.5H8z" />
-        <path d="M17.5 3.5V6H20" />
-        <path d="M4.5 7v13.5h12" />
-        <path d="M11 10h6M11 13.5h6M11 17h3.5" />
-      </>
-    ),
-    link: (
-      <>
-        <path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1" />
-        <path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1" />
-      </>
-    ),
-    plugin: (
-      <>
-        <path d="M9 3v5M15 3v5" />
-        <path d="M6 8h12v3a6 6 0 0 1-12 0z" />
-        <path d="M12 17v4" />
-      </>
-    ),
-    data: (
-      <>
-        <ellipse cx="12" cy="5.8" rx="7" ry="2.6" />
-        <path d="M5 5.8v12.4c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6V5.8" />
-        <path d="M5 12c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6" />
-      </>
-    ),
-    search: (
-      <>
-        <circle cx="11" cy="11" r="6.5" />
-        <path d="m20 20-4.2-4.2" />
-      </>
-    ),
-  };
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width="20"
-      height="20"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      fill="none"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-      focusable="false"
-    >
-      {paths[icon]}
-    </svg>
-  );
-}
 
 /** A list of what a plan holds, each line with a check. */
 function PlanList({ items }: { items: readonly CopyKey[] }) {
@@ -366,7 +305,7 @@ export default function Solutions() {
             {SERVICES.map((s) => (
               <li key={s.title} className="mb-sol-svc">
                 <span className="mb-sol-svc-i">
-                  <ServiceGlyph icon={s.icon} />
+                  <DuoIcon name={s.icon} size={88} />
                 </span>
                 <h3 className="mb-sol-svc-t">{t(s.title)}</h3>
                 <p className="mb-sol-svc-d">{t(s.desc)}</p>
@@ -410,7 +349,10 @@ export default function Solutions() {
           <ul data-rev="0" className="mb-sol-tiers">
             {TIERS.map((tier) => (
               <li key={tier.name} className="mb-sol-tier">
-                <h3 className="mb-sol-tier-t">{t(tier.name)}</h3>
+                <h3 className="mb-sol-tier-t">
+                  <DuoIcon name={tier.icon} size={76} />
+                  {t(tier.name)}
+                </h3>
                 <p className="mb-sol-tier-for">{t(tier.forWhom)}</p>
                 <p className="mb-sol-bill">{t("sol_tier_bill")}</p>
                 <p className="mb-sol-list-h">
