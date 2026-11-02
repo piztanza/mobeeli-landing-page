@@ -245,6 +245,20 @@ describe("/solutions packages (founder decisions, 2026-10-31)", () => {
     for (const key of COMPARED) expect(table, key).toContain(esc(t("en", key)));
   });
 
+  // Every feature row leads with its own quiet line glyph (2026-11-03): one per
+  // row, all different, decorative to screen readers (the row header names it).
+  it("marks every feature row with its own glyph", () => {
+    const table = packages.match(/<table class="mb-sol-compare">[\s\S]*?<\/table>/)?.[0] ?? "";
+    const heads = table.slice(table.indexOf("<tbody")).split('<th scope="row"').slice(1);
+    expect(heads.length).toBe(COMPARED.length);
+    const glyphs = heads.map(
+      (h) => h.match(/<svg class="mb-sol-row-i" data-glyph="([a-z]+)"/)?.[1],
+    );
+    expect(glyphs.every(Boolean), glyphs.join(",")).toBe(true);
+    expect(new Set(glyphs).size).toBe(COMPARED.length);
+    for (const h of heads) expect(h.slice(0, h.indexOf("</svg>"))).toContain('aria-hidden="true"');
+  });
+
   // Stock across branches is only partly built in the platform: it is offered
   // "by arrangement", never as a tick.
   it("offers stock across branches by arrangement, not as a tick", () => {

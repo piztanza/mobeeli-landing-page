@@ -9,6 +9,7 @@ import { useT } from "@/lib/i18n/LanguageProvider";
 
 import DuoIcon, { type DuoIconName } from "./DuoIcon";
 import FitmentFlow, { VerdictDot } from "./FitmentFlow";
+import RowGlyph, { type RowGlyphName } from "./RowGlyph";
 
 // Not "./solutions.css": a stylesheet named like this module but for case is
 // the CONSTRAINTS "Modules" trap in waiting on a case-insensitive filesystem.
@@ -100,24 +101,29 @@ type Cell = "yes" | "no" | CopyKey;
 /** The package comparison: every store feature the platform already has, then
  *  what the bigger packages add (capability map against the platform repo,
  *  2026-10-31). Stock across branches is only partly built there, so it is "by
- *  arrangement", never a tick. */
-const COMPARE: readonly (readonly [feature: CopyKey, starter: Cell, growth: Cell, scale: Cell])[] =
-  [
-    ["sol_build_i1", "yes", "yes", "yes"],
-    ["sol_build_i2", "sol_tier1_cat", "sol_tier2_cat", "sol_tier3_cat"],
-    ["sol_build_i3", "yes", "yes", "yes"],
-    ["sol_build_i4", "yes", "yes", "yes"],
-    ["sol_build_i5", "yes", "yes", "yes"],
-    ["sol_build_i6", "yes", "yes", "yes"],
-    ["sol_build_i7", "yes", "yes", "yes"],
-    ["sol_build_i8", "yes", "yes", "yes"],
-    ["sol_build_i9", "yes", "yes", "yes"],
-    ["sol_build_i10", "yes", "yes", "yes"],
-    ["sol_build_e1", "no", "yes", "yes"],
-    ["sol_cmp_terms", "no", "yes", "yes"],
-    ["sol_svc3_t", "no", "no", "yes"],
-    ["sol_build_e2", "no", "no", "sol_cmp_arr"],
-  ];
+ *  arrangement", never a tick. Each row leads with its own quiet line glyph. */
+const COMPARE: readonly (readonly [
+  feature: CopyKey,
+  glyph: RowGlyphName,
+  starter: Cell,
+  growth: Cell,
+  scale: Cell,
+])[] = [
+  ["sol_build_i1", "store", "yes", "yes", "yes"],
+  ["sol_build_i2", "catalog", "sol_tier1_cat", "sol_tier2_cat", "sol_tier3_cat"],
+  ["sol_build_i3", "car", "yes", "yes", "yes"],
+  ["sol_build_i4", "wheel", "yes", "yes", "yes"],
+  ["sol_build_i5", "bag", "yes", "yes", "yes"],
+  ["sol_build_i6", "clipboard", "yes", "yes", "yes"],
+  ["sol_build_i7", "ticket", "yes", "yes", "yes"],
+  ["sol_build_i8", "truck", "yes", "yes", "yes"],
+  ["sol_build_i9", "bars", "yes", "yes", "yes"],
+  ["sol_build_i10", "team", "yes", "yes", "yes"],
+  ["sol_build_e1", "calendar", "no", "yes", "yes"],
+  ["sol_cmp_terms", "invoice", "no", "yes", "yes"],
+  ["sol_svc3_t", "link", "no", "no", "yes"],
+  ["sol_build_e2", "pins", "no", "no", "sol_cmp_arr"],
+];
 
 const FAQ: readonly (readonly [question: CopyKey, answer: CopyKey])[] = [
   ["sol_faq1_q", "sol_faq1_a"],
@@ -406,9 +412,14 @@ export default function Solutions() {
                 </tr>
               </thead>
               <tbody>
-                {COMPARE.map(([feature, ...cells]) => (
+                {COMPARE.map(([feature, glyph, ...cells]) => (
                   <tr key={feature}>
-                    <th scope="row">{t(feature)}</th>
+                    <th scope="row">
+                      <span className="mb-sol-row">
+                        <RowGlyph name={glyph} />
+                        {t(feature)}
+                      </span>
+                    </th>
                     {cells.map((cell, i) => (
                       <td key={TIERS[i].name}>
                         <CompareCell cell={cell} />
