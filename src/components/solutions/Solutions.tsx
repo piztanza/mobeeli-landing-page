@@ -167,12 +167,9 @@ function HeroArt() {
   return (
     <div data-rev="2" className="mb-sol-art" role="img" aria-label={t("sol_art_label")}>
       <div className="mb-sol-art-win" aria-hidden="true">
+        {/* No drawn traffic-light dots: a fake browser bar reads as made-up
+            chrome. The window carries only its honest "sample" tag. */}
         <div className="mb-sol-art-bar">
-          <span className="mb-sol-art-dots">
-            <span />
-            <span />
-            <span />
-          </span>
           <span className="mb-sol-art-tag">{t("sol_art_tag")}</span>
         </div>
         <div className="mb-sol-art-garage">
@@ -354,27 +351,27 @@ export default function Solutions() {
                   {t(tier.name)}
                 </h3>
                 <p className="mb-sol-tier-for">{t(tier.forWhom)}</p>
-                <p className="mb-sol-bill">{t("sol_tier_bill")}</p>
                 <p className="mb-sol-list-h">
                   {tier.plusOf
                     ? t("sol_tier_plus").replace("{tier}", t(tier.plusOf))
                     : t("sol_tier_base")}
                 </p>
                 <PlanList items={tier.items} />
-                <Link href="/contact" className="mb-btn-primary-light mb-btn-spring">
+                <Link href="/contact" className="mb-sol-tier-cta">
                   {t("sol_cta_talk")}
                 </Link>
               </li>
             ))}
           </ul>
-          <p className="mb-sol-pkg-note">{t("sol_pkg_note")}</p>
 
-          <h3 className="mb-sol-subs-h">{t("sol_sub_h")}</h3>
+          <div className="mb-sol-subs-head">
+            <h3 className="mb-sol-subs-h">{t("sol_sub_h")}</h3>
+            <p className="mb-sol-pkg-note">{t("sol_pkg_note")}</p>
+          </div>
           <ul data-rev="0" className="mb-sol-subs">
             {SUBSCRIPTIONS.map((sub) => (
               <li key={sub.title} className="mb-sol-sub">
                 <h4 className="mb-sol-sub-t">{t(sub.title)}</h4>
-                <p className="mb-sol-bill">{t("sol_sub_billing")}</p>
                 <p className="mb-sol-sub-d">{t(sub.desc)}</p>
                 {"levels" in sub ? (
                   <dl className="mb-sol-levels">
@@ -388,38 +385,40 @@ export default function Solutions() {
                 ) : (
                   <PlanList items={sub.items} />
                 )}
-                <Link href="/contact" className="mb-sol-textlink mb-link-underline">
-                  {t("sol_cta_talk")}
-                </Link>
               </li>
             ))}
           </ul>
 
-          <table className="mb-sol-compare">
-            <caption>{t("sol_cmp_h")}</caption>
-            <thead>
-              <tr>
-                <th scope="col">{t("sol_cmp_col")}</th>
-                {TIERS.map((tier) => (
-                  <th key={tier.name} scope="col">
-                    {t(tier.name)}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {COMPARE.map(([feature, ...cells]) => (
-                <tr key={feature}>
-                  <th scope="row">{t(feature)}</th>
-                  {cells.map((cell, i) => (
-                    <td key={TIERS[i].name}>
-                      <CompareCell cell={cell} />
-                    </td>
+          {/* Ten of the fourteen rows are ticks in every column, so the full
+              table is opt-in: a native disclosure, closed by default. */}
+          <details className="mb-sol-compare-wrap">
+            <summary className="mb-sol-compare-sum">{t("sol_cmp_h")}</summary>
+            <table className="mb-sol-compare">
+              <caption className="mb-sol-sr">{t("sol_cmp_h")}</caption>
+              <thead>
+                <tr>
+                  <th scope="col">{t("sol_cmp_col")}</th>
+                  {TIERS.map((tier) => (
+                    <th key={tier.name} scope="col">
+                      {t(tier.name)}
+                    </th>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {COMPARE.map(([feature, ...cells]) => (
+                  <tr key={feature}>
+                    <th scope="row">{t(feature)}</th>
+                    {cells.map((cell, i) => (
+                      <td key={TIERS[i].name}>
+                        <CompareCell cell={cell} />
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </details>
         </div>
       </section>
 

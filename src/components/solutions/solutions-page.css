@@ -1,3 +1,4 @@
+/* Hallmark · redesign: declutter (2026-11-03) · tone: technical, restrained · anchor hue: Mobeeli deep blue */
 /*
  * /solutions (2026-10-31, decongested the same day) — the SaaS page.
  *
@@ -84,18 +85,8 @@
 .mb-sol-art-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-bottom: 14px;
-}
-.mb-sol-art-dots {
-  display: inline-flex;
-  gap: 6px;
-}
-.mb-sol-art-dots span {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.18);
 }
 .mb-sol-art-tag {
   font-size: 11px;
@@ -1013,14 +1004,6 @@
   margin-top: 4px;
   color: var(--mb-deep-blue);
 }
-/* How a thing is billed, under its name — the same line on every package and
-   every subscription, so one-time and monthly read apart at a glance. */
-.mb-sol-bill {
-  margin: 6px 0 0;
-  font-size: 13.5px;
-  font-weight: 700;
-  color: var(--mb-deep-blue);
-}
 .mb-sol-list-h {
   margin: 0;
   font-size: 14px;
@@ -1043,7 +1026,7 @@
 }
 .mb-sol-tier {
   display: grid;
-  grid-row: span 6;
+  grid-row: span 5;
   grid-template-rows: subgrid;
   row-gap: 0;
   padding: clamp(26px, 2.8vw, 36px);
@@ -1052,6 +1035,8 @@
   background: var(--mb-surface);
   box-shadow: 0 20px 48px rgba(13, 21, 34, 0.06);
 }
+/* Five rows shared across the cards: name (with its icon), who it is for,
+   list heading, list, CTA. The one-time billing is said once, in the lead. */
 /* The package's icon above its name, one grid row together. */
 .mb-sol-tier-t {
   display: flex;
@@ -1070,9 +1055,6 @@
   line-height: 1.5;
   color: #3c4654;
 }
-.mb-sol-tier .mb-sol-bill {
-  margin-top: 14px;
-}
 .mb-sol-tier .mb-sol-list-h {
   margin-top: 22px;
   padding-top: 20px;
@@ -1081,21 +1063,42 @@
 .mb-sol-tier .mb-sol-plan-list {
   margin: 12px 0 30px;
 }
-.mb-sol-tier .mb-btn-primary-light {
+/* An outline button, not three solid pills in a row: the cards ask for the
+   same conversation, so they share one quiet voice and the page keeps a
+   single solid CTA per screen. */
+.mb-sol-tier-cta {
+  display: inline-flex;
+  align-items: center;
   justify-self: start;
   align-self: end;
+  padding: 12px 24px;
+  border: 1.5px solid var(--mb-deep-blue);
+  border-radius: var(--mb-radius-pill);
+  font-size: 15px;
+  font-weight: 800;
+  white-space: nowrap;
 }
-.mb-sol-pkg-note {
-  margin: 20px 0 0;
-  font-size: 14.5px;
-  line-height: 1.55;
-  color: var(--mb-muted);
+.mb-landing .mb-sol-tier-cta {
+  color: var(--mb-deep-blue);
+}
+.mb-landing .mb-sol-tier-cta:hover {
+  background: var(--mb-tint);
 }
 
 /* Subscriptions — three columns of one flat sheet, hairlines between: flat
-   beside the raised package cards, because they are what runs after them. */
-.mb-sol-subs-h {
+   beside the raised package cards, because they are what runs after them. The
+   heading says "monthly" once and the note under it says why. */
+.mb-sol-subs-head {
   margin: clamp(56px, 7vw, 88px) 0 18px;
+}
+.mb-sol-pkg-note {
+  margin: 6px 0 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--mb-muted);
+}
+.mb-sol-subs-h {
+  margin: 0;
   font-size: clamp(22px, 2.2vw, 28px);
   line-height: 1.2;
   letter-spacing: -0.015em;
@@ -1160,29 +1163,58 @@
   line-height: 1.55;
   color: #3c4654;
 }
-.mb-sol-sub .mb-sol-textlink {
-  margin-top: auto;
-  padding-top: 26px;
-}
 
-/* The comparison: every feature down the side, the three packages across, and
-   a tick, a dash or a short text in each cell. The /contact ink rule under the
-   package names. */
+/* The comparison, opt-in: a disclosure row in the FAQ's voice (a plus that
+   becomes a minus), opening onto the full table. Nothing moves, so there is
+   nothing to gate. */
+.mb-sol-compare-wrap {
+  margin-top: clamp(40px, 5vw, 56px);
+  border-top: 1.5px solid var(--mb-ink);
+  border-bottom: 1px solid var(--mb-border);
+}
+.mb-sol-compare-sum {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 0;
+  font-size: clamp(19px, 1.8vw, 22px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--mb-ink);
+  list-style: none;
+  cursor: pointer;
+}
+.mb-sol-compare-sum::-webkit-details-marker {
+  display: none;
+}
+.mb-sol-compare-sum::after {
+  content: "";
+  flex: none;
+  width: 14px;
+  height: 14px;
+  background:
+    linear-gradient(var(--mb-deep-blue), var(--mb-deep-blue)) center / 14px 2px no-repeat,
+    linear-gradient(var(--mb-deep-blue), var(--mb-deep-blue)) center / 2px 14px no-repeat;
+}
+.mb-sol-compare-wrap[open] > .mb-sol-compare-sum::after {
+  background: linear-gradient(var(--mb-deep-blue), var(--mb-deep-blue)) center / 14px 2px no-repeat;
+}
+.mb-sol-compare-sum:hover {
+  color: var(--mb-deep-blue);
+}
+.mb-sol-compare-sum:focus-visible {
+  outline: 2px solid var(--mb-focus-ring);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+/* The table itself: every feature down the side, the three packages across,
+   a tick, a dash or a short text in each cell. */
 .mb-sol-compare {
   width: 100%;
-  margin-top: clamp(56px, 7vw, 88px);
+  margin-bottom: 8px;
   border-collapse: collapse;
   font-size: 15px;
-}
-.mb-sol-compare caption {
-  padding-bottom: 18px;
-  caption-side: top;
-  text-align: left;
-  font-size: clamp(22px, 2.2vw, 28px);
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.015em;
-  color: var(--mb-ink);
 }
 .mb-sol-compare th,
 .mb-sol-compare td {
@@ -1446,9 +1478,8 @@
     grid-template-areas:
       "t head"
       "for list"
-      "bill list"
       "cta list";
-    grid-template-rows: auto auto auto 1fr;
+    grid-template-rows: auto auto 1fr;
     column-gap: 36px;
     align-items: start;
   }
@@ -1457,9 +1488,6 @@
   }
   .mb-sol-tier-for {
     grid-area: for;
-  }
-  .mb-sol-tier .mb-sol-bill {
-    grid-area: bill;
   }
   .mb-sol-tier .mb-sol-list-h {
     grid-area: head;
@@ -1471,7 +1499,7 @@
     grid-area: list;
     margin: 12px 0 0;
   }
-  .mb-sol-tier .mb-btn-primary-light {
+  .mb-sol-tier-cta {
     grid-area: cta;
     justify-self: start;
     align-self: end;
@@ -1485,25 +1513,20 @@
     border-top: 1px solid var(--mb-border);
     border-left: 0;
   }
-  /* A row is wide here: name, billing, line and link on the left, the list on
-     the right, so a subscription does not become a long thin column. */
+  /* A row is wide here: name and line on the left, the list on the right, so
+     a subscription does not become a long thin column. */
   .mb-sol-sub {
     display: grid;
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     grid-template-areas:
       "t list"
-      "bill list"
-      "d list"
-      "link list";
-    grid-template-rows: auto auto auto 1fr;
+      "d list";
+    grid-template-rows: auto 1fr;
     column-gap: 36px;
     align-items: start;
   }
   .mb-sol-sub-t {
     grid-area: t;
-  }
-  .mb-sol-sub .mb-sol-bill {
-    grid-area: bill;
   }
   .mb-sol-sub-d {
     grid-area: d;
@@ -1513,11 +1536,6 @@
     margin-top: 0;
     padding-top: 0;
     border-top: 0;
-  }
-  .mb-sol-sub .mb-sol-textlink {
-    grid-area: link;
-    justify-self: start;
-    align-self: end;
   }
 
   .mb-sol-faq-grid,
@@ -1582,7 +1600,7 @@
   .mb-sol-tier .mb-sol-plan-list {
     margin: 12px 0 28px;
   }
-  .mb-sol-tier .mb-btn-primary-light {
+  .mb-sol-tier-cta {
     align-self: flex-start;
     margin-top: auto;
   }
@@ -1590,9 +1608,6 @@
     margin-top: 18px;
     padding-top: 18px;
     border-top: 1px solid var(--mb-border-soft);
-  }
-  .mb-sol-sub .mb-sol-textlink {
-    align-self: flex-start;
   }
 
   /* The comparison keeps its four columns: a narrower feature column and
