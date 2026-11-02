@@ -76,6 +76,8 @@ describe("/solutions page structure", () => {
     const art = hero.slice(hero.indexOf('class="mb-sol-art"'));
     expect(art).toContain(esc(t("en", "sol_art_tag")));
     expect(art.match(/<img /g)?.length).toBe(3);
+    // No re-drawn browser chrome: the window carries no fake traffic-light dots.
+    expect(art).not.toContain("mb-sol-art-dots");
   });
 
   it("lists the six services, each with its one-line description", () => {
@@ -119,6 +121,14 @@ describe("/solutions page structure", () => {
     const main = html.slice(html.indexOf("<main"), html.indexOf("</main>"));
     expect(main).toContain(esc(t("en", "sol_cta_h")));
     expect(main).toContain('href="https://company.mobeeli.com/join"');
+  });
+
+  // Decluttered (2026-11-03): "Talk to our team" was on the page eight times.
+  // It stays where a decision is made — the hero, each package, the closing card.
+  it("asks for the conversation five times, not eight", () => {
+    const main = html.slice(html.indexOf("<main"), html.indexOf("</main>"));
+    const talk = esc(t("en", "sol_cta_talk"));
+    expect(main.split(`>${talk}</a>`).length - 1).toBe(5);
   });
 });
 
@@ -169,12 +179,18 @@ describe("/solutions packages (founder decisions, 2026-10-31)", () => {
     ).toEqual(["starter", "growth", "scale"]);
   });
 
-  it("ends every package in a talk-to-our-team link", () => {
+  it("ends every package in a quiet talk-to-our-team link", () => {
     for (const tier of tiers) {
       expect(tier).toContain('href="/contact"');
+      expect(tier).toContain('class="mb-sol-tier-cta"');
       expect(tier).toContain(esc(t("en", "sol_cta_talk")));
-      expect(tier).toContain(esc(t("en", "sol_tier_bill")));
     }
+  });
+
+  // Said once, in the band's lead, instead of on every card.
+  it("states the one-time build once, not on every card", () => {
+    expect(t("en", "sol_pkg_p")).toMatch(/one-time/i);
+    for (const tier of tiers) expect(tier).not.toContain('class="mb-sol-bill"');
   });
 
   it("builds each package on the one before it", () => {
@@ -190,7 +206,12 @@ describe("/solutions packages (founder decisions, 2026-10-31)", () => {
 
   it("sells maintenance, SEO and the APIs as monthly subscriptions, with levels", () => {
     expect(packages.match(/class="mb-sol-sub"/g)?.length).toBe(3);
-    expect(packages).toContain(esc(t("en", "sol_sub_billing")));
+    expect(packages).toContain(esc(t("en", "sol_sub_h")));
+    // One heading says "monthly"; the cards carry no billing line or link each.
+    const subs = packages.slice(packages.indexOf(`class="mb-sol-subs"`));
+    const list = subs.slice(0, subs.indexOf("</ul>"));
+    expect(list).not.toContain('class="mb-sol-bill"');
+    expect(list).not.toContain('href="/contact"');
     expect(packages.match(/class="mb-sol-levels"/g)?.length).toBe(2);
     for (const key of [
       "sol_sub1_lv1_t",
@@ -200,6 +221,18 @@ describe("/solutions packages (founder decisions, 2026-10-31)", () => {
     ] as const) {
       expect(packages, key).toContain(esc(t("en", key)));
     }
+  });
+
+  // Ten of the fourteen rows are ticks in every column, so the full table is
+  // opt-in: a native disclosure, closed by default.
+  it("keeps the full comparison behind a closed disclosure", () => {
+    const wrap =
+      packages.match(/<details class="mb-sol-compare-wrap"[^>]*>[\s\S]*?<\/details>/)?.[0] ?? "";
+    expect(wrap, "the disclosure").not.toBe("");
+    expect(wrap.slice(0, wrap.indexOf(">"))).not.toContain("open");
+    const summary = wrap.slice(wrap.indexOf("<summary"), wrap.indexOf("</summary>"));
+    expect(summary).toContain(esc(t("en", "sol_cmp_h")));
+    expect(wrap).toContain('<table class="mb-sol-compare">');
   });
 
   it("compares the three packages feature by feature", () => {
