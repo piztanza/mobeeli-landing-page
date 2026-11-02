@@ -661,7 +661,7 @@
   border-top: 0;
   font-size: 11px;
   font-weight: 700;
-  color: var(--mb-muted-2);
+  color: var(--mb-muted);
 }
 .mb-sol-checks tbody th {
   font-weight: 600;
@@ -1246,6 +1246,19 @@
   line-height: 1.4;
   color: var(--mb-ink);
 }
+/* Each feature leads with its line glyph: small, one weight, muted slate, so
+   the blue ticks stay the table's only signal colour. The glyph sits on the
+   text's first line when a long name wraps. */
+.mb-sol-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.mb-sol-row-i {
+  flex: none;
+  margin-top: 1px;
+  color: var(--mb-muted);
+}
 .mb-sol-compare td {
   font-size: 14px;
   line-height: 1.4;
@@ -1627,6 +1640,14 @@
   }
   .mb-sol-compare td {
     font-size: 12.5px;
+  }
+  .mb-sol-row {
+    gap: 8px;
+  }
+  .mb-sol-row-i {
+    width: 15px;
+    height: 15px;
+    margin-top: 2px;
   }
 
   .mb-sol-faq-q {
