@@ -117,7 +117,7 @@ const ICONS: Record<DuoIconName, { fill: ReactNode; line: ReactNode }> = {
       </>
     ),
   },
-  // SEO and AI SEO: a magnifier over result lines, an answer bubble beside it.
+  // SEO and GEO: a magnifier over result lines, an answer bubble beside it.
   search: {
     fill: (
       <>

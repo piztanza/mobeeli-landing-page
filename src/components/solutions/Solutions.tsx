@@ -131,6 +131,7 @@ const FAQ: readonly (readonly [question: CopyKey, answer: CopyKey])[] = [
   ["sol_faq3_q", "sol_faq3_a"],
   ["sol_faq4_q", "sol_faq4_a"],
   ["sol_faq5_q", "sol_faq5_a"],
+  ["sol_faq6_q", "sol_faq6_a"],
 ];
 
 /** A list of what a plan holds, each line with a check. */
