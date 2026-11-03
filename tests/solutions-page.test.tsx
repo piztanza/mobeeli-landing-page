@@ -281,10 +281,10 @@ describe("/solutions packages (founder decisions, 2026-10-31)", () => {
 
 describe("/solutions FAQ", () => {
   // Native <details>: keyboard and screen-reader support with no script, and
-  // collapsed by default so five answers do not lengthen the page.
-  it("answers five questions in native disclosures", () => {
+  // collapsed by default so six answers do not lengthen the page.
+  it("answers six questions in native disclosures", () => {
     const items = section("faq").split('<details class="mb-sol-faq-item"').slice(1);
-    expect(items.length).toBe(5);
+    expect(items.length).toBe(6);
     items.forEach((item, i) => {
       const q = esc(t("en", `sol_faq${i + 1}_q` as CopyKey));
       expect(item).toMatch(
@@ -292,6 +292,47 @@ describe("/solutions FAQ", () => {
       );
       expect(item).toContain(esc(t("en", `sol_faq${i + 1}_a` as CopyKey)));
     });
+  });
+});
+
+// The AI-search service is named with the industry's current term, GEO
+// (founder, 2026-11-03), paired with SEO, which it builds on. GEO is jargon to
+// a parts seller, so the page spells it out and an FAQ answers what it is.
+describe("/solutions SEO and GEO naming", () => {
+  const services = section("services");
+  const packages = section("packages");
+
+  it("names the service SEO and GEO on its card and its subscription", () => {
+    expect(services).toContain(esc(t("en", "sol_svc6_t")));
+    expect(t("en", "sol_svc6_t")).toBe("SEO and GEO");
+    expect(t("id", "sol_svc6_t")).toBe("SEO dan GEO");
+    expect(t("en", "sol_sub2_t")).toBe("SEO and GEO");
+    expect(t("id", "sol_sub2_t")).toBe("SEO dan GEO");
+    expect(t("en", "sol_sub2_lv2_t")).toBe("SEO and GEO");
+    expect(t("id", "sol_sub2_lv2_t")).toBe("SEO dan GEO");
+    expect(packages).toContain(esc(t("en", "sol_sub2_lv2_t")));
+  });
+
+  it("retires the old AI SEO name everywhere on the page", () => {
+    for (const lang of langs) {
+      for (const [key, value] of Object.entries(copy[lang])) {
+        if (key.startsWith("sol_")) expect(value, `${lang}.${key}`).not.toMatch(/AI SEO|SEO AI/);
+      }
+    }
+  });
+
+  it("spells out GEO on the service card in both languages", () => {
+    expect(t("en", "sol_svc6_d")).toMatch(/generative engine optimization/i);
+    expect(t("id", "sol_svc6_d")).toMatch(/generative engine optimization/i);
+    expect(services).toContain(esc(t("en", "sol_svc6_d")));
+  });
+
+  it("answers what GEO is, without promising a place in AI answers", () => {
+    const faq = section("faq");
+    expect(t("en", "sol_faq6_q")).toMatch(/\bGEO\b/);
+    expect(t("id", "sol_faq6_q")).toMatch(/\bGEO\b/);
+    expect(faq).toContain(esc(t("en", "sol_faq6_a")));
+    expect(t("en", "sol_faq6_a")).toMatch(/AEO/);
   });
 });
 

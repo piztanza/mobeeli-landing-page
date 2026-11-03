@@ -280,7 +280,7 @@ const en = {
   sol_kicker: "Solutions",
   sol_h1: "Your auto parts store, built and run by Mobeeli.",
   sol_lede:
-    "A dedicated store with Indonesian fitment data built in, kept running by our team — plus catalog connections, SEO and APIs as you grow.",
+    "A dedicated store with Indonesian fitment data built in, kept running by our team — plus catalog connections, SEO and GEO, and APIs as you grow.",
   sol_cta_talk: "Talk to our team",
   sol_cta_packages: "See packages",
   /* The hero's sample store: a composite of the store UI and the parts
@@ -311,9 +311,11 @@ const en = {
   sol_svc5_t: "Vehicle data API",
   sol_svc5_d:
     "Indonesian year, make, model and trim with OE fitment specs, by subscription. Lookups only: the database never leaves Mobeeli.",
-  sol_svc6_t: "SEO and AI SEO",
+  /* GEO is the industry's current name for optimizing for AI answers (founder,
+     2026-11-03); it is spelled out here and explained in sol_faq6. */
+  sol_svc6_t: "SEO and GEO",
   sol_svc6_d:
-    "Your store's pages structured for search engines and AI assistants: your brand, your area, your catalog.",
+    "Search engine and generative engine optimization: your brand, area and catalog structured so search engines and AI assistants can read them.",
   sol_flow_kicker: "How it works",
   sol_flow_h2: "Every part is checked against the car before a shopper sees it.",
   sol_flow_p:
@@ -363,13 +365,13 @@ const en = {
   sol_sub1_lv2_t: "Plus",
   sol_sub1_lv2_d:
     "For bigger catalogs and branches: more catalog updates each month and priority support.",
-  sol_sub2_t: "SEO and AI SEO",
+  sol_sub2_t: "SEO and GEO",
   sol_sub2_d: "Helps buyers find your store.",
   sol_sub2_lv1_t: "SEO",
   sol_sub2_lv1_d: "Pages structured for search engines, built around your brand, area and catalog.",
-  sol_sub2_lv2_t: "SEO and AI SEO",
+  sol_sub2_lv2_t: "SEO and GEO",
   sol_sub2_lv2_d:
-    "Everything in SEO, plus answers AI assistants can read and cite, tracked against a starting baseline.",
+    "Everything in SEO, plus GEO: answers AI assistants can read and cite, tracked against a starting baseline.",
   sol_sub3_t: "APIs",
   sol_sub3_d: "Connections set up and managed by our team, tiered by monthly lookups.",
   sol_sub3_i4: "Lookups only: the database stays with Mobeeli",
@@ -401,6 +403,9 @@ const en = {
   sol_faq5_q: "Who keeps the vehicle data?",
   sol_faq5_a:
     "Mobeeli does. Stores and partners get lookups only; the vehicle database itself never leaves Mobeeli.",
+  sol_faq6_q: "What is GEO?",
+  sol_faq6_a:
+    "Generative engine optimization: preparing your store so AI assistants and AI search can read, understand and cite it. Some agencies call it AEO. It builds on SEO, so we offer the two together. No one decides which stores an AI answer mentions, so we report how often yours appears against a starting baseline.",
   /* The fitment-flow explainer, three panels: the car (from the vehicle data),
      the fitment engine, and the store with My Garage. The verdict chips reuse
      cat_part_verified / cat_chip_unfit so the site says "fits" one way
@@ -919,7 +924,8 @@ const id: Record<CopyKey, string> = {
      Merek, distributor, toko — so the page names the five parties one way
      throughout. DRAFT WORDING — founder to confirm. */
   cat_kicker: "Cara kerja",
-  cat_unified_h2: "Satu listing terverifikasi per suku cadang. Tidak peduli siapa yang mendeskripsikannya.",
+  cat_unified_h2:
+    "Satu listing terverifikasi per suku cadang. Tidak peduli siapa yang mendeskripsikannya.",
   cat_unified_p:
     "Merek, distributor, dan toko menamai suku cadang yang sama dengan sebutan berbeda-beda. Mobeeli menyatukannya menjadi satu listing, lalu mencocokkannya dengan mobil Anda sebelum Anda melihatnya.",
   cat_bridge: "Satu deskripsi masuk. Satu listing terverifikasi keluar.",
@@ -1025,7 +1031,7 @@ const id: Record<CopyKey, string> = {
   sol_kicker: "Solusi",
   sol_h1: "Toko suku cadang Anda, dibangun dan dikelola oleh Mobeeli.",
   sol_lede:
-    "Toko khusus dengan data fitment Indonesia di dalamnya, dirawat oleh tim kami — ditambah koneksi katalog, SEO, dan API seiring bisnis Anda tumbuh.",
+    "Toko khusus dengan data fitment Indonesia di dalamnya, dirawat oleh tim kami — ditambah koneksi katalog, SEO dan GEO, serta API seiring bisnis Anda tumbuh.",
   sol_cta_talk: "Bicara dengan tim kami",
   sol_cta_packages: "Lihat paket",
   sol_art_label:
@@ -1053,9 +1059,11 @@ const id: Record<CopyKey, string> = {
   sol_svc5_t: "API data kendaraan",
   sol_svc5_d:
     "Tahun, merek, model, dan varian Indonesia dengan spesifikasi fitment OE, secara berlangganan. Hanya pencarian per data: basis datanya tidak pernah keluar dari Mobeeli.",
-  sol_svc6_t: "SEO dan AI SEO",
+  /* Indonesian agencies keep GEO and its English expansion, so the ID copy
+     does too. */
+  sol_svc6_t: "SEO dan GEO",
   sol_svc6_d:
-    "Halaman toko Anda disusun agar terbaca mesin pencari dan asisten AI: merek, wilayah, dan katalog Anda.",
+    "Search engine optimization dan generative engine optimization: merek, wilayah, dan katalog Anda disusun agar terbaca mesin pencari dan asisten AI.",
   sol_flow_kicker: "Cara kerja",
   sol_flow_h2: "Setiap suku cadang dicek terhadap mobilnya sebelum pembeli melihatnya.",
   sol_flow_p:
@@ -1102,14 +1110,14 @@ const id: Record<CopyKey, string> = {
   sol_sub1_lv2_t: "Plus",
   sol_sub1_lv2_d:
     "Untuk katalog dan cabang yang lebih banyak: lebih banyak pembaruan katalog setiap bulan dan dukungan prioritas.",
-  sol_sub2_t: "SEO dan AI SEO",
+  sol_sub2_t: "SEO dan GEO",
   sol_sub2_d: "Membantu pembeli menemukan toko Anda.",
   sol_sub2_lv1_t: "SEO",
   sol_sub2_lv1_d:
     "Halaman yang tersusun untuk mesin pencari, disusun dari merek, wilayah, dan katalog Anda.",
-  sol_sub2_lv2_t: "SEO dan AI SEO",
+  sol_sub2_lv2_t: "SEO dan GEO",
   sol_sub2_lv2_d:
-    "Semua di SEO, ditambah jawaban yang bisa dibaca dan dikutip asisten AI, dipantau dari titik awal yang disepakati.",
+    "Semua di SEO, ditambah GEO: jawaban yang bisa dibaca dan dikutip asisten AI, dipantau dari titik awal yang disepakati.",
   sol_sub3_t: "API",
   sol_sub3_d:
     "Koneksi dipasang dan dikelola oleh tim kami, bertingkat sesuai jumlah pencarian per bulan.",
@@ -1139,6 +1147,9 @@ const id: Record<CopyKey, string> = {
   sol_faq5_q: "Siapa yang memegang data kendaraan?",
   sol_faq5_a:
     "Mobeeli. Toko dan mitra hanya mendapat akses pencarian; basis data kendaraannya sendiri tidak pernah keluar dari Mobeeli.",
+  sol_faq6_q: "Apa itu GEO?",
+  sol_faq6_a:
+    "Generative engine optimization: menyiapkan toko Anda agar bisa dibaca, dipahami, dan dikutip asisten AI dan pencarian AI. Sebagian agensi menyebutnya AEO. GEO dibangun di atas SEO, jadi keduanya kami tawarkan bersama. Tidak ada yang menentukan toko mana yang disebut dalam jawaban AI, jadi kami laporkan seberapa sering toko Anda muncul dibandingkan titik awalnya.",
   sol_fx_try: "Coba dengan mobil",
   sol_fx_sample: "Contoh kendaraan dan suku cadang",
   sol_fx_replay: "Putar ulang",
@@ -1181,7 +1192,8 @@ const id: Record<CopyKey, string> = {
   why_ds_c2_t: "Banjir Suku Cadang KW",
   why_ds_c2_d: "Komponen OEM palsu diam-diam masuk ke stok toko melalui broker WhatsApp offline.",
   why_ds_c3_t: "Belenggu COD",
-  why_ds_c3_d: "Nihilnya rasa saling percaya memaksa pembayaran 100% tunai, membekukan modal kerja.",
+  why_ds_c3_d:
+    "Nihilnya rasa saling percaya memaksa pembayaran 100% tunai, membekukan modal kerja.",
   /* Death-spiral mockup labels (R5 audit): keyed EN+ID, generic — no real
      manufacturer names on marketing surfaces, no hype punctuation. */
   why_ds_n_base: "Produsen",
@@ -1205,7 +1217,8 @@ const id: Record<CopyKey, string> = {
   cmp_bad_res: "19,4% pesanan berakhir retur — 86% karena barang tidak cocok.",
   cmp_good_t: "Di Mobeeli",
   cmp_good_1: "Cukup sekali isi data mobil — tahun · merek · model · tipe.",
-  cmp_good_2: "Hasil pencarian hanya menampilkan onderdil yang sudah diverifikasi cocok untuk mobil Anda.",
+  cmp_good_2:
+    "Hasil pencarian hanya menampilkan onderdil yang sudah diverifikasi cocok untuk mobil Anda.",
   cmp_good_3: "Barang tiba, langsung terpasang — memang sudah terverifikasi.",
   cmp_good_4: "Checkout terlindungi: dana cair setelah barang cocok.",
   cmp_good_res: "Sudah dipastikan cocok sebelum checkout — retur tak lagi jadi rutinitas.",
@@ -1364,7 +1377,8 @@ const id: Record<CopyKey, string> = {
   inv_f_fail:
     "Terjadi kendala saat mengirim permintaan Anda. Jawaban Anda tersimpan — silakan coba lagi.",
   inv_success_h: "Permintaan diterima.",
-  inv_success_p: "Terima kasih — salah satu founder akan menghubungi Anda secara pribadi dan mengirimkan deck.",
+  inv_success_p:
+    "Terima kasih — salah satu founder akan menghubungi Anda secara pribadi dan mengirimkan deck.",
   /* Hosted deck viewer + expired-link page (F-016). */
   deck_loading: "Memuat deck…",
   deck_error: "Deck gagal dimuat. Muat ulang halaman atau minta tautan baru.",
