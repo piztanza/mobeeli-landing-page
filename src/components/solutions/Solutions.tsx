@@ -10,6 +10,7 @@ import { useT } from "@/lib/i18n/LanguageProvider";
 import DuoIcon, { type DuoIconName } from "./DuoIcon";
 import FitmentFlow, { VerdictDot } from "./FitmentFlow";
 import RowGlyph, { type RowGlyphName } from "./RowGlyph";
+import VehicleDatabase from "./VehicleDatabase";
 
 // Not "./solutions.css": a stylesheet named like this module but for case is
 // the CONSTRAINTS "Modules" trap in waiting on a case-insensitive filesystem.
@@ -259,9 +260,10 @@ function CompareCell({ cell }: { cell: Cell }) {
 }
 
 /**
- * /solutions — Mobeeli's SaaS page (2026-10-31). Five bands in the site's
+ * /solutions — Mobeeli's SaaS page (2026-10-31). Six bands in the site's
  * light → dark → light rhythm: a split hero with a sample store; six services
- * in one ruled sheet; the dark fitment-flow band (the page's one orchestrated
+ * in one ruled sheet; the Mobeeli Vehicle Database (2026-11-04: its counts and
+ * one sample record); the dark fitment-flow band (the page's one orchestrated
  * motion moment); packages — three store tiers by size, monthly subscriptions
  * with levels and a comparison table, never a price (founder, 2026-10-31); and
  * an FAQ closing on the /investors card's pattern.
@@ -318,6 +320,8 @@ export default function Solutions() {
           </ul>
         </div>
       </section>
+
+      <VehicleDatabase />
 
       <section id="fitment-flow" className="mb-sol-flow" aria-labelledby="mb-sol-flow-h">
         <div className="mb-sol-flow-inner">

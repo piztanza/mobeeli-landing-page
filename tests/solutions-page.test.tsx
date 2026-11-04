@@ -51,10 +51,15 @@ describe("/solutions page structure", () => {
     expect(main).toContain(esc(t("en", "sol_h1")));
   });
 
-  it("runs hero → services → explainer → packages → FAQ, in that order", () => {
-    const order = ["solutions", "services", "fitment-flow", "packages", "faq"].map((id) =>
-      html.indexOf(`id="${id}"`),
-    );
+  it("runs hero → services → vehicle database → explainer → packages → FAQ, in that order", () => {
+    const order = [
+      "solutions",
+      "services",
+      "vehicle-database",
+      "fitment-flow",
+      "packages",
+      "faq",
+    ].map((id) => html.indexOf(`id="${id}"`));
     for (const at of order) expect(at).toBeGreaterThan(0);
     expect(order).toEqual([...order].sort((a, b) => a - b));
   });
@@ -333,6 +338,70 @@ describe("/solutions SEO and GEO naming", () => {
     expect(t("id", "sol_faq6_q")).toMatch(/\bGEO\b/);
     expect(faq).toContain(esc(t("en", "sol_faq6_a")));
     expect(t("en", "sol_faq6_a")).toMatch(/AEO/);
+  });
+});
+
+// The Mobeeli Vehicle Database band (founder naming, 2026-11-04): the data
+// itself, before the flow that uses it. Counts are the 29 Oct 2026 snapshot,
+// rounded down; the sample record is the snapshot's own 2024 Avanza row, whose
+// wheel values are ESTIMATED — so the band shows that status and never the
+// word "verified" (research "Fitment database showcase and naming").
+describe("/solutions vehicle database", () => {
+  const db = section("vehicle-database");
+
+  it("names the database the Mobeeli Vehicle Database in both languages", () => {
+    expect(t("en", "sol_db_p")).toContain("Mobeeli Vehicle Database");
+    expect(t("id", "sol_db_p")).toContain("Database Kendaraan Mobeeli");
+    expect(db).toContain(esc(t("en", "sol_db_h2")));
+    expect(db).toContain(esc(t("en", "sol_db_p")));
+  });
+
+  it("walks the five levels from make to model year, each with its count", () => {
+    const rungs = db.split('class="mb-sol-db-rung"').slice(1);
+    expect(rungs.length).toBe(5);
+    const expected = [
+      ["sol_db_r1", "78"],
+      ["sol_db_r2", "about 700"],
+      ["sol_db_r3", "1,000+"],
+      ["sol_db_r4", "1,800+"],
+      ["sol_db_r5", "1970–2026"],
+    ] as const;
+    rungs.forEach((rung, i) => {
+      const [label, count] = expected[i];
+      expect(rung, label).toContain(esc(t("en", label)));
+      expect(rung, label).toContain(`>${count}<`);
+    });
+  });
+
+  it("lights one real path through the levels: the 2024 Avanza", () => {
+    for (const v of ["Toyota", "Avanza", "Gen 3", "1.5 G / G TSS", "2024"]) {
+      expect(db.split('class="mb-sol-db-rungs"')[1], v).toContain(`>${esc(v)}<`);
+    }
+  });
+
+  it("shows the sample record with its wheel and tire values marked estimated", () => {
+    const card = db.slice(db.indexOf('class="mb-sol-db-card"'));
+    expect(card).toContain(esc(t("en", "sol_db_card_tag")));
+    for (const v of ["W101", "2NR-VE", "1496 cc", "CVT", "5 × 100", "54.1 mm", "ET 45"]) {
+      expect(card, v).toContain(`>${v}<`);
+    }
+    expect(card).toContain(`>16″ × 6J<`);
+    expect(card).toContain(`>195/60 R16<`);
+    expect(card).toContain(esc(t("en", "sol_db_st_est")));
+  });
+
+  it("states its scope and its date, and the other vehicle types it holds", () => {
+    expect(db).toContain(esc(t("en", "sol_db_types")));
+    expect(db).toContain(esc(t("en", "sol_db_ev").replace("{n}", "100+")));
+    expect(db).toContain(esc(t("en", "sol_db_ymm").replace("{n}", "7,000+")));
+    expect(db).toContain(esc(t("en", "sol_db_scope").replace("{date}", "October 2026")));
+  });
+
+  // The 1 Nov 2026 re-check left no wheel row verified; raw row totals count a
+  // variant once per model year. Neither belongs on the page.
+  it("never claims verified data or an unrounded row total", () => {
+    expect(db).not.toMatch(/verif|terverifikasi/i);
+    expect(db).not.toMatch(/11,987|11\.987|12,000|12\.000/);
   });
 });
 

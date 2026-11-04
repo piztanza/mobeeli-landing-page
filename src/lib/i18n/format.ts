@@ -30,6 +30,26 @@ export function formatDecimal(lang: Lang, value: number): string {
   return formatter(decimal, lang, { maximumFractionDigits: 1 }).format(value);
 }
 
+const grouped = new Map<Lang, Intl.NumberFormat>();
+
+/**
+ * A whole count, localized WITH thousands grouping — the opposite of a spec
+ * value: 7000 → "7,000" / "7.000". Grouping is forced from four digits, as the
+ * ID map writes counts by hand ("1.000+"). A year is not a count: print it as
+ * the plain number.
+ */
+export function formatCount(lang: Lang, value: number): string {
+  let f = grouped.get(lang);
+  if (!f) {
+    f = new Intl.NumberFormat(LOCALE[lang], {
+      maximumFractionDigits: 0,
+      useGrouping: "always",
+    });
+    grouped.set(lang, f);
+  }
+  return f.format(value);
+}
+
 /**
  * A ratio as a signed percentage with one decimal: 0.0712 → "+7.1%",
  * -0.0129 → "−1,3%" in Indonesian. The minus is the typographic U+2212, not a

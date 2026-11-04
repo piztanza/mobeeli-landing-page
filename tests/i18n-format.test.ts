@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { formatDecimal, formatSignedPercent } from "@/lib/i18n/format";
+import { formatCount, formatDecimal, formatSignedPercent } from "@/lib/i18n/format";
 
 /**
  * Locale number formatting for spec values (2026-10-31). The ID map already
@@ -22,6 +22,18 @@ describe("formatDecimal", () => {
   it("never groups thousands — a 1,045 mm diameter is a measurement, not a price", () => {
     expect(formatDecimal("en", 1045.5)).toBe("1045.5");
     expect(formatDecimal("id", 1045.5)).toBe("1045,5");
+  });
+});
+
+describe("formatCount", () => {
+  it("groups thousands the way each language does — a count, not a measurement", () => {
+    expect(formatCount("en", 7000)).toBe("7,000");
+    expect(formatCount("id", 7000)).toBe("7.000");
+  });
+
+  it("groups from four digits, as the ID map writes 1.000+, and leaves small counts alone", () => {
+    expect(formatCount("id", 1000)).toBe("1.000");
+    expect(formatCount("en", 78)).toBe("78");
   });
 });
 
