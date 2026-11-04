@@ -17,19 +17,20 @@ const STATUSES: readonly (readonly [status: SpecStatus, label: CopyKey])[] = [
 ];
 
 /**
- * The wheel teardown (public/assets/solutions/wheel-teardown.jpg, a Gemini
- * render with its own leader lines painted out) and where each wheel and tire
- * field sits on it, in the image's pixels: `x` is the leader line, `y` the
- * point on the part it starts from. The labels hang at `labelY`, in the white
- * ground under the parts. Names only: the values and their status stay in the
- * record card, so the picture can never show a number the data doesn't.
+ * The wheel teardown (public/assets/solutions/wheel-teardown.jpg, 1280×565, a
+ * Gemini render with its own leader lines painted out) and where each wheel
+ * and tire field sits on it, in the image's pixels. Numbered left to right, the
+ * way a parts diagram keys its callouts; the rows beside it use the same
+ * numbers. Bolt pattern points at the hub, whose five studs are the pattern;
+ * center bore at the rim's center hole; offset at the rim's barrel.
  */
-const WHEEL = { src: "/assets/solutions/wheel-teardown.jpg", w: 1316, h: 648, labelY: 556 };
-const WHEEL_PARTS: readonly { x: number; y: number; labels: readonly CopyKey[] }[] = [
-  { x: 230, y: 520, labels: ["sol_db_f_tire"] },
-  { x: 620, y: 446, labels: ["sol_db_f_rim", "sol_db_f_offset"] },
-  { x: 860, y: 368, labels: ["sol_db_f_pcd"] },
-  { x: 1215, y: 336, labels: ["sol_db_f_bore"] },
+const WHEEL = { src: "/assets/solutions/wheel-teardown.jpg", w: 1280, h: 565 };
+const WHEEL_PINS: readonly { field: CopyKey; x: number; y: number }[] = [
+  { field: "sol_db_f_tire", x: 115, y: 205 },
+  { field: "sol_db_f_rim", x: 469, y: 129 },
+  { field: "sol_db_f_bore", x: 580, y: 257 },
+  { field: "sol_db_f_offset", x: 765, y: 345 },
+  { field: "sol_db_f_pcd", x: 1188, y: 260 },
 ];
 
 /** A status mark: filled (checked against a source), ring (one source) or
@@ -40,12 +41,13 @@ function StatusMark({ status }: { status: SpecStatus }) {
 
 /**
  * The Mobeeli Vehicle Database band: the data itself, before the flow that
- * uses it. Left, the five levels from make to model year with their counts and
- * one real path lit through them; right, the record at the end of that path,
- * its wheel and tire values tagged with their status; below, a wheel teardown
- * labelled with those fields. Static on purpose: the
- * fitment-flow band below stays the page's one motion moment. Every value is
- * text, so the figure needs no separate screen-reader summary.
+ * uses it. Across the top, the five levels from make to model year with their
+ * counts and one real path lit through them; below, the record that path ends
+ * at, as one sheet: its vehicle fields, then its wheel and tire values beside
+ * the parts they measure, keyed by number, so a reader never has to match a
+ * picture to a table somewhere else. Static on purpose:
+ * the fitment-flow band below stays the page's one motion moment. Every value
+ * is text, so the panel needs no separate screen-reader summary.
  */
 export default function VehicleDatabase() {
   const t = useT();
@@ -65,13 +67,13 @@ export default function VehicleDatabase() {
   ];
   // Engineering notation as the explainer writes it (fitmentFormat.ts): the
   // unit marks are the same in both languages, the decimal mark is not.
-  const wheelRows: readonly (readonly [label: CopyKey, value: string])[] = [
-    ["sol_db_f_pcd", `${wheel.boltCount} × ${n(wheel.pcdMm)}`],
-    ["sol_db_f_bore", `${n(wheel.centerBoreMm)} mm`],
-    ["sol_db_f_offset", `ET ${n(wheel.offsetMm)}`],
-    ["sol_db_f_rim", `${n(wheel.rimDiameterIn)}″ × ${n(wheel.rimWidthIn)}J`],
-    ["sol_db_f_tire", `${tire.widthMm}/${tire.aspect} R${tire.rimIn}`],
-  ];
+  const wheelValues: Partial<Record<CopyKey, string>> = {
+    sol_db_f_tire: `${tire.widthMm}/${tire.aspect} R${tire.rimIn}`,
+    sol_db_f_rim: `${n(wheel.rimDiameterIn)}″ × ${n(wheel.rimWidthIn)}J`,
+    sol_db_f_bore: `${n(wheel.centerBoreMm)} mm`,
+    sol_db_f_offset: `ET ${n(wheel.offsetMm)}`,
+    sol_db_f_pcd: `${wheel.boltCount} × ${n(wheel.pcdMm)}`,
+  };
   const wheelStatus = STATUSES.find(([status]) => status === wheel.status)!;
 
   return (
@@ -121,7 +123,7 @@ export default function VehicleDatabase() {
             </div>
 
             <h4 className="mb-sol-db-group">{t("sol_db_card_veh")}</h4>
-            <dl className="mb-sol-db-rows">
+            <dl className="mb-sol-db-rows mb-sol-db-veh-rows">
               {vehicleRows.slice(0, 3).map(([label, value]) => (
                 <div key={label}>
                   <dt>{t(label)}</dt>
@@ -142,74 +144,74 @@ export default function VehicleDatabase() {
               ))}
             </dl>
 
-            <div className="mb-sol-db-group-row">
-              <h4 className="mb-sol-db-group">{t("sol_db_card_whl")}</h4>
-              <span className="mb-sol-db-status">
-                <StatusMark status={wheel.status} />
-                {t(wheelStatus[1])}
-              </span>
-            </div>
-            <dl className="mb-sol-db-rows">
-              {wheelRows.map(([label, value]) => (
-                <div key={label}>
-                  <dt>{t(label)}</dt>
-                  <dd>{value}</dd>
-                </div>
-              ))}
-            </dl>
-
-            <div className="mb-sol-db-legend">
-              <p>{t("sol_db_legend")}</p>
-              <ul>
-                {STATUSES.map(([status, label]) => (
-                  <li key={status} className={status === wheel.status ? "is-current" : undefined}>
-                    <StatusMark status={status} />
-                    {t(label)}
-                  </li>
+            <div className="mb-sol-db-wheel">
+              <div className="mb-sol-db-wheel-art">
+                <Image
+                  className="mb-sol-db-wheel-img"
+                  src={WHEEL.src}
+                  alt={t("sol_db_whl_alt")}
+                  width={WHEEL.w}
+                  height={WHEEL.h}
+                  sizes="(max-width: 1039px) 100vw, 760px"
+                />
+                {WHEEL_PINS.map((pin, i) => (
+                  <span
+                    key={pin.field}
+                    className="mb-sol-db-pin"
+                    data-part={i + 1}
+                    style={
+                      {
+                        "--x": `${(pin.x / WHEEL.w) * 100}%`,
+                        "--y": `${(pin.y / WHEEL.h) * 100}%`,
+                      } as CSSProperties
+                    }
+                    aria-hidden
+                  >
+                    {i + 1}
+                  </span>
                 ))}
-              </ul>
+              </div>
+
+              <div className="mb-sol-db-wheel-spec">
+                <div className="mb-sol-db-group-row">
+                  <h4 className="mb-sol-db-group">{t("sol_db_card_whl")}</h4>
+                  <span className="mb-sol-db-status">
+                    <StatusMark status={wheel.status} />
+                    {t(wheelStatus[1])}
+                  </span>
+                </div>
+                <dl className="mb-sol-db-rows mb-sol-db-wheel-rows">
+                  {WHEEL_PINS.map((pin, i) => (
+                    <div key={pin.field} data-part={i + 1}>
+                      <dt>
+                        <span className="mb-sol-db-key" aria-hidden>
+                          {i + 1}
+                        </span>
+                        {t(pin.field)}
+                      </dt>
+                      <dd>{wheelValues[pin.field]}</dd>
+                    </div>
+                  ))}
+                </dl>
+
+                <div className="mb-sol-db-legend">
+                  <p>{t("sol_db_legend")}</p>
+                  <ul>
+                    {STATUSES.map(([status, label]) => (
+                      <li
+                        key={status}
+                        className={status === wheel.status ? "is-current" : undefined}
+                      >
+                        <StatusMark status={status} />
+                        {t(label)}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
           </article>
         </div>
-
-        <figure data-rev="0" className="mb-sol-db-wheel">
-          <div
-            className="mb-sol-db-wheel-art"
-            style={{ "--label-y": `${(WHEEL.labelY / WHEEL.h) * 100}%` } as CSSProperties}
-          >
-            <Image
-              className="mb-sol-db-wheel-img"
-              src={WHEEL.src}
-              alt={t("sol_db_whl_alt")}
-              width={WHEEL.w}
-              height={WHEEL.h}
-              sizes="(max-width: 1340px) 100vw, 1280px"
-            />
-            <svg
-              className="mb-sol-db-wheel-lines"
-              viewBox={`0 0 ${WHEEL.w} ${WHEEL.h}`}
-              aria-hidden
-              focusable="false"
-            >
-              {WHEEL_PARTS.map((p) => (
-                <g key={p.x}>
-                  <line x1={p.x} y1={p.y} x2={p.x} y2={WHEEL.labelY - 10} />
-                  <circle cx={p.x} cy={p.y} r={5} />
-                </g>
-              ))}
-            </svg>
-            <ul className="mb-sol-db-wheel-parts">
-              {WHEEL_PARTS.map((p) => (
-                <li key={p.x} style={{ "--x": `${(p.x / WHEEL.w) * 100}%` } as CSSProperties}>
-                  {p.labels.map((label) => (
-                    <span key={label}>{t(label)}</span>
-                  ))}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <figcaption className="mb-sol-db-wheel-cap">{t("sol_db_whl_cap")}</figcaption>
-        </figure>
 
         <p className="mb-sol-db-scope">{t("sol_db_scope").replace("{date}", asOfLabel(lang))}</p>
       </div>
