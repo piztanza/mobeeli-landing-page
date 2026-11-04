@@ -263,6 +263,268 @@
   text-wrap: pretty;
 }
 
+/* ---------- the vehicle database (light) ----------
+   2026-11-04. The page grey between the white services sheet and the dark
+   flow band. Static: the flow below stays the one motion moment. Left, the
+   five levels as rungs on one rail (a real hierarchy, so a sequence is
+   honest), the sample path lit on it; right, the record that path ends at.
+   Status is told by shape — filled, ring, dashed ring — never colour alone. */
+
+.mb-sol-db {
+  background: var(--mb-bg);
+  border-top: 1px solid var(--mb-border);
+  padding: var(--mb-section-y) var(--mb-container-pad);
+}
+.mb-sol-db-fig {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+.mb-sol-db-h3 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--mb-muted);
+}
+.mb-sol-db-rungs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1.5px solid var(--mb-ink);
+}
+.mb-sol-db-rung {
+  position: relative;
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) auto;
+  grid-template-areas:
+    "node label count"
+    "node path count";
+  column-gap: 16px;
+  row-gap: 6px;
+  align-items: center;
+  padding: 16px 0;
+}
+.mb-sol-db-rung + .mb-sol-db-rung {
+  border-top: 1px solid var(--mb-border);
+}
+/* The rail: one line through every node, from the first node down to the
+   last — the sample path, lit end to end. */
+.mb-sol-db-rung::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 10px;
+  width: 2px;
+  background: var(--mb-deep-blue);
+  opacity: 0.35;
+}
+.mb-sol-db-rung:first-child::before {
+  top: 50%;
+}
+.mb-sol-db-rung:last-child::before {
+  bottom: 50%;
+}
+.mb-sol-db-node {
+  grid-area: node;
+  position: relative;
+  justify-self: center;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--mb-deep-blue);
+  box-shadow: 0 0 0 4px var(--mb-bg);
+}
+.mb-sol-db-label {
+  grid-area: label;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--mb-muted);
+}
+.mb-sol-db-path {
+  grid-area: path;
+  justify-self: start;
+  padding: 3px 10px;
+  border-radius: var(--mb-radius-pill);
+  background: var(--mb-tint);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--mb-deep-blue);
+}
+.mb-sol-db-count {
+  grid-area: count;
+  font-size: clamp(26px, 2.6vw, 34px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--mb-ink);
+  text-align: right;
+}
+.mb-sol-db-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.mb-sol-db-facts li {
+  padding: 6px 12px;
+  border: 1px solid var(--mb-border);
+  border-radius: var(--mb-radius-pill);
+  background: var(--mb-surface);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--mb-ink);
+}
+
+/* The sample record: a white sheet, ruled like the comparison table. */
+.mb-sol-db-card {
+  padding: 24px 26px 22px;
+  border: 1px solid var(--mb-border);
+  border-radius: var(--mb-radius-card);
+  background: var(--mb-surface);
+  box-shadow: 0 24px 56px rgba(13, 21, 34, 0.08);
+}
+.mb-sol-db-card-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+.mb-sol-db-card-t {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--mb-ink);
+}
+.mb-sol-db-tag {
+  padding: 3px 9px;
+  border: 1px solid var(--mb-border);
+  border-radius: var(--mb-radius-pill);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--mb-muted);
+}
+.mb-sol-db-group {
+  margin: 22px 0 6px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--mb-ink);
+}
+.mb-sol-db-group-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
+  margin: 22px 0 6px;
+}
+.mb-sol-db-group-row .mb-sol-db-group {
+  margin: 0;
+}
+.mb-sol-db-rows {
+  margin: 0;
+}
+.mb-sol-db-rows > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  padding: 8px 0;
+  border-top: 1px solid var(--mb-border-soft);
+}
+.mb-sol-db-rows dt {
+  font-size: 14px;
+  color: var(--mb-muted);
+}
+.mb-sol-db-rows dd {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--mb-ink);
+  text-align: right;
+}
+.mb-sol-db-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: var(--mb-bg);
+  font-size: 12px;
+  font-weight: 700;
+  color: #3c4654;
+}
+.mb-sol-db-mark {
+  flex: none;
+  box-sizing: border-box;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.mb-sol-db-mark.is-checked {
+  background: var(--mb-deep-blue);
+}
+.mb-sol-db-mark.is-single {
+  border: 2px solid var(--mb-deep-blue);
+}
+.mb-sol-db-mark.is-estimated {
+  border: 2px dashed var(--mb-muted);
+}
+.mb-sol-db-legend {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--mb-border);
+}
+.mb-sol-db-legend p {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--mb-muted);
+}
+.mb-sol-db-legend ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mb-sol-db-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--mb-muted);
+}
+.mb-sol-db-legend li.is-current {
+  font-weight: 700;
+  color: var(--mb-ink);
+}
+.mb-sol-db-scope {
+  margin: 28px 0 0;
+  max-width: 72ch;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--mb-muted);
+}
+@media (max-width: 1039.98px) {
+  .mb-sol-db-fig {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 479.98px) {
+  .mb-sol-db-card {
+    padding: 20px 18px 18px;
+  }
+  .mb-sol-db-rung {
+    column-gap: 12px;
+  }
+}
 /* ---------- how it works (dark) ---------- */
 
 /* The .mb-fit3d material — ink, veil, two washes and the 44px blueprint grid —
@@ -1399,6 +1661,15 @@
 @media (forced-colors: active) {
   .mb-sol-radio:checked + label:is(.mb-sol-car-l, .mb-sol-tile) {
     border: 2px solid Highlight;
+  }
+  /* The vehicle-database rail and its filled marks. */
+  .mb-sol-db-node,
+  .mb-sol-db-mark.is-checked {
+    background: CanvasText;
+  }
+  .mb-sol-db-rung::before {
+    background: CanvasText;
+    opacity: 1;
   }
 }
 
