@@ -265,9 +265,11 @@
 
 /* ---------- the vehicle database (light) ----------
    2026-11-04. The page grey between the white services sheet and the dark
-   flow band. Static: the flow below stays the one motion moment. Left, the
+   flow band. Static: the flow below stays the one motion moment. First the
    five levels as rungs on one rail (a real hierarchy, so a sequence is
-   honest), the sample path lit on it; right, the record that path ends at.
+   honest), the sample path lit on it — across the page on wide screens, down
+   it on narrow ones; then the record that path ends at, as one sheet whose
+   wheel and tire values sit beside the parts they measure (2026-11-05).
    Status is told by shape — filled, ring, dashed ring — never colour alone. */
 
 .mb-sol-db {
@@ -277,9 +279,8 @@
 }
 .mb-sol-db-fig {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
-  gap: clamp(32px, 5vw, 72px);
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(32px, 4vw, 48px);
 }
 .mb-sol-db-h3 {
   margin: 0 0 6px;
@@ -382,7 +383,7 @@
 
 /* The sample record: a white sheet, ruled like the comparison table. */
 .mb-sol-db-card {
-  padding: 24px 26px 22px;
+  padding: clamp(22px, 3vw, 36px);
   border: 1px solid var(--mb-border);
   border-radius: var(--mb-radius-card);
   background: var(--mb-surface);
@@ -513,13 +514,21 @@
   color: var(--mb-muted);
 }
 
-/* The wheel teardown under the figure: a Gemini render on a pure white
-   ground, multiplied into the band so the white becomes the page, as the
-   front page's exploded car does. The leader lines and labels are the page's
-   own, placed in the image's pixels (VehicleDatabase.tsx), so they stay crisp
-   and say exactly what the record card says. */
+/* The record's wheel and tire section: the teardown beside the values it
+   explains. Numbered pins on the parts key to numbered rows, left to right, as
+   in a parts diagram. Pointing at either one lights its partner (no motion,
+   just tone), for readers who look from picture to number or back. */
 .mb-sol-db-wheel {
-  margin: clamp(48px, 6vw, 80px) 0 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(300px, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  margin-top: 26px;
+  padding-top: 26px;
+  border-top: 1px solid var(--mb-border);
+}
+.mb-sol-db-wheel .mb-sol-db-group-row {
+  margin-top: 0;
 }
 .mb-sol-db-wheel-art {
   position: relative;
@@ -528,64 +537,136 @@
   display: block;
   width: 100%;
   height: auto;
-  mix-blend-mode: multiply;
 }
-.mb-sol-db-wheel-lines {
+.mb-sol-db-pin {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  pointer-events: none;
-}
-.mb-sol-db-wheel-lines line {
-  stroke: var(--mb-deep-blue);
-  stroke-opacity: 0.45;
-  stroke-width: 1.5;
-  vector-effect: non-scaling-stroke;
-}
-.mb-sol-db-wheel-lines circle {
-  fill: var(--mb-deep-blue);
-}
-.mb-sol-db-wheel-parts {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.mb-sol-db-wheel-parts li {
-  position: absolute;
-  top: var(--label-y);
+  top: var(--y);
   left: var(--x);
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--mb-deep-blue);
+  box-shadow:
+    0 0 0 3px var(--mb-surface),
+    0 6px 14px rgba(13, 21, 34, 0.28);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
+  color: #fff;
+  transform: translate(-50%, -50%);
+}
+.mb-sol-db-wheel-rows dt {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  transform: translateX(-50%);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.35;
-  color: var(--mb-ink);
-  text-align: center;
-  white-space: nowrap;
+  gap: 10px;
 }
-/* The last label sits near the right edge: it hangs to the left of its line. */
-.mb-sol-db-wheel-parts li:last-child {
-  align-items: flex-end;
-  transform: translateX(calc(-100% + 0.5em));
+.mb-sol-db-key {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--mb-tint);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--mb-deep-blue);
 }
-.mb-sol-db-wheel-cap {
-  margin: 18px 0 0;
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--mb-muted);
+.mb-sol-db-wheel:has([data-part="1"]:hover) .mb-sol-db-pin[data-part="1"],
+.mb-sol-db-wheel:has([data-part="2"]:hover) .mb-sol-db-pin[data-part="2"],
+.mb-sol-db-wheel:has([data-part="3"]:hover) .mb-sol-db-pin[data-part="3"],
+.mb-sol-db-wheel:has([data-part="4"]:hover) .mb-sol-db-pin[data-part="4"],
+.mb-sol-db-wheel:has([data-part="5"]:hover) .mb-sol-db-pin[data-part="5"] {
+  outline: 3px solid var(--mb-ink);
+  outline-offset: 2px;
+}
+.mb-sol-db-wheel:has([data-part="1"]:hover) [data-part="1"] .mb-sol-db-key,
+.mb-sol-db-wheel:has([data-part="2"]:hover) [data-part="2"] .mb-sol-db-key,
+.mb-sol-db-wheel:has([data-part="3"]:hover) [data-part="3"] .mb-sol-db-key,
+.mb-sol-db-wheel:has([data-part="4"]:hover) [data-part="4"] .mb-sol-db-key,
+.mb-sol-db-wheel:has([data-part="5"]:hover) [data-part="5"] .mb-sol-db-key {
+  background: var(--mb-deep-blue);
+  color: #fff;
+}
+.mb-sol-db-wheel .mb-sol-db-legend {
+  margin-top: 14px;
+}
+/* Wide screens: the ladder runs across the page as a path, make to model
+   year, and ends at the record below it. */
+@media (min-width: 1040px) {
+  .mb-sol-db-rungs {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin-top: 14px;
+    border-top: 0;
+  }
+  .mb-sol-db-rung {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "node"
+      "label"
+      "count"
+      "path";
+    row-gap: 10px;
+    align-items: start;
+    padding: 0 24px 0 0;
+  }
+  .mb-sol-db-rung + .mb-sol-db-rung {
+    border-top: 0;
+  }
+  .mb-sol-db-node {
+    justify-self: start;
+    margin-bottom: 6px;
+  }
+  .mb-sol-db-rung::before {
+    top: 5px;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: 2px;
+  }
+  .mb-sol-db-rung:first-child::before {
+    top: 5px;
+    left: 6px;
+  }
+  .mb-sol-db-rung:last-child::before {
+    bottom: auto;
+    right: calc(100% - 6px);
+  }
+  .mb-sol-db-count {
+    text-align: left;
+  }
+}
+/* From tablet width the record's eight vehicle fields read as two columns of
+   four, down each column, so the sheet stays short. */
+@media (min-width: 640px) {
+  .mb-sol-db-veh-rows {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(4, auto);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(32px, 4vw, 48px);
+  }
 }
 @media (max-width: 1039.98px) {
-  .mb-sol-db-fig {
+  /* The picture above its values: wide enough to read the parts, and the
+     numbered rows follow straight after it. */
+  .mb-sol-db-wheel {
     grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
   }
 }
 @media (max-width: 479.98px) {
   .mb-sol-db-card {
     padding: 20px 18px 18px;
+  }
+  .mb-sol-db-pin {
+    width: 22px;
+    height: 22px;
+    font-size: 12px;
   }
   .mb-sol-db-rung {
     column-gap: 12px;
@@ -1745,12 +1826,9 @@
     background: CanvasText;
     opacity: 1;
   }
-  .mb-sol-db-wheel-lines line {
-    stroke: CanvasText;
-    stroke-opacity: 1;
-  }
-  .mb-sol-db-wheel-lines circle {
-    fill: CanvasText;
+  .mb-sol-db-pin,
+  .mb-sol-db-key {
+    border: 1px solid CanvasText;
   }
 }
 
@@ -1951,28 +2029,6 @@
   .mb-sol-art-float {
     padding: 10px 13px;
     font-size: 12.5px;
-  }
-
-  /* The wheel's labels no longer fit on its lines: the lines go, and the
-     field names follow the picture as a row of chips, left to right. */
-  .mb-sol-db-wheel-lines {
-    display: none;
-  }
-  .mb-sol-db-wheel-parts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 4px;
-  }
-  .mb-sol-db-wheel-parts li {
-    display: contents;
-  }
-  .mb-sol-db-wheel-parts span {
-    padding: 6px 12px;
-    border: 1px solid var(--mb-border);
-    border-radius: var(--mb-radius-pill);
-    background: var(--mb-surface);
-    font-size: 13px;
   }
 
   /* Packages and subscriptions return to single columns. */

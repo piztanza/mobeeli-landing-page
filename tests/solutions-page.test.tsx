@@ -429,40 +429,68 @@ describe("/solutions vehicle database", () => {
     }
   });
 
-  it("shows the sample record with its wheel and tire values marked estimated", () => {
-    const card = db.slice(db.indexOf('class="mb-sol-db-card"'));
+  it("shows the sample record's vehicle fields in its card", () => {
+    const card = db.slice(
+      db.indexOf('class="mb-sol-db-card"'),
+      db.indexOf('class="mb-sol-db-wheel"'),
+    );
     expect(card).toContain(esc(t("en", "sol_db_card_tag")));
-    for (const v of ["W101", "2NR-VE", "1496 cc", "CVT", "5 × 100", "54.1 mm", "ET 45"]) {
+    for (const v of ["W101", "2NR-VE", "1496 cc", "CVT"]) {
       expect(card, v).toContain(`>${v}<`);
     }
-    expect(card).toContain(`>16″ × 6J<`);
-    expect(card).toContain(`>195/60 R16<`);
-    expect(card).toContain(esc(t("en", "sol_db_st_est")));
   });
 
-  // The wheel teardown names the fields on the parts they describe. It carries
-  // names only: the values and their Estimated status stay in the record card.
-  it("labels a wheel teardown with the record's wheel and tire fields", () => {
-    const fig = db.slice(db.indexOf('class="mb-sol-db-wheel"'), db.indexOf("</figure>"));
-    expect(fig).toMatch(/<img [^>]*wheel-teardown\.jpg/);
-    expect(fig).toContain(`alt="${esc(t("en", "sol_db_whl_alt"))}"`);
-    expect(fig).toContain(esc(t("en", "sol_db_whl_cap")));
-    const labels = fig.split('class="mb-sol-db-wheel-parts"')[1];
-    for (const key of [
-      "sol_db_f_tire",
-      "sol_db_f_rim",
-      "sol_db_f_offset",
-      "sol_db_f_pcd",
-      "sol_db_f_bore",
-    ] as const) {
-      expect(labels, key).toContain(`>${esc(t("en", key))}<`);
-    }
-    for (const v of ["5 × 100", "54.1 mm", "ET 45", "195/60 R16"]) {
-      expect(fig, v).not.toContain(v);
-    }
-    expect(
-      existsSync(new URL("../public/assets/solutions/wheel-teardown.jpg", import.meta.url)),
-    ).toBe(true);
+  // 2026-11-05 rework: the wheel picture sits beside the values it explains.
+  // Numbered pins on the parts key to numbered rows, left to right, the way a
+  // parts diagram does; the values keep their Estimated status beside them.
+  describe("the wheel and tire panel", () => {
+    const panel = db.slice(db.indexOf('class="mb-sol-db-wheel"'));
+    const rows = panel.split('mb-sol-db-wheel-rows"')[1] ?? "";
+    const expected = [
+      ["sol_db_f_tire", "195/60 R16"],
+      ["sol_db_f_rim", "16″ × 6J"],
+      ["sol_db_f_bore", "54.1 mm"],
+      ["sol_db_f_offset", "ET 45"],
+      ["sol_db_f_pcd", "5 × 100"],
+    ] as const;
+
+    it("shows the wheel teardown with its alt text", () => {
+      expect(panel).toMatch(/<img [^>]*wheel-teardown\.jpg/);
+      expect(panel).toContain(`alt="${esc(t("en", "sol_db_whl_alt"))}"`);
+      expect(
+        existsSync(new URL("../public/assets/solutions/wheel-teardown.jpg", import.meta.url)),
+      ).toBe(true);
+    });
+
+    it("pins the five fields on the parts, numbered 1 to 5", () => {
+      const art = panel.slice(0, panel.indexOf('class="mb-sol-db-wheel-spec"'));
+      const pins = [...art.matchAll(/class="mb-sol-db-pin"[^>]*data-part="(\d)"[^>]*>(\d)</g)];
+      expect(pins.map((m) => [m[1], m[2]])).toEqual([
+        ["1", "1"],
+        ["2", "2"],
+        ["3", "3"],
+        ["4", "4"],
+        ["5", "5"],
+      ]);
+    });
+
+    it("lists each field with its number and value, in pin order", () => {
+      const items = rows.split('data-part="').slice(1);
+      expect(items.length).toBe(5);
+      items.forEach((item, i) => {
+        const [label, value] = expected[i];
+        expect(item.startsWith(`${i + 1}"`), label).toBe(true);
+        expect(item, label).toContain(`>${i + 1}<`);
+        expect(item, label).toContain(`>${esc(t("en", label))}<`);
+        expect(item, label).toContain(`>${value}<`);
+      });
+    });
+
+    it("marks the values estimated and explains the three statuses", () => {
+      expect(panel).toContain(`${esc(t("en", "sol_db_card_whl"))}<`);
+      expect(panel).toContain(esc(t("en", "sol_db_st_est")));
+      expect(panel).toContain(esc(t("en", "sol_db_legend")));
+    });
   });
 
   it("states its scope and its date, and the other vehicle types it holds", () => {

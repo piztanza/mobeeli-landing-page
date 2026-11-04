@@ -373,7 +373,6 @@ const en = {
     "Indonesian-market vehicles. Counts as of {date}. Wheel measurements are recorded for cars and trucks; motorcycle records list tire sizes.",
   sol_db_whl_alt:
     "A car wheel taken apart, the parts in a row: tire, alloy rim, wheel nuts, brake disc, brake caliper and wheel hub.",
-  sol_db_whl_cap: "The wheel and tire fields, on the parts they describe.",
   sol_flow_kicker: "How it works",
   sol_flow_h2: "Every part is checked against the car before a shopper sees it.",
   sol_flow_p:
@@ -1174,7 +1173,6 @@ const id: Record<CopyKey, string> = {
     "Kendaraan pasar Indonesia. Jumlah per {date}. Ukuran pelek dicatat untuk mobil dan truk; data sepeda motor mencatat ukuran ban.",
   sol_db_whl_alt:
     "Roda mobil yang dibongkar, komponennya berjajar: ban, pelek alloy, mur roda, cakram rem, kaliper rem dan hub roda.",
-  sol_db_whl_cap: "Data roda dan ban, pada komponen yang dijelaskannya.",
   sol_flow_kicker: "Cara kerja",
   sol_flow_h2: "Setiap suku cadang dicek terhadap mobilnya sebelum pembeli melihatnya.",
   sol_flow_p:
