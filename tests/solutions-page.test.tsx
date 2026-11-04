@@ -295,22 +295,28 @@ describe("/solutions FAQ", () => {
   });
 });
 
-// The AI-search service is named with the industry's current term, GEO
-// (founder, 2026-11-03), paired with SEO, which it builds on. GEO is jargon to
-// a parts seller, so the page spells it out and an FAQ answers what it is.
-describe("/solutions SEO and GEO naming", () => {
+// The AI-search service names all three terms buyers and agencies search for
+// (founder, 2026-11-04): SEO, GEO, and AEO, the alias many use for answer
+// engine optimization. GEO and AEO are jargon to a parts seller, so the card
+// spells all three out and an FAQ answers what GEO and AEO are.
+describe("/solutions SEO, GEO and AEO naming", () => {
   const services = section("services");
   const packages = section("packages");
+  const NAME = { en: "SEO, GEO and AEO", id: "SEO, GEO, dan AEO" } as const;
 
-  it("names the service SEO and GEO on its card and its subscription", () => {
+  it("names the service SEO, GEO and AEO on its card and its subscription", () => {
+    for (const lang of langs) {
+      for (const key of ["sol_svc6_t", "sol_sub2_t", "sol_sub2_lv2_t"] as const) {
+        expect(t(lang, key), `${lang}.${key}`).toBe(NAME[lang]);
+      }
+    }
     expect(services).toContain(esc(t("en", "sol_svc6_t")));
-    expect(t("en", "sol_svc6_t")).toBe("SEO and GEO");
-    expect(t("id", "sol_svc6_t")).toBe("SEO dan GEO");
-    expect(t("en", "sol_sub2_t")).toBe("SEO and GEO");
-    expect(t("id", "sol_sub2_t")).toBe("SEO dan GEO");
-    expect(t("en", "sol_sub2_lv2_t")).toBe("SEO and GEO");
-    expect(t("id", "sol_sub2_lv2_t")).toBe("SEO dan GEO");
     expect(packages).toContain(esc(t("en", "sol_sub2_lv2_t")));
+  });
+
+  it("keeps the lower subscription level named plain SEO", () => {
+    expect(t("en", "sol_sub2_lv1_t")).toBe("SEO");
+    expect(t("id", "sol_sub2_lv1_t")).toBe("SEO");
   });
 
   it("retires the old AI SEO name everywhere on the page", () => {
@@ -321,18 +327,54 @@ describe("/solutions SEO and GEO naming", () => {
     }
   });
 
-  it("spells out GEO on the service card in both languages", () => {
-    expect(t("en", "sol_svc6_d")).toMatch(/generative engine optimization/i);
-    expect(t("id", "sol_svc6_d")).toMatch(/generative engine optimization/i);
+  it("spells out SEO, GEO and AEO on the service card in both languages", () => {
+    for (const lang of langs) {
+      const d = t(lang, "sol_svc6_d");
+      for (const term of [
+        /search engine/i,
+        /generative engine/i,
+        /answer engine/i,
+        /optimization/i,
+      ]) {
+        expect(d, `${lang}: ${term}`).toMatch(term);
+      }
+    }
     expect(services).toContain(esc(t("en", "sol_svc6_d")));
   });
 
-  it("answers what GEO is, without promising a place in AI answers", () => {
+  it("adds GEO and AEO on top of SEO in the higher level", () => {
+    expect(t("en", "sol_sub2_lv2_d")).toMatch(/^Everything in SEO, plus GEO and AEO:/);
+    expect(t("id", "sol_sub2_lv2_d")).toMatch(/^Semua di SEO, ditambah GEO dan AEO:/);
+    expect(t("en", "sol_sub2_lv2_d")).toMatch(/direct answers/);
+    expect(t("en", "sol_sub2_lv2_d")).toMatch(/baseline/);
+    expect(t("id", "sol_sub2_lv2_d")).toMatch(/titik awal/);
+    expect(packages).toContain(esc(t("en", "sol_sub2_lv2_d")));
+  });
+
+  // The longer name must not collide with the lede's own list ("AEO, and APIs").
+  it("uses the full name in the lede without stacking it into a list", () => {
+    expect(t("en", "sol_lede")).toContain(NAME.en);
+    expect(t("id", "sol_lede")).toContain(NAME.id);
+    expect(t("en", "sol_lede")).not.toMatch(/AEO, and\b/);
+    expect(t("id", "sol_lede")).not.toMatch(/AEO, serta\b/);
+  });
+
+  it("answers what GEO and AEO are, without promising a place in any answer", () => {
     const faq = section("faq");
-    expect(t("en", "sol_faq6_q")).toMatch(/\bGEO\b/);
-    expect(t("id", "sol_faq6_q")).toMatch(/\bGEO\b/);
+    expect(t("en", "sol_faq6_q")).toBe("What are GEO and AEO?");
+    expect(t("id", "sol_faq6_q")).toBe("Apa itu GEO dan AEO?");
+    for (const lang of langs) {
+      const a = t(lang, "sol_faq6_a");
+      expect(a, lang).toMatch(/generative engine optimization/i);
+      expect(a, lang).toMatch(/answer engine optimization/i);
+      expect(a, lang).toMatch(/\bSEO\b/);
+    }
+    expect(t("en", "sol_faq6_a")).toMatch(/No one decides which stores/);
+    expect(t("en", "sol_faq6_a")).toMatch(/starting baseline/);
+    expect(t("id", "sol_faq6_a")).toMatch(/Tidak ada yang menentukan toko mana/);
+    expect(t("id", "sol_faq6_a")).toMatch(/titik awal/);
+    expect(faq).toContain(esc(t("en", "sol_faq6_q")));
     expect(faq).toContain(esc(t("en", "sol_faq6_a")));
-    expect(t("en", "sol_faq6_a")).toMatch(/AEO/);
   });
 });
 
@@ -408,6 +450,12 @@ describe("/solutions copy rules (CLAUDE.md rule 2 + the design contract)", () =>
     expect(
       offenders(/\brank|first page|page one|top of google|halaman pertama|peringkat/i),
     ).toEqual([]);
+  });
+
+  // The AI-search copy explains the work in generic terms: no AI assistant,
+  // search engine or other product is named.
+  it("names no AI assistant or search engine product", () => {
+    expect(offenders(/chatgpt|openai|gemini|google|bing|perplexity|copilot|claude/i)).toEqual([]);
   });
 
   it("uses no hype vocabulary and no emoji", () => {
