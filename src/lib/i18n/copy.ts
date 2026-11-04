@@ -280,7 +280,7 @@ const en = {
   sol_kicker: "Solutions",
   sol_h1: "Your auto parts store, built and run by Mobeeli.",
   sol_lede:
-    "A dedicated store with Indonesian fitment data built in, kept running by our team — plus catalog connections, SEO and GEO, and APIs as you grow.",
+    "A dedicated store with Indonesian fitment data built in, kept running by our team. Add catalog connections and APIs as you grow, and SEO, GEO and AEO to help buyers find you.",
   sol_cta_talk: "Talk to our team",
   sol_cta_packages: "See packages",
   /* The hero's sample store: a composite of the store UI and the parts
@@ -311,11 +311,13 @@ const en = {
   sol_svc5_t: "Vehicle data API",
   sol_svc5_d:
     "Indonesian year, make, model and trim with OE fitment specs, by subscription. Lookups only: the database never leaves Mobeeli.",
-  /* GEO is the industry's current name for optimizing for AI answers (founder,
-     2026-11-03); it is spelled out here and explained in sol_faq6. */
-  sol_svc6_t: "SEO and GEO",
+  /* The service names all three terms buyers search for (founder, 2026-11-04):
+     GEO is the industry's current name for optimizing for AI answers, AEO the
+     alias many agencies use. All three are spelled out here and GEO and AEO are
+     explained in sol_faq6. */
+  sol_svc6_t: "SEO, GEO and AEO",
   sol_svc6_d:
-    "Search engine and generative engine optimization: your brand, area and catalog structured so search engines and AI assistants can read them.",
+    "Search engine, generative engine and answer engine optimization: your brand, area and catalog structured for search results, answers AI assistants write, and direct answers such as answer snippets and voice search.",
   sol_flow_kicker: "How it works",
   sol_flow_h2: "Every part is checked against the car before a shopper sees it.",
   sol_flow_p:
@@ -365,13 +367,13 @@ const en = {
   sol_sub1_lv2_t: "Plus",
   sol_sub1_lv2_d:
     "For bigger catalogs and branches: more catalog updates each month and priority support.",
-  sol_sub2_t: "SEO and GEO",
+  sol_sub2_t: "SEO, GEO and AEO",
   sol_sub2_d: "Helps buyers find your store.",
   sol_sub2_lv1_t: "SEO",
   sol_sub2_lv1_d: "Pages structured for search engines, built around your brand, area and catalog.",
-  sol_sub2_lv2_t: "SEO and GEO",
+  sol_sub2_lv2_t: "SEO, GEO and AEO",
   sol_sub2_lv2_d:
-    "Everything in SEO, plus GEO: answers AI assistants can read and cite, tracked against a starting baseline.",
+    "Everything in SEO, plus GEO and AEO: pages AI assistants can read and cite, and short answers to buyers' common questions that can show as direct answers, all tracked against a starting baseline.",
   sol_sub3_t: "APIs",
   sol_sub3_d: "Connections set up and managed by our team, tiered by monthly lookups.",
   sol_sub3_i4: "Lookups only: the database stays with Mobeeli",
@@ -403,9 +405,9 @@ const en = {
   sol_faq5_q: "Who keeps the vehicle data?",
   sol_faq5_a:
     "Mobeeli does. Stores and partners get lookups only; the vehicle database itself never leaves Mobeeli.",
-  sol_faq6_q: "What is GEO?",
+  sol_faq6_q: "What are GEO and AEO?",
   sol_faq6_a:
-    "Generative engine optimization: preparing your store so AI assistants and AI search can read, understand and cite it. Some agencies call it AEO. It builds on SEO, so we offer the two together. No one decides which stores an AI answer mentions, so we report how often yours appears against a starting baseline.",
+    "Generative engine optimization (GEO) prepares your store so AI assistants that write their own answers can read, understand and cite it. Answer engine optimization (AEO) shapes short, clear answers to buyers' common questions so they can show as direct answers, such as answer snippets and voice search. The two overlap heavily and both build on SEO, so we do all three together as one service. No one decides which stores an AI answer or answer snippet mentions, so we report how often yours appears against a starting baseline.",
   /* The fitment-flow explainer, three panels: the car (from the vehicle data),
      the fitment engine, and the store with My Garage. The verdict chips reuse
      cat_part_verified / cat_chip_unfit so the site says "fits" one way
@@ -1031,7 +1033,7 @@ const id: Record<CopyKey, string> = {
   sol_kicker: "Solusi",
   sol_h1: "Toko suku cadang Anda, dibangun dan dikelola oleh Mobeeli.",
   sol_lede:
-    "Toko khusus dengan data fitment Indonesia di dalamnya, dirawat oleh tim kami — ditambah koneksi katalog, SEO dan GEO, serta API seiring bisnis Anda tumbuh.",
+    "Toko khusus dengan data fitment Indonesia di dalamnya, dirawat oleh tim kami. Tambahkan koneksi katalog dan API seiring bisnis Anda tumbuh, serta SEO, GEO, dan AEO agar pembeli lebih mudah menemukan toko Anda.",
   sol_cta_talk: "Bicara dengan tim kami",
   sol_cta_packages: "Lihat paket",
   sol_art_label:
@@ -1059,11 +1061,11 @@ const id: Record<CopyKey, string> = {
   sol_svc5_t: "API data kendaraan",
   sol_svc5_d:
     "Tahun, merek, model, dan varian Indonesia dengan spesifikasi fitment OE, secara berlangganan. Hanya pencarian per data: basis datanya tidak pernah keluar dari Mobeeli.",
-  /* Indonesian agencies keep GEO and its English expansion, so the ID copy
-     does too. */
-  sol_svc6_t: "SEO dan GEO",
+  /* Indonesian agencies keep GEO, AEO and their English expansions, so the ID
+     copy does too. */
+  sol_svc6_t: "SEO, GEO, dan AEO",
   sol_svc6_d:
-    "Search engine optimization dan generative engine optimization: merek, wilayah, dan katalog Anda disusun agar terbaca mesin pencari dan asisten AI.",
+    "Search engine, generative engine, dan answer engine optimization: merek, wilayah, dan katalog Anda disusun untuk hasil pencarian, jawaban yang ditulis asisten AI, serta jawaban langsung seperti cuplikan jawaban dan pencarian suara.",
   sol_flow_kicker: "Cara kerja",
   sol_flow_h2: "Setiap suku cadang dicek terhadap mobilnya sebelum pembeli melihatnya.",
   sol_flow_p:
@@ -1110,14 +1112,14 @@ const id: Record<CopyKey, string> = {
   sol_sub1_lv2_t: "Plus",
   sol_sub1_lv2_d:
     "Untuk katalog dan cabang yang lebih banyak: lebih banyak pembaruan katalog setiap bulan dan dukungan prioritas.",
-  sol_sub2_t: "SEO dan GEO",
+  sol_sub2_t: "SEO, GEO, dan AEO",
   sol_sub2_d: "Membantu pembeli menemukan toko Anda.",
   sol_sub2_lv1_t: "SEO",
   sol_sub2_lv1_d:
     "Halaman yang tersusun untuk mesin pencari, disusun dari merek, wilayah, dan katalog Anda.",
-  sol_sub2_lv2_t: "SEO dan GEO",
+  sol_sub2_lv2_t: "SEO, GEO, dan AEO",
   sol_sub2_lv2_d:
-    "Semua di SEO, ditambah GEO: jawaban yang bisa dibaca dan dikutip asisten AI, dipantau dari titik awal yang disepakati.",
+    "Semua di SEO, ditambah GEO dan AEO: halaman yang bisa dibaca dan dikutip asisten AI, serta jawaban singkat atas pertanyaan umum pembeli agar bisa tampil sebagai jawaban langsung, semuanya dipantau dari titik awal yang disepakati.",
   sol_sub3_t: "API",
   sol_sub3_d:
     "Koneksi dipasang dan dikelola oleh tim kami, bertingkat sesuai jumlah pencarian per bulan.",
@@ -1147,9 +1149,9 @@ const id: Record<CopyKey, string> = {
   sol_faq5_q: "Siapa yang memegang data kendaraan?",
   sol_faq5_a:
     "Mobeeli. Toko dan mitra hanya mendapat akses pencarian; basis data kendaraannya sendiri tidak pernah keluar dari Mobeeli.",
-  sol_faq6_q: "Apa itu GEO?",
+  sol_faq6_q: "Apa itu GEO dan AEO?",
   sol_faq6_a:
-    "Generative engine optimization: menyiapkan toko Anda agar bisa dibaca, dipahami, dan dikutip asisten AI dan pencarian AI. Sebagian agensi menyebutnya AEO. GEO dibangun di atas SEO, jadi keduanya kami tawarkan bersama. Tidak ada yang menentukan toko mana yang disebut dalam jawaban AI, jadi kami laporkan seberapa sering toko Anda muncul dibandingkan titik awalnya.",
+    "GEO (generative engine optimization) menyiapkan toko Anda agar bisa dibaca, dipahami, dan dikutip asisten AI yang menyusun jawabannya sendiri. AEO (answer engine optimization) menyiapkan jawaban singkat dan jelas atas pertanyaan umum pembeli agar bisa tampil sebagai jawaban langsung, misalnya di cuplikan jawaban dan pencarian suara. Keduanya sangat beririsan dan sama-sama dibangun di atas SEO, jadi ketiganya kami kerjakan bersama dalam satu layanan. Tidak ada yang menentukan toko mana yang disebut dalam jawaban AI atau cuplikan jawaban, jadi kami laporkan seberapa sering toko Anda muncul dibandingkan titik awalnya.",
   sol_fx_try: "Coba dengan mobil",
   sol_fx_sample: "Contoh kendaraan dan suku cadang",
   sol_fx_replay: "Putar ulang",
