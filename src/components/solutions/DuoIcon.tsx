@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 
-export type DuoIconName =
-  "store" | "catalog" | "link" | "plugin" | "data" | "search" | "starter" | "growth" | "scale";
+export type DuoIconName = "store" | "catalog" | "link" | "plugin" | "data" | "search";
 
 /** A small side-view car, for the plugin and the data badge: body, the line
  *  between the wheels, and two wheels. `x`/`y` place its rear bottom corner. */
@@ -135,71 +134,6 @@ const ICONS: Record<DuoIconName, { fill: ReactNode; line: ReactNode }> = {
         <path d="M14 18h10M14 22.5h7" strokeWidth="1.8" />
         <path d="M32 5h9a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3h-5.5L32 19.5V16a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3z" />
         <path d="M36.5 7.6l.9 2 2 .9-2 .9-.9 2-.9-2-2-.9 2-.9z" fill="currentColor" stroke="none" />
-      </>
-    ),
-  },
-  // Starter: one small storefront.
-  starter: {
-    fill: (
-      <>
-        <path d="M11 13h26l-2 7H13z" />
-        <rect x="15" y="25" width="8" height="7" rx="1.2" />
-      </>
-    ),
-    line: (
-      <>
-        <path d="M13 20v19h22V20" />
-        <path d="M11 13h26l-2 7H13z" />
-        <path d="M19.7 13l.6 7M28.3 13l-.6 7" strokeWidth="1.6" />
-        <rect x="15" y="25" width="8" height="7" rx="1.2" />
-        <path d="M26 39v-8.8a1.2 1.2 0 0 1 1.2-1.2h3.6a1.2 1.2 0 0 1 1.2 1.2V39" />
-        <path d="M9 39h30" />
-      </>
-    ),
-  },
-  // Growth: a storefront with a workshop wrench beside it.
-  growth: {
-    fill: (
-      <>
-        <path d="M4 13h25l-2 7H6z" />
-        <rect x="8.5" y="25" width="7" height="6" rx="1.2" />
-        <path
-          transform="translate(4 0) rotate(45 33 31)"
-          d="M31.3 20.77V25h3.4v-4.23A5.5 5.5 0 0 1 34.8 31.2V40a1.8 1.8 0 0 1-3.6 0v-8.8A5.5 5.5 0 0 1 31.3 20.77z"
-        />
-      </>
-    ),
-    line: (
-      <>
-        <path d="M6 20v18h21V20" />
-        <path d="M4 13h25l-2 7H6z" />
-        <path d="M12.3 13l.7 7M20.7 13l-.7 7" strokeWidth="1.6" />
-        <rect x="8.5" y="25" width="7" height="6" rx="1.2" />
-        <path d="M18.5 38v-7.8a1.2 1.2 0 0 1 1.2-1.2h3.6a1.2 1.2 0 0 1 1.2 1.2V38" />
-        <path d="M3 38h25" />
-        <path
-          transform="translate(4 0) rotate(45 33 31)"
-          d="M31.3 20.77V25h3.4v-4.23A5.5 5.5 0 0 1 34.8 31.2V40a1.8 1.8 0 0 1-3.6 0v-8.8A5.5 5.5 0 0 1 31.3 20.77z"
-        />
-      </>
-    ),
-  },
-  // Scale: a distribution warehouse with a roll-up door.
-  scale: {
-    fill: (
-      <>
-        <path d="M6 19 24 8l18 11z" />
-        <rect x="17" y="26" width="14" height="14" />
-      </>
-    ),
-    line: (
-      <>
-        <path d="M6 19 24 8l18 11" />
-        <path d="M9 17.2V40h30V17.2" />
-        <circle cx="24" cy="15" r="1.8" strokeWidth="1.5" />
-        <path d="M17 40V26h14v14" />
-        <path d="M17 29.5h14M17 33h14M17 36.5h14" strokeWidth="1.5" />
-        <path d="M5 40h38" />
       </>
     ),
   },

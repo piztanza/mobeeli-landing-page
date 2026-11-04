@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
@@ -178,10 +178,18 @@ describe("/solutions packages (founder decisions, 2026-10-31)", () => {
     });
   });
 
-  it("gives every package its own duotone icon", () => {
-    expect(
-      tiers.map((tier) => tier.match(/<svg class="mb-sol-duo" data-icon="([a-z]+)"/)?.[1]),
-    ).toEqual(["starter", "growth", "scale"]);
+  // Founder, 2026-11-05: the packages get scenes in the front page's render
+  // style. Each repeats what its card already says, so it is decorative.
+  it("gives every package its own scene, shown as decoration", () => {
+    const names = ["starter", "growth", "scale"];
+    tiers.forEach((tier, i) => {
+      const img = tier.match(/<img [^>]*class="mb-sol-tier-img"[^>]*>/)?.[0] ?? "";
+      expect(img, names[i]).toContain(`pkg-${names[i]}.jpg`);
+      expect(img, names[i]).toContain('alt=""');
+      expect(
+        existsSync(new URL(`../public/assets/solutions/pkg-${names[i]}.jpg`, import.meta.url)),
+      ).toBe(true);
+    });
   });
 
   it("ends every package in a quiet talk-to-our-team link", () => {
@@ -430,6 +438,31 @@ describe("/solutions vehicle database", () => {
     expect(card).toContain(`>16″ × 6J<`);
     expect(card).toContain(`>195/60 R16<`);
     expect(card).toContain(esc(t("en", "sol_db_st_est")));
+  });
+
+  // The wheel teardown names the fields on the parts they describe. It carries
+  // names only: the values and their Estimated status stay in the record card.
+  it("labels a wheel teardown with the record's wheel and tire fields", () => {
+    const fig = db.slice(db.indexOf('class="mb-sol-db-wheel"'), db.indexOf("</figure>"));
+    expect(fig).toMatch(/<img [^>]*wheel-teardown\.jpg/);
+    expect(fig).toContain(`alt="${esc(t("en", "sol_db_whl_alt"))}"`);
+    expect(fig).toContain(esc(t("en", "sol_db_whl_cap")));
+    const labels = fig.split('class="mb-sol-db-wheel-parts"')[1];
+    for (const key of [
+      "sol_db_f_tire",
+      "sol_db_f_rim",
+      "sol_db_f_offset",
+      "sol_db_f_pcd",
+      "sol_db_f_bore",
+    ] as const) {
+      expect(labels, key).toContain(`>${esc(t("en", key))}<`);
+    }
+    for (const v of ["5 × 100", "54.1 mm", "ET 45", "195/60 R16"]) {
+      expect(fig, v).not.toContain(v);
+    }
+    expect(
+      existsSync(new URL("../public/assets/solutions/wheel-teardown.jpg", import.meta.url)),
+    ).toBe(true);
   });
 
   it("states its scope and its date, and the other vehicle types it holds", () => {

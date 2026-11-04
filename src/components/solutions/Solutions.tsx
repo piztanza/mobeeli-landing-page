@@ -36,10 +36,12 @@ const HERO_PARTS: readonly { src: string; name: CopyKey }[] = [
 ];
 
 /** The store packages, by size (founder 2026-10-31: tiers, never prices). Each
- *  lists only what it adds; the comparison table carries every feature. */
+ *  lists only what it adds; the comparison table carries every feature. The
+ *  scenes (2026-11-05) are Gemini renders in the front page's style, lifted to
+ *  a pure white ground; they repeat the card's words, so they are decorative. */
 const TIERS: readonly {
   name: CopyKey;
-  icon: DuoIconName;
+  scene: string;
   forWhom: CopyKey;
   /** The package this one builds on; the first lists the full store instead. */
   plusOf?: CopyKey;
@@ -47,20 +49,20 @@ const TIERS: readonly {
 }[] = [
   {
     name: "sol_tier1_t",
-    icon: "starter",
+    scene: "/assets/solutions/pkg-starter.jpg",
     forWhom: "sol_tier1_for",
     items: ["sol_tier1_cat", "sol_build_i3", "sol_tier1_l3", "sol_build_i5"],
   },
   {
     name: "sol_tier2_t",
-    icon: "growth",
+    scene: "/assets/solutions/pkg-growth.jpg",
     forWhom: "sol_tier2_for",
     plusOf: "sol_tier1_t",
     items: ["sol_tier2_cat", "sol_build_e1", "sol_cmp_terms"],
   },
   {
     name: "sol_tier3_t",
-    icon: "scale",
+    scene: "/assets/solutions/pkg-scale.jpg",
     forWhom: "sol_tier3_for",
     plusOf: "sol_tier2_t",
     items: ["sol_tier3_cat", "sol_svc3_t", "sol_tier3_l3"],
@@ -357,10 +359,15 @@ export default function Solutions() {
           <ul data-rev="0" className="mb-sol-tiers">
             {TIERS.map((tier) => (
               <li key={tier.name} className="mb-sol-tier">
-                <h3 className="mb-sol-tier-t">
-                  <DuoIcon name={tier.icon} size={76} />
-                  {t(tier.name)}
-                </h3>
+                <Image
+                  className="mb-sol-tier-img"
+                  src={tier.scene}
+                  alt=""
+                  width={1100}
+                  height={836}
+                  sizes="(max-width: 1039px) 100vw, 400px"
+                />
+                <h3 className="mb-sol-tier-t">{t(tier.name)}</h3>
                 <p className="mb-sol-tier-for">{t(tier.forWhom)}</p>
                 <p className="mb-sol-list-h">
                   {tier.plusOf
