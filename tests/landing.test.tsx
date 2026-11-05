@@ -458,24 +458,32 @@ describe("landing page render (F-001 + F-009)", () => {
 });
 
 // 2026-11-05: the footer line under the logo became a plain description of
-// what Mobeeli is (modelled on SaaSFrame's footer), replacing the slogan.
+// what Mobeeli is (modelled on SaaSFrame's footer), replacing the slogan. The
+// same day the founder asked it to name the model (a vertical B2B2C
+// marketplace) and the mission (one platform for the parts industry).
 describe("footer description", () => {
-  it("says plainly what Mobeeli is, in both languages", () => {
-    expect(t("en", "foot_tag")).toMatch(/^Mobeeli is an auto parts marketplace /);
-    expect(t("id", "foot_tag")).toMatch(/^Mobeeli adalah marketplace suku cadang otomotif /);
+  it("opens with the model and the mission, in both languages", () => {
+    expect(t("en", "foot_tag")).toMatch(
+      /^Mobeeli is a vertical B2B2C marketplace unifying Indonesia's automotive parts industry on one platform\./,
+    );
+    expect(t("id", "foot_tag")).toMatch(
+      /^Mobeeli adalah marketplace B2B2C vertikal yang menyatukan industri suku cadang otomotif Indonesia dalam satu platform\./,
+    );
   });
 
   it("names both sides it serves: shoppers, and the businesses that sell parts", () => {
-    expect(t("en", "foot_tag")).toMatch(/Shoppers/);
-    expect(t("en", "foot_tag")).toMatch(/Stores, distributors and brands/);
-    expect(t("id", "foot_tag")).toMatch(/Pembeli/);
-    expect(t("id", "foot_tag")).toMatch(/Toko, distributor, dan merek/);
+    expect(t("en", "foot_tag")).toMatch(/shopper/);
+    expect(t("en", "foot_tag")).toMatch(/Brands, distributors and stores/);
+    expect(t("id", "foot_tag")).toMatch(/pembeli/);
+    expect(t("id", "foot_tag")).toMatch(/Merek, distributor, dan toko/);
   });
 
-  // No "verified" (no wheel spec is verified yet), no figures, no slogan.
+  // No "verified" (no wheel spec is verified yet) and no figures; the digits
+  // inside "B2B2C" are the only ones allowed.
   it("claims nothing the platform cannot back", () => {
     for (const lang of langs) {
-      expect(t(lang, "foot_tag")).not.toMatch(/verif|terverifikasi|unify|menyatukan|\d/i);
+      expect(t(lang, "foot_tag")).not.toMatch(/verif|terverifikasi/i);
+      expect(t(lang, "foot_tag").replace("B2B2C", "")).not.toMatch(/\d/);
     }
   });
 });
