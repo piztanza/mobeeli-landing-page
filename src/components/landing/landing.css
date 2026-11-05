@@ -3939,12 +3939,15 @@ button.mb-buyer-cta:active,
     height: clamp(27px, 7.5vw, 40px);
   }
 }
+/* A three-sentence description, not a slogan (2026-11-05): wide enough for
+   about 65 characters a line, so it reads as one calm paragraph. */
 .mb-footer-tag {
-  margin-top: 14px;
+  margin-top: 16px;
   font-size: 14.5px;
   color: var(--mb-muted-2);
-  max-width: 340px;
-  line-height: 1.6;
+  max-width: 34rem;
+  line-height: 1.65;
+  text-wrap: pretty;
 }
 .mb-footer-social {
   display: flex;
