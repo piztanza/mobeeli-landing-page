@@ -753,12 +753,14 @@ const en = {
   indo_city: "Jakarta",
   indo_note: "— first market, 2026",
   /* Footer description (2026-11-05), modelled on SaaSFrame's footer: what
-     Mobeeli is, for whom, and how, in plain words. Replaces the deck's thesis
-     line "One platform to unify Indonesia's auto industry", which stays the
-     deck's. "Checked against" matches sol_flow_h2; no "verified" (no wheel
-     spec is verified yet), no figures. DRAFT — founder approves EN, confirms ID. */
+     Mobeeli is, how it works, and for whom, in plain words. The founder asked
+     the same day for the model (a vertical B2B2C marketplace) and the mission
+     (one platform for the parts industry, the deck's thesis) to lead it. The
+     parties run down the chain: brands, distributors, stores, then shoppers.
+     "Checks ... against" matches sol_flow_h2; no "verified" (no wheel spec is
+     verified yet), no figures. DRAFT — founder approves EN, confirms ID. */
   foot_tag:
-    "Mobeeli is an auto parts marketplace built on its own database of the cars, motorcycles and trucks sold in Indonesia. Shoppers choose their vehicle, and every part is checked against it before they buy. Stores, distributors and brands can sell on Mobeeli or run their own store with its catalog and fitment tools.",
+    "Mobeeli is a vertical B2B2C marketplace unifying Indonesia's automotive parts industry on one platform. Built on its own vehicle database, it checks every part against the shopper's vehicle before they buy. Brands, distributors and stores can sell on Mobeeli or run their own store with its catalog and fitment tools.",
   foot_copyright: "Mobeeli — Jakarta, Indonesia",
   /* Footer menu (the R25 mockup's two-column footer; founder request
      2026-07-28). Link labels reuse nav_* keys — these are the column
@@ -1536,7 +1538,7 @@ const id: Record<CopyKey, string> = {
   indo_city: "Jakarta",
   indo_note: "— pasar pertama, 2026",
   foot_tag:
-    "Mobeeli adalah marketplace suku cadang otomotif yang dibangun di atas basis data sendiri berisi mobil, sepeda motor, dan truk yang dijual di Indonesia. Pembeli memilih kendaraannya, dan setiap suku cadang dicek kecocokannya sebelum dibeli. Toko, distributor, dan merek bisa berjualan di Mobeeli atau menjalankan toko sendiri dengan katalog dan pencarian fitment-nya.",
+    "Mobeeli adalah marketplace B2B2C vertikal yang menyatukan industri suku cadang otomotif Indonesia dalam satu platform. Dengan basis data kendaraannya sendiri, Mobeeli mencocokkan setiap suku cadang dengan kendaraan pembeli sebelum dibeli. Merek, distributor, dan toko bisa berjualan di Mobeeli atau membuka toko sendiri dengan katalog dan pencarian fitment-nya.",
   foot_copyright: "Mobeeli — Jakarta, Indonesia",
   foot_menu_a11y: "Tautan situs",
   foot_col_company: "Perusahaan",
