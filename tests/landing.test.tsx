@@ -456,3 +456,26 @@ describe("landing page render (F-001 + F-009)", () => {
     expect(footer).toContain("mobeeli-logo-white.png");
   });
 });
+
+// 2026-11-05: the footer line under the logo became a plain description of
+// what Mobeeli is (modelled on SaaSFrame's footer), replacing the slogan.
+describe("footer description", () => {
+  it("says plainly what Mobeeli is, in both languages", () => {
+    expect(t("en", "foot_tag")).toMatch(/^Mobeeli is an auto parts marketplace /);
+    expect(t("id", "foot_tag")).toMatch(/^Mobeeli adalah marketplace suku cadang otomotif /);
+  });
+
+  it("names both sides it serves: shoppers, and the businesses that sell parts", () => {
+    expect(t("en", "foot_tag")).toMatch(/Shoppers/);
+    expect(t("en", "foot_tag")).toMatch(/Stores, distributors and brands/);
+    expect(t("id", "foot_tag")).toMatch(/Pembeli/);
+    expect(t("id", "foot_tag")).toMatch(/Toko, distributor, dan merek/);
+  });
+
+  // No "verified" (no wheel spec is verified yet), no figures, no slogan.
+  it("claims nothing the platform cannot back", () => {
+    for (const lang of langs) {
+      expect(t(lang, "foot_tag")).not.toMatch(/verif|terverifikasi|unify|menyatukan|\d/i);
+    }
+  });
+});
