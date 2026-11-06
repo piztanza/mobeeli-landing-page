@@ -7,7 +7,13 @@ import type { CopyKey } from "@/lib/i18n";
 import { formatDecimal } from "@/lib/i18n/format";
 import { useLang, useT } from "@/lib/i18n/LanguageProvider";
 
-import { VEHICLE_DB, asOfLabel, countLabel, type SpecStatus } from "./vehicleDbData";
+import {
+  VEHICLE_DB,
+  asOfLabel,
+  countLabel,
+  diameterChange,
+  type SpecStatus,
+} from "./vehicleDbData";
 
 /** The status legend, in the platform's order: VERIFIED, UNVERIFIED, ESTIMATED. */
 const STATUSES: readonly (readonly [status: SpecStatus, label: CopyKey])[] = [
@@ -17,20 +23,21 @@ const STATUSES: readonly (readonly [status: SpecStatus, label: CopyKey])[] = [
 ];
 
 /**
- * The wheel teardown (public/assets/solutions/wheel-teardown.jpg, 1280×565, a
- * Gemini render with its own leader lines painted out) and where each wheel
- * and tire field sits on it, in the image's pixels. Numbered left to right, the
- * way a parts diagram keys its callouts; the rows beside it use the same
- * numbers. Bolt pattern points at the hub, whose five studs are the pattern;
- * center bore at the rim's center hole; offset at the rim's barrel.
+ * The wheel teardown (public/assets/solutions/wheel-teardown.jpg, 1200×460, a
+ * Gemini render, 2026-11-06: tire, six-spoke rim, slotted disc with caliper and
+ * hub on one axle line, all facing outboard, sized to scale) and where each
+ * wheel and tire field sits on it, in the image's pixels. Numbered left to
+ * right, the way a parts diagram keys its callouts; the rows beside it use the
+ * same numbers. Center bore points at the rim's center hole, offset at its
+ * barrel, bolt pattern at the hub, whose five studs are the pattern.
  */
-const WHEEL = { src: "/assets/solutions/wheel-teardown.jpg", w: 1280, h: 565 };
+const WHEEL = { src: "/assets/solutions/wheel-teardown.jpg", w: 1200, h: 460 };
 const WHEEL_PINS: readonly { field: CopyKey; x: number; y: number }[] = [
-  { field: "sol_db_f_tire", x: 115, y: 205 },
-  { field: "sol_db_f_rim", x: 469, y: 129 },
-  { field: "sol_db_f_bore", x: 580, y: 257 },
-  { field: "sol_db_f_offset", x: 765, y: 345 },
-  { field: "sol_db_f_pcd", x: 1188, y: 260 },
+  { field: "sol_db_f_tire", x: 115, y: 140 },
+  { field: "sol_db_f_rim", x: 475, y: 105 },
+  { field: "sol_db_f_bore", x: 558, y: 225 },
+  { field: "sol_db_f_offset", x: 685, y: 315 },
+  { field: "sol_db_f_pcd", x: 1075, y: 225 },
 ];
 
 /** A status mark: filled (checked against a source), ring (one source) or
@@ -45,7 +52,8 @@ function StatusMark({ status }: { status: SpecStatus }) {
  * counts and one real path lit through them; below, the record that path ends
  * at, as one sheet: its vehicle fields, then its wheel and tire values beside
  * the parts they measure, keyed by number, so a reader never has to match a
- * picture to a table somewhere else. Static on purpose:
+ * picture to a table somewhere else; each stock value sits beside an example
+ * upgrade, ending with the overall diameter and its change. Static on purpose:
  * the fitment-flow band below stays the page's one motion moment. Every value
  * is text, so the panel needs no separate screen-reader summary.
  */
@@ -61,19 +69,31 @@ export default function VehicleDatabase() {
     ["sol_db_f_chassis", t("sol_db_v_chassis")],
     ["sol_db_f_variant", t("sol_db_v_variant")],
     ["sol_db_f_trans", t("sol_db_v_trans")],
-    ["sol_db_f_drive", t("sol_db_v_fwd")],
+    ["sol_db_f_drive", t("sol_db_v_rwd")],
     ["sol_db_f_fuel", t("sol_db_v_petrol")],
     ["sol_db_f_market", t("sol_db_v_market")],
   ];
   // Engineering notation as the explainer writes it (fitmentFormat.ts): the
   // unit marks are the same in both languages, the decimal mark is not.
-  const wheelValues: Partial<Record<CopyKey, string>> = {
-    sol_db_f_tire: `${tire.widthMm}/${tire.aspect} R${tire.rimIn}`,
-    sol_db_f_rim: `${n(wheel.rimDiameterIn)}″ × ${n(wheel.rimWidthIn)}J`,
-    sol_db_f_bore: `${n(wheel.centerBoreMm)} mm`,
-    sol_db_f_offset: `ET ${n(wheel.offsetMm)}`,
-    sol_db_f_pcd: `${wheel.boltCount} × ${n(wheel.pcdMm)}`,
+  type Wheel = {
+    boltCount: number;
+    pcdMm: number;
+    centerBoreMm: number;
+    offsetMm: number;
+    rimDiameterIn: number;
+    rimWidthIn: number;
   };
+  type Tire = { widthMm: number; aspect: number; rimIn: number };
+  const specValues = (w: Wheel, ty: Tire): Partial<Record<CopyKey, string>> => ({
+    sol_db_f_tire: `${ty.widthMm}/${ty.aspect} R${ty.rimIn}`,
+    sol_db_f_rim: `${n(w.rimDiameterIn)}″ × ${n(w.rimWidthIn)}J`,
+    sol_db_f_bore: `${n(w.centerBoreMm)} mm`,
+    sol_db_f_offset: `ET ${n(w.offsetMm)}`,
+    sol_db_f_pcd: `${w.boltCount} × ${n(w.pcdMm)}`,
+  });
+  const stockValues = specValues(wheel, tire);
+  const upgradeValues = specValues(sample.upgrade.wheel, sample.upgrade.tire);
+  const od = diameterChange(lang);
   const wheelStatus = STATUSES.find(([status]) => status === wheel.status)!;
 
   return (
@@ -173,26 +193,48 @@ export default function VehicleDatabase() {
               </div>
 
               <div className="mb-sol-db-wheel-spec">
-                <div className="mb-sol-db-group-row">
-                  <h4 className="mb-sol-db-group">{t("sol_db_card_whl")}</h4>
-                  <span className="mb-sol-db-status">
-                    <StatusMark status={wheel.status} />
-                    {t(wheelStatus[1])}
-                  </span>
-                </div>
-                <dl className="mb-sol-db-rows mb-sol-db-wheel-rows">
-                  {WHEEL_PINS.map((pin, i) => (
-                    <div key={pin.field} data-part={i + 1}>
-                      <dt>
-                        <span className="mb-sol-db-key" aria-hidden>
-                          {i + 1}
+                <h4 className="mb-sol-db-group">{t("sol_db_card_whl")}</h4>
+                <table className="mb-sol-db-wheel-rows">
+                  <thead>
+                    <tr>
+                      <td />
+                      <th scope="col">
+                        <span className="mb-sol-db-colh">
+                          <StatusMark status={wheel.status} />
+                          {t("sol_db_stock")}
                         </span>
-                        {t(pin.field)}
-                      </dt>
-                      <dd>{wheelValues[pin.field]}</dd>
-                    </div>
-                  ))}
-                </dl>
+                        <span className="mb-sol-sr"> ({t(wheelStatus[1])})</span>
+                      </th>
+                      <th scope="col">{t("sol_db_upgrade")}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {WHEEL_PINS.map((pin, i) => (
+                      <tr key={pin.field} data-part={i + 1}>
+                        <th scope="row">
+                          <span className="mb-sol-db-key" aria-hidden>
+                            {i + 1}
+                          </span>
+                          {t(pin.field)}
+                        </th>
+                        <td>{stockValues[pin.field]}</td>
+                        <td>{upgradeValues[pin.field]}</td>
+                      </tr>
+                    ))}
+                    <tr className="mb-sol-db-od">
+                      <th scope="row">
+                        <span className="mb-sol-db-key is-blank" aria-hidden />
+                        {t("sol_db_f_od")}
+                      </th>
+                      <td>{od.stock}</td>
+                      <td>
+                        {od.upgrade}
+                        <span className="mb-sol-db-delta">{od.change}</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p className="mb-sol-db-upg-note">{t("sol_db_upg_note")}</p>
 
                 <div className="mb-sol-db-legend">
                   <p>{t("sol_db_legend")}</p>

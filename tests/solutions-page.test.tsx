@@ -423,8 +423,8 @@ describe("/solutions vehicle database", () => {
     });
   });
 
-  it("lights one real path through the levels: the 2024 Avanza", () => {
-    for (const v of ["Toyota", "Avanza", "Gen 3", "1.5 G / G TSS", "2024"]) {
+  it("lights one real path through the levels: the 2025 GR86", () => {
+    for (const v of ["Toyota", "GR86", "ZN8", "2.4 GR86 (M/T & A/T)", "2025"]) {
       expect(db.split('class="mb-sol-db-rungs"')[1], v).toContain(`>${esc(v)}<`);
     }
   });
@@ -435,23 +435,26 @@ describe("/solutions vehicle database", () => {
       db.indexOf('class="mb-sol-db-wheel"'),
     );
     expect(card).toContain(esc(t("en", "sol_db_card_tag")));
-    for (const v of ["W101", "2NR-VE", "1496 cc", "CVT"]) {
-      expect(card, v).toContain(`>${v}<`);
+    expect(card).toContain(">Toyota GR86 2025<");
+    for (const v of ["ZN8", "FA24D", "2387 cc", "A/T", "Rear-wheel drive"]) {
+      expect(card, v).toContain(`>${esc(v)}<`);
     }
   });
 
   // 2026-11-05 rework: the wheel picture sits beside the values it explains.
   // Numbered pins on the parts key to numbered rows, left to right, the way a
-  // parts diagram does; the values keep their Estimated status beside them.
+  // parts diagram does. 2026-11-06 (founder): the record is the 2025 GR86, and
+  // each row sets its stock value beside an 18-inch upgrade, ending with the
+  // overall diameter and its change.
   describe("the wheel and tire panel", () => {
     const panel = db.slice(db.indexOf('class="mb-sol-db-wheel"'));
     const rows = panel.split('mb-sol-db-wheel-rows"')[1] ?? "";
     const expected = [
-      ["sol_db_f_tire", "195/60 R16"],
-      ["sol_db_f_rim", "16″ × 6J"],
-      ["sol_db_f_bore", "54.1 mm"],
-      ["sol_db_f_offset", "ET 45"],
-      ["sol_db_f_pcd", "5 × 100"],
+      ["sol_db_f_tire", "215/40 R18", "245/35 R18"],
+      ["sol_db_f_rim", "18″ × 7.5J", "18″ × 8.5J"],
+      ["sol_db_f_bore", "56.1 mm", "56.1 mm"],
+      ["sol_db_f_offset", "ET 48", "ET 45"],
+      ["sol_db_f_pcd", "5 × 100", "5 × 100"],
     ] as const;
 
     it("shows the wheel teardown with its alt text", () => {
@@ -474,22 +477,44 @@ describe("/solutions vehicle database", () => {
       ]);
     });
 
-    it("lists each field with its number and value, in pin order", () => {
+    it("heads the columns stock and upgrade", () => {
+      expect(rows).toContain(`${esc(t("en", "sol_db_stock"))}<`);
+      expect(rows).toContain(`${esc(t("en", "sol_db_upgrade"))}<`);
+      expect(panel).toContain(esc(t("en", "sol_db_upg_note")));
+    });
+
+    it("lists each field with its number, stock value and upgrade, in pin order", () => {
       const items = rows.split('data-part="').slice(1);
       expect(items.length).toBe(5);
       items.forEach((item, i) => {
-        const [label, value] = expected[i];
+        const [label, stock, upgrade] = expected[i];
         expect(item.startsWith(`${i + 1}"`), label).toBe(true);
         expect(item, label).toContain(`>${i + 1}<`);
         expect(item, label).toContain(`>${esc(t("en", label))}<`);
-        expect(item, label).toContain(`>${value}<`);
+        const cells = [...item.matchAll(/<td[^>]*>([^<]*)</g)].map((m) => m[1]);
+        expect(cells.slice(0, 2), label).toEqual([stock, upgrade]);
       });
     });
 
-    it("marks the values estimated and explains the three statuses", () => {
+    it("ends with the overall diameter and its change against stock", () => {
+      const od = rows.slice(rows.indexOf('class="mb-sol-db-od"'));
+      expect(od).toContain(`>${esc(t("en", "sol_db_f_od"))}<`);
+      expect(od).toContain(">629.2 mm<");
+      expect(od).toContain(">628.7 mm<");
+      expect(od).toContain(">−0.5 mm (−0.08%)<");
+    });
+
+    it("marks the stock values as one source and explains the three statuses", () => {
       expect(panel).toContain(`${esc(t("en", "sol_db_card_whl"))}<`);
-      expect(panel).toContain(esc(t("en", "sol_db_st_est")));
       expect(panel).toContain(esc(t("en", "sol_db_legend")));
+      const current = panel.match(/<li class="is-current">.*?<\/li>/)?.[0] ?? "";
+      expect(current).toContain(esc(t("en", "sol_db_st_single")));
+    });
+
+    // The upgrade is a generic aftermarket wheel on the page: no wheel maker
+    // or model name, whatever the render resembles.
+    it("names no wheel brand or model", () => {
+      expect(db).not.toMatch(/TE37|Volk|Rays\b|RAYS/);
     });
   });
 

@@ -1,5 +1,7 @@
 import { t, type CopyKey, type Lang } from "@/lib/i18n";
-import { formatCount } from "@/lib/i18n/format";
+import { formatCount, formatDecimal } from "@/lib/i18n/format";
+
+import { overallDiameterMm } from "./fitmentSolver";
 
 /**
  * The Mobeeli Vehicle Database band's data (name: founder, 2026-11-04).
@@ -14,12 +16,16 @@ import { formatCount } from "@/lib/i18n/format";
  * 1970–2026, 7,000+ year-make-model combinations (7,180), 100+ electric models
  * (110). Research: "Fitment database showcase and naming" (2026-11-04).
  *
- * The SAMPLE is the snapshot's own 2024 Toyota Avanza 1.5 G / G TSS row (Gen 3,
- * W101, 2NR-VE, 1,496 cc, CVT, FWD, petrol). Its rim row (5 × 100, ⌀ 54.1 mm,
- * ET 45, 16 × 6J) and tire row (195/60 R16) were relabelled ESTIMATED on
- * 2026-10-28 ("synthesized, not transcribed"), so the card shows that status.
- * The 5 × 100 bolt pattern also matches the 2026-10-31 fitment research. Load
- * index and speed rating stay off: filled on every row, checked on none.
+ * The SAMPLE (founder, 2026-11-06) is the snapshot's own 2025 Toyota GR86 row
+ * (id 258c5b0a…: ZN8, 2.4 GR86 (M/T & A/T), FA24D, 2,387 cc, A/T, RWD, petrol),
+ * the car the front page's teardown shows. Its stock rim row (18 × 7.5J, ET 48,
+ * 5 × 100, ⌀ 56.1 mm) and tire row (215/40 R18) were relabelled UNVERIFIED on
+ * 2026-10-28 ("portal-only, one publisher"), so the card says "One source".
+ * The UPGRADE is the founder's example aftermarket set, 18 × 8.5J ET 45 with
+ * 245/35 R18, shown beside the stock values; it is not database data, and the
+ * page names no wheel maker. Overall diameters come from fitmentSolver's own
+ * formula: 629.2 mm stock, 628.7 mm upgraded, −0.5 mm (−0.08%). Load index and
+ * speed rating stay off: filled on every row, checked on none.
  *
  * Refresh before relying on newer numbers: a read-only re-run of the platform's
  * scripts/snapshot-live-state.ts against the demo database.
@@ -51,23 +57,35 @@ export const VEHICLE_DB = {
     { label: "sol_db_r2", count: { kind: "about", value: 700 }, sample: "sol_db_v_model" },
     { label: "sol_db_r3", count: { kind: "atLeast", value: 1000 }, sample: "sol_db_v_gen" },
     { label: "sol_db_r4", count: { kind: "atLeast", value: 1800 }, sample: "sol_db_v_variant" },
-    { label: "sol_db_r5", count: { kind: "span", from: 1970, to: 2026 }, sample: 2024 },
+    { label: "sol_db_r5", count: { kind: "span", from: 1970, to: 2026 }, sample: 2025 },
   ] satisfies readonly DbLevel[],
   ymm: { kind: "atLeast", value: 7000 } satisfies Count,
   electricModels: { kind: "atLeast", value: 100 } satisfies Count,
   sample: {
-    year: 2024,
-    engineCc: 1496,
+    year: 2025,
+    engineCc: 2387,
     wheel: {
       boltCount: 5,
       pcdMm: 100,
-      centerBoreMm: 54.1,
-      offsetMm: 45,
-      rimDiameterIn: 16,
-      rimWidthIn: 6,
-      status: "estimated" as SpecStatus,
+      centerBoreMm: 56.1,
+      offsetMm: 48,
+      rimDiameterIn: 18,
+      rimWidthIn: 7.5,
+      status: "single" as SpecStatus,
     },
-    tire: { widthMm: 195, aspect: 60, rimIn: 16 },
+    tire: { widthMm: 215, aspect: 40, rimIn: 18 },
+    /** The founder's example aftermarket set, set beside the stock values. */
+    upgrade: {
+      wheel: {
+        boltCount: 5,
+        pcdMm: 100,
+        centerBoreMm: 56.1,
+        offsetMm: 45,
+        rimDiameterIn: 18,
+        rimWidthIn: 8.5,
+      },
+      tire: { widthMm: 245, aspect: 35, rimIn: 18 },
+    },
   },
 } as const;
 
@@ -95,4 +113,32 @@ const MONTH_YEAR = {
 export function asOfLabel(lang: Lang): string {
   const { year, month } = VEHICLE_DB.asOf;
   return MONTH_YEAR[lang].format(new Date(Date.UTC(year, month - 1, 15)));
+}
+
+const PERCENT_2 = {
+  en: new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+  id: new Intl.NumberFormat("id-ID", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+} satisfies Record<Lang, Intl.NumberFormat>;
+
+/** A signed value with the typographic minus (U+2212); zero prints unsigned. */
+function signed(value: number, magnitude: string): string {
+  return value > 0 ? `+${magnitude}` : value < 0 ? `−${magnitude}` : magnitude;
+}
+
+/**
+ * The overall tire diameter, stock and upgraded, and the change between them:
+ * "629.2 mm", "628.7 mm", "−0.5 mm (−0.08%)". Two decimals on the percentage,
+ * because a change this small rounds to nothing at one.
+ */
+export function diameterChange(lang: Lang): { stock: string; upgrade: string; change: string } {
+  const stock = Math.round(overallDiameterMm(VEHICLE_DB.sample.tire) * 10) / 10;
+  const upgrade = Math.round(overallDiameterMm(VEHICLE_DB.sample.upgrade.tire) * 10) / 10;
+  const mm = Math.round((upgrade - stock) * 10) / 10;
+  const pct = (upgrade / stock - 1) * 100;
+  const pctText = PERCENT_2[lang].format(Math.abs(pct));
+  return {
+    stock: `${formatDecimal(lang, stock)} mm`,
+    upgrade: `${formatDecimal(lang, upgrade)} mm`,
+    change: `${signed(mm, `${formatDecimal(lang, Math.abs(mm))} mm`)} (${signed(pct, `${pctText}%`)})`,
+  };
 }
