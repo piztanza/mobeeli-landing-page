@@ -527,8 +527,8 @@
   padding-top: 26px;
   border-top: 1px solid var(--mb-border);
 }
-.mb-sol-db-wheel .mb-sol-db-group-row {
-  margin-top: 0;
+.mb-sol-db-wheel .mb-sol-db-group {
+  margin: 0 0 10px;
 }
 .mb-sol-db-wheel-art {
   position: relative;
@@ -557,10 +557,68 @@
   color: #fff;
   transform: translate(-50%, -50%);
 }
-.mb-sol-db-wheel-rows dt {
+/* Stock beside upgrade: a three-column ruled table, the row label keyed to
+   its pin, values right-aligned in tabular figures so the two columns read
+   as a comparison. */
+.mb-sol-db-wheel-rows {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.mb-sol-db-wheel-rows thead th {
+  padding: 0 0 8px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--mb-muted);
+  text-align: right;
+  white-space: nowrap;
+}
+.mb-sol-db-colh {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.mb-sol-db-wheel-rows tbody th,
+.mb-sol-db-wheel-rows tbody td {
+  padding: 8px 0;
+  border-top: 1px solid var(--mb-border-soft);
+  vertical-align: top;
+}
+.mb-sol-db-wheel-rows tbody th {
   display: flex;
   align-items: center;
   gap: 10px;
+  font-weight: 400;
+  color: var(--mb-muted);
+  text-align: left;
+}
+.mb-sol-db-wheel-rows tbody td {
+  padding-left: 16px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--mb-ink);
+  text-align: right;
+  white-space: nowrap;
+}
+.mb-sol-db-wheel-rows tbody td:nth-child(2) {
+  color: #3c4654;
+  font-weight: 600;
+}
+.mb-sol-db-key.is-blank {
+  background: none;
+}
+.mb-sol-db-delta {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--mb-muted);
+}
+.mb-sol-db-upg-note {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--mb-muted);
 }
 .mb-sol-db-key {
   display: grid;
@@ -664,9 +722,29 @@
     padding: 20px 18px 18px;
   }
   .mb-sol-db-pin {
-    width: 22px;
-    height: 22px;
-    font-size: 12px;
+    width: 18px;
+    height: 18px;
+    font-size: 11px;
+    box-shadow:
+      0 0 0 2px var(--mb-surface),
+      0 4px 10px rgba(13, 21, 34, 0.28);
+  }
+  /* A phone's width: smaller type and keys, tighter columns, so each field
+     name keeps to one line beside its two values. */
+  .mb-sol-db-wheel-rows {
+    font-size: 13px;
+  }
+  .mb-sol-db-wheel-rows tbody th {
+    gap: 7px;
+  }
+  .mb-sol-db-wheel-rows thead th,
+  .mb-sol-db-wheel-rows tbody td {
+    padding-left: 10px;
+  }
+  .mb-sol-db-key {
+    width: 17px;
+    height: 17px;
+    font-size: 10px;
   }
   .mb-sol-db-rung {
     column-gap: 12px;
